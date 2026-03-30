@@ -147,19 +147,19 @@ const CERTIFICATES = [
   // ===== SCHOLARSHIPS =====
   {
     id: "sch-001",
-    name: "삼성글로벌꿈장학 (Samsung Global Dream Scholarship)",
+    name: "서강동문장학 (Sogang Alumni Scholarship)",
     category: "scholarship",
-    date: "2024-1",
-    issuer: "Samsung",
-    image_path: "assets/certs/20241_samsung_scholarship.jpg"
+    date: "2025-2",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20252_sogang_alumni_scholarship_3.jpg"
   },
   {
     id: "sch-002",
-    name: "리앤원장학 (Lee & Won Scholarship)",
+    name: "서강동문장학 (Sogang Alumni Scholarship)",
     category: "scholarship",
-    date: "2023-2",
+    date: "2025-1",
     issuer: "Sogang University",
-    image_path: "assets/certs/20232_lee-won_scholarship.jpg"
+    image_path: "assets/certs/20251_sogang_alumni_scholarship_1.jpg"
   },
   {
     id: "sch-003",
@@ -171,29 +171,37 @@ const CERTIFICATES = [
   },
   {
     id: "sch-004",
-    name: "서강동문장학 (Sogang Alumni Scholarship)",
+    name: "삼성글로벌꿈장학 (Samsung Global Dream Scholarship)",
     category: "scholarship",
-    date: "2025-1",
-    issuer: "Sogang University",
-    image_path: "assets/certs/20251_sogang_alumni_scholarship_1.jpg"
+    date: "2024-1",
+    issuer: "Samsung",
+    image_path: "assets/certs/20241_samsung_scholarship.jpg"
   },
   {
     id: "sch-005",
-    name: "서강동문장학 (Sogang Alumni Scholarship)",
+    name: "리앤원장학 (Lee & Won Scholarship)",
     category: "scholarship",
-    date: "2025-2",
+    date: "2023-2",
     issuer: "Sogang University",
-    image_path: "assets/certs/20252_sogang_alumni_scholarship_3.jpg"
+    image_path: "assets/certs/20232_lee-won_scholarship.jpg"
+  },
+  {
+    id: "sch-006",
+    name: "1st Class Admission Scholarship",
+    category: "scholarship",
+    date: "2023-1",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20231_Admission_Scholarship_1.jpg"
   },
 
   // ===== ACADEMIC =====
   {
     id: "acd-001",
-    name: "PALS 우수상 (Excellence Award)",
+    name: "디딤돌 멘토링 (Stepping Stone Mentoring)",
     category: "academic",
-    date: "2024-1",
+    date: "2025-1",
     issuer: "Sogang University",
-    image_path: "assets/certs/20241_PALS_excellence_eng.jpg"
+    image_path: "assets/certs/20251_stepping_stone_mentoring.jpg"
   },
   {
     id: "acd-002",
@@ -205,14 +213,6 @@ const CERTIFICATES = [
   },
   {
     id: "acd-003",
-    name: "PALS 활동증명 (Activity Certificate)",
-    category: "academic",
-    date: "2024-1",
-    issuer: "Sogang University",
-    image_path: "assets/certs/20241_PALS_activity_eng.jpg"
-  },
-  {
-    id: "acd-004",
     name: "그룹스터디 (Group Study)",
     category: "academic",
     date: "2024-2",
@@ -220,12 +220,20 @@ const CERTIFICATES = [
     image_path: "assets/certs/20242_group_study.jpg"
   },
   {
-    id: "acd-005",
-    name: "디딤돌 멘토링 (Stepping Stone Mentoring)",
+    id: "acd-004",
+    name: "PALS 우수상 (Excellence Award)",
     category: "academic",
-    date: "2025-1",
+    date: "2024-1",
     issuer: "Sogang University",
-    image_path: "assets/certs/20251_stepping_stone_mentoring.jpg"
+    image_path: "assets/certs/20241_PALS_excellence_eng.jpg"
+  },
+  {
+    id: "acd-005",
+    name: "PALS 활동증명 (Activity Certificate)",
+    category: "academic",
+    date: "2024-1",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20241_PALS_activity_eng.jpg"
   },
   {
     id: "acd-006",
@@ -249,28 +257,20 @@ const CERTIFICATES = [
     id: "ldr-001",
     name: "PALS 회장 (President)",
     category: "leadership",
+    date: "2025-2",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20252_PALS_president_ENG.jpg"
+  },
+  {
+    id: "ldr-002",
+    name: "PALS 회장 (President)",
+    category: "leadership",
     date: "2025-1",
     issuer: "Sogang University",
     image_path: "assets/certs/20251_PALS_president.jpg"
   },
   {
-    id: "ldr-002",
-    name: "MSDC (Malaysian Students Diplomatic Corps)",
-    category: "leadership",
-    date: "2022-1",
-    issuer: "MSDC Korea",
-    image_path: "assets/certs/20221_MSDC.jpg"
-  },
-  {
     id: "ldr-003",
-    name: "MSDC",
-    category: "leadership",
-    date: "2023-2",
-    issuer: "MSDC Korea",
-    image_path: "assets/certs/20232_MSDC.jpg"
-  },
-  {
-    id: "ldr-004",
     name: "MSDC",
     category: "leadership",
     date: "2024-2",
@@ -278,12 +278,20 @@ const CERTIFICATES = [
     image_path: "assets/certs/20242_MSDC.jpg"
   },
   {
-    id: "ldr-005",
-    name: "MSDC — Look East Policy Event",
+    id: "ldr-004",
+    name: "리앤원 아시안 펠로우십 우수상 (Asian Fellowship — Excellence)",
     category: "leadership",
-    date: "2023-1",
+    date: "2023-2",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20232_lee-won_fellowship_excellence.jpg"
+  },
+  {
+    id: "ldr-005",
+    name: "MSDC",
+    category: "leadership",
+    date: "2023-2",
     issuer: "MSDC Korea",
-    image_path: "assets/certs/20231_MSDC_LOOK_EAST_POLICY.jpg"
+    image_path: "assets/certs/20232_MSDC.jpg"
   },
   {
     id: "ldr-006",
@@ -301,73 +309,19 @@ const CERTIFICATES = [
     issuer: "MSDC Korea",
     image_path: "assets/certs/20232_MSDC_MAJLIS_ANUGERAH_DIRGAHAYU.jpg"
   },
+
   {
-    id: "ldr-008",
+    id: "ldr-009",
     name: "KASUMA First Aid Committee",
     category: "leadership",
     date: "2022-1",
     issuer: "KASUMA",
     image_path: "assets/certs/20221_KASUMA.jpg"
   },
-  {
-    id: "ldr-009",
-    name: "KASUMA Telematch",
-    category: "leadership",
-    date: "2022-1",
-    issuer: "KASUMA",
-    image_path: "assets/certs/20221_KASUMA_TELEMATCH.jpg"
-  },
-  {
-    id: "ldr-010",
-    name: "PALS 회장 (President)",
-    category: "leadership",
-    date: "2025-2",
-    issuer: "Sogang University",
-    image_path: "assets/certs/20252_PALS_president_ENG.jpg"
-  },
-  // ===== CULTURAL =====
+  
+  // ===== CULTURAL =====  
   {
     id: "cul-001",
-    name: "리앤원 아시안 펠로우십 수료 (Asian Fellowship — Completion)",
-    category: "cultural",
-    date: "2023-2",
-    issuer: "Sogang University",
-    image_path: "assets/certs/20232_lee-won_fellowship_completion.jpg"
-  },
-  {
-    id: "cul-002",
-    name: "리앤원 아시안 펠로우십 우수상 (Asian Fellowship — Excellence)",
-    category: "cultural",
-    date: "2023-2",
-    issuer: "Sogang University",
-    image_path: "assets/certs/20232_lee-won_fellowship_excellence.jpg"
-  },
-  {
-    id: "cul-003",
-    name: "FITPPMK",
-    category: "cultural",
-    date: "2022-1",
-    issuer: "PPMK",
-    image_path: "assets/certs/20221_FITPPMK.jpg"
-  },
-  {
-    id: "cul-004",
-    name: "PPMKxMASAF",
-    category: "cultural",
-    date: "2023-1",
-    issuer: "PPMK / MASAF",
-    image_path: "assets/certs/20231_PPMKxMASAF.jpg"
-  },
-  {
-    id: "cul-005",
-    name: "PPMKxMSAJ",
-    category: "cultural",
-    date: "2024-1",
-    issuer: "PPMK / MSAJ",
-    image_path: "assets/certs/20241_PPMKxMSAJ.jpg"
-  },
-  {
-    id: "cul-006",
     name: "Semarak Jiwa Merdeka",
     category: "cultural",
     date: "2024-2",
@@ -375,12 +329,69 @@ const CERTIFICATES = [
     image_path: "assets/certs/20242_SEMARAK_JIWA_MERDEKA.jpg"
   },
   {
-    id: "cul-007",
+    id: "cul-002",
     name: "Wind Orchestra",
     category: "cultural",
     date: "2024-1",
     issuer: "Sogang University",
     image_path: "assets/certs/20241_WIND_ORCHESTRA.jpg"
+  },
+  {
+    id: "cul-003",
+    name: "PPMKxMSAJ",
+    category: "cultural",
+    date: "2024-1",
+    issuer: "PPMK / MSAJ",
+    image_path: "assets/certs/20241_PPMKxMSAJ.jpg"
+  },
+  {
+    id: "cul-004",
+    name: "리앤원 아시안 펠로우십 수료 (Asian Fellowship — Completion)",
+    category: "cultural",
+    date: "2023-2",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20232_lee-won_fellowship_completion.jpg"
+  },
+  {
+    id: "cul-005",
+    name: "PPMKxMASAF",
+    category: "cultural",
+    date: "2023-1",
+    issuer: "PPMK / MASAF",
+    image_path: "assets/certs/20231_PPMKxMASAF.jpg"
+  },
+  {
+    id: "cul-006",
+    name: "MSDC — Look East Policy Event",
+    category: "cultural",
+    date: "2023-1",
+    issuer: "MSDC Korea",
+    image_path: "assets/certs/20231_MSDC_LOOK_EAST_POLICY.jpg"
+  },
+  {
+    id: "cul-007",
+    name: "MSDC (Malaysian Students Diplomatic Corps)",
+    category: "cultural",
+    date: "2022-1",
+    issuer: "MSDC Korea",
+    image_path: "assets/certs/20221_MSDC.jpg"
+  },
+  
+  {
+    id: "cul-008",
+    name: "KASUMA Telematch",
+    category: "cultural",
+    date: "2022-1",
+    issuer: "KASUMA",
+    image_path: "assets/certs/20221_KASUMA_TELEMATCH.jpg"
+  },
+  {
+    id: "cul-009",
+    name: "FITPPMK",
+    category: "cultural",
+    date: "2022-1",
+    issuer: "PPMK",
+    image_path: "assets/certs/20221_FITPPMK.jpg"
   },
 
   // ===== LANGUAGE =====
