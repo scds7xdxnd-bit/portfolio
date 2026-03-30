@@ -1063,7 +1063,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════
-   13. RESPONSIVE — TABLET
+   13. RESPONSIVE — TABLET  (640px – 1023px)
    ══════════════════════════════════════════════════════════ */
 
 @media (max-width: 1023px) {
@@ -1072,13 +1072,31 @@ body {
     --section-padding-x: 32px;
   }
 
-  .cert-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Hero — tighten gap, shrink photo */
+  .hero__container { gap: 32px; }
+  .hero__photo { width: 240px; height: 300px; }
+
+  /* About — stack text above markers so headline gets full width */
+  .about__layout { flex-direction: column; gap: 28px; }
+  /* Markers: show languages + stats side by side in the freed-up full row */
+  .about__markers {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 32px;
   }
+  .about__stats { margin-top: 0; }
+
+  /* Projects — slim browser mock at tablet width */
+  .project-hero__browser { width: 200px; }
+  .projects__grid { gap: 16px; }
+
+  /* Certs */
+  .cert-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ══════════════════════════════════════════════════════════
-   13. RESPONSIVE — MOBILE
+   13. RESPONSIVE — MOBILE  (≤ 639px)
    ══════════════════════════════════════════════════════════ */
 
 @media (max-width: 639px) {
@@ -1087,63 +1105,73 @@ body {
     --section-padding-x: 20px;
   }
 
+  /* ── Sticky nav — horizontal scroll so 5 links + toggle never overflow ── */
+  .site-nav__container {
+    justify-content: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .site-nav__container::-webkit-scrollbar { display: none; }
+  .site-nav__link { white-space: nowrap; flex-shrink: 0; }
+  /* Pull toggle out of absolute position and let it flow at end of scroll area */
+  .lang-toggle {
+    position: static;
+    flex-shrink: 0;
+    min-height: 36px;
+  }
+
+  /* ── Hero ── */
   .hero__container {
     flex-direction: column;
     text-align: center;
+    gap: 24px;          /* was inherited 48px — too much when stacked */
   }
   .hero__socials { justify-content: center; }
   .hero__photo {
-    width: 220px;
-    height: 280px;
+    width: 200px;
+    height: 256px;
     order: -1;
   }
 
-  .about__layout {
-    flex-direction: column;
-    gap: 24px;
-  }
+  /* ── About ── */
+  .about__layout { flex-direction: column; gap: 24px; }
+  /* Reset markers back to column (tablet set it to row) */
+  .about__markers { flex-direction: column; gap: 8px; }
+  .about__stats { justify-content: center; gap: 20px; }
 
-  .project-hero__inner {
-    flex-direction: column;
-  }
-  .project-hero__browser {
-    width: 100%;
-    transform: none;
-  }
+  /* ── Project hero ── */
+  .project-hero__inner { flex-direction: column; }
+  .project-hero__card { padding: 20px; }
+  .project-hero__title { margin-bottom: 8px; }
+  .project-hero__browser { width: 100%; transform: none; }
+  .project-hero__highlights { gap: 6px; margin-bottom: 12px; }
 
-  .projects__grid {
-    grid-template-columns: 1fr;
-  }
+  /* ── Projects grid ── */
+  .projects__grid { grid-template-columns: 1fr; }
 
-  .cert-grid {
-    grid-template-columns: 1fr;
-  }
+  /* ── Skills & AI tools ── */
+  .skills__grid { grid-template-columns: 1fr; }
+  .ai-tools__grid { grid-template-columns: 1fr; }
+
+  /* ── Cert grid & scrollable filter bar ── */
+  .cert-grid { grid-template-columns: 1fr; }
   .cert-filters {
     overflow-x: auto;
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
+    scrollbar-width: none;
   }
-  .pill--filter {
-    white-space: nowrap;
-  }
+  .cert-filters::-webkit-scrollbar { display: none; }
+  .pill--filter { white-space: nowrap; }
 
+  /* ── Footer ── */
   .footer__container {
     flex-direction: column;
     text-align: center;
     gap: 20px;
-  }
-
-  .about__stats {
-    justify-content: center;
-  }
-
-  .skills__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ai-tools__grid {
-    grid-template-columns: 1fr;
   }
 }
 
