@@ -149,12 +149,20 @@ const CERTIFICATES = [
     id: "sch-001",
     name: "서강동문장학 (Sogang Alumni Scholarship)",
     category: "scholarship",
+    date: "2026-1",
+    issuer: "Sogang University",
+    image_path: "assets/certs/20261_sogang_alumni_scholarship_4.jpg"
+  },
+  {
+    id: "sch-002",
+    name: "서강동문장학 (Sogang Alumni Scholarship)",
+    category: "scholarship",
     date: "2025-2",
     issuer: "Sogang University",
     image_path: "assets/certs/20252_sogang_alumni_scholarship_3.jpg"
   },
   {
-    id: "sch-002",
+    id: "sch-003",
     name: "서강동문장학 (Sogang Alumni Scholarship)",
     category: "scholarship",
     date: "2025-1",
@@ -162,7 +170,7 @@ const CERTIFICATES = [
     image_path: "assets/certs/20251_sogang_alumni_scholarship_1.jpg"
   },
   {
-    id: "sch-003",
+    id: "sch-004",
     name: "서강동문장학 (Sogang Alumni Scholarship)",
     category: "scholarship",
     date: "2024-2",
@@ -170,7 +178,7 @@ const CERTIFICATES = [
     image_path: "assets/certs/20242_sogang_alumni_scholarship_2.jpg"
   },
   {
-    id: "sch-004",
+    id: "sch-005",
     name: "삼성글로벌꿈장학 (Samsung Global Dream Scholarship)",
     category: "scholarship",
     date: "2024-1",
@@ -178,7 +186,7 @@ const CERTIFICATES = [
     image_path: "assets/certs/20241_samsung_scholarship.jpg"
   },
   {
-    id: "sch-005",
+    id: "sch-006",
     name: "리앤원장학 (Lee & Won Scholarship)",
     category: "scholarship",
     date: "2023-2",
@@ -186,7 +194,7 @@ const CERTIFICATES = [
     image_path: "assets/certs/20232_lee-won_scholarship.jpg"
   },
   {
-    id: "sch-006",
+    id: "sch-007",
     name: "1st Class Admission Scholarship",
     category: "scholarship",
     date: "2023-1",
@@ -309,9 +317,8 @@ const CERTIFICATES = [
     issuer: "MSDC Korea",
     image_path: "assets/certs/20232_MSDC_MAJLIS_ANUGERAH_DIRGAHAYU.jpg"
   },
-
   {
-    id: "ldr-009",
+    id: "ldr-008",
     name: "KASUMA First Aid Committee",
     category: "leadership",
     date: "2022-1",
@@ -376,7 +383,6 @@ const CERTIFICATES = [
     issuer: "MSDC Korea",
     image_path: "assets/certs/20221_MSDC.jpg"
   },
-  
   {
     id: "cul-008",
     name: "KASUMA Telematch",
@@ -397,19 +403,19 @@ const CERTIFICATES = [
   // ===== LANGUAGE =====
   {
     id: "lng-001",
-    name: "TOPIK (Korean Proficiency Test)",
-    category: "language",
-    date: "2024-1",
-    issuer: "National Institute for International Education",
-    image_path: "assets/certs/20241_TOPIK_scorecard.jpg"
-  },
-  {
-    id: "lng-002",
     name: "北京语言大学成绩单 (Beijing Language University Transcript)",
     category: "language",
     date: "2026-1",
     issuer: "Beijing Language and Culture University",
     image_path: "assets/certs/20261_BLCU_transcript.jpg"
+  },
+  {
+    id: "lng-002",
+    name: "TOPIK (Korean Proficiency Test)",
+    category: "language",
+    date: "2024-1",
+    issuer: "National Institute for International Education",
+    image_path: "assets/certs/20241_TOPIK_scorecard.jpg"
   }
 ];
 

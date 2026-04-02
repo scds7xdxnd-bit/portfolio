@@ -3,7 +3,32 @@
     "allow": [
       "Read(//Users/ammarhakimi/Downloads/**)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(file assets/projects/*.jpg)",
+      "Bash(git rm:*)",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "Bash(vercel deploy:*)",
+      "Bash(du -sh /Users/ammarhakimi/portfolio/assets/certs/*.jpg)",
+      "Bash(for f:*)",
+      "Bash(do sips:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://taeyangcv.vercel.app/assets/certs/20221_FITPPMK.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://taeyangcv.vercel.app/assets/certs/20241_%EC%82%BC%EC%84%B1%EA%B8%80%EB%A1%9C%EB%B2%8C%EA%BF%88%EC%9E%A5%ED%95%99.jpg\")",
+      "Bash(mv \"20221_INTEC_우수상.jpg\" \"20221_INTEC_excellence.jpg\")",
+      "Bash(mv \"20221_INTEC_졸업.jpg\" \"20221_INTEC_graduation.jpg\")",
+      "Bash(mv \"20232_리앤원_아시안_펠로우십_수료.jpg\" \"20232_lee-won_fellowship_completion.jpg\")",
+      "Bash(mv \"20232_리앤원_아시안_펠로우십_우수상.jpg\" \"20232_lee-won_fellowship_excellence.jpg\")",
+      "Bash(mv \"20232_리앤원_장학.jpg\" \"20232_lee-won_scholarship.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://taeyangcv.vercel.app/assets/certs/20241_samsung_scholarship.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://taeyangcv.vercel.app/assets/certs/20232_lee-won_fellowship_excellence.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://taeyangcv.vercel.app/assets/certs/20261_BLCU_transcript.jpg\")",
+      "Bash(curl -s \"https://taeyangcv.vercel.app\")",
+      "Bash(curl -s \"https://taeyangcv.vercel.app/styles.css\")",
+      "mcp__claude_ai_Vercel__list_deployments",
+      "Bash(ls /Users/ammarhakimi/portfolio/assets/certs/*.JPG)"
     ]
   }
 }
