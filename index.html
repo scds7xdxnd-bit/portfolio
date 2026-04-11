@@ -14,16 +14,47 @@
 
   <nav id="site-nav" class="site-nav" aria-label="Main navigation">
     <div class="site-nav__container">
-      <a href="#hero" class="site-nav__link" data-i18n="nav.about"></a>
-      <a href="#projects" class="site-nav__link" data-i18n="nav.projects"></a>
-      <a href="#skills" class="site-nav__link" data-i18n="nav.skills"></a>
-      <a href="#ai-tools" class="site-nav__link" data-i18n="nav.ai-tools"></a>
-      <a href="#certificates" class="site-nav__link" data-i18n="nav.certificates"></a>
+      <div class="site-nav__links">
+        <a href="#hero" class="site-nav__link" data-i18n="nav.about"></a>
+        <a href="#projects" class="site-nav__link" data-i18n="nav.projects"></a>
+        <a href="#skills" class="site-nav__link" data-i18n="nav.skills"></a>
+        <a href="#ai-tools" class="site-nav__link" data-i18n="nav.ai-tools"></a>
+        <a href="#certificates" class="site-nav__link" data-i18n="nav.certificates"></a>
+        <a href="opinions/index.html" class="site-nav__link" data-i18n="nav.opinions"></a>
+      </div>
       <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
         <span>EN</span><span aria-hidden="true"> · </span><span>中文</span>
       </button>
+      <button class="site-nav__hamburger" id="nav-hamburger"
+              aria-label="Open navigation menu"
+              aria-expanded="false"
+              aria-controls="mobile-nav-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile nav panel — shown on mobile when hamburger is open -->
+  <div id="mobile-nav-panel" class="mobile-nav" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <div class="mobile-nav__inner">
+      <nav class="mobile-nav__links-list" aria-label="Mobile navigation">
+        <a href="#hero" class="mobile-nav__link" data-i18n="nav.about"></a>
+        <a href="#projects" class="mobile-nav__link" data-i18n="nav.projects"></a>
+        <a href="#skills" class="mobile-nav__link" data-i18n="nav.skills"></a>
+        <a href="#ai-tools" class="mobile-nav__link" data-i18n="nav.ai-tools"></a>
+        <a href="#certificates" class="mobile-nav__link" data-i18n="nav.certificates"></a>
+        <a href="opinions/index.html" class="mobile-nav__link" data-i18n="nav.opinions"></a>
+      </nav>
+      <button class="lang-toggle mobile-nav__lang" id="mobile-lang-toggle" aria-label="Switch language">
+        <span>EN</span><span aria-hidden="true"> · </span><span>中文</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
 
   <header id="hero" class="hero">
     <div class="hero__layout">
@@ -33,19 +64,19 @@
         <img src="assets/hero.jpg" alt="Portrait photo of Taeyang Han" class="hero__photo hero__blur-item" data-reveal-index="0" />
         <div class="hero__stats-block hero__blur-item" data-reveal-index="1">
           <div class="hero__stat-item">
-            <span class="hero__stat-value">5</span>
+            <span class="hero__stat-value" data-i18n="hero.stat.languages.5"></span>
             <span class="hero__stat-label" data-i18n="hero.stat.languages"></span>
           </div>
           <div class="hero__stat-item">
-            <span class="hero__stat-value">30+</span>
-            <span class="hero__stat-label" data-i18n="hero.stat.certs"></span>
+            <span class="hero__stat-value" data-i18n="hero.stat.certificates.30"></span>
+            <span class="hero__stat-label" data-i18n="hero.stat.certificates"></span>
           </div>
           <div class="hero__stat-item">
-            <span class="hero__stat-value">7</span>
+            <span class="hero__stat-value" data-i18n="hero.stat.leadership.7"></span>
             <span class="hero__stat-label" data-i18n="hero.stat.leadership"></span>
           </div>
           <div class="hero__stat-item">
-            <span class="hero__stat-value">5yrs</span>
+            <span class="hero__stat-value" data-i18n="hero.stat.building.5yrs"></span>
             <span class="hero__stat-label" data-i18n="hero.stat.building"></span>
           </div>
         </div>
@@ -89,11 +120,28 @@
 
         <p class="hero__bio hero__blur-item" data-reveal-index="3"><span data-i18n="hero.bio.p1.before"></span><span class="hero__bio-sim-eng" data-i18n="hero.bio.p1.sim-eng"></span><span data-i18n="hero.bio.p1.middle"></span><span class="hero__bio-gradient" data-i18n="hero.bio.p1.unpredictability"></span><span data-i18n="hero.bio.p1.between"></span><span data-i18n="hero.bio.p1.world"></span><span data-i18n="hero.bio.p1.end"></span></p>
 
-        <p class="hero__bio hero__blur-item" data-reveal-index="4"><span data-i18n="hero.bio.p2.before"></span><a href="https://lifeos-wine.vercel.app" class="project-link" target="_blank" rel="noopener">LifeOS<span class="project-popup"><img class="project-popup__img" src="assets/projects/lifeos.jpg" alt="LifeOS preview" onerror="this.onerror=null;this.removeAttribute('src');this.style.background='var(--dark-gradient)'" /><span class="project-popup__title">LifeOS</span><span class="project-popup__desc" data-i18n="hero.bio.p2.popup-desc"></span><span class="project-popup__cta" data-i18n="hero.bio.p2.popup-cta"></span><span class="project-popup__arrow"></span></span></a><span data-i18n="hero.bio.p2.after"></span></p>
+        <p class="hero__bio hero__blur-item" data-reveal-index="4">
+          <span data-i18n="hero.bio.p2.before"></span>
+          <a href="https://lifeos-wine.vercel.app" class="project-link" target="_blank" rel="noopener">
+            LifeOS
+            <span class="project-popup">
+              <img class="project-popup__img" src="assets/projects/lifeos.jpg" alt="LifeOS preview" onerror="this.onerror=null;this.removeAttribute('src');this.style.background='var(--dark-gradient)'" />
+              <span class="project-popup__title">
+                LifeOS
+              </span>
+              <span class="project-popup__desc" data-i18n="hero.bio.p2.popup-desc">
+              </span>
+              <span class="project-popup__cta" data-i18n="hero.bio.p2.popup-cta">
+              </span>
+              <span class="project-popup__arrow">
+              </span>
+            </span></a><span data-i18n="hero.bio.p2.after"></span></p>
 
         <p class="hero__roles-line hero__blur-item" data-reveal-index="5"><span data-i18n="hero.roles.prefix"></span><a class="hero__role-link" href="https://www.instagram.com/tigercupsociety/" target="_blank" rel="noopener" data-i18n="hero.role.sea"></a>, <a class="hero__role-link" href="https://www.instagram.com/sogangpals/" target="_blank" rel="noopener" data-i18n="hero.role.pals"></a><span data-i18n="hero.roles.and"></span><a class="hero__role-link" href="https://www.instagram.com/samsung_foundation/" target="_blank" rel="noopener" data-i18n="hero.role.samsung"></a>.</p>
 
-        <div class="hero__cta-row hero__blur-item" data-reveal-index="6">
+        <!-- div id="hero-builds" class="hero__builds hero__blur-item" data-reveal-index="6"></div> -->
+
+        <div class="hero__cta-row hero__blur-item" data-reveal-index="7">
           <a class="hero__btn hero__btn--primary" href="mailto:ammarhakimikm03@gmail.com">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             <span data-i18n="hero.cta.send"></span>

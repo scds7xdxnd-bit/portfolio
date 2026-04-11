@@ -5,7 +5,7 @@ let currentLang = localStorage.getItem('lang') || 'en';
 
 const TRANSLATIONS = {
   en: {
-    'nav.about':'About','nav.projects':'Projects','nav.skills':'Skills','nav.ai-tools':'AI Tools','nav.certificates':'Certificates',
+    'nav.about':'About','nav.projects':'Projects','nav.skills':'Skills','nav.ai-tools':'AI Tools','nav.certificates':'Certificates','nav.opinions':'Opinions',
     
     'hero.micro':'BUILDER · MULTILINGUAL · SYSTEMS THINKER',
     'hero.name':'Taeyang Han',
@@ -30,22 +30,18 @@ const TRANSLATIONS = {
     'hero.bio.p2.popup-desc':'Unified personal life management \u2014 finance, health, habits, skills, and more.',
     'hero.bio.p2.popup-cta':'Visit \u2192',
     'hero.stat.languages':'Languages',
-    'hero.stat.certs':'Certs',
+    'hero.stat.languages.5':'5',
+    'hero.stat.certificates':'Certificates',
+    'hero.stat.certificates.30':'30+',
     'hero.stat.leadership':'Leadership',
+    'hero.stat.leadership.7':'7',
     'hero.stat.building':'Building',
+    'hero.stat.building.5yrs':'5yrs',
     'hero.roles.prefix':'Currently president of ',
     'hero.role.sea':'@SEA Studies',
     'hero.roles.and':' and ',
     'hero.role.pals':'@PALS',
     'hero.role.samsung':'@Samsung Dream Scholars',
-
-    'about.micro':'ABOUT','about.headline':'Taeyang, Simulation Engineer',
-    'about.body1':'I\'m double-majoring in CBE and IB in Sogang who cares deeply about life, living beings and the unpredictability of the world.',
-    'about.body2':'I created LifeOS and I spend most of my time building systems and simulations to understand life and living beings.',
-    'about.body3':'Currently the president of @SEA Studies, @PALS and @Samsung Dream Scholars.',
-    'about.stat.languages':'Languages','about.stat.certificates':'Certificates','about.stat.leadership':'Leadership Roles','about.stat.building':'Building',
-    'about.lang.en':'English','about.lang.ko':'한국어','about.lang.zh':'中文','about.lang.ms':'Bahasa Melayu','about.lang.ja':'日本語',
-    'about.stat.languages.5':'5','about.stat.certificates.30':'30+','about.stat.leadership.7':'7','about.stat.building.5yrs':'5yrs',
 
     'projects.micro':'PROJECTS','projects.headline':'What I have built',
     'project.hero.label':'HERO PROJECT','project.status.In Development':'In Development','project.status.Active':'Active','project.status.Completed':'Completed',
@@ -66,9 +62,20 @@ const TRANSLATIONS = {
     'certs.filter.all':'All','certs.filter.scholarship':'Scholarship','certs.filter.academic':'Academic','certs.filter.leadership':'Leadership','certs.filter.competitions':'Competitions','certs.filter.cultural':'Cultural','certs.filter.language':'Language',
     
     'footer.tagline':'Built with intention','footer.cta':'Build together with me →',
+
+    'project.lifeos.name':'LifeOS',
+    'project.lifeos.desc':'Unified personal life management platform across finance, health, habits, and productivity.',
+    'project.lifeos.h1':'6 integrated life domains','project.lifeos.h2':'LP macro optimizer','project.lifeos.h3':'Event-driven architecture','project.lifeos.h4':'Custom design system',
+    'project.xiaohongshu.name':'Xiaohongshu Build Log',
+    'project.xiaohongshu.desc':'Public build-in-public account documenting product iterations and execution process.',
+    'project.accounting.name':'Personal Accounting System',
+    'project.accounting.desc':'Full personal accounting system built from scratch since 2021 — first project, continuously maintained and improved over 5 years.',
+    'project.scm.name':'Bullwhip Effect Simulator',
+    'project.scm.desc':'Browser-based supply-chain simulator showing how small downstream demand shocks amplify into large upstream order swings (bullwhip effect).',
+    'project.scm.h1':'4-agent chain (Retailer, Distributor, Manufacturer, Supplier)','project.scm.h2':'Chaos demand shock testing','project.scm.h3':'Inventory/order/backlog charting','project.scm.h4':'Event timeline and simulation insights',
   },
   zh: {
-    'nav.about':'关于','nav.projects':'项目','nav.skills':'技能','nav.ai-tools':'AI 工具','nav.certificates':'证书',
+    'nav.about':'关于','nav.projects':'项目','nav.skills':'技能','nav.ai-tools':'AI 工具','nav.certificates':'证书','nav.opinions':'观点',
     
     'hero.micro':'构建者 · 多语言 · 系统思维者',
     'hero.name':'Taeyang Han',
@@ -93,22 +100,18 @@ const TRANSLATIONS = {
     'hero.bio.p2.popup-desc':'统一的个人生活管理平台——财务、健康、习惯、技能等。',
     'hero.bio.p2.popup-cta':'访问 \u2192',
     'hero.stat.languages':'语言',
-    'hero.stat.certs':'证书',
+    'hero.stat.languages.5':'5',
+    'hero.stat.certificates':'证书',
+    'hero.stat.certificates.30':'30+',
     'hero.stat.leadership':'领导',
+    'hero.stat.leadership.7':'7',
     'hero.stat.building':'建设',
+    'hero.stat.building.5yrs':'5年',
     'hero.roles.prefix':'目前担任',
     'hero.role.sea':'@SEA Studies',
     'hero.roles.and':'和',
     'hero.role.pals':'@PALS',
     'hero.role.samsung':'@Samsung Dream Scholars',
-
-    'about.micro':'关于我','about.headline':'构建者，而非证书收藏家',
-    'about.body1':'就读于西江大学的马来西亚留学生，双修化学与生物分子工程及国际商务。',
-    'about.body2':'我通过构建来学习——从2021年开始维护的个人记账系统，到涵盖6个领域的统一生活管理平台。',
-    'about.body3':'目前担任PALS会长，同时通过三星全球梦想奖学金项目担任导师。',
-    'about.stat.languages':'语言','about.stat.certificates':'证书','about.stat.leadership':'领导职位','about.stat.building':'构建年限',
-    'about.lang.en':'English','about.lang.ko':'한국어','about.lang.zh':'中文','about.lang.ms':'Bahasa Melayu','about.lang.ja':'日本語',
-    'about.stat.languages.5':'5','about.stat.certificates.30':'30+','about.stat.leadership.7':'7','about.stat.building.5yrs':'5年',
 
     'projects.micro':'项目','projects.headline':'我构建的作品',
     'project.hero.label':'主要项目','project.status.In Development':'开发中','project.status.Active':'运行中','project.status.Completed':'已完成',
@@ -126,16 +129,28 @@ const TRANSLATIONS = {
     'ai.aw.badge':'AW','ai.aw.name':'智能工作流','ai.aw.desc':'用于自主完成任务的多智能体流水线——将多个模型串联，实现从研究、实现、测试到部署的无人工干预全流程。','ai.aw.tag1':'多智能体','ai.aw.tag2':'流水线','ai.aw.tag3':'编排',
     
     'certs.micro':'证书与奖项','certs.headline':'荣誉',
-    'certs.filter.all':'全部','certs.filter.scholarship':'奖学金','certs.filter.academic':'学术','certs.filter.leadership':'领导力','certs.filter.competitions':'竞赛','certs.filter.cultural ':'文化','certs.filter.language ':'语言',
+    'certs.filter.all':'全部','certs.filter.scholarship':'奖学金','certs.filter.academic':'学术','certs.filter.leadership':'领导力','certs.filter.competitions':'竞赛','certs.filter.cultural':'文化','certs.filter.language':'语言',
     
     'footer.tagline ':'用心而建','footer.cta ':'欢迎咨询、合作或共同构建 →',
+
+    'project.lifeos.name':'LifeOS',
+    'project.lifeos.desc':'统一个人生活管理平台，涵盖财务、健康、习惯与效率提升。',
+    'project.lifeos.h1':'6个生活领域整合','project.lifeos.h2':'LP宏观优化器','project.lifeos.h3':'事件驱动架构','project.lifeos.h4':'自定义设计系统',
+    'project.xiaohongshu.name':'小红书开发日志',
+    'project.xiaohongshu.desc':'公开记录产品迭代过程，展示执行思路与构建历程。',
+    'project.accounting.name':'个人记账系统',
+    'project.accounting.desc':'从2021年起从零构建的完整个人记账系统——第一个项目，持续维护改进超过5年。',
+    'project.scm.name':'牛鞭效应模拟器',
+    'project.scm.desc':'基于浏览器的供应链模拟器，展示小幅下游需求冲击如何放大成大幅上游订单波动（牛鞭效应）。',
+    'project.scm.h1':'4层主体链（零售商、分销商、制造商、供应商）','project.scm.h2':'混沌需求冲击测试','project.scm.h3':'库存/订单/积压图表','project.scm.h4':'事件时间线与仿真洞察',
   }
 };
 
 function t(key) {
-  return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key])
-    ? TRANSLATIONS[currentLang][key]
-    : (TRANSLATIONS.en[key] || key);
+  const lang = TRANSLATIONS[currentLang];
+  if (lang && Object.prototype.hasOwnProperty.call(lang, key)) return lang[key];
+  if (Object.prototype.hasOwnProperty.call(TRANSLATIONS.en, key)) return TRANSLATIONS.en[key];
+  return key;
 }
 
 function applyTranslations() {
@@ -149,44 +164,48 @@ function applyTranslations() {
    ═══════════════════════════════════════════════ */
 const PROJECTS = [
   {
-    id: 'lifeos', name: 'LifeOS',
-    description: 'Unified personal life management platform across finance, health, habits, and productivity.',
+    id: 'lifeos',
+    nameKey: 'project.lifeos.name',
+    descriptionKey: 'project.lifeos.desc',
     tech_stack: ['Next.js', 'Flask', 'PostgreSQL', 'TypeScript'],
     status: 'In Development',
     url: 'https://lifeos-wine.vercel.app',
     image_path: 'assets/projects/lifeos.jpg',
     is_hero: true,
-    highlights: ['6 integrated life domains', 'LP macro optimizer', 'Event-driven architecture', 'Custom design system']
+    highlightsKeys: ['project.lifeos.h1', 'project.lifeos.h2', 'project.lifeos.h3', 'project.lifeos.h4']
   },
   {
-    id: 'xiaohongshu', name: 'Xiaohongshu Build Log',
-    description: 'Public build-in-public account documenting product iterations and execution process.',
+    id: 'xiaohongshu',
+    nameKey: 'project.xiaohongshu.name',
+    descriptionKey: 'project.xiaohongshu.desc',
     tech_stack: ['Content Strategy', 'Xiaohongshu'],
     status: 'Active',
     url: 'https://xhslink.com/m/6pTVib4GbZU',
     image_path: 'assets/projects/xiaohongshu.jpg',
     is_hero: false,
-    highlights: ['Audience growth experiments', 'System storytelling']
+    highlightsKeys: []
   },
   {
-    id: 'accounting', name: 'Personal Accounting System',
-    description: 'Full personal accounting system built from scratch since 2021 — first project, continuously maintained and improved over 5 years.',
+    id: 'accounting',
+    nameKey: 'project.accounting.name',
+    descriptionKey: 'project.accounting.desc',
     tech_stack: ['Python', 'Flask', 'PostgreSQL'],
     status: 'Active',
     url: 'https://finance-app-private-alpha.fly.dev',
     image_path: 'assets/projects/accounting.jpg',
     is_hero: false,
-    highlights: ['5+ years maintained', 'Complete financial tracking']
+    highlightsKeys: []
   },
   {
-    id: 'scm-simulator', name: 'Bullwhip Effect Simulator',
-    description: 'Browser-based supply-chain simulator showing how small downstream demand shocks amplify into large upstream order swings (bullwhip effect).',
+    id: 'scm-simulator',
+    nameKey: 'project.scm.name',
+    descriptionKey: 'project.scm.desc',
     tech_stack: ['Vanilla JavaScript', 'HTML Canvas', 'CSS', 'Supply Chain Simulation'],
     status: 'Completed',
     url: 'https://scmsimulator.vercel.app',
     image_path: 'assets/projects/scm_simulator.jpg',
     is_hero: false,
-    highlights: ['4-agent chain (Retailer, Distributor, Manufacturer, Supplier)', 'Chaos demand shock testing', 'Inventory/order/backlog charting', 'Event timeline and simulation insights']
+    highlightsKeys: []
   }
 ];
 
@@ -257,21 +276,25 @@ function renderProjects() {
   secondary.className = 'project-secondary-grid';
 
   PROJECTS.forEach(p => {
+    const name = t(p.nameKey);
+    const description = t(p.descriptionKey);
+
     if (p.is_hero) {
       const tag = p.url ? 'a' : 'article';
       const el = document.createElement(tag);
       el.className = 'project-hero-card';
       if (p.url) { el.href = p.url; el.target = '_blank'; el.rel = 'noopener'; }
+      const highlights = (p.highlightsKeys || []).map(k => `<li>${t(k)}</li>`).join('');
       el.innerHTML = `
         <div>
           <span class="type-micro project-hero__label">${t('project.hero.label')}</span>
-          <h3 class="project-hero__title">${p.name}</h3>
-          <p class="project-hero__desc">${p.description}</p>
-          <ul class="project-hero__highlights">${p.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+          <h3 class="project-hero__title">${name}</h3>
+          <p class="project-hero__desc">${description}</p>
+          <ul class="project-hero__highlights">${highlights}</ul>
           <div class="project-hero__tech">${p.tech_stack.map(tech => `<span class="pill pill--tech-dark">${tech}</span>`).join('')}</div>
           <span class="pill pill--status">${t('project.status.' + p.status) || p.status}</span>
         </div>
-        ${p.image_path ? `<img src="${p.image_path}" alt="${p.name} screenshot" class="project-hero__img" />` : ''}`;
+        ${p.image_path ? `<img src="${p.image_path}" alt="${name} screenshot" class="project-hero__img" />` : ''}`;
       heroSlot.appendChild(el);
     } else {
       const tag = p.url ? 'a' : 'article';
@@ -279,10 +302,10 @@ function renderProjects() {
       el.className = 'project-secondary-card';
       if (p.url) { el.href = p.url; el.target = '_blank'; el.rel = 'noopener'; }
       el.innerHTML = `
-        ${p.image_path ? `<img src="${p.image_path}" alt="${p.name} screenshot" class="project-secondary-card__img" />` : ''}
-        <h3 class="project-secondary-card__title">${p.name}</h3>
-        <p class="project-secondary-card__desc">${p.description}</p>
-        <div class="project-secondary-card__tech">${p.tech_stack.map(t => `<span class="pill pill--tech-light">${t}</span>`).join('')}</div>`;
+        ${p.image_path ? `<img src="${p.image_path}" alt="${name} screenshot" class="project-secondary-card__img" />` : ''}
+        <h3 class="project-secondary-card__title">${name}</h3>
+        <p class="project-secondary-card__desc">${description}</p>
+        <div class="project-secondary-card__tech">${p.tech_stack.map(tech => `<span class="pill pill--tech-light">${tech}</span>`).join('')}</div>`;
       secondary.appendChild(el);
     }
   });
@@ -312,15 +335,17 @@ function renderCertificates() {
 }
 
 /* ═══════════════════════════════════════════════
-   6. INJECT CERTIFICATE FILTER COUNTS
+   6. UPDATE CERTIFICATE FILTER LABELS
    ═══════════════════════════════════════════════ */
-function injectCertificateFilterCounts() {
+function updateCertificateFilterLabels() {
   document.querySelectorAll('.pill--filter').forEach(btn => {
+    const key = btn.dataset.i18n;
+    const baseLabel = t(key);
     const f = btn.dataset.filter;
     const count = f === 'all'
       ? CERTIFICATES.length
       : CERTIFICATES.filter(c => c.category === f).length;
-    btn.textContent = btn.textContent.trim() + ` (${count})`;
+    btn.textContent = `${baseLabel} (${count})`;
   });
 }
 
@@ -513,6 +538,246 @@ function initHeroParallax() {
 }
 
 /* ═══════════════════════════════════════════════
+   10f. GRADIENT WAVE TEXT
+   ═══════════════════════════════════════════════ */
+function initGradientWaveText() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const el = document.querySelector('.hero__bio-gradient');
+  if (!el) return;
+
+  const SPEED = 0.8;
+  const RANGE = 200;
+  let gi = -25;
+  let last = performance.now();
+  let rafId;
+
+  function tick(now) {
+    const dt = Math.min(64, now - last);
+    last = now;
+    gi += (dt * SPEED) / 16.6667;
+    if (gi >= RANGE) gi -= RANGE;
+    el.style.setProperty('--gi', gi.toFixed(2));
+    rafId = requestAnimationFrame(tick);
+  }
+
+  rafId = requestAnimationFrame(tick);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+    } else {
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   10g. SPECIAL TEXT (scramble-reveal, once per session)
+   ═══════════════════════════════════════════════ */
+function initSpecialText() {
+  const SESSION_KEY = 'hero_name_scrambled';
+  if (sessionStorage.getItem(SESSION_KEY)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const el = document.querySelector('.hero__full-name');
+  if (!el) return;
+
+  const RANDOM_CHARS = '_!X$0-+*#';
+  const SPEED = 22;
+  const targetText = el.textContent;
+
+  el.style.minWidth = el.offsetWidth + 'px';
+  el.classList.add('is-scrambling');
+
+  let phase = 1;
+  let step = 0;
+  let intervalId = null;
+
+  function getRandomChar(prev) {
+    let c;
+    do { c = RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]; }
+    while (c === prev);
+    return c;
+  }
+
+  function buildPhase1() {
+    const len = Math.min(step + 1, targetText.length);
+    let chars = [];
+    for (let i = 0; i < len; i++) {
+      chars.push(getRandomChar(chars[i - 1]));
+    }
+    while (chars.length < targetText.length) chars.push('\u00A0');
+    return chars.join('');
+  }
+
+  function buildPhase2() {
+    const revealed = Math.floor(step / 2);
+    let chars = [];
+    for (let i = 0; i < revealed && i < targetText.length; i++) {
+      chars.push(targetText[i]);
+    }
+    if (revealed < targetText.length) {
+      chars.push(step % 2 === 0 ? '_' : getRandomChar());
+    }
+    while (chars.length < targetText.length) {
+      chars.push(getRandomChar(chars[chars.length - 1]));
+    }
+    return chars.join('');
+  }
+
+  function tick() {
+    if (phase === 1) {
+      el.textContent = buildPhase1();
+      step++;
+      if (step >= targetText.length * 2) {
+        phase = 2;
+        step = 0;
+      }
+    } else {
+      const text = buildPhase2();
+      if (Math.floor(step / 2) >= targetText.length) {
+        clearInterval(intervalId);
+        el.textContent = targetText;
+        el.classList.remove('is-scrambling');
+        el.style.minWidth = '';
+        sessionStorage.setItem(SESSION_KEY, '1');
+        return;
+      }
+      el.textContent = text;
+      step++;
+    }
+  }
+
+  setTimeout(() => {
+    intervalId = setInterval(tick, SPEED);
+  }, 450);
+}
+
+/* ═══════════════════════════════════════════════
+   10h. ANIMATED CHECKBOX — HERO BUILDS
+   ═══════════════════════════════════════════════ */
+const HERO_BUILDS = [
+  { label: 'LifeOS — unified life OS',           checked: true  },
+  { label: 'CNN emotion → color AI',             checked: true  },
+  { label: 'Scholarship writing system',         checked: false },
+  { label: 'Bullwhip effect simulator',          checked: true  },
+];
+
+function renderHeroBuilds() {
+  const container = document.getElementById('hero-builds');
+  if (!container) return;
+
+  HERO_BUILDS.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'hero__build-item' + (item.checked ? ' is-checked' : '');
+    div.setAttribute('role', 'checkbox');
+    div.setAttribute('aria-checked', item.checked ? 'true' : 'false');
+    div.setAttribute('tabindex', '0');
+
+    const PATH_LEN = 14.5;
+    const initialOffset = item.checked ? 0 : PATH_LEN;
+
+    div.innerHTML = `
+      <div class="hero__build-box">
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path
+            class="hero__build-check"
+            d="M 5 10.5 L 8.5 14 L 15 7"
+            style="stroke-dasharray:${PATH_LEN};stroke-dashoffset:${initialOffset}"
+          />
+        </svg>
+      </div>
+      <div class="hero__build-label-wrap">
+        <span class="hero__build-label">${item.label}</span>
+        <span class="hero__build-strike"
+              style="width:${item.checked ? '100%' : '0'}"></span>
+      </div>`;
+
+    div.addEventListener('click', () => toggleBuildItem(div));
+    div.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        toggleBuildItem(div);
+      }
+    });
+
+    container.appendChild(div);
+  });
+}
+
+function toggleBuildItem(div) {
+  const isChecked = div.classList.toggle('is-checked');
+  div.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+
+  const path   = div.querySelector('.hero__build-check');
+  const strike = div.querySelector('.hero__build-strike');
+  const PATH_LEN = 14.5;
+
+  if (path)   path.style.strokeDashoffset = isChecked ? 0 : PATH_LEN;
+  if (strike) strike.style.width = isChecked ? '100%' : '0';
+}
+
+/* ═══════════════════════════════════════════════
+   10e-ii. MOBILE NAV MENU
+   ═══════════════════════════════════════════════ */
+function initMobileNavMenu() {
+  const hamburger = document.getElementById('nav-hamburger');
+  const panel     = document.getElementById('mobile-nav-panel');
+  const backdrop  = document.getElementById('mobile-nav-backdrop');
+  const mobileLangBtn = document.getElementById('mobile-lang-toggle');
+  if (!hamburger || !panel || !backdrop) return;
+
+  function openMenu() {
+    hamburger.setAttribute('aria-expanded', 'true');
+    panel.classList.add('is-open');
+    backdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    const firstLink = panel.querySelector('.mobile-nav__link');
+    if (firstLink) firstLink.focus();
+  }
+
+  function closeMenu() {
+    hamburger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+    hamburger.focus();
+  }
+
+  hamburger.addEventListener('click', () => {
+    panel.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
+
+  // Close on nav link click (also smooth-scroll for hash links)
+  panel.querySelectorAll('.mobile-nav__link').forEach(link => {
+    const href = link.getAttribute('href');
+    link.addEventListener('click', e => {
+      closeMenu();
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Close on backdrop click or Escape
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel.classList.contains('is-open')) closeMenu();
+  });
+
+  // Sync mobile lang toggle with main lang toggle
+  if (mobileLangBtn) {
+    mobileLangBtn.addEventListener('click', () => {
+      document.getElementById('lang-toggle').click();
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════════
    11. INIT LANG TOGGLE
    ═══════════════════════════════════════════════ */
 function initLangToggle() {
@@ -522,6 +787,7 @@ function initLangToggle() {
     currentLang = currentLang === 'en' ? 'zh' : 'en';
     localStorage.setItem('lang', currentLang);
     applyTranslations();
+    updateCertificateFilterLabels();
     renderProjects();
   });
 }
@@ -539,9 +805,11 @@ function initStickyNav() {
   navObserver.observe(hero);
 
   nav.querySelectorAll('.site-nav__link').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
     link.addEventListener('click', e => {
       e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
+      const target = document.querySelector(href);
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
@@ -554,7 +822,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
   renderProjects();
   renderCertificates();
-  injectCertificateFilterCounts();
+  updateCertificateFilterLabels();
   initCertificateFilters();
   initCertificateLightbox();
   initScrollReveal();
@@ -566,4 +834,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyNav();
   initLangToggle();
   initHeroParallax();
+  initGradientWaveText();
+  initSpecialText();
+  renderHeroBuilds();
+  initMobileNavMenu();
 });
