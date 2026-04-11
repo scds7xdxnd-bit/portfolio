@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering decisions under uncertainty — Taeyang Han</title>
+  <meta name="description" content="How chemical engineers design for unknowns — Monte Carlo simulation, sensitivity analysis, and the discipline of committing before the data is complete.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="opinions.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Article navigation">
+    <a href="index.html" class="op-topbar__back" aria-label="Back to Opinions">← Back to Opinions</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Engineering Under Uncertainty</div>
+      <div class="op-topbar__subtitle">Process Design &amp; Decision Theory</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="../index.html" class="op-topbar__portfolio-link">Portfolio →</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Process Design — Essay 2</p>
+        <h1 class="op-article__title">Engineering decisions under uncertainty</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;·&nbsp; Chemical &amp; Biomolecular Engineering, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-article__meta-item">April 2026</span>
+          <span class="op-article__meta-item">·</span>
+          <span class="op-article__meta-item">8 min read</span>
+          <span class="op-article__meta-item">·</span>
+          <span class="op-article__meta-item">Engineering</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <p>
+          Every process plant built in the last century was designed by engineers who did not have complete information. They did not know the exact feed composition that would arrive six years after commissioning. They did not know how the catalyst would degrade over time, or what the ambient temperature would be on the coldest operating day in a decade. They designed anyway. This is not recklessness — it is the discipline that separates engineering from science. Science can wait for better data. Engineering has to commit.
+        </p>
+
+        <h2>The anatomy of what we don't know</h2>
+
+        <p>
+          Not all uncertainty is the same, and conflating types leads to bad design decisions. The useful distinction is between
+          <span class="term">aleatory uncertainty<span class="term-tooltip">Aleatory uncertainty is irreducible — it arises from inherent randomness in the system. No amount of additional data will eliminate it. Example: exact moment of a pump failure, random fluctuation in feed temperature.</span></span>
+          and
+          <span class="term">epistemic uncertainty<span class="term-tooltip">Epistemic uncertainty is reducible — it arises from incomplete knowledge and can be reduced with more data, better models, or additional experiments. Example: an unknown reaction rate constant that could be measured.</span></span>.
+          Aleatory uncertainty is irreducible: it is randomness baked into the physical world — the stochastic variation in feed quality, the unpredictable timing of equipment failure. Epistemic uncertainty is reducible: it comes from incomplete knowledge that better data or better models can address.
+        </p>
+
+        <p>
+          The practical implication is asymmetric. For aleatory uncertainty, the right response is to design robustly — build margins, choose equipment that tolerates a range. For epistemic uncertainty, the right response is to invest in information before committing, if the decision is reversible and the information is obtainable at reasonable cost. If the decision is not reversible, you proceed on your best current model and plan to adapt.
+        </p>
+
+        <div class="analogy-box">
+          <div class="analogy-title">How uncertainty type shapes the design response</div>
+          <div class="analogy-grid">
+            <div class="analogy-col">
+              <div class="analogy-driver">Type</div>
+              <div class="analogy-quantity" style="font-size:15px;">Aleatory</div>
+              <div class="analogy-drives">Design with margins</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-driver">Type</div>
+              <div class="analogy-quantity" style="font-size:15px;">Epistemic</div>
+              <div class="analogy-drives">Reduce before committing</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-driver">Type</div>
+              <div class="analogy-quantity" style="font-size:15px;">Unknown</div>
+              <div class="analogy-drives">Identify first; then classify</div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>Safety factors as institutionalized caution</h2>
+
+        <p>
+          The oldest engineering tool for handling uncertainty is the
+          <span class="term">safety factor<span class="term-tooltip">A safety factor (or design factor) is the ratio of the ultimate strength to the expected load. A safety factor of 3 means the structure is designed to withstand three times the anticipated maximum load before failure.</span></span>.
+          A pipe rated for 10 bar is installed in a system that will never exceed 4 bar. A beam calculated to support 50 kN is designed to a specification of 150 kN. The extra capacity is not waste — it is the engineer's formal acknowledgment that the calculation is not the same as the reality.
+        </p>
+
+        <p>
+          Safety factors carry a cost: over-designed equipment is heavier, more expensive, and sometimes less efficient. This is why modern design has tried to replace blanket factors with probabilistic methods — not to eliminate the margin, but to size it correctly for the actual uncertainty distribution of each parameter, rather than applying a uniform multiplier that may be too conservative in some places and insufficiently conservative in others.
+        </p>
+
+        <div class="margin-note">
+          <p>A safety factor of 3 says: we are uncertain enough about the real load distribution that we will size for three times our best estimate. A probabilistic design says: here is the actual distribution of the load, and we will design to the 99.9th percentile. Both are honest — but the second is more informative about what is actually being assumed.</p>
+        </div>
+
+        <hr>
+
+        <h2>Monte Carlo: running a thousand versions of the future</h2>
+
+        <p>
+          The most direct way to understand a system's behavior under uncertainty is to run it — not once, but thousands of times, each time sampling parameters from their uncertainty distributions. This is
+          <span class="term">Monte Carlo simulation<span class="term-tooltip">Monte Carlo simulation uses random sampling of input distributions to generate a distribution of outputs. Named for the Monte Carlo Casino because of its reliance on random numbers. For engineering, each "run" is a full process simulation with parameters drawn from their uncertainty ranges.</span></span>,
+          and it is conceptually simple even when the implementation is not.
+        </p>
+
+        <p>
+          The procedure has three steps. First, characterize the uncertainty in each input parameter — not as a point value but as a probability distribution. A feed temperature might be normally distributed with mean 25°C and standard deviation 3°C. A reaction rate constant might have a 15% uncertainty at one standard deviation. Second, sample from these distributions and run the process model for each sample. Third, examine the resulting output distribution. Does the design perform acceptably across the entire distribution, or does it fail at the tails?
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Monte Carlo output: yield distribution across N simulations</div>
+          <div class="eq-main">Y<sub>i</sub> = f(k<sub>i</sub>, T<sub>i</sub>, P<sub>i</sub>, …) &nbsp; where &nbsp; k<sub>i</sub> ~ 𝒩(k̄, σ<sub>k</sub>²)</div>
+        </div>
+
+        <p>
+          What Monte Carlo reveals is not a single answer but a shape. If the yield distribution is tight and centered well above the design threshold, the process is robust. If it is wide or has a significant tail below the threshold, there is a real probability of underperformance — and that probability can be quantified and communicated, rather than hidden inside a single deterministic number.
+        </p>
+
+        <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? 'Hide: what Monte Carlo can\u2019t tell you \u2191' : 'What Monte Carlo can\u2019t tell you \u2193'">What Monte Carlo can't tell you ↓</button>
+        <div class="reveal-content">
+          <p>
+            Monte Carlo gives you the output distribution conditional on your input distributions being correct. If your uncertainty model is wrong — if the actual feed composition is correlated with ambient temperature in a way you didn't account for, or if the failure mode is a common-cause event not captured in independent sampling — the simulation will give confident-looking results that do not reflect reality. The method is only as good as the uncertainty model it runs on.
+          </p>
+        </div>
+
+        <hr>
+
+        <h2>Sensitivity analysis: finding what actually matters</h2>
+
+        <p>
+          Monte Carlo tells you what the output distribution looks like. Sensitivity analysis tells you which inputs are responsible for most of the output variance. This distinction matters enormously for design priorities.
+        </p>
+
+        <p>
+          In a reactor design, it might seem that ten parameters are all uncertain and all matter. A
+          <span class="term">sensitivity analysis<span class="term-tooltip">Sensitivity analysis quantifies how much variation in each input parameter contributes to variation in the output. The Sobol index, for instance, decomposes total output variance into contributions from each input and their interactions. Parameters with high Sobol indices are the ones worth measuring more carefully.</span></span>
+          might reveal that 80% of the yield variance comes from uncertainty in a single reaction rate constant, while the other nine parameters collectively explain only 20%. That is useful information: it tells you where to invest experimental effort, and it tells you that getting the heat exchanger sizing exactly right will not matter much if the kinetic model is wrong.
+        </p>
+
+        <div class="callout-block">
+          <div class="callout-label">Design Principle</div>
+          <p>Reduce uncertainty where it matters most, not uniformly across all parameters. Sensitivity analysis identifies the leverage points — the inputs whose uncertainty propagates most strongly into output uncertainty. Investing measurement effort there has a disproportionate return on design quality.</p>
+        </div>
+
+        <hr>
+
+        <h2>The decision moment: committing under incomplete information</h2>
+
+        <p>
+          All of the above — safety factors, Monte Carlo, sensitivity analysis — are tools for characterizing uncertainty. None of them eliminate it. Eventually, an engineer has to sign the drawing. A project manager has to approve the capital expenditure. A plant has to be built on a schedule that does not allow for another year of laboratory work.
+        </p>
+
+        <p>
+          This is the moment that I find most interesting to think about, because it is where engineering overlaps with the kind of decision theory you study in business school. The expected value framework — weigh outcomes by their probabilities, choose the option with the best expected outcome — is mathematically clean but psychologically difficult. People are not expected value maximizers. They are loss-averse, status-quo-biased, and overconfident about their best estimates.
+        </p>
+
+        <p>
+          Studying both CBE and IB has made me notice how rarely these fields borrow from each other on this topic. Chemical engineers have sophisticated probabilistic methods for characterizing uncertainty in physical systems, but the decision-making frameworks that determine how that uncertainty gets acted on are often informal or implicit. Business decision theory has explicit frameworks for acting under uncertainty — decision trees,
+          <span class="term">real options analysis<span class="term-tooltip">Real options analysis applies financial option pricing theory to capital investment decisions under uncertainty. A "real option" is the right but not the obligation to take an action — like delaying a plant expansion until market conditions improve. It values flexibility explicitly, rather than treating sunk investment decisions as deterministic.</span></span>,
+          Bayesian updating — but often lacks the physical modeling discipline that tells you what the uncertainty distributions actually are.
+        </p>
+
+        <div class="flaw-grid">
+          <div class="flaw-card">
+            <div class="flaw-label">Engineering approach</div>
+            <div class="flaw-text">Sophisticated uncertainty quantification for physical parameters. Safety factors and probabilistic sizing. But decision frameworks are often informal or inherited from convention.</div>
+          </div>
+          <div class="flaw-card">
+            <div class="flaw-label">Business approach</div>
+            <div class="flaw-text">Explicit frameworks for acting under uncertainty — decision trees, real options, scenario planning. But input uncertainty distributions are often assumed rather than rigorously characterized.</div>
+          </div>
+          <div class="flaw-card">
+            <div class="flaw-label">What each can borrow</div>
+            <div class="flaw-text">Engineers: explicit decision frameworks that value flexibility and account for cognitive bias. Business analysts: disciplined physical modeling to ground the probability distributions the decision frameworks run on.</div>
+          </div>
+          <div class="flaw-card">
+            <div class="flaw-label">The integration gap</div>
+            <div class="flaw-text">Both fields have developed their approaches in relative isolation. The person who understands both — who can characterize the physical uncertainty and then apply sound decision theory to act on it — is rare and useful.</div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>What the discipline teaches</h2>
+
+        <p>
+          The honest answer is that engineering under uncertainty teaches you to be calibrated rather than confident. A calibrated engineer knows the difference between "I have a well-characterized distribution for this parameter" and "I am assuming this parameter is fixed because I don't have a better model." The first is knowledge. The second is a hidden assumption that can propagate invisibly into every downstream decision.
+        </p>
+
+        <p>
+          The other thing it teaches is that committing to a decision does not mean pretending the uncertainty is gone. You build in reversibility where you can — modular designs, options to expand, process units that can handle a wider operating range than the base case requires. Where reversibility is not available, you make the uncertainty explicit in the design documentation, so that the operators who run the plant six years from now know what the original designers did and did not know.
+        </p>
+
+        <div class="margin-note">
+          <p>The most dangerous design is not the one with wide uncertainty bounds. It is the one where the uncertainty was never quantified — where someone looked at a point estimate and forgot that it was one sample from a distribution they never bothered to characterize.</p>
+        </div>
+
+        <p>
+          I don't have a clean resolution to offer. Uncertainty in engineering, as in most things, doesn't resolve — it gets managed. The tools improve. The models get better calibrated. The margins get sized more precisely. But at the end of every design process, an engineer makes a judgment call about how much unknown is acceptable before commitment. Learning to make that call well, and to communicate the assumptions embedded in it, is the skill that takes the longest to develop.
+        </p>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Article navigation">
+        <a href="chemical-potential.html" class="op-article-nav__link">
+          <span class="op-article-nav__link-label">Previous</span>
+          <span class="op-article-nav__link-title">← Chemical potential</span>
+        </a>
+        <a href="index.html" class="op-article-nav__back">← Back to Opinions</a>
+        <span style="min-width:120px;"></span>
+      </nav>
+
+    </article>
+  </main>
+
+  <script src="opinions.js"></script>
+</body>
+</html>

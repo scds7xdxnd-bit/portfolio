@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opinions — Taeyang Han</title>
+  <meta name="description" content="Essays on engineering, thermodynamics, systems, and life by Taeyang Han.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="opinions.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Opinions navigation">
+    <a href="../index.html" class="op-topbar__back" aria-label="Back to Portfolio">← Back to Portfolio</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Opinions</div>
+      <div class="op-topbar__subtitle">Thoughts on engineering, systems, and life</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="../index.html" class="op-topbar__portfolio-link">Taeyang Han →</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="op-hub">
+
+      <header class="op-hub__header">
+        <p class="op-hub__label">Essays &amp; Viewpoints</p>
+        <h1 class="op-hub__headline">Opinions</h1>
+        <p class="op-hub__tagline">Thoughts on engineering, systems and businesses</p>
+      </header>
+
+      <p class="op-hub__intro">
+        These essays are may attempts to express my thoughts on 
+        the topics I study, including thermodynamics, finances, systems 
+        and what it means to build things that matter. 
+        Written to think more clearly, not to perform expertise.
+      </p>
+
+      <!-- Filter chips — populated by JS; noscript fallback below -->
+      <div id="opinions-filters" class="op-filters" role="group" aria-label="Filter by domain"></div>
+
+      <!-- Cards grid — populated by JS -->
+      <div id="opinions-grid" class="op-grid" aria-live="polite" aria-label="Opinion essays"></div>
+
+      <!-- Static fallback if JS is disabled -->
+      <noscript>
+        <ul class="op-fallback" aria-label="Opinion essays">
+          <li>
+            <a href="chemical-potential.html">What does chemical potential actually mean?</a>
+            <p style="font-size:13px;color:#6b7280;margin-top:4px;">Thermodynamics · 9 min read · April 2026</p>
+          </li>
+          <li>
+            <a href="engineering-under-uncertainty.html">Engineering decisions under uncertainty</a>
+            <p style="font-size:13px;color:#6b7280;margin-top:4px;">Engineering · 8 min read · April 2026</p>
+          </li>
+        </ul>
+      </noscript>
+
+      <footer class="op-hub__footer" aria-label="Page metadata">
+        Last updated: April 2026 · 2 essays published
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="opinions.js"></script>
+</body>
+</html>

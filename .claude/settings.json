@@ -28,7 +28,11 @@
       "Bash(curl -s \"https://taeyangcv.vercel.app\")",
       "Bash(curl -s \"https://taeyangcv.vercel.app/styles.css\")",
       "mcp__claude_ai_Vercel__list_deployments",
-      "Bash(ls /Users/ammarhakimi/portfolio/assets/certs/*.JPG)"
+      "Bash(ls /Users/ammarhakimi/portfolio/assets/certs/*.JPG)",
+      "mcp__claude_ai_Vercel__list_teams"
+    ],
+    "additionalDirectories": [
+      "/Users/ammarhakimi/portfolio"
     ]
   }
 }

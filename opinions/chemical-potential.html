@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What does chemical potential actually mean? — Taeyang Han</title>
+  <meta name="description" content="Why μᵢ behaves the way it does, what it means for two phases to share an equal chemical potential, and where the temperature-pressure analogy breaks down.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="opinions.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Article navigation">
+    <a href="index.html" class="op-topbar__back" aria-label="Back to Opinions">← Back to Opinions</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Chemical Potential</div>
+      <div class="op-topbar__subtitle">Solution Thermodynamics</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="../index.html" class="op-topbar__portfolio-link">Portfolio →</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Thermodynamics</p>
+        <h1 class="op-article__title">What does chemical potential actually mean?</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;·&nbsp; Process Thermodynamics, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-article__meta-item">April 2026</span>
+          <span class="op-article__meta-item">·</span>
+          <span class="op-article__meta-item">9 min read</span>
+          <span class="op-article__meta-item">·</span>
+          <span class="op-article__meta-item">Thermodynamics</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <p>
+          Today, my professor covered the general framework of Solution Thermodynamics and introduced the concept of chemical potential,
+          its definition and how it is useful in describing phase equilibrium condition. For such an important concept, the derivation is fairly straightforward but the implication it has in analysing the thermodynamics of a solution is anything but simple.
+        </p>
+        <p>
+          In this essay, I will attempt to explain what chemical potential actually means: why μᵢ behaves the way it does, what it means for two phases to share an equal chemical potential and how it differs in liquids and gases.
+        </p>
+
+        <div class="op-visual-block" style="
+              --color-text-primary: var(--op-text-primary);
+              --color-text-secondary: var(--op-text-secondary);
+              --color-text-tertiary: var(--op-text-tertiary);
+              --font-sans: 'Inter', system-ui, sans-serif;
+              --font-mono: 'Courier New', monospace;
+              border: 0.5px solid var(--op-border-light);
+              border-radius: var(--op-radius-lg);
+              margin: 0 0 2rem;
+              overflow: hidden;">
+
+          <style>
+          .wrap{padding:1.5rem 1rem 2rem;font-family:var(--font-sans)}
+          .sliders{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
+          .slider-group label{font-size:12px;color:var(--color-text-secondary);display:flex;justify-content:space-between;margin-bottom:4px}
+          .slider-group label span{font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono);font-size:12px}
+          .slider-group input{width:100%}
+          .viz{display:flex;align-items:flex-end;gap:0;justify-content:center;margin-bottom:1rem;overflow-x:auto}
+          canvas{display:block}
+          .status-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:0.75rem}
+          .status-pill{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:500;transition:all 0.4s}
+          .status-pill.eq{background:#EAF3DE;color:#27500A}
+          .status-pill.neq{background:#FAEEDA;color:#633806}
+          .delta-row{text-align:center;font-size:12px;color:var(--color-text-tertiary);font-family:var(--font-mono)}
+          .legend{display:flex;justify-content:center;gap:20px;margin-top:1rem}
+          .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+          .legend-dot{width:10px;height:10px;border-radius:50%}
+          </style>
+
+          <div class="wrap">
+            <h2 class="sr-only">Phase equilibrium: molecules move from high to low chemical potential</h2>
+
+            <div class="sliders">
+              <div class="slider-group">
+                <label>μ in phase α <span id="va-out">−3200</span> J/mol</label>
+                <input type="range" id="va" min="-5000" max="0" step="100" value="-3200">
+              </div>
+              <div class="slider-group">
+                <label>μ in phase β <span id="vb-out">−1800</span> J/mol</label>
+                <input type="range" id="vb" min="-5000" max="0" step="100" value="-1800">
+              </div>
+            </div>
+
+            <div class="viz">
+              <canvas id="c" width="560" height="280"></canvas>
+            </div>
+
+            <div class="status-row">
+              <div class="status-pill neq" id="pill">not at equilibrium</div>
+            </div>
+            <div class="delta-row" id="delta">Δμ = 1400 J/mol — species i flows β → α</div>
+
+            <div class="legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>species i (mobile)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7"></div>solvent (fixed)</div>
+            </div>
+          </div>
+
+          <script>
+          (function(){
+          const canvas = document.getElementById('c');
+          const ctx = canvas.getContext('2d');
+          const W = 560, H = 280;
+          const BEAKER_W = 180, BEAKER_H = 200, BEAKER_FLOOR = H - 30;
+          const AX = 60, BX = 320;
+          const LIQUID_H = 170;
+          const N_SOLVENT = 18;
+          const N_MOBILE = 20;
+
+          let muA = -3200, muB = -1800;
+
+          function parseMu(v){ return parseInt(v); }
+
+          const vaEl = document.getElementById('va');
+          const vbEl = document.getElementById('vb');
+          const vaOut = document.getElementById('va-out');
+          const vbOut = document.getElementById('vb-out');
+          const pill = document.getElementById('pill');
+          const deltaEl = document.getElementById('delta');
+
+          function fraction(muA, muB){
+            const range = 5000;
+            const normA = (muA + 5000) / range;
+            const normB = (muB + 5000) / range;
+            const total = normA + normB;
+            if(total === 0) return 0.5;
+            return normB / total;
+          }
+
+          let particles = [];
+
+          function initParticles(){
+            particles = [];
+            const frac = fraction(muA, muB);
+            const countA = Math.round(N_MOBILE * frac);
+            const countB = N_MOBILE - countA;
+            for(let i=0;i<countA;i++){
+              particles.push({phase:'a',mobile:true,x:AX+20+Math.random()*(BEAKER_W-40),y:BEAKER_FLOOR-10-Math.random()*(LIQUID_H-20),vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:5,target:null,crossing:false});
+            }
+            for(let i=0;i<countB;i++){
+              particles.push({phase:'b',mobile:true,x:BX+20+Math.random()*(BEAKER_W-40),y:BEAKER_FLOOR-10-Math.random()*(LIQUID_H-20),vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:5,target:null,crossing:false});
+            }
+            for(let i=0;i<N_SOLVENT;i++){
+              const inA = i < N_SOLVENT/2;
+              const bx = inA ? AX : BX;
+              particles.push({phase:inA?'a':'b',mobile:false,x:bx+30+Math.random()*(BEAKER_W-60),y:BEAKER_FLOOR-15-Math.random()*(LIQUID_H-30),vx:0,vy:0,r:4,target:null,crossing:false});
+            }
+          }
+
+          initParticles();
+
+          function drawBeaker(bx, label, mu, fillColor){
+            const top = BEAKER_FLOOR - LIQUID_H;
+            ctx.strokeStyle = 'rgba(136,135,128,0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(bx, top - 20);
+            ctx.lineTo(bx, BEAKER_FLOOR);
+            ctx.lineTo(bx + BEAKER_W, BEAKER_FLOOR);
+            ctx.lineTo(bx + BEAKER_W, top - 20);
+            ctx.stroke();
+            ctx.fillStyle = fillColor;
+            ctx.fillRect(bx+1.5, top, BEAKER_W-3, LIQUID_H);
+            ctx.strokeStyle = 'rgba(136,135,128,0.15)';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(bx+1.5, top);
+            ctx.lineTo(bx + BEAKER_W - 1.5, top);
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(136,135,128,0.8)';
+            ctx.font = '11px var(--font-sans, sans-serif)';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, bx + BEAKER_W/2, BEAKER_FLOOR + 18);
+            ctx.fillStyle = 'rgba(136,135,128,0.6)';
+            ctx.font = '10px var(--font-mono, monospace)';
+            ctx.fillText(mu.toLocaleString() + ' J/mol', bx + BEAKER_W/2, top - 6);
+          }
+
+          function drawArrow(dir, strength){
+            const cx = W/2;
+            const cy = BEAKER_FLOOR - LIQUID_H/2;
+            const maxW = 40;
+            const arrowW = Math.min(maxW, strength/100 * maxW);
+            if(strength < 150){ return; }
+            ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+            ctx.font = '500 13px var(--font-sans, sans-serif)';
+            ctx.textAlign = 'center';
+            if(dir === 'left'){
+              ctx.beginPath();
+              ctx.moveTo(cx - 8, cy);
+              ctx.lineTo(cx - 8 + arrowW, cy - 6);
+              ctx.lineTo(cx - 8 + arrowW, cy + 6);
+              ctx.closePath();
+              ctx.fill();
+              ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+              ctx.fillRect(cx - 8 + arrowW, cy - 2, 16, 4);
+            } else if(dir === 'right'){
+              ctx.beginPath();
+              ctx.moveTo(cx + 8, cy);
+              ctx.lineTo(cx + 8 - arrowW, cy - 6);
+              ctx.lineTo(cx + 8 - arrowW, cy + 6);
+              ctx.closePath();
+              ctx.fill();
+              ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+              ctx.fillRect(cx + 8 - arrowW - 16, cy - 2, 16, 4);
+            }
+          }
+
+          function lerp(a, b, t){ return a + (b-a)*t; }
+
+          let frame = 0;
+          function animate(){
+            requestAnimationFrame(animate);
+            frame++;
+            ctx.clearRect(0,0,W,H);
+            const fillA = 'rgba(230,241,251,0.6)';
+            const fillB = 'rgba(230,241,251,0.6)';
+            drawBeaker(AX, 'phase α', muA, fillA);
+            drawBeaker(BX, 'phase β', muB, fillB);
+            const diff = muB - muA;
+            const absDiff = Math.abs(diff);
+            const atEq = absDiff < 200;
+            if(!atEq){ drawArrow(diff > 0 ? 'left' : 'right', absDiff); }
+            const targetFrac = fraction(muA, muB);
+            const mobileParticles = particles.filter(p=>p.mobile);
+            const targetCountA = Math.round(N_MOBILE * targetFrac);
+            const currentCountA = mobileParticles.filter(p=>p.phase==='a'&&!p.crossing).length;
+            if(!atEq && frame % 90 === 0){
+              if(currentCountA < targetCountA){
+                const candidates = mobileParticles.filter(p=>p.phase==='b'&&!p.crossing);
+                if(candidates.length > 0){
+                  const p = candidates[Math.floor(Math.random()*candidates.length)];
+                  p.crossing = true; p.phase = 'transit-ab';
+                  p.targetX = AX + 20 + Math.random()*(BEAKER_W-40);
+                  p.targetY = BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20);
+                  p.progress = 0;
+                }
+              } else if(currentCountA > targetCountA){
+                const candidates = mobileParticles.filter(p=>p.phase==='a'&&!p.crossing);
+                if(candidates.length > 0){
+                  const p = candidates[Math.floor(Math.random()*candidates.length)];
+                  p.crossing = true; p.phase = 'transit-ba';
+                  p.targetX = BX + 20 + Math.random()*(BEAKER_W-40);
+                  p.targetY = BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20);
+                  p.progress = 0;
+                }
+              }
+            }
+            for(const p of particles){
+              if(p.phase === 'transit-ab' || p.phase === 'transit-ba'){
+                p.progress = Math.min(1, (p.progress||0) + 0.012);
+                const midX = W/2, midY = BEAKER_FLOOR - LIQUID_H - 20;
+                const startX = p.x, startY = p.y;
+                if(p.progress < 0.5){
+                  const t = p.progress * 2;
+                  p.x = lerp(startX, midX, t);
+                  p.y = lerp(startY, midY, t);
+                } else {
+                  const t = (p.progress - 0.5)*2;
+                  p.x = lerp(midX, p.targetX, t);
+                  p.y = lerp(midY, p.targetY, t);
+                }
+                if(p.progress >= 1){
+                  p.x = p.targetX; p.y = p.targetY;
+                  p.phase = p.phase === 'transit-ab' ? 'a' : 'b';
+                  p.crossing = false;
+                  p.vx = (Math.random()-0.5)*0.4;
+                  p.vy = (Math.random()-0.5)*0.4;
+                  p.progress = 0;
+                }
+              } else if(p.mobile){
+                p.x += p.vx; p.y += p.vy;
+                const bx = p.phase === 'a' ? AX : BX;
+                const liquidTop = BEAKER_FLOOR - LIQUID_H;
+                if(p.x < bx+p.r+2){ p.x = bx+p.r+2; p.vx *= -1; }
+                if(p.x > bx+BEAKER_W-p.r-2){ p.x = bx+BEAKER_W-p.r-2; p.vx *= -1; }
+                if(p.y < liquidTop+p.r+2){ p.y = liquidTop+p.r+2; p.vy *= -1; }
+                if(p.y > BEAKER_FLOOR-p.r-2){ p.y = BEAKER_FLOOR-p.r-2; p.vy *= -1; }
+              }
+              const isTransit = p.phase === 'transit-ab' || p.phase === 'transit-ba';
+              if(p.mobile){
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fillStyle = isTransit ? 'rgba(55,138,221,0.5)' : '#378ADD';
+                ctx.fill();
+              } else {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fillStyle = '#B4B2A9';
+                ctx.fill();
+              }
+            }
+            const diff2 = muB - muA;
+            const abs2 = Math.abs(diff2);
+            const eq2 = abs2 < 200;
+            pill.className = 'status-pill ' + (eq2 ? 'eq' : 'neq');
+            pill.textContent = eq2 ? 'equilibrium' : 'not at equilibrium';
+            if(eq2){
+              deltaEl.textContent = 'μα = μβ — no net mass transfer';
+            } else if(diff2 > 0){
+              deltaEl.textContent = 'Δμ = ' + Math.abs(diff2).toLocaleString() + ' J/mol — species i flows β → α';
+            } else {
+              deltaEl.textContent = 'Δμ = ' + Math.abs(diff2).toLocaleString() + ' J/mol — species i flows α → β';
+            }
+          }
+
+          vaEl.addEventListener('input', ()=>{ muA = parseMu(vaEl.value); vaOut.textContent = muA.toLocaleString(); });
+          vbEl.addEventListener('input', ()=>{ muB = parseMu(vbEl.value); vbOut.textContent = muB.toLocaleString(); });
+
+          animate();
+          })();
+          </script>
+
+        </div>
+
+        <h2>The definition, and what it actually says</h2>
+
+        <p>The
+          <span class="term">chemical potential<span class="term-tooltip">Symbol: μᵢ, Chemical potential is used to describe how much the total Gibbs Free energy of a system changes for every small amount of species i added into the system while holding T, P and all other species constant.</span></span>
+          of species i is defined as:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Definition of chemical potential</div>
+          <div class="eq-main">μᵢ ≡ [∂(nG) / ∂nᵢ]<sub>T, P, nⱼ</sub></div>
+        </div>
+
+        <p>
+          Reading this literally: if we add an infinitely small amount of species i to a mixture at fixed T and P, μᵢ tells us how much the total
+          <span class="term">Gibbs Free energy<span class="term-tooltip">G = H − TS. The Gibbs Free energy is the lowest at equilibrium for processes at constant T and P, which is why it is useful to analyse chemical and phase equilibria of a solution.</span></span>
+          changes per mole added. A large μᵢ means the system's energy rises sharply when more of species i enters. A small μᵢ means it enters at little energetic cost.
+        </p>
+
+        <hr>
+
+        <h2>Why Gibbs Free energy and not the others?</h2>
+
+        <p>
+          The definition above uses G, but this is not the only way to define μᵢ. Chemical potential appears identically as the partial molar derivative of all four thermodynamic potentials — each holding different variables constant:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">μᵢ from all four thermodynamic potentials</div>
+          <div class="eq-main">
+            μᵢ = (∂U/∂nᵢ)<sub>S, V, nⱼ</sub><br>
+            μᵢ = (∂H/∂nᵢ)<sub>S, P, nⱼ</sub><br>
+            μᵢ = (∂A/∂nᵢ)<sub>V, T, nⱼ</sub><br>
+            μᵢ = (∂G/∂nᵢ)<sub>P, T, nⱼ</sub>
+          </div>
+        </div>
+
+        <p>
+          All these values give the same quantity. The reason the Gibbs energy version is used almost exclusively because of its direct relationship with temperature and pressure, which are easily controlled in every real process and laboratory experiment. Holding entropy or volume constant is mathematically convenient but experimentally difficult.
+        </p>
+
+        <hr>
+
+        <h2>Why is it called the chemical "potential"?</h2>
+
+        <p>
+          The word "potential" is essentially the same potential that is used in gravitational potential energy. 
+          It refers to the energy that is 'stored' in a solution through the interactions between the species making up a system. 
+          Since systems at constant T and P tend to move toward a minimum Gibbs Free energy state (the equilibrium state), 
+          the chemical potential can be thought of as a measure of how much "potential energy" is stored in the system due to the presence of species i.
+          This potential energy is a measure of where in the solution can species i move to reduce the total G. 
+          If μᵢ is high in one phase and low in another, species i will transfer spontaneously from the high-μ phase to the low-μ phase because that transfer lowers the total Gibbs energy of the system.
+        </p>
+
+        <p>
+          Another way to view this is to understand μᵢ as a driving force that moves species i in a solution from one phase to another, much like temperature and pressure:
+        </p>
+
+        <div class="analogy-box">
+          <div class="analogy-title">Driving forces for spontaneous transfer</div>
+          <div class="analogy-grid">
+            <div class="analogy-col">
+              <div class="analogy-driver">Driver</div>
+              <div class="analogy-quantity">T</div>
+              <div class="analogy-drives">drives heat transfer</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-driver">Driver</div>
+              <div class="analogy-quantity">P</div>
+              <div class="analogy-drives">drives volume change</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-driver">Driver</div>
+              <div class="analogy-quantity">μᵢ</div>
+              <div class="analogy-drives">drives mass transfer</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Mass transfer stops when μᵢ is equal across all phases. This is the phase equilibrium criterion and the chemical potential is what drives the system there:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Phase equilibrium criterion</div>
+          <div class="eq-main">μᵢᵅ = μᵢᵝ = · · · = μᵢᵖ &nbsp; (i = 1, 2, …, N)</div>
+        </div>
+
+        <hr>
+
+        <h2>Chemical potential and pressure</h2>
+
+        <p>
+          Since μ = G/n for a pure substance and dG = VdP − SdT, it follows directly that:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Pressure and temperature dependence of chemical potential</div>
+          <div class="eq-main">dμ = VdP − SdT</div>
+        </div>
+
+        <p>
+          At constant temperature this reduces to (∂μ/∂P)<sub>T</sub> = V. The steepness of μ with pressure is set by the molar volume. For an
+          <span class="term">incompressible substance<span class="term-tooltip">A liquid or solid where molar volume V barely changes with pressure. The integral of V dP from P° to P reduces to a simple linear term V(P − P°).</span></span>
+          — a liquid or solid where V is effectively constant — integrating at constant T gives:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Incompressible substance (liquid or solid)</div>
+          <div class="eq-main">μ = μ° + V(P − P°)</div>
+        </div>
+
+        <p>
+          For a gas, this falls apart because V is not constant. Substituting V = RT/P for an ideal gas and integrating:
+        </p>
+
+        <div class="eq-block">
+          <div class="eq-label">Ideal gas</div>
+          <div class="eq-main">μ = μ° + RT ln(P / P°)</div>
+        </div>
+
+        <p>
+          The logarithm appears because ideal gas volume is inversely proportional to pressure and integrating 1/P over the pressure change gives ln(P). From the equation, we can see that the chemical potential is proportional to pressure: as pressure increases, μ increases.
+        </p>
+
+        <p>
+          At higher pressure, molecules are packed closer together and. As a result. As a result from the high chemical potential, they have a stronger tendency to move to a state of lower chemical potential.
+        </p>
+
+        <hr>
+
+        <h2>What ln(P/P°) is actually saying</h2>
+
+        <p>
+          Finally, we can close the discussion on the ln(P/P°) term. 
+          This term reflects something important: chemical potential, unlike temperature or pressure, is not measured on an absolute scale. 
+          Only the differences between two phases matter. 
+          If the reference state μ° talks about the molecule's raw intrinsic energy at standard conditions then the RT ln(P/P°) term captures how much the actual state deviates from that reference.
+        </p>
+
+        <p>
+          This is why chemical potential is harder to build intuition for than temperature. You cannot point to a number and say "the chemical potential is −3200 J/mol, therefore..." in the way you can say "it's 80°C." 
+          What you can say is whether two phases have equal μᵢ — and that equality is the condition that governs whether a system will stay put or change. 
+          Every VLE calculation, every phase diagram, every activity coefficient model is ultimately solving for the conditions under which that equality holds.
+        </p>
+
+        <div class="margin-note">
+          <p>The question is less of how much is the value of μᵢ and rather how much is the difference of μᵢ between two phases. 
+            Only through this comparison can we determine the direction of mass transfer and whether the system is at equilibrium.</p>
+        </div>
+
+        <hr>
+
+        <h2>TL;DR — Chemical Potential</h2>
+
+        <div class="callout-block">
+          <div class="callout-label">Summary</div>
+          <p>
+            μᵢ is a single number that answers one question: does species i want to move? 
+            It is defined as how much the total Gibbs Free energy of a mixture changes when you add a tiny amount of species i at fixed T and P. 
+            High μᵢ means adding more costs energy (the species is under thermodynamic pressure to leave) and low μᵢ means the opposite.<br><br>
+            All four thermodynamic potentials give the same μᵢ when differentiated with respect to nᵢ. 
+            The G-based definition is generally preferred because constant T and P are easily obtainable in real processes.<br><br>
+            Through the relationship between chemical potential and pressure at constant T, we can find that the chemical potential of incompressible substances (liquids, solids) shift linearly with change in pressure — μ = μ° + V(P − P°). 
+            Though, the same idea does not apply to gases due to its change in volume. 
+            Chemical potential of ideal gases shift logarithmically with change in P — μ = μ° + RT ln(P/P°) — because gas volume is inversely proportional to pressure.<br><br>
+            Finally, phase equilibrium is reached when μᵢ is equal in every phase. That equality is the starting point for every VLE, LLE and SLE calculation in chemical engineering.
+          </p>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Article navigation">
+        <span style="min-width:120px;"></span>
+        <a href="index.html" class="op-article-nav__back">← Back to Opinions</a>
+        <a href="engineering-under-uncertainty.html" class="op-article-nav__link" style="text-align:right;">
+          <span class="op-article-nav__link-label">Next</span>
+          <span class="op-article-nav__link-title">Engineering under uncertainty →</span>
+        </a>
+      </nav>
+
+    </article>
+  </main>
+
+  <script src="opinions.js"></script>
+</body>
+</html>
