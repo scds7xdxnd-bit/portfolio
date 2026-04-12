@@ -66,6 +66,8 @@ const TRANSLATIONS = {
     'project.lifeos.name':'LifeOS',
     'project.lifeos.desc':'Unified personal life management platform across finance, health, habits, and productivity.',
     'project.lifeos.h1':'6 integrated life domains','project.lifeos.h2':'LP macro optimizer','project.lifeos.h3':'Event-driven architecture','project.lifeos.h4':'Custom design system',
+    'project.fugacity.name':'Fugacity Simulator',
+    'project.fugacity.desc':'Interactive thermodynamics simulator visualizing fugacity and fugacity coefficient versus pressure across vapor, liquid, and saturation regions using steam-table data.',
     'project.xiaohongshu.name':'Xiaohongshu Build Log',
     'project.xiaohongshu.desc':'Public build-in-public account documenting product iterations and execution process.',
     'project.accounting.name':'Personal Accounting System',
@@ -136,6 +138,8 @@ const TRANSLATIONS = {
     'project.lifeos.name':'LifeOS',
     'project.lifeos.desc':'统一个人生活管理平台，涵盖财务、健康、习惯与效率提升。',
     'project.lifeos.h1':'6个生活领域整合','project.lifeos.h2':'LP宏观优化器','project.lifeos.h3':'事件驱动架构','project.lifeos.h4':'自定义设计系统',
+    'project.fugacity.name':'逸度模拟器',
+    'project.fugacity.desc':'交互式热力学模拟器，基于蒸汽表数据可视化不同压力下气相、液相与饱和边界中的逸度与逸度系数变化。',
     'project.xiaohongshu.name':'小红书开发日志',
     'project.xiaohongshu.desc':'公开记录产品迭代过程，展示执行思路与构建历程。',
     'project.accounting.name':'个人记账系统',
@@ -173,6 +177,17 @@ const PROJECTS = [
     image_path: 'assets/projects/lifeos.jpg',
     is_hero: true,
     highlightsKeys: ['project.lifeos.h1', 'project.lifeos.h2', 'project.lifeos.h3', 'project.lifeos.h4']
+  },
+  {
+    id: 'fugacity-simulator',
+    nameKey: 'project.fugacity.name',
+    descriptionKey: 'project.fugacity.desc',
+    tech_stack: ['Vanilla JavaScript', 'HTML5 Canvas', 'CSV Data Processing', 'Thermodynamics'],
+    status: 'Completed',
+    url: 'https://fugacity-simulator.vercel.app',
+    image_path: 'assets/projects/fugacity_simulator.jpg',
+    is_hero: false,
+    highlightsKeys: []
   },
   {
     id: 'xiaohongshu',
