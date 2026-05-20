@@ -81,7 +81,8 @@ img {
 }
 
 .topbar__brand,
-.topbar__meta {
+.topbar__meta,
+.topbar__actions {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -113,6 +114,23 @@ img {
 .topbar__meta span + span {
   padding-left: 12px;
   border-left: 1px solid rgba(235, 200, 136, 0.28);
+}
+
+.lang-toggle {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(235, 200, 136, 0.44);
+  border-radius: var(--radius);
+  color: var(--cream);
+  background: rgba(235, 200, 136, 0.08);
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.lang-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(235, 200, 136, 0.78);
 }
 
 .app-shell {
@@ -221,8 +239,7 @@ h1 {
 
 .control-panel,
 .sim-panel,
-.solution-section,
-.insight-card {
+.solution-section {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
@@ -324,8 +341,7 @@ input[type="range"] {
 .live-stats span,
 .summary-metrics span,
 .pattern-board span,
-.species-row span,
-.insight-card p {
+.species-row span {
   color: rgba(247, 236, 209, 0.68);
   font-size: 0.82rem;
 }
@@ -561,35 +577,10 @@ input[type="range"] {
   background: linear-gradient(90deg, var(--sage), var(--moonlight));
 }
 
-.insight-section {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 24px;
-}
-
-.insight-card {
-  display: grid;
-  gap: 10px;
-  min-height: 172px;
-  padding: 20px;
-}
-
-.insight-card h3 {
-  font-family: var(--font-display);
-  font-size: clamp(1.45rem, 2vw, 1.9rem);
-  line-height: 1.08;
-}
-
-.insight-card p {
-  line-height: 1.65;
-}
-
 @media (max-width: 1080px) {
   .hero-band,
   .planner-grid,
-  .solution-summary,
-  .insight-section {
+  .solution-summary {
     grid-template-columns: 1fr;
   }
 
@@ -610,6 +601,11 @@ input[type="range"] {
 
   .topbar__meta {
     flex-wrap: wrap;
+  }
+
+  .topbar__actions {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .app-shell {

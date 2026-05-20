@@ -7,16 +7,128 @@
     targetStickers: 10
   };
 
-  const SPECIES_NAMES = [
-    "Moon Deer",
-    "Lantern Fox",
-    "Sage Owl",
-    "Twilight Hare",
-    "Wildflower Moth",
-    "Forest Stag",
-    "Mushroom Lynx",
-    "Crescent Squirrel"
-  ];
+  const TRANSLATIONS = {
+    ko: {
+      "document.title": "삼성 리더십 캠프 조 편성 시뮬레이터 | DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
+      "event.name": "DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
+      "topbar.camp": "삼성 리더십 캠프",
+      "topbar.attendees": "270명 참여",
+      "lang.toggle": "EN",
+      "hero.eyebrow": "DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
+      "hero.title": "동물 조 편성 계산기와 교류 시뮬레이터",
+      "hero.description": "글로벌과 대학 장학생 조를 동물 종별로 균형 있게 배정하고, 학생들이 축제 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.",
+      "planner.eyebrow": "플래너",
+      "planner.title": "캠프 입력값",
+      "input.species": "전체 동물 종 수",
+      "quick.4": "4종",
+      "quick.6": "6종",
+      "quick.8": "8종",
+      "input.globalGroups": "글로벌 조",
+      "input.universityGroups": "대학 조",
+      "input.groupSize": "조당 학생 수",
+      "input.eventHeadcount": "전체 참여 인원",
+      "input.exchangeThreshold": "교환 완료 기준 시간",
+      "input.simulationSpeed": "시뮬레이션 속도",
+      "action.start": "시작",
+      "action.pause": "일시정지",
+      "action.reset": "초기화",
+      "formula.eyebrow": "만남 확률 공식",
+      "formula.text": "(같은 동물 전체 인원 - 8) / 262",
+      "state.running": "실행 중",
+      "state.paused": "정지",
+      "stats.completed": "완료 학생",
+      "stats.averageStickers": "평균 스티커 수",
+      "stats.validMeetings": "유효 만남 비율",
+      "stats.exchanges": "교환 횟수",
+      "solution.eyebrow": "최적 편성",
+      "solution.groupsPerSpecies": "동물별 조 수",
+      "solution.peoplePerSpecies": "동물별 인원",
+      "solution.eligibleProbability": "유효 만남 확률",
+      "solution.oneSpecies": "1종 편성: 모든 조가 하나의 동물에 배정됨",
+      "solution.multiSpecies": "{species}종 편성: 동물마다 {groups}",
+      "species.global": "글로벌",
+      "species.university": "대학",
+      "species.people": "인원",
+      "species.formula": "공식",
+      "unit.group": "조",
+      "unit.groups": "조",
+      "unit.person": "명",
+      "unit.people": "명"
+    },
+    en: {
+      "document.title": "Samsung Leadership Camp Grouping Simulator | DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
+      "event.name": "DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
+      "topbar.camp": "Samsung Leadership Camp",
+      "topbar.attendees": "270 attendees",
+      "lang.toggle": "한국어",
+      "hero.eyebrow": "DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
+      "hero.title": "Animal grouping calculator and exchange simulator",
+      "hero.description": "Balance global and university scholar groups by animal species, then simulate how easily students can collect 10 different name stickers in the festival crowd.",
+      "planner.eyebrow": "Planner",
+      "planner.title": "Camp inputs",
+      "input.species": "Total animal species",
+      "quick.4": "4 species",
+      "quick.6": "6 species",
+      "quick.8": "8 species",
+      "input.globalGroups": "Global groups",
+      "input.universityGroups": "University groups",
+      "input.groupSize": "Students per group",
+      "input.eventHeadcount": "Event headcount",
+      "input.exchangeThreshold": "Exchange threshold",
+      "input.simulationSpeed": "Simulation speed",
+      "action.start": "Start",
+      "action.pause": "Pause",
+      "action.reset": "Reset",
+      "formula.eyebrow": "Encounter formula",
+      "formula.text": "(same-species people - 8) / 262",
+      "state.running": "Running",
+      "state.paused": "Paused",
+      "stats.completed": "Completed",
+      "stats.averageStickers": "Average stickers",
+      "stats.validMeetings": "Valid meetings",
+      "stats.exchanges": "Exchanges",
+      "solution.eyebrow": "Optimal grouping",
+      "solution.groupsPerSpecies": "Groups per species",
+      "solution.peoplePerSpecies": "People per species",
+      "solution.eligibleProbability": "Eligible encounter probability",
+      "solution.oneSpecies": "1 species concentrates every group into one animal",
+      "solution.multiSpecies": "{species} species gives {groups} per animal",
+      "species.global": "Global",
+      "species.university": "University",
+      "species.people": "People",
+      "species.formula": "Formula",
+      "unit.group": "group",
+      "unit.groups": "groups",
+      "unit.person": "person",
+      "unit.people": "people"
+    }
+  };
+
+  let currentLang = localStorage.getItem("samsungCampLang") || "ko";
+  if (!Object.prototype.hasOwnProperty.call(TRANSLATIONS, currentLang)) currentLang = "ko";
+
+  const SPECIES_NAMES = {
+    ko: [
+      "달빛 사슴",
+      "랜턴 여우",
+      "세이지 부엉이",
+      "황혼 토끼",
+      "들꽃 나방",
+      "숲의 수사슴",
+      "버섯 스라소니",
+      "초승달 다람쥐"
+    ],
+    en: [
+      "Moon Deer",
+      "Lantern Fox",
+      "Sage Owl",
+      "Twilight Hare",
+      "Wildflower Moth",
+      "Forest Stag",
+      "Mushroom Lynx",
+      "Crescent Squirrel"
+    ]
+  };
 
   const SPECIES_COLORS = [
     "#ebc888",
@@ -30,6 +142,7 @@
   ];
 
   const els = {
+    languageToggle: document.getElementById("languageToggle"),
     speciesCount: document.getElementById("speciesCount"),
     speciesValue: document.getElementById("speciesValue"),
     exchangeSeconds: document.getElementById("exchangeSeconds"),
@@ -56,11 +169,6 @@
     globalPattern: document.getElementById("globalPattern"),
     universityPattern: document.getElementById("universityPattern"),
     speciesRows: document.getElementById("speciesRows"),
-    rosterModel: document.getElementById("rosterModel"),
-    expectedInteractions: document.getElementById("expectedInteractions"),
-    effortText: document.getElementById("effortText"),
-    planningSignal: document.getElementById("planningSignal"),
-    planningText: document.getElementById("planningText"),
     canvas: document.getElementById("festivalCanvas")
   };
 
@@ -81,23 +189,39 @@
     exchangeCount: 0
   };
 
+  function t(key, replacements = {}) {
+    const dictionary = TRANSLATIONS[currentLang] || TRANSLATIONS.ko;
+    const fallback = TRANSLATIONS.ko[key] || key;
+    return (dictionary[key] || fallback).replace(/\{(\w+)\}/g, (_, name) => (
+      Object.prototype.hasOwnProperty.call(replacements, name) ? replacements[name] : `{${name}}`
+    ));
+  }
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang;
+    document.title = t("document.title");
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+      element.textContent = t(element.dataset.i18n);
+    });
+    if (els.languageToggle) {
+      els.languageToggle.setAttribute(
+        "aria-label",
+        currentLang === "ko" ? "영어로 전환" : "Switch to Korean"
+      );
+    }
+  }
+
+  function getSpeciesName(index) {
+    const names = SPECIES_NAMES[currentLang] || SPECIES_NAMES.ko;
+    return names[index] || (currentLang === "ko" ? `동물 ${index + 1}` : `Species ${index + 1}`);
+  }
+
   function balancedCounts(total, slots) {
     const base = Math.floor(total / slots);
     const remainder = total % slots;
     return Array.from({ length: slots }, (_, index) => (
       index >= slots - remainder ? base + 1 : base
     ));
-  }
-
-  function expectedRandomEncounters(eligiblePeople) {
-    const denominator = CONFIG.eventHeadcount - CONFIG.groupSize;
-    const target = Math.min(CONFIG.targetStickers, eligiblePeople);
-    if (target < CONFIG.targetStickers) return Infinity;
-    let expected = 0;
-    for (let collected = 0; collected < target; collected += 1) {
-      expected += denominator / (eligiblePeople - collected);
-    }
-    return expected;
   }
 
   function buildPlan(speciesCount) {
@@ -115,15 +239,13 @@
       const probability = eligiblePeople / denominator;
       return {
         index,
-        name: SPECIES_NAMES[index] || `Species ${index + 1}`,
         color: SPECIES_COLORS[index % SPECIES_COLORS.length],
         globalGroups,
         universityGroups,
         totalGroups,
         people,
         eligiblePeople,
-        probability,
-        expectedEncounters: expectedRandomEncounters(eligiblePeople)
+        probability
       };
     });
 
@@ -141,10 +263,18 @@
     return `${(value * 100).toFixed(1)}%`;
   }
 
-  function formatRange(values, suffix) {
+  function formatUnit(value, singularKey, pluralKey) {
+    const key = value === 1 ? singularKey : pluralKey;
+    const unit = t(key);
+    return currentLang === "ko" ? `${value}${unit}` : `${value} ${unit}`;
+  }
+
+  function formatRange(values, singularKey, pluralKey) {
     const min = Math.min(...values);
     const max = Math.max(...values);
-    return min === max ? `${min} ${suffix}` : `${min}-${max} ${suffix}`;
+    if (min === max) return formatUnit(min, singularKey, pluralKey);
+    const unit = t(pluralKey);
+    return currentLang === "ko" ? `${min}-${max}${unit}` : `${min}-${max} ${unit}`;
   }
 
   function formatDecimalRange(values) {
@@ -160,69 +290,48 @@
     return `${minutes}:${secs}`;
   }
 
-  function average(values) {
-    return values.reduce((sum, value) => sum + value, 0) / values.length;
-  }
-
   function updatePlanUI() {
     const plan = state.plan;
     const groups = plan.species.map(item => item.totalGroups);
     const people = plan.species.map(item => item.people);
     const probabilities = plan.species.map(item => item.probability);
-    const expected = plan.species.map(item => item.expectedEncounters);
     const minGroups = Math.min(...groups);
     const maxGroups = Math.max(...groups);
-    const avgExpected = average(expected);
-    const avgProbability = average(probabilities);
 
     els.speciesValue.textContent = plan.speciesCount;
     els.globalGroupCount.textContent = CONFIG.globalGroups;
     els.universityGroupCount.textContent = CONFIG.universityGroups;
     els.groupSize.textContent = CONFIG.groupSize;
     els.eventHeadcount.textContent = CONFIG.eventHeadcount;
-    els.formulaText.textContent = `(same-species people - ${CONFIG.groupSize}) / ${CONFIG.eventHeadcount - CONFIG.groupSize}`;
+    els.formulaText.textContent = t("formula.text");
     els.solutionHeadline.textContent = plan.speciesCount === 1
-      ? "1 species concentrates every group into one animal"
-      : `${plan.speciesCount} species gives ${minGroups === maxGroups ? minGroups : `${minGroups}-${maxGroups}`} groups per animal`;
-    els.groupRange.textContent = formatRange(groups, "groups");
-    els.peopleRange.textContent = formatRange(people, "people");
+      ? t("solution.oneSpecies")
+      : t("solution.multiSpecies", {
+          species: plan.speciesCount,
+          groups: minGroups === maxGroups
+            ? formatUnit(minGroups, "unit.group", "unit.groups")
+            : formatRange(groups, "unit.group", "unit.groups")
+        });
+    els.groupRange.textContent = formatRange(groups, "unit.group", "unit.groups");
+    els.peopleRange.textContent = formatRange(people, "unit.person", "unit.people");
     els.probabilityRange.textContent = formatDecimalRange(probabilities);
     els.globalPattern.textContent = plan.global.join(" + ");
     els.universityPattern.textContent = plan.university.join(" + ");
-    els.rosterModel.textContent = `${plan.groupedPlayers} grouped sticker players + ${plan.ambientAttendees} ambient attendees`;
-    els.expectedInteractions.textContent = `About ${Math.round(avgExpected)} random encounters for 10 names`;
-
-    if (avgProbability < 0.1) {
-      els.planningSignal.textContent = "Balanced and challenging";
-      els.planningText.textContent = "This setup keeps animal groups small, so students need more mixing time and a lively movement pattern.";
-    } else if (avgProbability < 0.17) {
-      els.planningSignal.textContent = "Balanced and medium difficulty";
-      els.planningText.textContent = "This setup keeps the animal totals even while giving each student a reasonable pool of valid partners.";
-    } else {
-      els.planningSignal.textContent = "Balanced and easier to complete";
-      els.planningText.textContent = "This setup gives each animal a larger partner pool, so completion should be faster but identities are less varied.";
-    }
-
-    const minExpected = Math.min(...expected);
-    const maxExpected = Math.max(...expected);
-    els.effortText.textContent = minExpected === maxExpected
-      ? `At this balance, a student needs about ${Math.round(avgExpected)} random encounters to collect 10 unique valid names.`
-      : `Depending on the animal, a student needs about ${Math.round(minExpected)}-${Math.round(maxExpected)} random encounters to collect 10 unique valid names.`;
 
     els.speciesRows.innerHTML = plan.species.map(item => `
       <article class="species-row">
         <div class="species-row__top">
           <div class="species-name">
             <i class="species-dot" style="background:${item.color}"></i>
-            <strong>${item.name}</strong>
+            <strong>${getSpeciesName(item.index)}</strong>
           </div>
-          <div class="species-total">${item.totalGroups} groups</div>
+          <div class="species-total">${formatUnit(item.totalGroups, "unit.group", "unit.groups")}</div>
         </div>
         <div class="species-row__metrics">
-          <div><span>글로벌</span><strong>${item.globalGroups}</strong></div>
-          <div><span>대학</span><strong>${item.universityGroups}</strong></div>
-          <div><span>People</span><strong>${item.people}</strong></div>
-          <div><span>Formula</span><strong>${formatPercent(item.probability)}</strong></div>
+          <div><span>${t("species.global")}</span><strong>${item.globalGroups}</strong></div>
+          <div><span>${t("species.university")}</span><strong>${item.universityGroups}</strong></div>
+          <div><span>${t("species.people")}</span><strong>${item.people}</strong></div>
+          <div><span>${t("species.formula")}</span><strong>${formatPercent(item.probability)}</strong></div>
         </div>
         <div class="probability-track" aria-hidden="true">
           <i style="width:${Math.min(100, item.probability * 420)}%"></i>
@@ -273,8 +382,8 @@
     state.time = 0;
     state.running = false;
     state.lastFrame = null;
-    els.toggleSimulation.textContent = "Start";
-    els.runState.textContent = "Paused";
+    els.toggleSimulation.textContent = t("action.start");
+    els.runState.textContent = t("state.paused");
 
     function addStudent(speciesIndex, groupId, program, color, ambient = false) {
       const point = randomPointInMeadow();
@@ -534,7 +643,7 @@
     const validRate = state.contactStarts ? state.validContactStarts / state.contactStarts : 0;
 
     els.elapsedTime.textContent = formatTime(state.time);
-    els.runState.textContent = state.running ? "Running" : "Paused";
+    els.runState.textContent = state.running ? t("state.running") : t("state.paused");
     els.completedStudents.textContent = `${completed} / ${grouped.length}`;
     els.averageStickers.textContent = averageStickers.toFixed(1);
     els.validMeetingRate.textContent = formatPercent(validRate);
@@ -542,7 +651,7 @@
 
     if (completed >= grouped.length && grouped.length > 0) {
       state.running = false;
-      els.toggleSimulation.textContent = "Start";
+      els.toggleSimulation.textContent = t("action.start");
     }
   }
 
@@ -574,6 +683,15 @@
   }
 
   function bindEvents() {
+    els.languageToggle.addEventListener("click", () => {
+      currentLang = currentLang === "ko" ? "en" : "ko";
+      localStorage.setItem("samsungCampLang", currentLang);
+      applyTranslations();
+      updatePlanUI();
+      updateLiveStats();
+      els.toggleSimulation.textContent = state.running ? t("action.pause") : t("action.start");
+    });
+
     els.speciesCount.addEventListener("input", event => {
       applySpeciesCount(event.target.value);
     });
@@ -592,8 +710,8 @@
 
     els.toggleSimulation.addEventListener("click", () => {
       state.running = !state.running;
-      els.toggleSimulation.textContent = state.running ? "Pause" : "Start";
-      els.runState.textContent = state.running ? "Running" : "Paused";
+      els.toggleSimulation.textContent = state.running ? t("action.pause") : t("action.start");
+      els.runState.textContent = state.running ? t("state.running") : t("state.paused");
       state.lastFrame = null;
     });
 
@@ -602,6 +720,7 @@
   }
 
   function init() {
+    applyTranslations();
     els.exchangeSecondsValue.textContent = Number(els.exchangeSeconds.value).toFixed(1);
     els.speedValue.textContent = Number(els.speedMultiplier.value).toFixed(1);
     bindEvents();
