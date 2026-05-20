@@ -4,7 +4,14 @@
     universityGroups: 22,
     groupSize: 8,
     eventHeadcount: 270,
-    targetStickers: 10
+    targetStickers: 10,
+    minCompletionGoal: 1,
+    maxCompletionGoal: 30,
+    maxExchangeSeconds: 60,
+    exchangeBehaviorBaseline: 1.22,
+    exchangeCrowdBaseline: 1.08,
+    crowdRadius: 34,
+    personalSpace: 13
   };
 
   const TRANSLATIONS = {
@@ -28,6 +35,7 @@
       "input.groupSize": "조당 학생 수",
       "input.eventHeadcount": "전체 참여 인원",
       "input.exchangeThreshold": "교환 완료 기준 시간",
+      "input.completionGoal": "완료 목표 이름 수",
       "input.simulationSpeed": "시뮬레이션 속도",
       "action.start": "시작",
       "action.pause": "일시정지",
@@ -40,6 +48,8 @@
       "stats.averageStickers": "평균 스티커 수",
       "stats.validMeetings": "유효 만남 비율",
       "stats.exchanges": "교환 횟수",
+      "stats.firstTenCompletions": "첫 10명 완료 시간",
+      "stats.firstTenEmpty": "기록 없음",
       "solution.eyebrow": "최적 편성",
       "solution.groupsPerSpecies": "동물별 조 수",
       "solution.peoplePerSpecies": "동물별 인원",
@@ -75,6 +85,7 @@
       "input.groupSize": "Students per group",
       "input.eventHeadcount": "Event headcount",
       "input.exchangeThreshold": "Exchange threshold",
+      "input.completionGoal": "Completion goal",
       "input.simulationSpeed": "Simulation speed",
       "action.start": "Start",
       "action.pause": "Pause",
@@ -87,6 +98,8 @@
       "stats.averageStickers": "Average stickers",
       "stats.validMeetings": "Valid meetings",
       "stats.exchanges": "Exchanges",
+      "stats.firstTenCompletions": "First 10 completion times",
+      "stats.firstTenEmpty": "No records yet",
       "solution.eyebrow": "Optimal grouping",
       "solution.groupsPerSpecies": "Groups per species",
       "solution.peoplePerSpecies": "People per species",
@@ -141,12 +154,129 @@
     "#a8c982"
   ];
 
+  const BEHAVIOR_PROFILES = {
+    seeker: {
+      weight: 0.28,
+      scanRadius: [132, 205],
+      scanCooldown: [0.55, 1.6],
+      patience: [2.2, 5.2],
+      maxSpeed: 54,
+      steer: 96,
+      exchangeFactor: [0.78, 1.18],
+      zonePull: 0.28,
+      groupPull: 0.03
+    },
+    wanderer: {
+      weight: 0.25,
+      scanRadius: [0, 0],
+      scanCooldown: [Infinity, Infinity],
+      patience: [0, 0],
+      maxSpeed: 40,
+      steer: 0,
+      exchangeFactor: [0.95, 1.45],
+      zonePull: 0.2,
+      groupPull: 0.04
+    },
+    social: {
+      weight: 0.2,
+      scanRadius: [76, 126],
+      scanCooldown: [1.4, 3.4],
+      patience: [1.2, 2.8],
+      maxSpeed: 34,
+      steer: 44,
+      exchangeFactor: [1.0, 1.7],
+      zonePull: 0.12,
+      groupPull: 0.34
+    },
+    shy: {
+      weight: 0.15,
+      scanRadius: [58, 104],
+      scanCooldown: [2.6, 5.8],
+      patience: [0.8, 2.2],
+      maxSpeed: 29,
+      steer: 30,
+      exchangeFactor: [1.45, 2.35],
+      zonePull: 0.08,
+      groupPull: 0.2
+    },
+    hyper: {
+      weight: 0.12,
+      scanRadius: [175, 255],
+      scanCooldown: [0.25, 0.9],
+      patience: [1.7, 3.6],
+      maxSpeed: 68,
+      steer: 126,
+      exchangeFactor: [0.52, 0.95],
+      zonePull: 0.36,
+      groupPull: 0.02
+    },
+    ambient: {
+      weight: 0,
+      scanRadius: [0, 0],
+      scanCooldown: [Infinity, Infinity],
+      patience: [0, 0],
+      maxSpeed: 26,
+      steer: 0,
+      exchangeFactor: [1, 1],
+      zonePull: 0.16,
+      groupPull: 0
+    }
+  };
+
+  const VENUE_ZONES = [
+    { x: 0.25, y: 0.25, radius: 82, pull: 20, label: "lantern" },
+    { x: 0.72, y: 0.29, radius: 94, pull: 24, label: "music" },
+    { x: 0.42, y: 0.74, radius: 88, pull: 18, label: "food" },
+    { x: 0.78, y: 0.72, radius: 78, pull: 16, label: "photo" }
+  ];
+
+  const HUMAN_TRAITS = {
+    seeker: {
+      awareness: [0.76, 1.12],
+      stamina: [0.82, 1.12],
+      anxiety: [0.06, 0.18],
+      fear: [0.04, 0.14]
+    },
+    wanderer: {
+      awareness: [0.46, 0.78],
+      stamina: [0.86, 1.18],
+      anxiety: [0.04, 0.14],
+      fear: [0.03, 0.12]
+    },
+    social: {
+      awareness: [0.56, 0.88],
+      stamina: [0.78, 1.06],
+      anxiety: [0.08, 0.2],
+      fear: [0.04, 0.16]
+    },
+    shy: {
+      awareness: [0.42, 0.74],
+      stamina: [0.62, 0.94],
+      anxiety: [0.18, 0.36],
+      fear: [0.16, 0.34]
+    },
+    hyper: {
+      awareness: [0.72, 1.08],
+      stamina: [0.94, 1.26],
+      anxiety: [0.02, 0.12],
+      fear: [0.02, 0.1]
+    },
+    ambient: {
+      awareness: [0.32, 0.62],
+      stamina: [0.72, 1.02],
+      anxiety: [0.02, 0.1],
+      fear: [0.02, 0.1]
+    }
+  };
+
   const els = {
     languageToggle: document.getElementById("languageToggle"),
     speciesCount: document.getElementById("speciesCount"),
     speciesValue: document.getElementById("speciesValue"),
     exchangeSeconds: document.getElementById("exchangeSeconds"),
     exchangeSecondsValue: document.getElementById("exchangeSecondsValue"),
+    completionGoal: document.getElementById("completionGoal"),
+    completionGoalValue: document.getElementById("completionGoalValue"),
     speedMultiplier: document.getElementById("speedMultiplier"),
     speedValue: document.getElementById("speedValue"),
     toggleSimulation: document.getElementById("toggleSimulation"),
@@ -162,6 +292,7 @@
     averageStickers: document.getElementById("averageStickers"),
     validMeetingRate: document.getElementById("validMeetingRate"),
     exchangeCount: document.getElementById("exchangeCount"),
+    firstTenCompletions: document.getElementById("firstTenCompletions"),
     solutionHeadline: document.getElementById("solutionHeadline"),
     groupRange: document.getElementById("groupRange"),
     peopleRange: document.getElementById("peopleRange"),
@@ -186,7 +317,8 @@
     lanterns: [],
     contactStarts: 0,
     validContactStarts: 0,
-    exchangeCount: 0
+    exchangeCount: 0,
+    completionTimes: []
   };
 
   function t(key, replacements = {}) {
@@ -290,6 +422,41 @@
     return `${minutes}:${secs}`;
   }
 
+  function formatExchangeSeconds(seconds) {
+    const value = Number(seconds);
+    if (value >= CONFIG.maxExchangeSeconds) {
+      return currentLang === "ko" ? "1분" : "1 min";
+    }
+    return `${value.toFixed(1)}s`;
+  }
+
+  function updateExchangeSecondsUI() {
+    els.exchangeSecondsValue.textContent = formatExchangeSeconds(els.exchangeSeconds.value);
+  }
+
+  function formatCompletionGoal(value) {
+    const goal = Math.max(CONFIG.minCompletionGoal, Math.min(CONFIG.maxCompletionGoal, Number(value)));
+    return currentLang === "ko" ? `${goal}명` : `${goal} names`;
+  }
+
+  function updateCompletionGoalUI() {
+    CONFIG.targetStickers = Math.max(
+      CONFIG.minCompletionGoal,
+      Math.min(CONFIG.maxCompletionGoal, Number(els.completionGoal.value))
+    );
+    els.completionGoal.value = CONFIG.targetStickers;
+    els.completionGoalValue.textContent = formatCompletionGoal(CONFIG.targetStickers);
+  }
+
+  function formatFirstTenCompletions() {
+    if (!state.completionTimes.length) return t("stats.firstTenEmpty");
+    const timeList = state.completionTimes
+      .slice(0, 10)
+      .map((entry, index) => `${index + 1}. ${formatTime(entry.time)}`)
+      .join(" · ");
+    return `${state.completionTimes.length}/10 · ${timeList}`;
+  }
+
   function updatePlanUI() {
     const plan = state.plan;
     const groups = plan.species.map(item => item.totalGroups);
@@ -369,6 +536,214 @@
     };
   }
 
+  function pointNearInMeadow(origin, spread) {
+    const meadow = bounds();
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.sqrt(Math.random()) * spread;
+    const point = {
+      x: origin.x + Math.cos(angle) * radius,
+      y: origin.y + Math.sin(angle) * radius
+    };
+    const dx = point.x - meadow.cx;
+    const dy = point.y - meadow.cy;
+    const distance = Math.hypot(dx, dy) || 1;
+    const limit = meadow.radius * 0.92;
+    if (distance <= limit) return point;
+    return {
+      x: meadow.cx + (dx / distance) * limit,
+      y: meadow.cy + (dy / distance) * limit
+    };
+  }
+
+  function randomRange(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function randomFromRange(range) {
+    if (range[0] === Infinity) return Infinity;
+    return randomRange(range[0], range[1]);
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function chooseBehavior() {
+    const roll = Math.random();
+    let cumulative = 0;
+    for (const [behavior, profile] of Object.entries(BEHAVIOR_PROFILES)) {
+      if (behavior === "ambient") continue;
+      cumulative += profile.weight;
+      if (roll <= cumulative) return behavior;
+    }
+    return "wanderer";
+  }
+
+  function profileFor(student) {
+    return BEHAVIOR_PROFILES[student.behavior] || BEHAVIOR_PROFILES.wanderer;
+  }
+
+  function traitForBehavior(behavior) {
+    return HUMAN_TRAITS[behavior] || HUMAN_TRAITS.wanderer;
+  }
+
+  function attentionFactor(student) {
+    return clamp(
+      student.awareness * (1 - student.anxiety * 0.38) * (1 - student.fatigue * 0.28),
+      0.28,
+      1.18
+    );
+  }
+
+  function humanSpeedFactor(student) {
+    return clamp(
+      (1 - student.fatigue * 0.48) * (1 - student.anxiety * 0.28) * (1 - student.fear * 0.2),
+      0.34,
+      1.1
+    );
+  }
+
+  function updateHumanState(student, crowdContext, seconds, currentSpeed) {
+    const crowdPressure = clamp(crowdContext.count / 10, 0, 1.6);
+    const movementLoad = clamp(currentSpeed / Math.max(1, profileFor(student).maxSpeed), 0, 1.4);
+    const nearGroup = crowdContext.groupCenter
+      ? distanceBetween(student, crowdContext.groupCenter) < 46
+      : false;
+    const fatigueGain = seconds * (0.004 + movementLoad * 0.012) / Math.max(0.45, student.stamina);
+    const fatigueRecovery = seconds * (nearGroup ? 0.009 : 0.003);
+    student.fatigue = clamp(student.fatigue + fatigueGain - fatigueRecovery, 0, 1);
+
+    const anxietyGain = seconds * ((crowdPressure * student.fear * 0.026) + (student.fatigue * 0.006));
+    const anxietyRecovery = seconds * (nearGroup ? 0.022 : 0.008);
+    student.anxiety = clamp(student.anxiety + anxietyGain - anxietyRecovery, 0, 1);
+
+    const fearDrift = seconds * (crowdContext.count > 9 ? 0.012 : -0.004);
+    student.fear = clamp(student.fear + fearDrift, 0, 1);
+  }
+
+  function canScan(student) {
+    return !student.ambient && !student.complete && profileFor(student).scanRadius[1] > 0;
+  }
+
+  function effectiveScanRadius(student, crowdContext = null) {
+    if (!canScan(student)) return 0;
+    const visibility = crowdContext?.visibilityFactor ?? student.visibilityFactor ?? 1;
+    return Math.min(
+      Math.min(state.width, state.height) * 0.36,
+      (student.scanRadius + student.stickers.size * 6) * visibility * attentionFactor(student)
+    );
+  }
+
+  function remembersToAvoid(student, candidateId) {
+    return (student.recentAvoid?.get(candidateId) || 0) > state.time;
+  }
+
+  function rememberAvoid(student, candidateId, duration = randomRange(3.5, 9)) {
+    if (!student.recentAvoid || candidateId == null) return;
+    student.recentAvoid.set(candidateId, state.time + duration);
+  }
+
+  function pruneRecentAvoid(student) {
+    if (!student.recentAvoid || student.recentAvoid.size === 0) return;
+    for (const [candidateId, expiresAt] of student.recentAvoid) {
+      if (expiresAt <= state.time) student.recentAvoid.delete(candidateId);
+    }
+  }
+
+  function distanceBetween(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  function venueZonePoint(zone) {
+    return {
+      x: state.width * zone.x,
+      y: state.height * zone.y,
+      radius: zone.radius,
+      pull: zone.pull
+    };
+  }
+
+  function getCrowdContext(student, approachId = null) {
+    let count = 0;
+    let repelX = 0;
+    let repelY = 0;
+    let groupX = 0;
+    let groupY = 0;
+    let groupCount = 0;
+
+    for (const other of state.students) {
+      if (other.id === student.id) continue;
+      const dx = student.x - other.x;
+      const dy = student.y - other.y;
+      const distance = Math.hypot(dx, dy) || 1;
+
+      if (distance < CONFIG.crowdRadius) {
+        count += 1;
+        if (other.id !== approachId) {
+          const personalSpaceForce = distance < CONFIG.personalSpace
+            ? ((CONFIG.personalSpace - distance) / CONFIG.personalSpace) * 1.8
+            : 0;
+          const force = ((CONFIG.crowdRadius - distance) / CONFIG.crowdRadius) + personalSpaceForce;
+          repelX += (dx / distance) * force;
+          repelY += (dy / distance) * force;
+        }
+      }
+
+      if (!student.ambient && other.groupId === student.groupId) {
+        groupX += other.x;
+        groupY += other.y;
+        groupCount += 1;
+      }
+    }
+
+    return {
+      count,
+      visibilityFactor: clamp(1 - count * 0.045, 0.42, 1),
+      speedFactor: clamp(1 - count * 0.035, 0.48, 1),
+      repelX,
+      repelY,
+      groupCenter: groupCount ? { x: groupX / groupCount, y: groupY / groupCount } : null
+    };
+  }
+
+  function exchangeKey(a, b) {
+    return a.id < b.id ? `${a.id}:${b.id}` : `${b.id}:${a.id}`;
+  }
+
+  function isEngaged(student) {
+    return student.engagedWith !== null && student.engagedWith !== undefined;
+  }
+
+  function isAvailableForExchange(student, partnerId) {
+    return !isEngaged(student) || student.engagedWith === partnerId;
+  }
+
+  function engagePair(a, b, key) {
+    a.engagedWith = b.id;
+    b.engagedWith = a.id;
+    a.engagedKey = key;
+    b.engagedKey = key;
+    a.targetId = b.id;
+    b.targetId = a.id;
+    a.vx = 0;
+    a.vy = 0;
+    b.vx = 0;
+    b.vy = 0;
+  }
+
+  function releasePair(a, b) {
+    if (a?.engagedWith === b?.id) {
+      a.engagedWith = null;
+      a.engagedKey = null;
+      a.targetId = null;
+    }
+    if (b?.engagedWith === a?.id) {
+      b.engagedWith = null;
+      b.engagedKey = null;
+      b.targetId = null;
+    }
+  }
+
   function resetSimulation() {
     const plan = state.plan;
     let id = 0;
@@ -379,16 +754,22 @@
     state.contactStarts = 0;
     state.validContactStarts = 0;
     state.exchangeCount = 0;
+    state.completionTimes = [];
     state.time = 0;
     state.running = false;
     state.lastFrame = null;
     els.toggleSimulation.textContent = t("action.start");
     els.runState.textContent = t("state.paused");
 
-    function addStudent(speciesIndex, groupId, program, color, ambient = false) {
-      const point = randomPointInMeadow();
+    function addStudent(speciesIndex, groupId, program, color, ambient = false, groupAnchor = null) {
+      const behavior = ambient ? "ambient" : chooseBehavior();
+      const profile = BEHAVIOR_PROFILES[behavior];
+      const traits = traitForBehavior(behavior);
+      const spread = ambient ? 0 : behavior === "social" ? 24 : 42;
+      const point = groupAnchor ? pointNearInMeadow(groupAnchor, spread) : randomPointInMeadow();
       const angle = Math.random() * Math.PI * 2;
-      const speed = ambient ? 8 + Math.random() * 10 : 12 + Math.random() * 16;
+      const speed = ambient ? randomRange(6, 14) : randomRange(8, profile.maxSpeed * 0.46);
+      const scans = !ambient && profile.scanRadius[1] > 0;
       state.students.push({
         id: id,
         speciesIndex,
@@ -396,12 +777,36 @@
         program,
         color,
         ambient,
+        behavior,
+        intelligent: scans,
+        targetId: null,
+        engagedWith: null,
+        engagedKey: null,
+        scanCooldown: scans ? randomFromRange(profile.scanCooldown) : Infinity,
+        scanPulse: 0,
+        focusTimer: 0,
+        scanRadius: scans ? randomFromRange(profile.scanRadius) : 0,
+        patience: scans ? randomFromRange(profile.patience) : 0,
+        exchangeFactor: randomFromRange(profile.exchangeFactor),
+        awareness: randomFromRange(traits.awareness),
+        stamina: randomFromRange(traits.stamina),
+        anxiety: randomFromRange(traits.anxiety),
+        fear: randomFromRange(traits.fear),
+        fatigue: 0,
+        zoneIndex: Math.floor(Math.random() * VENUE_ZONES.length),
+        zoneTimer: randomRange(5, 18),
+        homeX: groupAnchor?.x ?? point.x,
+        homeY: groupAnchor?.y ?? point.y,
+        crowdCount: 0,
+        visibilityFactor: 1,
         x: point.x,
         y: point.y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
+        recentAvoid: new Map(),
         stickers: new Set(),
-        complete: false
+        complete: false,
+        completeTime: null
       });
       id += 1;
     }
@@ -410,9 +815,10 @@
       const species = plan.species[speciesIndex];
       for (let group = 0; group < count; group += 1) {
         const groupId = `${program}-${groupSerial}`;
+        const groupAnchor = randomPointInMeadow();
         groupSerial += 1;
         for (let seat = 0; seat < CONFIG.groupSize; seat += 1) {
-          addStudent(speciesIndex, groupId, program, species.color);
+          addStudent(speciesIndex, groupId, program, species.color, false, groupAnchor);
         }
       }
     }
@@ -442,9 +848,141 @@
 
   function canExchange(a, b) {
     if (a.ambient || b.ambient) return false;
+    if (a.complete && b.complete) return false;
     if (a.speciesIndex !== b.speciesIndex) return false;
     if (a.groupId === b.groupId) return false;
     return !(a.stickers.has(b.id) && b.stickers.has(a.id));
+  }
+
+  function canApproachStudent(seeker, candidate) {
+    if (!candidate || candidate.id === seeker.id || seeker.complete || candidate.complete) return false;
+    if (seeker.ambient || candidate.ambient) return false;
+    if (seeker.groupId === candidate.groupId) return false;
+    if (isEngaged(seeker) || isEngaged(candidate)) return false;
+    if (remembersToAvoid(seeker, candidate.id)) return false;
+    if (seeker.speciesIndex === candidate.speciesIndex && seeker.stickers.has(candidate.id) && candidate.stickers.has(seeker.id)) return false;
+    return true;
+  }
+
+  function canIneffectiveCheck(a, b) {
+    if (a.ambient || b.ambient || a.complete || b.complete) return false;
+    if (a.groupId === b.groupId) return false;
+    if (a.speciesIndex === b.speciesIndex) return false;
+    if (remembersToAvoid(a, b.id) || remembersToAvoid(b, a.id)) return false;
+    return true;
+  }
+
+  function getStudentById(id) {
+    return state.students[id] && state.students[id].id === id
+      ? state.students[id]
+      : state.students.find(student => student.id === id);
+  }
+
+  function canTargetStudent(seeker, candidate) {
+    return canApproachStudent(seeker, candidate);
+  }
+
+  function findTargetFor(seeker, crowdContext) {
+    const scanRadius = effectiveScanRadius(seeker, crowdContext);
+    const options = [];
+    if (scanRadius <= 0) return null;
+
+    for (const candidate of state.students) {
+      if (!canTargetStudent(seeker, candidate)) continue;
+      const distance = distanceBetween(seeker, candidate);
+      if (distance > scanRadius) continue;
+      const sightQuality = ((scanRadius - distance) / scanRadius) * attentionFactor(seeker);
+      const noticingChance = clamp(0.08 + sightQuality * 0.86, 0.08, 0.94);
+      if (Math.random() > noticingChance) continue;
+      const sameSpecies = candidate.speciesIndex === seeker.speciesIndex;
+      const misreadChance = clamp(
+        0.32 + seeker.anxiety * 0.3 + seeker.fatigue * 0.2 + crowdContext.count * 0.016 - seeker.awareness * 0.24,
+        0.04,
+        0.62
+      );
+      if (!sameSpecies && Math.random() > misreadChance) continue;
+      const progressBonus = sameSpecies && seeker.behavior === "hyper" ? Math.max(0, 16 - candidate.stickers.size) : 0;
+      const shyPenalty = seeker.behavior === "shy" && distance > scanRadius * 0.62 ? 20 : 0;
+      const speciesScore = sameSpecies ? 46 : (-18 + seeker.anxiety * 18 + seeker.fatigue * 10);
+      const score = (scanRadius - distance) * noticingChance + speciesScore + progressBonus - shyPenalty + Math.random() * 24;
+      options.push({ candidate, score });
+    }
+
+    if (!options.length) return null;
+    options.sort((a, b) => b.score - a.score);
+    return options[0].candidate;
+  }
+
+  function updateIntentions(seconds) {
+    for (const student of state.students) {
+      if (isEngaged(student)) {
+        student.scanPulse = 0;
+        student.scanCooldown = Math.max(student.scanCooldown, 0.2);
+        continue;
+      }
+
+      if (!canScan(student)) {
+        student.targetId = null;
+        continue;
+      }
+
+      const profile = profileFor(student);
+      const crowdContext = getCrowdContext(student);
+      const scanRadius = effectiveScanRadius(student, crowdContext);
+      pruneRecentAvoid(student);
+      student.scanCooldown -= seconds;
+      student.scanPulse = Math.max(0, student.scanPulse - seconds * 1.5);
+      if (student.focusTimer > 0) student.focusTimer -= seconds;
+
+      const target = getStudentById(student.targetId);
+      const targetDistance = target ? distanceBetween(student, target) : Infinity;
+      const leash = student.behavior === "hyper" ? 1.65 : 1.35;
+      const losesFocus = target && Math.random() < seconds * student.anxiety * 0.075;
+      const staleTarget = !canTargetStudent(student, target) || targetDistance > scanRadius * leash || student.focusTimer <= 0 || losesFocus;
+
+      if (staleTarget) {
+        if (target) rememberAvoid(student, target.id, student.behavior === "shy" ? randomRange(7, 14) : randomRange(2.5, 7));
+        student.targetId = null;
+      }
+
+      if (!student.targetId && student.scanCooldown <= 0) {
+        const nextTarget = findTargetFor(student, crowdContext);
+        student.scanPulse = 1;
+        student.scanCooldown = randomFromRange(profile.scanCooldown);
+        if (nextTarget) {
+          student.targetId = nextTarget.id;
+          student.focusTimer = randomFromRange(profile.patience);
+        }
+      }
+    }
+  }
+
+  function exchangeRequirement(a, b, baseSeconds) {
+    const pairTempo = (randomRange(0.55, 1.45) + randomRange(0.55, 1.45)) / 2;
+    const personalTempo = (a.exchangeFactor + b.exchangeFactor) / 2;
+    const crowdDrag = 1 + Math.min(0.46, ((a.crowdCount || 0) + (b.crowdCount || 0)) * 0.012);
+    const maxPairSeconds = Math.min(CONFIG.maxExchangeSeconds, baseSeconds * 2.85);
+    const normalizedTempo = pairTempo
+      * (personalTempo / CONFIG.exchangeBehaviorBaseline)
+      * (crowdDrag / CONFIG.exchangeCrowdBaseline);
+    return clamp(baseSeconds * normalizedTempo, baseSeconds * 0.35, maxPairSeconds);
+  }
+
+  function identityCheckRequirement(a, b, baseSeconds) {
+    const confusionTempo = randomRange(0.12, 0.34);
+    const stressDrag = 1 + ((a.anxiety + b.anxiety + a.fatigue + b.fatigue) / 4) * 0.35;
+    const maxCheckSeconds = Math.max(0.18, Math.min(baseSeconds * 0.34, CONFIG.maxExchangeSeconds * 0.22));
+    const minCheckSeconds = Math.min(maxCheckSeconds * 0.72, Math.max(0.12, baseSeconds * 0.08));
+    return clamp(baseSeconds * confusionTempo * stressDrag, minCheckSeconds, maxCheckSeconds);
+  }
+
+  function recordCompletion(student) {
+    if (student.complete || student.stickers.size < CONFIG.targetStickers) return;
+    student.complete = true;
+    student.completeTime = state.time;
+    if (state.completionTimes.length < 10) {
+      state.completionTimes.push({ id: student.id, time: state.time });
+    }
   }
 
   function registerExchange(a, b) {
@@ -457,8 +995,8 @@
       b.stickers.add(a.id);
       changed = true;
     }
-    a.complete = a.stickers.size >= CONFIG.targetStickers;
-    b.complete = b.stickers.size >= CONFIG.targetStickers;
+    recordCompletion(a);
+    recordCompletion(b);
 
     if (changed) {
       state.exchangeCount += 1;
@@ -473,14 +1011,93 @@
 
   function step(seconds) {
     const meadow = bounds();
-    const maxSpeed = 42;
-    const contactRadius = Math.max(13, Math.min(state.width, state.height) * 0.025);
+    const contactRadius = Math.max(17, Math.min(state.width, state.height) * 0.032);
     const exchangeThreshold = Number(els.exchangeSeconds.value);
+    updateIntentions(seconds);
 
     for (const student of state.students) {
-      const drift = student.ambient ? 8 : 15;
+      const profile = profileFor(student);
+      if (isEngaged(student)) {
+        const exchangeCrowdContext = getCrowdContext(student, student.engagedWith);
+        student.crowdCount = exchangeCrowdContext.count;
+        student.visibilityFactor = exchangeCrowdContext.visibilityFactor;
+        student.fatigue = clamp(student.fatigue - seconds * 0.012, 0, 1);
+        student.anxiety = clamp(student.anxiety - seconds * 0.006 + exchangeCrowdContext.count * seconds * 0.001, 0, 1);
+        student.vx = 0;
+        student.vy = 0;
+        continue;
+      }
+
+      const activeTarget = canScan(student) ? getStudentById(student.targetId) : null;
+      const targetIsValid = activeTarget && canTargetStudent(student, activeTarget);
+      const crowdContext = getCrowdContext(student, targetIsValid ? activeTarget.id : null);
+      student.crowdCount = crowdContext.count;
+      student.visibilityFactor = crowdContext.visibilityFactor;
+
+      const drift = student.ambient ? 7 : student.behavior === "wanderer" ? 22 : student.behavior === "hyper" ? 18 : 12;
       student.vx += (Math.random() - 0.5) * drift * seconds;
       student.vy += (Math.random() - 0.5) * drift * seconds;
+      student.vx += crowdContext.repelX * (student.ambient ? 42 : 116) * seconds;
+      student.vy += crowdContext.repelY * (student.ambient ? 42 : 116) * seconds;
+
+      let inBottleneck = false;
+      student.zoneTimer -= seconds;
+      if (student.zoneTimer <= 0 || !VENUE_ZONES[student.zoneIndex]) {
+        student.zoneIndex = Math.floor(Math.random() * VENUE_ZONES.length);
+        student.zoneTimer = randomRange(6, student.behavior === "hyper" ? 15 : 24);
+      }
+
+      const zone = venueZonePoint(VENUE_ZONES[student.zoneIndex]);
+      const zoneDx = zone.x - student.x;
+      const zoneDy = zone.y - student.y;
+      const zoneDistance = Math.hypot(zoneDx, zoneDy) || 1;
+      const zoneRange = zone.radius * 2.05;
+      if (zoneDistance < zoneRange) {
+        const zoneInfluence = (zoneRange - zoneDistance) / zoneRange;
+        const zoneForce = zoneInfluence * zone.pull * profile.zonePull;
+        if (zoneDistance > zone.radius * 0.45) {
+          student.vx += (zoneDx / zoneDistance) * zoneForce * seconds;
+          student.vy += (zoneDy / zoneDistance) * zoneForce * seconds;
+        } else {
+          inBottleneck = true;
+          const linger = Math.max(0, 1 - seconds * (student.behavior === "hyper" ? 0.08 : 0.22));
+          student.vx *= linger;
+          student.vy *= linger;
+        }
+      }
+
+      if (!student.ambient && profile.groupPull > 0) {
+        const anchor = student.behavior === "social" && crowdContext.groupCenter
+          ? crowdContext.groupCenter
+          : { x: student.homeX, y: student.homeY };
+        const groupDx = anchor.x - student.x;
+        const groupDy = anchor.y - student.y;
+        const groupDistance = Math.hypot(groupDx, groupDy) || 1;
+        if (groupDistance > 18) {
+          const pull = clamp(groupDistance / 110, 0.25, 1.2) * profile.groupPull * 78;
+          student.vx += (groupDx / groupDistance) * pull * seconds;
+          student.vy += (groupDy / groupDistance) * pull * seconds;
+        }
+      }
+
+      const target = targetIsValid ? activeTarget : null;
+      if (target) {
+        const targetDx = target.x - student.x;
+        const targetDy = target.y - student.y;
+        const targetDistance = Math.hypot(targetDx, targetDy) || 1;
+        const scanRadius = Math.max(1, effectiveScanRadius(student));
+        const proximity = targetDistance < contactRadius * 2.4;
+        const urgency = proximity ? 1.25 : clamp(targetDistance / scanRadius, 0.45, 1.35);
+        const closingBonus = student.stickers.size >= CONFIG.targetStickers - 2 ? 1.18 : 1;
+        const steering = profile.steer * urgency * closingBonus;
+        student.vx += (targetDx / targetDistance) * steering * seconds;
+        student.vy += (targetDy / targetDistance) * steering * seconds;
+        if (proximity) {
+          const pause = Math.max(0, 1 - seconds * 1.2);
+          student.vx *= pause;
+          student.vy *= pause;
+        }
+      }
 
       const dx = student.x - meadow.cx;
       const dy = student.y - meadow.cy;
@@ -492,6 +1109,10 @@
       }
 
       const speed = Math.hypot(student.vx, student.vy) || 1;
+      updateHumanState(student, crowdContext, seconds, speed);
+      const targetBoost = student.targetId ? 1.12 : 1;
+      const bottleneckDrag = inBottleneck ? 0.76 : 1;
+      const maxSpeed = profile.maxSpeed * crowdContext.speedFactor * targetBoost * bottleneckDrag * humanSpeedFactor(student);
       if (speed > maxSpeed) {
         student.vx = (student.vx / speed) * maxSpeed;
         student.vy = (student.vy / speed) * maxSpeed;
@@ -512,6 +1133,7 @@
     }
 
     const nextContacts = new Map();
+    const activeExchangeKeys = new Set();
     for (let i = 0; i < state.students.length; i += 1) {
       const a = state.students[i];
       for (let j = i + 1; j < state.students.length; j += 1) {
@@ -520,29 +1142,86 @@
         const dy = a.y - b.y;
         if ((dx * dx) + (dy * dy) > contactRadius * contactRadius) continue;
 
-        const key = `${a.id}:${b.id}`;
-        const eligible = canExchange(a, b);
+        const key = exchangeKey(a, b);
         const previous = state.contacts.get(key);
-        if (!previous) {
+        const available = isAvailableForExchange(a, b.id) && isAvailableForExchange(b, a.id);
+        const intendedPair = a.targetId === b.id || b.targetId === a.id;
+        const spontaneousCheckChance = seconds * 0.018 * (attentionFactor(a) + attentionFactor(b));
+        const eligible = canExchange(a, b) && available;
+        const mistaken = canIneffectiveCheck(a, b) && available && (
+          intendedPair || previous?.mistaken || Math.random() < spontaneousCheckChance
+        );
+        const interactionStarted = eligible || mistaken;
+        const requiredTime = previous?.requiredTime || (
+          mistaken ? identityCheckRequirement(a, b, exchangeThreshold) : exchangeRequirement(a, b, exchangeThreshold)
+        );
+        if (!previous && interactionStarted) {
           state.contactStarts += 1;
           if (eligible) state.validContactStarts += 1;
         }
 
         const contactTime = (previous?.time || 0) + seconds;
-        if (eligible && contactTime >= exchangeThreshold) {
-          registerExchange(a, b);
+        if (eligible) {
+          engagePair(a, b, key);
+
+          if (contactTime >= requiredTime) {
+            registerExchange(a, b);
+            rememberAvoid(a, b.id, randomRange(12, 20));
+            rememberAvoid(b, a.id, randomRange(12, 20));
+            releasePair(a, b);
+          } else {
+            activeExchangeKeys.add(key);
+            nextContacts.set(key, { time: contactTime, eligible: true, requiredTime, exchanging: true });
+          }
+        } else if (mistaken) {
+          engagePair(a, b, key);
+
+          if (contactTime >= requiredTime) {
+            rememberAvoid(a, b.id, randomRange(18, 32));
+            rememberAvoid(b, a.id, randomRange(18, 32));
+            releasePair(a, b);
+          } else {
+            activeExchangeKeys.add(key);
+            nextContacts.set(key, { time: contactTime, eligible: false, mistaken: true, requiredTime, exchanging: true });
+          }
         } else {
-          nextContacts.set(key, { time: contactTime, eligible });
+          if (previous?.exchanging) releasePair(a, b);
+          if (previous) nextContacts.set(key, { time: contactTime, eligible: false, requiredTime, exchanging: false });
         }
       }
     }
     state.contacts = nextContacts;
+    for (const student of state.students) {
+      if (student.engagedKey && !activeExchangeKeys.has(student.engagedKey)) {
+        releasePair(student, getStudentById(student.engagedWith));
+      }
+    }
 
     for (const flash of state.flashes) {
       flash.life -= seconds * 1.6;
     }
     state.flashes = state.flashes.filter(flash => flash.life > 0);
     updateLiveStats();
+  }
+
+  function drawVenueZones() {
+    for (const sourceZone of VENUE_ZONES) {
+      const zone = venueZonePoint(sourceZone);
+      const pulse = 0.5 + Math.sin(state.time * 0.7 + zone.x * 0.01) * 0.5;
+      const gradient = ctx.createRadialGradient(zone.x, zone.y, 4, zone.x, zone.y, zone.radius);
+      gradient.addColorStop(0, `rgba(235, 200, 136, ${0.12 + pulse * 0.04})`);
+      gradient.addColorStop(0.48, "rgba(134, 161, 125, 0.07)");
+      gradient.addColorStop(1, "rgba(235, 200, 136, 0)");
+      ctx.beginPath();
+      ctx.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(zone.x, zone.y, zone.radius * 0.48, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(235, 200, 136, 0.12)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
   }
 
   function drawBackground() {
@@ -573,6 +1252,8 @@
     }
     ctx.restore();
 
+    drawVenueZones();
+
     for (const lantern of state.lanterns) {
       const pulse = 0.5 + Math.sin(state.time * 1.6 + lantern.phase) * 0.5;
       ctx.beginPath();
@@ -584,28 +1265,75 @@
 
   function drawContacts() {
     for (const [key, contact] of state.contacts) {
-      if (!contact.eligible) continue;
+      if (!contact.eligible && !contact.exchanging) continue;
       const [aId, bId] = key.split(":").map(Number);
       const a = state.students[aId];
       const b = state.students[bId];
       if (!a || !b) continue;
+      const progress = contact.requiredTime ? clamp(contact.time / contact.requiredTime, 0, 1) : 0;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = "rgba(235, 200, 136, 0.24)";
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = contact.mistaken
+        ? `rgba(183, 156, 203, ${0.2 + progress * 0.38})`
+        : `rgba(235, 200, 136, ${0.22 + progress * 0.42})`;
+      ctx.lineWidth = contact.exchanging ? 1.6 : 1;
       ctx.stroke();
+    }
+  }
+
+  function drawIntentions() {
+    for (const student of state.students) {
+      if (!canScan(student)) continue;
+
+      if (student.scanPulse > 0) {
+        const scanRadius = effectiveScanRadius(student);
+        ctx.beginPath();
+        ctx.arc(student.x, student.y, scanRadius * (1.05 - student.scanPulse * 0.25), 0, Math.PI * 2);
+        const pulseColor = student.behavior === "hyper" ? "235, 200, 136" : student.behavior === "social" ? "134, 161, 125" : "183, 156, 203";
+        ctx.strokeStyle = `rgba(${pulseColor}, ${0.16 * student.scanPulse})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      const target = getStudentById(student.targetId);
+      if (!target || !canTargetStudent(student, target)) continue;
+      ctx.beginPath();
+      ctx.moveTo(student.x, student.y);
+      ctx.lineTo(target.x, target.y);
+      ctx.strokeStyle = "rgba(235, 200, 136, 0.18)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 7]);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
   }
 
   function drawStudents() {
     for (const student of state.students) {
+      const radiusByBehavior = {
+        seeker: 4.1,
+        wanderer: 3.4,
+        social: 3.8,
+        shy: 3,
+        hyper: 4.6,
+        ambient: 2.1
+      };
       ctx.beginPath();
-      ctx.arc(student.x, student.y, student.ambient ? 2.1 : 3.5, 0, Math.PI * 2);
+      ctx.arc(student.x, student.y, radiusByBehavior[student.behavior] || 3.5, 0, Math.PI * 2);
       ctx.fillStyle = student.color;
-      ctx.globalAlpha = student.ambient ? 0.46 : 0.92;
+      ctx.globalAlpha = student.ambient ? 0.46 : student.behavior === "shy" ? 0.74 : 0.92;
       ctx.fill();
       ctx.globalAlpha = 1;
+
+      if (!student.ambient && student.behavior !== "wanderer" && !student.complete) {
+        ctx.beginPath();
+        ctx.arc(student.x, student.y, student.behavior === "hyper" ? 7.4 : 6.2, 0, Math.PI * 2);
+        const idleStroke = student.behavior === "social" ? "rgba(134, 161, 125, 0.32)" : "rgba(247, 236, 209, 0.24)";
+        ctx.strokeStyle = student.targetId ? "rgba(235, 200, 136, 0.72)" : idleStroke;
+        ctx.lineWidth = student.behavior === "hyper" ? 1.35 : 1;
+        ctx.stroke();
+      }
 
       if (student.complete) {
         ctx.beginPath();
@@ -630,6 +1358,7 @@
   function draw() {
     ctx.clearRect(0, 0, state.width, state.height);
     drawBackground();
+    drawIntentions();
     drawContacts();
     drawStudents();
     drawFlashes();
@@ -648,6 +1377,7 @@
     els.averageStickers.textContent = averageStickers.toFixed(1);
     els.validMeetingRate.textContent = formatPercent(validRate);
     els.exchangeCount.textContent = state.exchangeCount.toString();
+    els.firstTenCompletions.textContent = formatFirstTenCompletions();
 
     if (completed >= grouped.length && grouped.length > 0) {
       state.running = false;
@@ -689,6 +1419,8 @@
       applyTranslations();
       updatePlanUI();
       updateLiveStats();
+      updateExchangeSecondsUI();
+      updateCompletionGoalUI();
       els.toggleSimulation.textContent = state.running ? t("action.pause") : t("action.start");
     });
 
@@ -701,7 +1433,12 @@
     });
 
     els.exchangeSeconds.addEventListener("input", () => {
-      els.exchangeSecondsValue.textContent = Number(els.exchangeSeconds.value).toFixed(1);
+      updateExchangeSecondsUI();
+    });
+
+    els.completionGoal.addEventListener("input", () => {
+      updateCompletionGoalUI();
+      resetSimulation();
     });
 
     els.speedMultiplier.addEventListener("input", () => {
@@ -721,7 +1458,12 @@
 
   function init() {
     applyTranslations();
-    els.exchangeSecondsValue.textContent = Number(els.exchangeSeconds.value).toFixed(1);
+    els.exchangeSeconds.max = CONFIG.maxExchangeSeconds.toString();
+    updateExchangeSecondsUI();
+    els.completionGoal.min = CONFIG.minCompletionGoal.toString();
+    els.completionGoal.max = CONFIG.maxCompletionGoal.toString();
+    els.completionGoal.value = CONFIG.targetStickers.toString();
+    updateCompletionGoalUI();
     els.speedValue.textContent = Number(els.speedMultiplier.value).toFixed(1);
     bindEvents();
     resizeCanvas();

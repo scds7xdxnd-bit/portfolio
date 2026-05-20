@@ -428,7 +428,7 @@ input[type="range"] {
 
 .live-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid var(--line);
 }
 
@@ -448,6 +448,12 @@ input[type="range"] {
   margin-top: 8px;
   color: #fff7dc;
   font-size: clamp(1.1rem, 2vw, 1.45rem);
+}
+
+#firstTenCompletions {
+  font-size: clamp(0.82rem, 1.15vw, 1rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .solution-section {

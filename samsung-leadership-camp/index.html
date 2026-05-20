@@ -81,9 +81,15 @@
           <div class="sim-controls">
             <label for="exchangeSeconds">
               <span data-i18n="input.exchangeThreshold">교환 완료 기준 시간</span>
-              <strong><span id="exchangeSecondsValue">1.2</span>s</strong>
+              <strong id="exchangeSecondsValue">1.2s</strong>
             </label>
-            <input id="exchangeSeconds" type="range" min="0.4" max="4" value="1.2" step="0.1">
+            <input id="exchangeSeconds" type="range" min="0.4" max="60" value="1.2" step="0.1">
+
+            <label for="completionGoal">
+              <span data-i18n="input.completionGoal">완료 목표 이름 수</span>
+              <strong id="completionGoalValue">10명</strong>
+            </label>
+            <input id="completionGoal" type="range" min="1" max="30" value="10" step="1">
 
             <label for="speedMultiplier">
               <span data-i18n="input.simulationSpeed">시뮬레이션 속도</span>
@@ -128,6 +134,10 @@
             <div>
               <span data-i18n="stats.exchanges">교환 횟수</span>
               <strong id="exchangeCount">0</strong>
+            </div>
+            <div>
+              <span data-i18n="stats.firstTenCompletions">첫 10명 완료 시간</span>
+              <strong id="firstTenCompletions">기록 없음</strong>
             </div>
           </div>
         </section>
