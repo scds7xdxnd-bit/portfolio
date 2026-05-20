@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Leadership Camp Grouping Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="festival-page">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="topbar__brand" href="../index.html#projects">
+        <span class="topbar__mark" aria-hidden="true">DSF</span>
+        <span>Dream Summer Festival</span>
+      </a>
+      <div class="topbar__meta">
+        <span>Samsung Leadership Camp</span>
+        <span>270 attendees</span>
+      </div>
+    </nav>
+
+    <main class="app-shell">
+      <section class="hero-band" aria-labelledby="page-title">
+        <div class="hero-band__copy">
+          <span class="eyebrow">A Midsummer Night in the Forest</span>
+          <h1 id="page-title">Scholar grouping calculator and live exchange simulator</h1>
+          <p>
+            Balance 글로벌 and 대학 scholar groups by animal species, then test how quickly students can collect
+            10 different name stickers in a moving festival crowd.
+          </p>
+        </div>
+        <figure class="moodboard">
+          <img src="../assets/projects/dream_summer_festival_moodboard.png" alt="Dream Summer Festival visual palette">
+        </figure>
+      </section>
+
+      <section class="planner-grid" aria-label="Grouping controls and simulator">
+        <aside class="control-panel">
+          <div class="panel-head">
+            <span class="eyebrow">Planner</span>
+            <h2>Camp inputs</h2>
+          </div>
+
+          <div class="species-picker">
+            <label for="speciesCount">
+              <span>Total animal species</span>
+              <strong id="speciesValue">6</strong>
+            </label>
+            <input id="speciesCount" type="range" min="1" max="8" step="1" value="6">
+            <div class="quick-picks" aria-label="Common species counts">
+              <button type="button" class="chip" data-species-pick="4">4 species</button>
+              <button type="button" class="chip is-active" data-species-pick="6">6 species</button>
+              <button type="button" class="chip" data-species-pick="8">8 species</button>
+            </div>
+          </div>
+
+          <div class="input-grid">
+            <div class="input-card">
+              <span>글로벌 groups</span>
+              <strong id="globalGroupCount">8</strong>
+            </div>
+            <div class="input-card">
+              <span>대학 groups</span>
+              <strong id="universityGroupCount">22</strong>
+            </div>
+            <div class="input-card">
+              <span>Students per group</span>
+              <strong id="groupSize">8</strong>
+            </div>
+            <div class="input-card">
+              <span>Event headcount</span>
+              <strong id="eventHeadcount">270</strong>
+            </div>
+          </div>
+
+          <div class="sim-controls">
+            <label for="exchangeSeconds">
+              <span>Exchange threshold</span>
+              <strong><span id="exchangeSecondsValue">1.2</span>s</strong>
+            </label>
+            <input id="exchangeSeconds" type="range" min="0.4" max="4" value="1.2" step="0.1">
+
+            <label for="speedMultiplier">
+              <span>Simulation speed</span>
+              <strong><span id="speedValue">2.0</span>x</strong>
+            </label>
+            <input id="speedMultiplier" type="range" min="0.5" max="8" value="2" step="0.5">
+          </div>
+
+          <div class="button-row">
+            <button id="toggleSimulation" type="button" class="primary-action">Start</button>
+            <button id="resetSimulation" type="button" class="secondary-action">Reset</button>
+          </div>
+
+          <div class="formula-panel">
+            <span class="eyebrow">Encounter formula</span>
+            <p id="formulaText">(people in same species - 8) / 262</p>
+          </div>
+        </aside>
+
+        <section class="sim-panel" aria-label="Festival crowd simulation">
+          <div class="canvas-wrap">
+            <canvas id="festivalCanvas" width="1200" height="780" aria-label="Moving students in the Dream Summer Festival forest"></canvas>
+            <div class="canvas-overlay">
+              <span id="elapsedTime">00:00</span>
+              <span id="runState">Paused</span>
+            </div>
+          </div>
+
+          <div class="live-stats" aria-label="Live simulation statistics">
+            <div>
+              <span>Completed</span>
+              <strong id="completedStudents">0 / 240</strong>
+            </div>
+            <div>
+              <span>Average stickers</span>
+              <strong id="averageStickers">0.0</strong>
+            </div>
+            <div>
+              <span>Valid meetings</span>
+              <strong id="validMeetingRate">0%</strong>
+            </div>
+            <div>
+              <span>Exchanges</span>
+              <strong id="exchangeCount">0</strong>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="solution-section" aria-label="Optimal grouping solution">
+        <div class="solution-summary">
+          <div>
+            <span class="eyebrow">Optimal grouping</span>
+            <h2 id="solutionHeadline">6 species gives 5 groups per animal</h2>
+          </div>
+          <div class="summary-metrics">
+            <div>
+              <span>Groups per species</span>
+              <strong id="groupRange">5</strong>
+            </div>
+            <div>
+              <span>People per species</span>
+              <strong id="peopleRange">40</strong>
+            </div>
+            <div>
+              <span>Eligible encounter probability</span>
+              <strong id="probabilityRange">12.2%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-board">
+          <div>
+            <span>글로벌</span>
+            <p id="globalPattern">1 + 1 + 1 + 1 + 2 + 2</p>
+          </div>
+          <div>
+            <span>대학</span>
+            <p id="universityPattern">4 + 4 + 4 + 4 + 3 + 3</p>
+          </div>
+        </div>
+
+        <div id="speciesRows" class="species-rows"></div>
+      </section>
+
+      <section class="insight-section" aria-label="Game planning insights">
+        <div class="insight-card">
+          <span class="eyebrow">Roster model</span>
+          <h3 id="rosterModel">240 grouped sticker players + 30 ambient attendees</h3>
+          <p>
+            The optimizer assigns the 30 sticker groups. The simulator keeps the full 270-person crowd so the
+            exchange formula uses the requested 262-person denominator.
+          </p>
+        </div>
+        <div class="insight-card">
+          <span class="eyebrow">Completion effort</span>
+          <h3 id="expectedInteractions">About 86 random encounters for 10 names</h3>
+          <p id="effortText">
+            This estimate treats each new interaction as a random person outside the student's own group.
+          </p>
+        </div>
+        <div class="insight-card">
+          <span class="eyebrow">Planning signal</span>
+          <h3 id="planningSignal">Balanced and medium difficulty</h3>
+          <p id="planningText">
+            Larger species make completion easier, but reduce the variety of animal identities in the event.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
