@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     'project.process-game.name':'Process Game',
     'project.process-game.desc':'Make chemical engineering easier to understand through playful process simulations.',
     'project.samsung-camp.name':'Samsung Leadership Camp Simulator',
-    'project.samsung-camp.desc':'Dream Summer Festival planner that optimizes 글로벌 and 대학 scholar animal groupings, then simulates 270 attendees exchanging name stickers.',
+    'project.samsung-camp.desc':'Dream Forest Festival planner that optimizes 글로벌 and 대학 scholar animal groupings, then simulates 270 attendees exchanging name stickers.',
   },
   zh: {
     'nav.about':'个人资料','nav.projects':'任务','nav.skills':'能力','nav.ai-tools':'工具箱','nav.certificates':'成就','nav.opinions':'笔记',
@@ -192,7 +192,7 @@ const TRANSLATIONS = {
     'project.process-game.name':'过程游戏',
     'project.process-game.desc':'用有趣的过程模拟，让化学工程更容易理解。',
     'project.samsung-camp.name':'三星 Leadership Camp 模拟器',
-    'project.samsung-camp.desc':'Dream Summer Festival 活动规划工具，优化 글로벌 与 대학 奖学生动物分组，并模拟270名参与者交换姓名贴纸。',
+    'project.samsung-camp.desc':'Dream Forest Festival 活动规划工具，优化 글로벌 与 대학 奖学生动物分组，并模拟270名参与者交换姓名贴纸。',
   }
 };
 
