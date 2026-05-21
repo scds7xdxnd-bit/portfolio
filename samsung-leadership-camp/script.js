@@ -20,12 +20,12 @@
 
   const TRANSLATIONS = {
     ko: {
-      "document.title": "삼성 리더십 캠프 조 편성 시뮬레이터 | DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
-      "event.name": "DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
+      "document.title": "삼성 리더십 캠프 조 편성 시뮬레이터 | DREAM FOREST FESTIVAL 한 여름밤의 꿈",
+      "event.name": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "topbar.camp": "삼성 리더십 캠프",
       "topbar.attendees": "270명 참여",
       "lang.toggle": "EN",
-      "hero.eyebrow": "DREAM SUMMER FESTIVAL 한 여름밤의 꿈",
+      "hero.eyebrow": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "hero.title": "동물 조 편성 계산기와 교류 시뮬레이터",
       "hero.description": "글로벌과 대학 장학생 조를 동물 종별로 균형 있게 배정하고, 학생들이 축제 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.",
       "planner.eyebrow": "플래너",
@@ -74,12 +74,12 @@
       "unit.people": "명"
     },
     en: {
-      "document.title": "Samsung Leadership Camp Grouping Simulator | DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
-      "event.name": "DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
+      "document.title": "Samsung Leadership Camp Grouping Simulator | DREAM FOREST FESTIVAL 한 여름밤의 꿈",
+      "event.name": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "topbar.camp": "Samsung Leadership Camp",
       "topbar.attendees": "270 attendees",
       "lang.toggle": "한국어",
-      "hero.eyebrow": "DREAM SUMMER FESTIVAL A Midsummer Night's Dream",
+      "hero.eyebrow": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "hero.title": "Animal grouping calculator and exchange simulator",
       "hero.description": "Balance global and university scholar groups by animal species, then simulate how easily students can collect 10 different name stickers in the festival crowd.",
       "planner.eyebrow": "Planner",
