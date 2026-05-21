@@ -11,7 +11,11 @@
     exchangeBehaviorBaseline: 1.22,
     exchangeCrowdBaseline: 1.08,
     crowdRadius: 34,
-    personalSpace: 13
+    personalSpace: 13,
+    helperWaitSeconds: [35, 90],
+    helperExitAfterRange: [2, 5],
+    statusSampleInterval: 1,
+    statusHistoryLimit: 180
   };
 
   const TRANSLATIONS = {
@@ -48,8 +52,12 @@
       "stats.averageStickers": "평균 스티커 수",
       "stats.validMeetings": "유효 만남 비율",
       "stats.exchanges": "교환 횟수",
-      "stats.firstTenCompletions": "첫 10명 완료 시간",
-      "stats.firstTenEmpty": "기록 없음",
+      "graph.title": "상태 추이",
+      "graph.open": "열기",
+      "graph.close": "접기",
+      "graph.collecting": "수집 중",
+      "graph.helping": "도움 대기",
+      "graph.exited": "퇴장",
       "solution.eyebrow": "최적 편성",
       "solution.groupsPerSpecies": "동물별 조 수",
       "solution.peoplePerSpecies": "동물별 인원",
@@ -98,8 +106,12 @@
       "stats.averageStickers": "Average stickers",
       "stats.validMeetings": "Valid meetings",
       "stats.exchanges": "Exchanges",
-      "stats.firstTenCompletions": "First 10 completion times",
-      "stats.firstTenEmpty": "No records yet",
+      "graph.title": "Status trend",
+      "graph.open": "Open",
+      "graph.close": "Close",
+      "graph.collecting": "Collecting",
+      "graph.helping": "Waiting to help",
+      "graph.exited": "Exited",
       "solution.eyebrow": "Optimal grouping",
       "solution.groupsPerSpecies": "Groups per species",
       "solution.peoplePerSpecies": "People per species",
@@ -292,7 +304,13 @@
     averageStickers: document.getElementById("averageStickers"),
     validMeetingRate: document.getElementById("validMeetingRate"),
     exchangeCount: document.getElementById("exchangeCount"),
-    firstTenCompletions: document.getElementById("firstTenCompletions"),
+    statusGraphToggle: document.getElementById("statusGraphToggle"),
+    statusGraphState: document.getElementById("statusGraphState"),
+    statusGraphPanel: document.getElementById("statusGraphPanel"),
+    statusAreaChart: document.getElementById("statusAreaChart"),
+    statusCollectingCount: document.getElementById("statusCollectingCount"),
+    statusHelpingCount: document.getElementById("statusHelpingCount"),
+    statusExitedCount: document.getElementById("statusExitedCount"),
     solutionHeadline: document.getElementById("solutionHeadline"),
     groupRange: document.getElementById("groupRange"),
     peopleRange: document.getElementById("peopleRange"),
@@ -304,6 +322,7 @@
   };
 
   const ctx = els.canvas.getContext("2d");
+  const chartCtx = els.statusAreaChart?.getContext("2d");
   const state = {
     plan: null,
     running: false,
@@ -318,7 +337,9 @@
     contactStarts: 0,
     validContactStarts: 0,
     exchangeCount: 0,
-    completionTimes: []
+    statusHistory: [],
+    lastStatusSample: -Infinity,
+    statusGraphOpen: false
   };
 
   function t(key, replacements = {}) {
@@ -341,6 +362,8 @@
         currentLang === "ko" ? "영어로 전환" : "Switch to Korean"
       );
     }
+    updateStatusGraphToggle();
+    drawStatusChart();
   }
 
   function getSpeciesName(index) {
@@ -448,13 +471,166 @@
     els.completionGoalValue.textContent = formatCompletionGoal(CONFIG.targetStickers);
   }
 
-  function formatFirstTenCompletions() {
-    if (!state.completionTimes.length) return t("stats.firstTenEmpty");
-    const timeList = state.completionTimes
-      .slice(0, 10)
-      .map((entry, index) => `${index + 1}. ${formatTime(entry.time)}`)
-      .join(" · ");
-    return `${state.completionTimes.length}/10 · ${timeList}`;
+  function statusCounts() {
+    const counts = {
+      collecting: 0,
+      helping: 0,
+      exited: 0,
+      total: 0
+    };
+
+    for (const student of state.students) {
+      if (student.ambient) continue;
+      counts.total += 1;
+      if (student.status === "exited") counts.exited += 1;
+      else if (student.status === "helping") counts.helping += 1;
+      else counts.collecting += 1;
+    }
+
+    return counts;
+  }
+
+  function updateStatusCountLabels(counts = statusCounts()) {
+    if (els.statusCollectingCount) els.statusCollectingCount.textContent = counts.collecting.toString();
+    if (els.statusHelpingCount) els.statusHelpingCount.textContent = counts.helping.toString();
+    if (els.statusExitedCount) els.statusExitedCount.textContent = counts.exited.toString();
+  }
+
+  function sampleStatusHistory(force = false) {
+    if (!state.students.length) return;
+    if (!force && state.time - state.lastStatusSample < CONFIG.statusSampleInterval) return;
+    const counts = statusCounts();
+    state.statusHistory.push({
+      time: state.time,
+      collecting: counts.collecting,
+      helping: counts.helping,
+      exited: counts.exited,
+      total: counts.total
+    });
+    while (state.statusHistory.length > CONFIG.statusHistoryLimit) state.statusHistory.shift();
+    state.lastStatusSample = state.time;
+    drawStatusChart();
+  }
+
+  function updateStatusGraphToggle() {
+    if (!els.statusGraphToggle || !els.statusGraphPanel || !els.statusGraphState) return;
+    els.statusGraphToggle.setAttribute("aria-expanded", String(state.statusGraphOpen));
+    els.statusGraphPanel.hidden = !state.statusGraphOpen;
+    const key = state.statusGraphOpen ? "graph.close" : "graph.open";
+    els.statusGraphState.dataset.i18n = key;
+    els.statusGraphState.textContent = t(key);
+  }
+
+  function drawStatusChart() {
+    if (!chartCtx || !els.statusAreaChart || !state.statusHistory.length || els.statusGraphPanel?.hidden) return;
+    const rect = els.statusAreaChart.getBoundingClientRect();
+    const width = Math.max(320, rect.width || 900);
+    const height = Math.max(220, rect.height || 280);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    els.statusAreaChart.width = Math.round(width * dpr);
+    els.statusAreaChart.height = Math.round(height * dpr);
+    chartCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    chartCtx.clearRect(0, 0, width, height);
+
+    const history = state.statusHistory.length === 1
+      ? [state.statusHistory[0], state.statusHistory[0]]
+      : state.statusHistory;
+    const latest = state.statusHistory[state.statusHistory.length - 1];
+    const total = Math.max(1, latest.total, ...history.map(point => point.total));
+    const left = 46;
+    const right = 18;
+    const top = 20;
+    const bottom = 34;
+    const plotWidth = width - left - right;
+    const plotHeight = height - top - bottom;
+    const xFor = index => left + (history.length === 1 ? plotWidth : (index / (history.length - 1)) * plotWidth);
+    const yFor = value => top + plotHeight - (value / total) * plotHeight;
+
+    const background = chartCtx.createLinearGradient(0, 0, width, height);
+    background.addColorStop(0, "rgba(13, 19, 38, 0.96)");
+    background.addColorStop(0.55, "rgba(16, 45, 39, 0.88)");
+    background.addColorStop(1, "rgba(8, 19, 31, 0.96)");
+    chartCtx.fillStyle = background;
+    chartCtx.fillRect(0, 0, width, height);
+
+    chartCtx.save();
+    chartCtx.strokeStyle = "rgba(247, 236, 209, 0.12)";
+    chartCtx.fillStyle = "rgba(247, 236, 209, 0.58)";
+    chartCtx.font = "11px Inter, system-ui, sans-serif";
+    chartCtx.textBaseline = "middle";
+    for (let tick = 0; tick <= 4; tick += 1) {
+      const value = Math.round((total * tick) / 4);
+      const y = yFor(value);
+      chartCtx.beginPath();
+      chartCtx.moveTo(left, y);
+      chartCtx.lineTo(width - right, y);
+      chartCtx.stroke();
+      chartCtx.fillText(value.toString(), 10, y);
+    }
+    chartCtx.restore();
+
+    function drawStack(lowerFor, upperFor, topColor, bottomColor, strokeColor) {
+      const fill = chartCtx.createLinearGradient(0, top, 0, height - bottom);
+      fill.addColorStop(0, topColor);
+      fill.addColorStop(1, bottomColor);
+
+      chartCtx.beginPath();
+      history.forEach((point, index) => {
+        const x = xFor(index);
+        const y = yFor(upperFor(point));
+        if (index === 0) chartCtx.moveTo(x, y);
+        else chartCtx.lineTo(x, y);
+      });
+      for (let index = history.length - 1; index >= 0; index -= 1) {
+        chartCtx.lineTo(xFor(index), yFor(lowerFor(history[index])));
+      }
+      chartCtx.closePath();
+      chartCtx.fillStyle = fill;
+      chartCtx.fill();
+
+      chartCtx.beginPath();
+      history.forEach((point, index) => {
+        const x = xFor(index);
+        const y = yFor(upperFor(point));
+        if (index === 0) chartCtx.moveTo(x, y);
+        else chartCtx.lineTo(x, y);
+      });
+      chartCtx.strokeStyle = strokeColor;
+      chartCtx.lineWidth = 1.3;
+      chartCtx.stroke();
+    }
+
+    drawStack(
+      () => 0,
+      point => point.collecting,
+      "rgba(134, 161, 125, 0.74)",
+      "rgba(134, 161, 125, 0.38)",
+      "rgba(180, 213, 166, 0.9)"
+    );
+    drawStack(
+      point => point.collecting,
+      point => point.collecting + point.helping,
+      "rgba(235, 200, 136, 0.78)",
+      "rgba(235, 200, 136, 0.42)",
+      "rgba(255, 223, 152, 0.95)"
+    );
+    drawStack(
+      point => point.collecting + point.helping,
+      point => point.collecting + point.helping + point.exited,
+      "rgba(183, 156, 203, 0.78)",
+      "rgba(183, 156, 203, 0.36)",
+      "rgba(218, 191, 235, 0.9)"
+    );
+
+    chartCtx.save();
+    chartCtx.fillStyle = "rgba(247, 236, 209, 0.66)";
+    chartCtx.font = "11px Inter, system-ui, sans-serif";
+    chartCtx.textBaseline = "alphabetic";
+    chartCtx.fillText(formatTime(history[0].time), left, height - 10);
+    const lastLabel = formatTime(latest.time);
+    chartCtx.textAlign = "right";
+    chartCtx.fillText(lastLabel, width - right, height - 10);
+    chartCtx.restore();
   }
 
   function updatePlanUI() {
@@ -516,6 +692,7 @@
     els.canvas.height = Math.round(state.height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     draw();
+    drawStatusChart();
   }
 
   function bounds() {
@@ -622,7 +799,7 @@
   }
 
   function canScan(student) {
-    return !student.ambient && !student.complete && profileFor(student).scanRadius[1] > 0;
+    return !student.ambient && student.status === "collecting" && profileFor(student).scanRadius[1] > 0;
   }
 
   function effectiveScanRadius(student, crowdContext = null) {
@@ -673,6 +850,7 @@
 
     for (const other of state.students) {
       if (other.id === student.id) continue;
+      if (other.status === "exited") continue;
       const dx = student.x - other.x;
       const dy = student.y - other.y;
       const distance = Math.hypot(dx, dy) || 1;
@@ -754,7 +932,8 @@
     state.contactStarts = 0;
     state.validContactStarts = 0;
     state.exchangeCount = 0;
-    state.completionTimes = [];
+    state.statusHistory = [];
+    state.lastStatusSample = -Infinity;
     state.time = 0;
     state.running = false;
     state.lastFrame = null;
@@ -805,6 +984,10 @@
         vy: Math.sin(angle) * speed,
         recentAvoid: new Map(),
         stickers: new Set(),
+        status: ambient ? "ambient" : "collecting",
+        helpTimer: 0,
+        helpCount: 0,
+        helperExitAfter: 0,
         complete: false,
         completeTime: null
       });
@@ -842,21 +1025,27 @@
       };
     });
 
+    sampleStatusHistory(true);
     updateLiveStats();
+    drawStatusChart();
     draw();
   }
 
   function canExchange(a, b) {
     if (a.ambient || b.ambient) return false;
-    if (a.complete && b.complete) return false;
+    const aActive = a.status === "collecting" || a.status === "helping";
+    const bActive = b.status === "collecting" || b.status === "helping";
+    if (!aActive || !bActive) return false;
+    if (a.status !== "collecting" && b.status !== "collecting") return false;
     if (a.speciesIndex !== b.speciesIndex) return false;
     if (a.groupId === b.groupId) return false;
     return !(a.stickers.has(b.id) && b.stickers.has(a.id));
   }
 
   function canApproachStudent(seeker, candidate) {
-    if (!candidate || candidate.id === seeker.id || seeker.complete || candidate.complete) return false;
+    if (!candidate || candidate.id === seeker.id || seeker.status !== "collecting") return false;
     if (seeker.ambient || candidate.ambient) return false;
+    if (candidate.status !== "collecting" && candidate.status !== "helping") return false;
     if (seeker.groupId === candidate.groupId) return false;
     if (isEngaged(seeker) || isEngaged(candidate)) return false;
     if (remembersToAvoid(seeker, candidate.id)) return false;
@@ -865,7 +1054,11 @@
   }
 
   function canIneffectiveCheck(a, b) {
-    if (a.ambient || b.ambient || a.complete || b.complete) return false;
+    if (a.ambient || b.ambient) return false;
+    const aActive = a.status === "collecting" || a.status === "helping";
+    const bActive = b.status === "collecting" || b.status === "helping";
+    if (!aActive || !bActive) return false;
+    if (a.status !== "collecting" && b.status !== "collecting") return false;
     if (a.groupId === b.groupId) return false;
     if (a.speciesIndex === b.speciesIndex) return false;
     if (remembersToAvoid(a, b.id) || remembersToAvoid(b, a.id)) return false;
@@ -976,16 +1169,49 @@
     return clamp(baseSeconds * confusionTempo * stressDrag, minCheckSeconds, maxCheckSeconds);
   }
 
-  function recordCompletion(student) {
-    if (student.complete || student.stickers.size < CONFIG.targetStickers) return;
-    student.complete = true;
-    student.completeTime = state.time;
-    if (state.completionTimes.length < 10) {
-      state.completionTimes.push({ id: student.id, time: state.time });
+  function helperExitQuota() {
+    return Math.floor(randomRange(CONFIG.helperExitAfterRange[0], CONFIG.helperExitAfterRange[1] + 1));
+  }
+
+  function exitStudent(student) {
+    if (!student || student.ambient || student.status === "exited") return;
+    const partner = getStudentById(student.engagedWith);
+    if (partner) releasePair(student, partner);
+    student.status = "exited";
+    student.targetId = null;
+    student.engagedWith = null;
+    student.engagedKey = null;
+    student.vx = 0;
+    student.vy = 0;
+  }
+
+  function updateHelperStates(seconds) {
+    for (const student of state.students) {
+      if (student.status !== "helping" || isEngaged(student)) continue;
+      student.helpTimer -= seconds;
+      if (student.helpTimer <= 0 || student.helpCount >= student.helperExitAfter) {
+        exitStudent(student);
+      }
     }
   }
 
+  function recordCompletion(student) {
+    if (student.ambient || student.status !== "collecting" || student.complete || student.stickers.size < CONFIG.targetStickers) return;
+    student.complete = true;
+    student.completeTime = state.time;
+    student.status = "helping";
+    student.helpTimer = randomRange(CONFIG.helperWaitSeconds[0], CONFIG.helperWaitSeconds[1]);
+    student.helpCount = 0;
+    student.helperExitAfter = helperExitQuota();
+    student.targetId = null;
+    student.scanPulse = 0;
+  }
+
   function registerExchange(a, b) {
+    const aWasHelping = a.status === "helping";
+    const bWasHelping = b.status === "helping";
+    const aWasCollecting = a.status === "collecting";
+    const bWasCollecting = b.status === "collecting";
     let changed = false;
     if (!a.stickers.has(b.id)) {
       a.stickers.add(b.id);
@@ -999,6 +1225,8 @@
     recordCompletion(b);
 
     if (changed) {
+      if (aWasHelping && bWasCollecting) a.helpCount += 1;
+      if (bWasHelping && aWasCollecting) b.helpCount += 1;
       state.exchangeCount += 1;
       state.flashes.push({
         x: (a.x + b.x) / 2,
@@ -1013,10 +1241,17 @@
     const meadow = bounds();
     const contactRadius = Math.max(17, Math.min(state.width, state.height) * 0.032);
     const exchangeThreshold = Number(els.exchangeSeconds.value);
+    updateHelperStates(seconds);
     updateIntentions(seconds);
 
     for (const student of state.students) {
       const profile = profileFor(student);
+      if (student.status === "exited") {
+        student.vx = 0;
+        student.vy = 0;
+        continue;
+      }
+
       if (isEngaged(student)) {
         const exchangeCrowdContext = getCrowdContext(student, student.engagedWith);
         student.crowdCount = exchangeCrowdContext.count;
@@ -1136,8 +1371,10 @@
     const activeExchangeKeys = new Set();
     for (let i = 0; i < state.students.length; i += 1) {
       const a = state.students[i];
+      if (a.status === "exited") continue;
       for (let j = i + 1; j < state.students.length; j += 1) {
         const b = state.students[j];
+        if (b.status === "exited") continue;
         const dx = a.x - b.x;
         const dy = a.y - b.y;
         if ((dx * dx) + (dy * dy) > contactRadius * contactRadius) continue;
@@ -1201,6 +1438,7 @@
       flash.life -= seconds * 1.6;
     }
     state.flashes = state.flashes.filter(flash => flash.life > 0);
+    sampleStatusHistory();
     updateLiveStats();
   }
 
@@ -1270,6 +1508,7 @@
       const a = state.students[aId];
       const b = state.students[bId];
       if (!a || !b) continue;
+      if (a.status === "exited" || b.status === "exited") continue;
       const progress = contact.requiredTime ? clamp(contact.time / contact.requiredTime, 0, 1) : 0;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
@@ -1311,6 +1550,7 @@
 
   function drawStudents() {
     for (const student of state.students) {
+      if (student.status === "exited") continue;
       const radiusByBehavior = {
         seeker: 4.1,
         wanderer: 3.4,
@@ -1338,7 +1578,7 @@
       if (student.complete) {
         ctx.beginPath();
         ctx.arc(student.x, student.y, 6.2, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(235, 200, 136, 0.82)";
+        ctx.strokeStyle = student.status === "helping" ? "rgba(235, 200, 136, 0.82)" : "rgba(183, 156, 203, 0.72)";
         ctx.lineWidth = 1.4;
         ctx.stroke();
       }
@@ -1367,6 +1607,8 @@
   function updateLiveStats() {
     const grouped = state.students.filter(student => !student.ambient);
     const completed = grouped.filter(student => student.complete).length;
+    const statuses = statusCounts();
+    updateStatusCountLabels(statuses);
     const totalStickers = grouped.reduce((sum, student) => sum + Math.min(student.stickers.size, CONFIG.targetStickers), 0);
     const averageStickers = grouped.length ? totalStickers / grouped.length : 0;
     const validRate = state.contactStarts ? state.validContactStarts / state.contactStarts : 0;
@@ -1377,9 +1619,8 @@
     els.averageStickers.textContent = averageStickers.toFixed(1);
     els.validMeetingRate.textContent = formatPercent(validRate);
     els.exchangeCount.textContent = state.exchangeCount.toString();
-    els.firstTenCompletions.textContent = formatFirstTenCompletions();
 
-    if (completed >= grouped.length && grouped.length > 0) {
+    if (statuses.exited >= grouped.length && grouped.length > 0) {
       state.running = false;
       els.toggleSimulation.textContent = t("action.start");
     }
@@ -1453,6 +1694,13 @@
     });
 
     els.resetSimulation.addEventListener("click", resetSimulation);
+
+    els.statusGraphToggle.addEventListener("click", () => {
+      state.statusGraphOpen = !state.statusGraphOpen;
+      updateStatusGraphToggle();
+      drawStatusChart();
+    });
+
     window.addEventListener("resize", resizeCanvas);
   }
 

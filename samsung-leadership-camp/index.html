@@ -135,9 +135,20 @@
               <span data-i18n="stats.exchanges">교환 횟수</span>
               <strong id="exchangeCount">0</strong>
             </div>
-            <div>
-              <span data-i18n="stats.firstTenCompletions">첫 10명 완료 시간</span>
-              <strong id="firstTenCompletions">기록 없음</strong>
+          </div>
+
+          <div class="status-graph">
+            <button id="statusGraphToggle" class="status-graph__toggle" type="button" aria-expanded="false" aria-controls="statusGraphPanel">
+              <span data-i18n="graph.title">상태 추이</span>
+              <strong id="statusGraphState" data-i18n="graph.open">열기</strong>
+            </button>
+            <div id="statusGraphPanel" class="status-graph__panel" hidden>
+              <div class="status-graph__legend" aria-label="상태 범례">
+                <span><i class="legend-dot legend-dot--collecting"></i><b data-i18n="graph.collecting">수집 중</b><strong id="statusCollectingCount">240</strong></span>
+                <span><i class="legend-dot legend-dot--helping"></i><b data-i18n="graph.helping">도움 대기</b><strong id="statusHelpingCount">0</strong></span>
+                <span><i class="legend-dot legend-dot--exited"></i><b data-i18n="graph.exited">퇴장</b><strong id="statusExitedCount">0</strong></span>
+              </div>
+              <canvas id="statusAreaChart" width="900" height="280" aria-label="수집 중, 도움 대기, 퇴장 상태 추이"></canvas>
             </div>
           </div>
         </section>
