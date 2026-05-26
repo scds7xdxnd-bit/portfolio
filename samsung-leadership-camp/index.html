@@ -32,7 +32,7 @@
         <div class="hero-band__copy">
           <span class="eyebrow" data-i18n="hero.eyebrow">DREAM FOREST FESTIVAL 한 여름밤의 꿈</span>
           <h1 id="page-title" data-i18n="hero.title">동물 조 편성 계산기와 교류 시뮬레이터</h1>
-          <p data-i18n="hero.description">글로벌과 대학 장학생 조를 동물 종별로 균형 있게 배정하고, 학생들이 축제 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.</p>
+          <p data-i18n="hero.description">글로벌과 대학 장학생 조를 동물 종별로 균형 있게 배정하고, 학생들이 행사 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.</p>
         </div>
         <figure class="moodboard">
           <img src="../assets/projects/dream_summer_festival_moodboard.png" alt="Dream Summer Festival 한 여름밤의 꿈 무드보드">
@@ -91,6 +91,12 @@
             </label>
             <input id="completionGoal" type="range" min="1" max="30" value="10" step="1">
 
+            <label for="stickersPerPerson">
+              <span data-i18n="input.stickersPerPerson">1인당 스티커 수</span>
+              <strong id="stickersPerPersonValue">10장</strong>
+            </label>
+            <input id="stickersPerPerson" type="range" min="1" max="50" value="10" step="1">
+
             <label for="speedMultiplier">
               <span data-i18n="input.simulationSpeed">시뮬레이션 속도</span>
               <strong><span id="speedValue">2.0</span>x</strong>
@@ -109,47 +115,84 @@
           </div>
         </aside>
 
-        <section class="sim-panel" aria-label="축제 군중 시뮬레이션">
-          <div class="canvas-wrap">
-            <canvas id="festivalCanvas" width="1200" height="780" aria-label="Dream Summer Festival 숲속에서 움직이는 학생들"></canvas>
-            <div class="canvas-overlay">
-              <span id="elapsedTime">00:00</span>
-              <span id="runState">정지</span>
-            </div>
-          </div>
-
-          <div class="live-stats" aria-label="실시간 시뮬레이션 통계">
-            <div>
-              <span data-i18n="stats.completed">완료 학생</span>
-              <strong id="completedStudents">0 / 240</strong>
-            </div>
-            <div>
-              <span data-i18n="stats.averageStickers">평균 스티커 수</span>
-              <strong id="averageStickers">0.0</strong>
-            </div>
-            <div>
-              <span data-i18n="stats.validMeetings">유효 만남 비율</span>
-              <strong id="validMeetingRate">0%</strong>
-            </div>
-            <div>
-              <span data-i18n="stats.exchanges">교환 횟수</span>
-              <strong id="exchangeCount">0</strong>
-            </div>
-          </div>
-
-          <div class="status-graph">
-            <button id="statusGraphToggle" class="status-graph__toggle" type="button" aria-expanded="false" aria-controls="statusGraphPanel">
-              <span data-i18n="graph.title">상태 추이</span>
-              <strong id="statusGraphState" data-i18n="graph.open">열기</strong>
-            </button>
-            <div id="statusGraphPanel" class="status-graph__panel" hidden>
-              <div class="status-graph__legend" aria-label="상태 범례">
-                <span><i class="legend-dot legend-dot--collecting"></i><b data-i18n="graph.collecting">수집 중</b><strong id="statusCollectingCount">240</strong></span>
-                <span><i class="legend-dot legend-dot--helping"></i><b data-i18n="graph.helping">도움 대기</b><strong id="statusHelpingCount">0</strong></span>
-                <span><i class="legend-dot legend-dot--exited"></i><b data-i18n="graph.exited">퇴장</b><strong id="statusExitedCount">0</strong></span>
+        <section class="sim-panel" aria-label="행사 군중 시뮬레이션">
+          <div class="sim-layout" id="simLayout">
+            <div class="sim-main">
+              <div class="canvas-wrap">
+                <canvas id="festivalCanvas" width="1200" height="780" aria-label="Dream Summer Festival 숲속에서 움직이는 학생들"></canvas>
+                <div class="canvas-overlay">
+                  <span id="elapsedTime">00:00</span>
+                  <span id="runState">정지</span>
+                </div>
               </div>
-              <canvas id="statusAreaChart" width="900" height="280" aria-label="수집 중, 도움 대기, 퇴장 상태 추이"></canvas>
+
+              <div class="live-stats" aria-label="실시간 시뮬레이션 통계">
+                <div>
+                  <span data-i18n="stats.completed">완료 학생</span>
+                  <strong id="completedStudents">0 / 240</strong>
+                </div>
+                <div>
+                  <span data-i18n="stats.averageStickers">평균 스티커 수</span>
+                  <strong id="averageStickers">0.0</strong>
+                </div>
+                <div>
+                  <span data-i18n="stats.validMeetings">유효 만남 비율</span>
+                  <strong id="validMeetingRate">0%</strong>
+                </div>
+                <div>
+                  <span data-i18n="stats.exchanges">교환 횟수</span>
+                  <strong id="exchangeCount">0</strong>
+                </div>
+              </div>
+
+              <div class="status-graph">
+                <button id="statusGraphToggle" class="status-graph__toggle" type="button" aria-expanded="false" aria-controls="statusGraphPanel">
+                  <span data-i18n="graph.title">상태 추이</span>
+                  <strong id="statusGraphState" data-i18n="graph.open">열기</strong>
+                </button>
+                <div id="statusGraphPanel" class="status-graph__panel" hidden>
+                  <div class="status-graph__legend" aria-label="상태 범례">
+                    <span><i class="legend-dot legend-dot--collecting"></i><b data-i18n="graph.collecting">수집 중</b><strong id="statusCollectingCount">240</strong></span>
+                    <span><i class="legend-dot legend-dot--helping"></i><b data-i18n="graph.helping">도움 대기</b><strong id="statusHelpingCount">0</strong></span>
+                    <span><i class="legend-dot legend-dot--exited"></i><b data-i18n="graph.exited">퇴장</b><strong id="statusExitedCount">0</strong></span>
+                  </div>
+                  <canvas id="statusAreaChart" width="900" height="280" aria-label="수집 중, 도움 대기, 퇴장 상태 추이"></canvas>
+                </div>
+              </div>
             </div>
+
+            <aside class="animal-status-panel" id="animalStatusPanel" aria-label="동물별 조 현황">
+              <div class="animal-panel__header">
+                <span class="animal-panel__title" data-i18n="panel.animalStatus">동물별 조 현황</span>
+                <button id="animalPanelToggle" class="animal-panel__toggle" type="button" aria-expanded="true" aria-controls="animalPanelBody">
+                  <span id="animalPanelToggleLabel" data-i18n="panel.collapse">접기</span>
+                </button>
+              </div>
+              <div id="animalPanelBody" class="animal-panel__body">
+                <div class="animal-panel__legend">
+                  <span><i class="legend-dot legend-dot--collecting"></i><b data-i18n="graph.collecting">수집 중</b></span>
+                  <span><i class="legend-dot legend-dot--helping"></i><b data-i18n="graph.helping">도움 대기</b></span>
+                  <span><i class="legend-dot legend-dot--exited"></i><b data-i18n="graph.exited">퇴장</b></span>
+                </div>
+                <div id="animalStatusContent" class="animal-panel__content"></div>
+              </div>
+              <div class="supply-metrics">
+                <button id="supplyMetricsToggle" class="supply-metrics__toggle" type="button" aria-expanded="false" aria-controls="supplyMetricsPanel">
+                  <span data-i18n="supply.title">상세정보</span>
+                  <strong id="supplyMetricsState" data-i18n="supply.open">열기</strong>
+                </button>
+                <div id="supplyMetricsPanel" class="supply-metrics__panel" hidden>
+                  <div class="supply-metrics__row">
+                    <span data-i18n="supply.given">교환 건수</span>
+                    <strong id="stickersGivenTotal">0</strong>
+                  </div>
+                  <div class="supply-metrics__row">
+                    <span data-i18n="supply.blocked">스티커 부족한 학생</span>
+                    <strong id="blockedByStickerSupply">0</strong>
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
       </section>

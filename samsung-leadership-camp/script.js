@@ -5,6 +5,9 @@
     groupSize: 8,
     eventHeadcount: 270,
     targetStickers: 10,
+    stickersPerPerson: 10,
+    minStickersPerPerson: 1,
+    maxStickersPerPerson: 50,
     minCompletionGoal: 1,
     maxCompletionGoal: 30,
     maxExchangeSeconds: 60,
@@ -27,7 +30,7 @@
       "lang.toggle": "EN",
       "hero.eyebrow": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "hero.title": "동물 조 편성 계산기와 교류 시뮬레이터",
-      "hero.description": "글로벌과 대학 장학생 조를 동물 종별로 균형 있게 배정하고, 학생들이 축제 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.",
+      "hero.description": "글로벌과 대학 장학생 조를 동물 종별로 배정하고, 학생들이 행사 현장에서 10개의 서로 다른 이름 스티커를 얼마나 쉽게 모을 수 있는지 시뮬레이션합니다.",
       "planner.eyebrow": "플래너",
       "planner.title": "캠프 입력값",
       "input.species": "전체 동물 종 수",
@@ -58,6 +61,15 @@
       "graph.collecting": "수집 중",
       "graph.helping": "도움 대기",
       "graph.exited": "퇴장",
+      "panel.animalStatus": "동물별 조 현황",
+      "panel.collapse": "접기",
+      "panel.open": "열기",
+      "supply.title": "상세정보",
+      "supply.open": "열기",
+      "supply.close": "접기",
+      "supply.given": "교환 건수",
+      "supply.blocked": "스티커 부족한 학생",
+      "input.stickersPerPerson": "1인당 스티커 수",
       "solution.eyebrow": "최적 편성",
       "solution.groupsPerSpecies": "동물별 조 수",
       "solution.peoplePerSpecies": "동물별 인원",
@@ -81,7 +93,7 @@
       "lang.toggle": "한국어",
       "hero.eyebrow": "DREAM FOREST FESTIVAL 한 여름밤의 꿈",
       "hero.title": "Animal grouping calculator and exchange simulator",
-      "hero.description": "Balance global and university scholar groups by animal species, then simulate how easily students can collect 10 different name stickers in the festival crowd.",
+      "hero.description": "Balance global and university scholar groups by animal species, then simulate how students can collect 10 different name stickers in the festival crowd.",
       "planner.eyebrow": "Planner",
       "planner.title": "Camp inputs",
       "input.species": "Total animal species",
@@ -112,6 +124,15 @@
       "graph.collecting": "Collecting",
       "graph.helping": "Waiting to help",
       "graph.exited": "Exited",
+      "panel.animalStatus": "Animal group status",
+      "panel.collapse": "Collapse",
+      "panel.open": "Open",
+      "input.stickersPerPerson": "Stickers per person",
+      "supply.title": "Sticker supply",
+      "supply.open": "Open",
+      "supply.close": "Close",
+      "supply.given": "Stickers given",
+      "supply.blocked": "Blocked by supply",
       "solution.eyebrow": "Optimal grouping",
       "solution.groupsPerSpecies": "Groups per species",
       "solution.peoplePerSpecies": "People per species",
@@ -289,6 +310,8 @@
     exchangeSecondsValue: document.getElementById("exchangeSecondsValue"),
     completionGoal: document.getElementById("completionGoal"),
     completionGoalValue: document.getElementById("completionGoalValue"),
+    stickersPerPerson: document.getElementById("stickersPerPerson"),
+    stickersPerPersonValue: document.getElementById("stickersPerPersonValue"),
     speedMultiplier: document.getElementById("speedMultiplier"),
     speedValue: document.getElementById("speedValue"),
     toggleSimulation: document.getElementById("toggleSimulation"),
@@ -311,14 +334,24 @@
     statusCollectingCount: document.getElementById("statusCollectingCount"),
     statusHelpingCount: document.getElementById("statusHelpingCount"),
     statusExitedCount: document.getElementById("statusExitedCount"),
+    animalStatusPanel: document.getElementById("animalStatusPanel"),
+    animalPanelToggle: document.getElementById("animalPanelToggle"),
+    animalPanelToggleLabel: document.getElementById("animalPanelToggleLabel"),
+    animalPanelBody: document.getElementById("animalPanelBody"),
+    animalStatusContent: document.getElementById("animalStatusContent"),
+    supplyMetricsToggle: document.getElementById("supplyMetricsToggle"),
+    supplyMetricsState: document.getElementById("supplyMetricsState"),
+    supplyMetricsPanel: document.getElementById("supplyMetricsPanel"),
+    stickersGivenTotal: document.getElementById("stickersGivenTotal"),
+    blockedByStickerSupply: document.getElementById("blockedByStickerSupply"),
+    canvas: document.getElementById("festivalCanvas"),
     solutionHeadline: document.getElementById("solutionHeadline"),
     groupRange: document.getElementById("groupRange"),
     peopleRange: document.getElementById("peopleRange"),
     probabilityRange: document.getElementById("probabilityRange"),
     globalPattern: document.getElementById("globalPattern"),
     universityPattern: document.getElementById("universityPattern"),
-    speciesRows: document.getElementById("speciesRows"),
-    canvas: document.getElementById("festivalCanvas")
+    speciesRows: document.getElementById("speciesRows")
   };
 
   const ctx = els.canvas.getContext("2d");
@@ -337,9 +370,13 @@
     contactStarts: 0,
     validContactStarts: 0,
     exchangeCount: 0,
+    stickersGivenTotal: 0,
+    blockedByStickerSupply: 0,
     statusHistory: [],
     lastStatusSample: -Infinity,
-    statusGraphOpen: false
+    statusGraphOpen: false,
+    animalPanelOpen: true,
+    supplyMetricsOpen: false
   };
 
   function t(key, replacements = {}) {
@@ -363,6 +400,8 @@
       );
     }
     updateStatusGraphToggle();
+    updateSupplyMetricsToggle();
+    updateAnimalPanelToggle();
     drawStatusChart();
   }
 
@@ -462,6 +501,20 @@
     return currentLang === "ko" ? `${goal}명` : `${goal} names`;
   }
 
+  function formatStickersPerPerson(value) {
+    const count = Math.max(CONFIG.minStickersPerPerson, Math.min(CONFIG.maxStickersPerPerson, Number(value)));
+    return currentLang === "ko" ? `${count}개` : `${count}`;
+  }
+
+  function updateStickersPerPersonUI() {
+    CONFIG.stickersPerPerson = Math.max(
+      CONFIG.minStickersPerPerson,
+      Math.min(CONFIG.maxStickersPerPerson, Number(els.stickersPerPerson.value))
+    );
+    els.stickersPerPerson.value = CONFIG.stickersPerPerson;
+    els.stickersPerPersonValue.textContent = formatStickersPerPerson(CONFIG.stickersPerPerson);
+  }
+
   function updateCompletionGoalUI() {
     CONFIG.targetStickers = Math.max(
       CONFIG.minCompletionGoal,
@@ -519,6 +572,35 @@
     const key = state.statusGraphOpen ? "graph.close" : "graph.open";
     els.statusGraphState.dataset.i18n = key;
     els.statusGraphState.textContent = t(key);
+  }
+
+  function updateSupplyMetricsToggle() {
+    if (!els.supplyMetricsToggle || !els.supplyMetricsPanel || !els.supplyMetricsState) return;
+    els.supplyMetricsToggle.setAttribute("aria-expanded", String(state.supplyMetricsOpen));
+    els.supplyMetricsPanel.hidden = !state.supplyMetricsOpen;
+    const key = state.supplyMetricsOpen ? "supply.close" : "supply.open";
+    els.supplyMetricsState.dataset.i18n = key;
+    els.supplyMetricsState.textContent = t(key);
+  }
+
+  function updateSupplyMetrics() {
+    if (!els.supplyMetricsPanel) return;
+    els.stickersGivenTotal.textContent = state.stickersGivenTotal.toString();
+    els.blockedByStickerSupply.textContent = state.blockedByStickerSupply.toString();
+  }
+
+  function updateAnimalPanelToggle() {
+    if (!els.animalPanelToggle || !els.animalPanelBody || !els.animalPanelToggleLabel) return;
+    els.animalPanelToggle.setAttribute("aria-expanded", String(state.animalPanelOpen));
+    els.animalPanelBody.hidden = !state.animalPanelOpen;
+    els.animalStatusPanel.setAttribute("data-collapsed", String(!state.animalPanelOpen));
+    const simLayout = document.querySelector(".sim-layout");
+    if (simLayout) {
+      simLayout.classList.toggle("sim-layout--panel-collapsed", !state.animalPanelOpen);
+    }
+    const key = state.animalPanelOpen ? "panel.collapse" : "panel.open";
+    els.animalPanelToggleLabel.dataset.i18n = key;
+    els.animalPanelToggleLabel.textContent = t(key);
   }
 
   function drawStatusChart() {
@@ -932,6 +1014,8 @@
     state.contactStarts = 0;
     state.validContactStarts = 0;
     state.exchangeCount = 0;
+    state.stickersGivenTotal = 0;
+    state.blockedByStickerSupply = 0;
     state.statusHistory = [];
     state.lastStatusSample = -Infinity;
     state.time = 0;
@@ -984,6 +1068,7 @@
         vy: Math.sin(angle) * speed,
         recentAvoid: new Map(),
         stickers: new Set(),
+        givenStickers: new Set(),
         status: ambient ? "ambient" : "collecting",
         helpTimer: 0,
         helpCount: 0,
@@ -1031,6 +1116,10 @@
     draw();
   }
 
+  function canGive(student, receiverId) {
+    return student.givenStickers.size < CONFIG.stickersPerPerson && !student.givenStickers.has(receiverId);
+  }
+
   function canExchange(a, b) {
     if (a.ambient || b.ambient) return false;
     const aActive = a.status === "collecting" || a.status === "helping";
@@ -1039,7 +1128,20 @@
     if (a.status !== "collecting" && b.status !== "collecting") return false;
     if (a.speciesIndex !== b.speciesIndex) return false;
     if (a.groupId === b.groupId) return false;
-    return !(a.stickers.has(b.id) && b.stickers.has(a.id));
+    if (a.stickers.has(b.id) || b.stickers.has(a.id)) return false;
+    return canGive(a, b.id) && canGive(b, a.id);
+  }
+
+  function wouldExchangeExceptSupply(a, b) {
+    if (a.ambient || b.ambient) return false;
+    const aActive = a.status === "collecting" || a.status === "helping";
+    const bActive = b.status === "collecting" || b.status === "helping";
+    if (!aActive || !bActive) return false;
+    if (a.status !== "collecting" && b.status !== "collecting") return false;
+    if (a.speciesIndex !== b.speciesIndex) return false;
+    if (a.groupId === b.groupId) return false;
+    if (a.stickers.has(b.id) || b.stickers.has(a.id)) return false;
+    return true;
   }
 
   function canApproachStudent(seeker, candidate) {
@@ -1210,31 +1312,27 @@
   function registerExchange(a, b) {
     const aWasHelping = a.status === "helping";
     const bWasHelping = b.status === "helping";
-    const aWasCollecting = a.status === "collecting";
-    const bWasCollecting = b.status === "collecting";
-    let changed = false;
-    if (!a.stickers.has(b.id)) {
-      a.stickers.add(b.id);
-      changed = true;
-    }
-    if (!b.stickers.has(a.id)) {
-      b.stickers.add(a.id);
-      changed = true;
-    }
+
+    a.stickers.add(b.id);
+    b.stickers.add(a.id);
+    a.givenStickers.add(b.id);
+    b.givenStickers.add(a.id);
+
+    state.stickersGivenTotal += 2;
+
+    if (aWasHelping) a.helpCount += 1;
+    if (bWasHelping) b.helpCount += 1;
+
+    state.exchangeCount += 1;
+    state.flashes.push({
+      x: (a.x + b.x) / 2,
+      y: (a.y + b.y) / 2,
+      color: a.color,
+      life: 1
+    });
+
     recordCompletion(a);
     recordCompletion(b);
-
-    if (changed) {
-      if (aWasHelping && bWasCollecting) a.helpCount += 1;
-      if (bWasHelping && aWasCollecting) b.helpCount += 1;
-      state.exchangeCount += 1;
-      state.flashes.push({
-        x: (a.x + b.x) / 2,
-        y: (a.y + b.y) / 2,
-        color: a.color,
-        life: 1
-      });
-    }
   }
 
   function step(seconds) {
@@ -1395,6 +1493,9 @@
         if (!previous && interactionStarted) {
           state.contactStarts += 1;
           if (eligible) state.validContactStarts += 1;
+        }
+        if (!previous && !eligible && !mistaken && available && wouldExchangeExceptSupply(a, b)) {
+          state.blockedByStickerSupply += 1;
         }
 
         const contactTime = (previous?.time || 0) + seconds;
@@ -1604,6 +1705,95 @@
     drawFlashes();
   }
 
+  function updateAnimalStatusPanel() {
+    if (!els.animalStatusContent || !state.plan || !state.students.length) return;
+    const plan = state.plan;
+    const speciesGroups = new Map();
+
+    for (const student of state.students) {
+      if (student.ambient) continue;
+      if (!speciesGroups.has(student.speciesIndex)) {
+        speciesGroups.set(student.speciesIndex, new Map());
+      }
+      const byGroup = speciesGroups.get(student.speciesIndex);
+      if (!byGroup.has(student.groupId)) {
+        byGroup.set(student.groupId, { collecting: 0, helping: 0, exited: 0, program: student.program, groupId: student.groupId });
+      }
+      const group = byGroup.get(student.groupId);
+      if (student.status === "exited") group.exited += 1;
+      else if (student.status === "helping") group.helping += 1;
+      else group.collecting += 1;
+    }
+
+    const overall = { collecting: 0, helping: 0, exited: 0 };
+    const rows = [];
+    for (const species of plan.species) {
+      const byGroup = speciesGroups.get(species.index);
+      if (!byGroup || byGroup.size === 0) continue;
+      let totalCollecting = 0;
+      let totalHelping = 0;
+      let totalExited = 0;
+      const groupRows = [];
+
+      for (const [, group] of byGroup) {
+        totalCollecting += group.collecting;
+        totalHelping += group.helping;
+        totalExited += group.exited;
+        const programLabel = currentLang === "ko"
+          ? (group.program === "global" ? "글로벌" : "대학")
+          : (group.program === "global" ? "Global" : "University");
+        const groupLabel = `${programLabel}-${group.groupId.split("-").pop()}`;
+        groupRows.push(
+          `<div class="group-row">` +
+            `<span class="group-row__label">${groupLabel}</span>` +
+            `<span class="group-row__counts">` +
+              `<i class="counts--collecting">${group.collecting}</i>` +
+              `<i class="counts--helping">${group.helping}</i>` +
+              `<i class="counts--exited">${group.exited}</i>` +
+            `</span>` +
+          `</div>`
+        );
+      }
+
+      overall.collecting += totalCollecting;
+      overall.helping += totalHelping;
+      overall.exited += totalExited;
+
+      rows.push(
+        `<div class="animal-section">` +
+          `<div class="animal-section__header">` +
+            `<i class="animal-section__dot" style="background:${species.color}"></i>` +
+            `<span class="animal-section__name">${getSpeciesName(species.index)}</span>` +
+            `<span class="animal-section__totals">` +
+              `<i class="totals--collecting">${totalCollecting}</i>` +
+              `<i class="totals--helping">${totalHelping}</i>` +
+              `<i class="totals--exited">${totalExited}</i>` +
+            `</span>` +
+          `</div>` +
+          `<div class="animal-section__groups">` +
+            groupRows.join("") +
+          `</div>` +
+        `</div>`
+      );
+    }
+
+    const totalLabel = currentLang === "ko" ? "전체" : "Total";
+    const totalRow = rows.length
+      ? `<div class="animal-section animal-section--overall">` +
+          `<div class="animal-section__header">` +
+            `<span class="animal-section__name">${totalLabel}</span>` +
+            `<span class="animal-section__totals">` +
+              `<i class="totals--collecting">${overall.collecting}</i>` +
+              `<i class="totals--helping">${overall.helping}</i>` +
+              `<i class="totals--exited">${overall.exited}</i>` +
+            `</span>` +
+          `</div>` +
+        `</div>`
+      : "";
+
+    els.animalStatusContent.innerHTML = totalRow + (rows.join("") || (currentLang === "ko" ? "학생 데이터 없음" : "No student data"));
+  }
+
   function updateLiveStats() {
     const grouped = state.students.filter(student => !student.ambient);
     const completed = grouped.filter(student => student.complete).length;
@@ -1624,6 +1814,9 @@
       state.running = false;
       els.toggleSimulation.textContent = t("action.start");
     }
+
+    updateAnimalStatusPanel();
+    updateSupplyMetrics();
   }
 
   function frame(timestamp) {
@@ -1662,6 +1855,11 @@
       updateLiveStats();
       updateExchangeSecondsUI();
       updateCompletionGoalUI();
+      updateStickersPerPersonUI();
+      updateAnimalStatusPanel();
+      updateSupplyMetrics();
+      updateSupplyMetricsToggle();
+      updateAnimalPanelToggle();
       els.toggleSimulation.textContent = state.running ? t("action.pause") : t("action.start");
     });
 
@@ -1675,6 +1873,11 @@
 
     els.exchangeSeconds.addEventListener("input", () => {
       updateExchangeSecondsUI();
+    });
+
+    els.stickersPerPerson.addEventListener("input", () => {
+      updateStickersPerPersonUI();
+      resetSimulation();
     });
 
     els.completionGoal.addEventListener("input", () => {
@@ -1701,6 +1904,17 @@
       drawStatusChart();
     });
 
+    els.animalPanelToggle.addEventListener("click", () => {
+      state.animalPanelOpen = !state.animalPanelOpen;
+      updateAnimalPanelToggle();
+      resizeCanvas();
+    });
+
+    els.supplyMetricsToggle.addEventListener("click", () => {
+      state.supplyMetricsOpen = !state.supplyMetricsOpen;
+      updateSupplyMetricsToggle();
+    });
+
     window.addEventListener("resize", resizeCanvas);
   }
 
@@ -1712,7 +1926,15 @@
     els.completionGoal.max = CONFIG.maxCompletionGoal.toString();
     els.completionGoal.value = CONFIG.targetStickers.toString();
     updateCompletionGoalUI();
+    els.stickersPerPerson.min = CONFIG.minStickersPerPerson.toString();
+    els.stickersPerPerson.max = CONFIG.maxStickersPerPerson.toString();
+    els.stickersPerPerson.value = CONFIG.stickersPerPerson.toString();
+    updateStickersPerPersonUI();
     els.speedValue.textContent = Number(els.speedMultiplier.value).toFixed(1);
+    updateAnimalPanelToggle();
+    updateSupplyMetricsToggle();
+    updateAnimalStatusPanel();
+    updateSupplyMetrics();
     bindEvents();
     resizeCanvas();
     applySpeciesCount(6);
