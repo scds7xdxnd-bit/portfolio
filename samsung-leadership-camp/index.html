@@ -97,6 +97,14 @@
             </label>
             <input id="stickersPerPerson" type="range" min="1" max="50" value="10" step="1">
 
+            <div class="toggle-control">
+              <label class="toggle-row" for="allowCrossAnimalExchange">
+                <span data-i18n="input.crossAnimalExchange">다른 동물과도 교환</span>
+                <strong id="crossAnimalExchangeValue" data-i18n="input.crossAnimalExchangeOff">같은 동물만</strong>
+              </label>
+              <input id="allowCrossAnimalExchange" type="checkbox">
+            </div>
+
             <label for="speedMultiplier">
               <span data-i18n="input.simulationSpeed">시뮬레이션 속도</span>
               <strong><span id="speedValue">2.0</span>x</strong>

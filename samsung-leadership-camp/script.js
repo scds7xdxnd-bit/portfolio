@@ -18,7 +18,8 @@
     helperWaitSeconds: [35, 90],
     helperExitAfterRange: [2, 5],
     statusSampleInterval: 1,
-    statusHistoryLimit: 180
+    statusHistoryLimit: 180,
+    allowCrossAnimalExchange: false
   };
 
   const TRANSLATIONS = {
@@ -83,7 +84,10 @@
       "unit.group": "조",
       "unit.groups": "조",
       "unit.person": "명",
-      "unit.people": "명"
+      "unit.people": "명",
+      "input.crossAnimalExchange": "다른 동물과도 교환",
+      "input.crossAnimalExchangeOn": "허용",
+      "input.crossAnimalExchangeOff": "같은 동물만"
     },
     en: {
       "document.title": "Samsung Leadership Camp Grouping Simulator | DREAM FOREST FESTIVAL 한 여름밤의 꿈",
@@ -146,7 +150,10 @@
       "unit.group": "group",
       "unit.groups": "groups",
       "unit.person": "person",
-      "unit.people": "people"
+      "unit.people": "people",
+      "input.crossAnimalExchange": "Allow cross-animal exchange",
+      "input.crossAnimalExchangeOn": "Allowed",
+      "input.crossAnimalExchangeOff": "Same animal only"
     }
   };
 
@@ -344,6 +351,8 @@
     supplyMetricsPanel: document.getElementById("supplyMetricsPanel"),
     stickersGivenTotal: document.getElementById("stickersGivenTotal"),
     blockedByStickerSupply: document.getElementById("blockedByStickerSupply"),
+    allowCrossAnimalExchange: document.getElementById("allowCrossAnimalExchange"),
+    crossAnimalExchangeValue: document.getElementById("crossAnimalExchangeValue"),
     canvas: document.getElementById("festivalCanvas"),
     solutionHeadline: document.getElementById("solutionHeadline"),
     groupRange: document.getElementById("groupRange"),
@@ -374,7 +383,7 @@
     blockedByStickerSupply: 0,
     statusHistory: [],
     lastStatusSample: -Infinity,
-    statusGraphOpen: false,
+    statusGraphOpen: true,
     animalPanelOpen: true,
     supplyMetricsOpen: false
   };
@@ -513,6 +522,15 @@
     );
     els.stickersPerPerson.value = CONFIG.stickersPerPerson;
     els.stickersPerPersonValue.textContent = formatStickersPerPerson(CONFIG.stickersPerPerson);
+  }
+
+  function updateCrossAnimalExchangeUI() {
+    CONFIG.allowCrossAnimalExchange = els.allowCrossAnimalExchange.checked;
+    const key = CONFIG.allowCrossAnimalExchange
+      ? "input.crossAnimalExchangeOn"
+      : "input.crossAnimalExchangeOff";
+    els.crossAnimalExchangeValue.dataset.i18n = key;
+    els.crossAnimalExchangeValue.textContent = t(key);
   }
 
   function updateCompletionGoalUI() {
@@ -1120,13 +1138,17 @@
     return student.givenStickers.size < CONFIG.stickersPerPerson && !student.givenStickers.has(receiverId);
   }
 
+  function hasStickerSupply(student) {
+    return !student.ambient && student.givenStickers.size < CONFIG.stickersPerPerson;
+  }
+
   function canExchange(a, b) {
     if (a.ambient || b.ambient) return false;
     const aActive = a.status === "collecting" || a.status === "helping";
     const bActive = b.status === "collecting" || b.status === "helping";
     if (!aActive || !bActive) return false;
     if (a.status !== "collecting" && b.status !== "collecting") return false;
-    if (a.speciesIndex !== b.speciesIndex) return false;
+    if (!CONFIG.allowCrossAnimalExchange && a.speciesIndex !== b.speciesIndex) return false;
     if (a.groupId === b.groupId) return false;
     if (a.stickers.has(b.id) || b.stickers.has(a.id)) return false;
     return canGive(a, b.id) && canGive(b, a.id);
@@ -1138,7 +1160,7 @@
     const bActive = b.status === "collecting" || b.status === "helping";
     if (!aActive || !bActive) return false;
     if (a.status !== "collecting" && b.status !== "collecting") return false;
-    if (a.speciesIndex !== b.speciesIndex) return false;
+    if (!CONFIG.allowCrossAnimalExchange && a.speciesIndex !== b.speciesIndex) return false;
     if (a.groupId === b.groupId) return false;
     if (a.stickers.has(b.id) || b.stickers.has(a.id)) return false;
     return true;
@@ -1151,11 +1173,12 @@
     if (seeker.groupId === candidate.groupId) return false;
     if (isEngaged(seeker) || isEngaged(candidate)) return false;
     if (remembersToAvoid(seeker, candidate.id)) return false;
-    if (seeker.speciesIndex === candidate.speciesIndex && seeker.stickers.has(candidate.id) && candidate.stickers.has(seeker.id)) return false;
+    if (seeker.stickers.has(candidate.id) && candidate.stickers.has(seeker.id)) return false;
     return true;
   }
 
   function canIneffectiveCheck(a, b) {
+    if (CONFIG.allowCrossAnimalExchange) return false;
     if (a.ambient || b.ambient) return false;
     const aActive = a.status === "collecting" || a.status === "helping";
     const bActive = b.status === "collecting" || b.status === "helping";
@@ -1190,15 +1213,19 @@
       const noticingChance = clamp(0.08 + sightQuality * 0.86, 0.08, 0.94);
       if (Math.random() > noticingChance) continue;
       const sameSpecies = candidate.speciesIndex === seeker.speciesIndex;
-      const misreadChance = clamp(
-        0.32 + seeker.anxiety * 0.3 + seeker.fatigue * 0.2 + crowdContext.count * 0.016 - seeker.awareness * 0.24,
-        0.04,
-        0.62
-      );
-      if (!sameSpecies && Math.random() > misreadChance) continue;
+      if (!CONFIG.allowCrossAnimalExchange) {
+        const misreadChance = clamp(
+          0.32 + seeker.anxiety * 0.3 + seeker.fatigue * 0.2 + crowdContext.count * 0.016 - seeker.awareness * 0.24,
+          0.04,
+          0.62
+        );
+        if (!sameSpecies && Math.random() > misreadChance) continue;
+      }
       const progressBonus = sameSpecies && seeker.behavior === "hyper" ? Math.max(0, 16 - candidate.stickers.size) : 0;
       const shyPenalty = seeker.behavior === "shy" && distance > scanRadius * 0.62 ? 20 : 0;
-      const speciesScore = sameSpecies ? 46 : (-18 + seeker.anxiety * 18 + seeker.fatigue * 10);
+      const speciesScore = CONFIG.allowCrossAnimalExchange
+        ? (sameSpecies ? 46 : 28)
+        : (sameSpecies ? 46 : (-18 + seeker.anxiety * 18 + seeker.fatigue * 10));
       const score = (scanRadius - distance) * noticingChance + speciesScore + progressBonus - shyPenalty + Math.random() * 24;
       options.push({ candidate, score });
     }
@@ -1287,6 +1314,12 @@
     student.vy = 0;
   }
 
+  function exitIfStickerSupplyExhausted(student) {
+    if (!student || student.ambient || student.status === "exited") return;
+    if (hasStickerSupply(student)) return;
+    exitStudent(student);
+  }
+
   function updateHelperStates(seconds) {
     for (const student of state.students) {
       if (student.status !== "helping" || isEngaged(student)) continue;
@@ -1333,6 +1366,8 @@
 
     recordCompletion(a);
     recordCompletion(b);
+    exitIfStickerSupplyExhausted(a);
+    exitIfStickerSupplyExhausted(b);
   }
 
   function step(seconds) {
@@ -1860,6 +1895,7 @@
       updateSupplyMetrics();
       updateSupplyMetricsToggle();
       updateAnimalPanelToggle();
+      updateCrossAnimalExchangeUI();
       els.toggleSimulation.textContent = state.running ? t("action.pause") : t("action.start");
     });
 
@@ -1878,6 +1914,10 @@
     els.stickersPerPerson.addEventListener("input", () => {
       updateStickersPerPersonUI();
       resetSimulation();
+    });
+
+    els.allowCrossAnimalExchange.addEventListener("change", () => {
+      updateCrossAnimalExchangeUI();
     });
 
     els.completionGoal.addEventListener("input", () => {
@@ -1931,6 +1971,8 @@
     els.stickersPerPerson.value = CONFIG.stickersPerPerson.toString();
     updateStickersPerPersonUI();
     els.speedValue.textContent = Number(els.speedMultiplier.value).toFixed(1);
+    els.allowCrossAnimalExchange.checked = CONFIG.allowCrossAnimalExchange;
+    updateCrossAnimalExchangeUI();
     updateAnimalPanelToggle();
     updateSupplyMetricsToggle();
     updateAnimalStatusPanel();
