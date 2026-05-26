@@ -353,6 +353,46 @@ input[type="range"] {
   font-size: 1.45rem;
 }
 
+#speciesValue,
+#globalGroupCount,
+#universityGroupCount,
+#groupSize,
+#eventHeadcount,
+#exchangeSecondsValue,
+#completionGoalValue,
+#stickersPerPersonValue,
+#speedValue,
+#elapsedTime,
+#completedStudents,
+#averageStickers,
+#validMeetingRate,
+#exchangeCount,
+#statusCollectingCount,
+#statusHelpingCount,
+#statusExitedCount,
+#stickersGivenTotal,
+#blockedByStickerSupply,
+#groupRange,
+#peopleRange,
+#probabilityRange,
+#globalPattern,
+#universityPattern,
+.input-card strong,
+.sim-controls label strong,
+.live-stats strong,
+.summary-metrics strong,
+.species-total,
+.species-row strong,
+.animal-section__totals,
+.animal-section__totals i,
+.group-row__counts,
+.group-row__counts i,
+.supply-metrics__row strong,
+.canvas-overlay span {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
 .sim-controls {
   display: grid;
   gap: 12px;
