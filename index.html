@@ -6,7 +6,7 @@
   <title>Taeyang Han — Life Systems Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,14 +15,11 @@
     <div class="site-nav__container">
       <div class="site-nav__links">
         <a href="#hero" class="site-nav__link" data-i18n="nav.about"></a>
-        <a href="#projects" class="site-nav__link" data-i18n="nav.projects"></a>
-        <a href="#skills" class="site-nav__link" data-i18n="nav.skills"></a>
-        <a href="#ai-tools" class="site-nav__link" data-i18n="nav.ai-tools"></a>
-        <a href="#certificates" class="site-nav__link" data-i18n="nav.certificates"></a>
+        <a href="#specializations" class="site-nav__link" data-i18n="nav.specializations"></a>
         <a href="opinions/index.html" class="site-nav__link" data-i18n="nav.opinions"></a>
       </div>
       <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
-        <span>EN</span><span aria-hidden="true"> &middot; </span><span>&#20013;&#25991;</span>
+        <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
       </button>
       <button class="site-nav__hamburger" id="nav-hamburger"
               aria-label="Open navigation menu"
@@ -42,14 +39,11 @@
     <div class="mobile-nav__inner">
       <nav class="mobile-nav__links-list" aria-label="Mobile navigation">
         <a href="#hero" class="mobile-nav__link" data-i18n="nav.about"></a>
-        <a href="#projects" class="mobile-nav__link" data-i18n="nav.projects"></a>
-        <a href="#skills" class="mobile-nav__link" data-i18n="nav.skills"></a>
-        <a href="#ai-tools" class="mobile-nav__link" data-i18n="nav.ai-tools"></a>
-        <a href="#certificates" class="mobile-nav__link" data-i18n="nav.certificates"></a>
+        <a href="#specializations" class="mobile-nav__link" data-i18n="nav.specializations"></a>
         <a href="opinions/index.html" class="mobile-nav__link" data-i18n="nav.opinions"></a>
       </nav>
       <button class="lang-toggle mobile-nav__lang" id="mobile-lang-toggle" aria-label="Switch language">
-        <span>EN</span><span aria-hidden="true"> &middot; </span><span>&#20013;&#25991;</span>
+        <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
       </button>
     </div>
   </div>
@@ -126,7 +120,7 @@
           </div>
 
           <div class="hero__actions">
-            <a href="#projects" class="btn btn--primary" id="hero-start-btn" data-i18n="hero.startQuest">Start Quest</a>
+            <a href="#specializations" class="btn btn--primary" id="hero-start-btn" data-i18n="hero.startQuest">Start Quest</a>
             <button class="btn btn--secondary" id="copy-email-btn" data-i18n="hero.copyEmail">Copy Email</button>
           </div>
         </div>
@@ -137,7 +131,7 @@
         <div class="panel panel--quests">
           <div class="panel__header" data-i18n="hero.quests">Current Quests</div>
           <div class="panel__body">
-            <a class="quest-row" href="#project-lifeos">
+            <a class="quest-row" href="#builder">
               <span class="quest-row__icon" aria-hidden="true">&#128421;</span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.lifeos">LifeOS</span>
@@ -148,7 +142,7 @@
                 <span class="quest-row__pct">60%</span>
               </span>
             </a>
-            <a class="quest-row" href="#project-accounting">
+            <a class="quest-row" href="#builder">
               <span class="quest-row__icon" aria-hidden="true">&#128176;</span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.finance">Finance App</span>
@@ -159,7 +153,7 @@
                 <span class="quest-row__pct">70%</span>
               </span>
             </a>
-            <a class="quest-row" href="#project-process-game">
+            <a class="quest-row" href="#engineer">
               <span class="quest-row__icon" aria-hidden="true">&#128295;</span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.processGame">Process Game</span>
@@ -170,7 +164,7 @@
                 <span class="quest-row__pct">40%</span>
               </span>
             </a>
-            <a class="quest-row" href="#skills">
+            <a class="quest-row" href="#specializations">
               <span class="quest-row__icon" aria-hidden="true">&#127758;</span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.language">Language Learning</span>
@@ -206,139 +200,43 @@
 
   <main>
 
-    <!-- ⚔️ Featured Quests (Projects) -->
-    <section id="projects" class="projects section section--alt reveal">
+    <!-- ★ Specializations -->
+    <section id="specializations" class="specs section reveal">
       <div class="section__container">
-        <span class="section__badge">&#9876;&#65039; Featured Quests</span>
-        <h2 class="section__title" data-i18n="projects.headline"></h2>
-        <div id="projects-hero-slot" class="projects__hero-slot"></div>
-        <div id="projects-grid-slot" class="projects__grid-slot"></div>
-      </div>
-    </section>
 
-    <!-- 🎯 Stats + Tools (Skills) -->
-    <section id="skills" class="skills section reveal">
-      <div class="section__container">
-        <span class="section__badge">&#127919; Stats &amp; Tools</span>
-        <h2 class="section__title" data-i18n="skills.headline"></h2>
-        <div class="skills__grid">
-          <article class="skills__group">
-            <h3 class="skills__group-title" data-i18n="skills.group.languages"></h3>
-            <div class="skills__pills">
-              <span class="pill pill--skill" data-i18n="skills.language.python"></span>
-              <span class="pill pill--skill" data-i18n="skills.language.typescript"></span>
-              <span class="pill pill--skill" data-i18n="skills.language.sql"></span>
-              <span class="pill pill--skill" data-i18n="skills.language.html-css"></span>
-              <span class="pill pill--skill" data-i18n="skills.language.javascript"></span>
-            </div>
-          </article>
-          <article class="skills__group">
-            <h3 class="skills__group-title" data-i18n="skills.group.frameworks"></h3>
-            <div class="skills__pills">
-              <span class="pill pill--skill" data-i18n="skills.framework.nextjs"></span>
-              <span class="pill pill--skill" data-i18n="skills.framework.flask"></span>
-              <span class="pill pill--skill" data-i18n="skills.framework.react"></span>
-            </div>
-          </article>
-          <article class="skills__group">
-            <h3 class="skills__group-title" data-i18n="skills.group.tools"></h3>
-            <div class="skills__pills">
-              <span class="pill pill--skill" data-i18n="skills.tool.postgresql"></span>
-              <span class="pill pill--skill" data-i18n="skills.tool.git"></span>
-              <span class="pill pill--skill" data-i18n="skills.tool.vercel"></span>
-              <span class="pill pill--skill" data-i18n="skills.tool.linux"></span>
-            </div>
-          </article>
-          <article class="skills__group">
-            <h3 class="skills__group-title" data-i18n="skills.group.domains"></h3>
-            <div class="skills__pills">
-              <span class="pill pill--skill" data-i18n="skills.domain.systems-design"></span>
-              <span class="pill pill--skill" data-i18n="skills.domain.content-strategy"></span>
-              <span class="pill pill--skill" data-i18n="skills.domain.process-engineering"></span>
-              <span class="pill pill--skill" data-i18n="skills.domain.financial-modeling"></span>
-            </div>
-          </article>
+        <!-- Part A: Section intro -->
+        <span class="section__badge" data-i18n="spec.badge">★ Specializations</span>
+        <h2 class="section__title" data-i18n="spec.title">What I Build &amp; Why It Matters</h2>
+        <p class="specs__subtitle" data-i18n="spec.subtitle">Five domains. Ten years of deliberate practice. One integrated story.</p>
+
+        <!-- Part B: Sticky tab bar -->
+        <div class="specs__tabs-wrapper">
+          <nav class="specs__tabs" role="tablist" aria-label="Specializations">
+            <a href="#linguist" class="specs__tab" role="tab" aria-selected="false" data-panel="linguist">
+              <span aria-hidden="true">🌐</span> <span data-i18n="spec.tab.linguist">Linguist</span>
+            </a>
+            <a href="#engineer" class="specs__tab" role="tab" aria-selected="false" data-panel="engineer">
+              <span aria-hidden="true">⚗️</span> <span data-i18n="spec.tab.engineer">Engineer</span>
+            </a>
+            <a href="#builder" class="specs__tab" role="tab" aria-selected="false" data-panel="builder">
+              <span aria-hidden="true">💻</span> <span data-i18n="spec.tab.builder">Builder</span>
+            </a>
+            <a href="#community" class="specs__tab" role="tab" aria-selected="false" data-panel="community">
+              <span aria-hidden="true">🤝</span> <span data-i18n="spec.tab.community">Community</span>
+            </a>
+            <a href="#scholar" class="specs__tab" role="tab" aria-selected="false" data-panel="scholar">
+              <span aria-hidden="true">📊</span> <span data-i18n="spec.tab.scholar">Scholar</span>
+            </a>
+          </nav>
         </div>
+
+        <!-- Part C: Five specialization panels (populated by JS) -->
+        <div class="specs__panels" id="specs-panels" aria-live="polite"></div>
+
       </div>
     </section>
 
-    <!-- 🤖 AI Tools (How I Build) -->
-    <section id="ai-tools" class="ai-tools section section--alt reveal">
-      <div class="section__container">
-        <span class="section__badge">&#129302; How I Build</span>
-        <h2 class="section__title" data-i18n="ai.headline"></h2>
-        <div class="ai-tools__grid">
-          <div class="ai-tool-card ai-tool-card--claude">
-            <div class="ai-tool-card__header">
-              <div class="ai-tool-card__badge" data-i18n="ai.cc.badge"></div>
-              <span class="ai-tool-card__name" data-i18n="ai.cc.name"></span>
-            </div>
-            <p class="ai-tool-card__desc" data-i18n="ai.cc.desc"></p>
-            <div class="ai-tool-card__tags">
-              <span class="ai-tool-card__tag" data-i18n="ai.cc.tag1"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.cc.tag2"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.cc.tag3"></span>
-            </div>
-          </div>
-          <div class="ai-tool-card ai-tool-card--copilot">
-            <div class="ai-tool-card__header">
-              <div class="ai-tool-card__badge" data-i18n="ai.gc.badge"></div>
-              <span class="ai-tool-card__name" data-i18n="ai.gc.name"></span>
-            </div>
-            <p class="ai-tool-card__desc" data-i18n="ai.gc.desc"></p>
-            <div class="ai-tool-card__tags">
-              <span class="ai-tool-card__tag" data-i18n="ai.gc.tag1"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.gc.tag2"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.gc.tag3"></span>
-            </div>
-          </div>
-          <div class="ai-tool-card ai-tool-card--codex">
-            <div class="ai-tool-card__header">
-              <div class="ai-tool-card__badge" data-i18n="ai.cx.badge"></div>
-              <span class="ai-tool-card__name" data-i18n="ai.cx.name"></span>
-            </div>
-            <p class="ai-tool-card__desc" data-i18n="ai.cx.desc"></p>
-            <div class="ai-tool-card__tags">
-              <span class="ai-tool-card__tag" data-i18n="ai.cx.tag1"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.cx.tag2"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.cx.tag3"></span>
-            </div>
-          </div>
-          <div class="ai-tool-card ai-tool-card--agentic">
-            <div class="ai-tool-card__header">
-              <div class="ai-tool-card__badge" data-i18n="ai.aw.badge"></div>
-              <span class="ai-tool-card__name" data-i18n="ai.aw.name"></span>
-            </div>
-            <p class="ai-tool-card__desc" data-i18n="ai.aw.desc"></p>
-            <div class="ai-tool-card__tags">
-              <span class="ai-tool-card__tag" data-i18n="ai.aw.tag1"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.aw.tag2"></span>
-              <span class="ai-tool-card__tag" data-i18n="ai.aw.tag3"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 🏆 Achievements (Certificates) -->
-    <section id="certificates" class="certificates section reveal">
-      <div class="section__container">
-        <span class="section__badge">&#127942; Achievements</span>
-        <h2 class="section__title" data-i18n="certs.headline"></h2>
-        <div class="certificates__filters" role="tablist" aria-label="Certificate categories">
-          <button class="pill pill--filter is-active" data-filter="all" aria-selected="true" data-i18n="certs.filter.all"></button>
-          <button class="pill pill--filter" data-filter="scholarship" aria-selected="false" data-i18n="certs.filter.scholarship"></button>
-          <button class="pill pill--filter" data-filter="academic" aria-selected="false" data-i18n="certs.filter.academic"></button>
-          <button class="pill pill--filter" data-filter="leadership" aria-selected="false" data-i18n="certs.filter.leadership"></button>
-          <button class="pill pill--filter" data-filter="competitions" aria-selected="false" data-i18n="certs.filter.competitions"></button>
-          <button class="pill pill--filter" data-filter="cultural" aria-selected="false" data-i18n="certs.filter.cultural"></button>
-          <button class="pill pill--filter" data-filter="language" aria-selected="false" data-i18n="certs.filter.language"></button>
-        </div>
-        <div id="certificates-grid" class="certificates__grid" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <!-- Lightbox -->
+    <!-- Lightbox (reused for cert thumbnails) -->
     <div id="certificate-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Certificate image" hidden>
       <div class="lightbox__backdrop" data-lightbox-close="backdrop"></div>
       <div class="lightbox__panel">
