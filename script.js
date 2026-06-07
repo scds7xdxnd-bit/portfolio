@@ -116,6 +116,8 @@ const TRANSLATIONS = {
     'spec.engineer.featuredLinkLabel':'Live',
     'spec.engineer.item1.title':'Process Game',
     'spec.engineer.item1.desc':'Playful chemical-engineering process simulations (React, TypeScript, Canvas).',
+    'spec.engineer.item4.title':'Reaction Simulator',
+    'spec.engineer.item4.desc':'Interactive CSTR/PFR reactor network simulator — Levenspiel plots, conversion & temperature profiles, thermal operating diagram, and dynamic response with disturbance injection. React + TypeScript + Recharts.',
     'spec.engineer.item2.title':'LP Diet Optimization',
     'spec.engineer.item2.desc':'Linear-programming weekly meal-plan optimizer with nutrition & budget constraints; binding-constraint analysis (Python + Solver).',
     'spec.engineer.item3.title':'Teaching Assistant ×3',
@@ -288,6 +290,8 @@ const TRANSLATIONS = {
     'spec.engineer.featuredLinkLabel':'在线演示',
     'spec.engineer.item1.title':'过程游戏',
     'spec.engineer.item1.desc':'用趣味流程模拟让化学工程变得易懂（React, TypeScript, Canvas）。',
+    'spec.engineer.item4.title':'反应器模拟器',
+    'spec.engineer.item4.desc':'交互式 CSTR/PFR 反应器网络模拟器 — Levenspiel 图、转化率与温度分布、热操作线图以及带扰动注入的动态响应。React + TypeScript + Recharts。',
     'spec.engineer.item2.title':'LP饮食优化模型',
     'spec.engineer.item2.desc':'带营养和预算约束的线性规划周餐计划优化器；约束绑定分析（Python + Solver）。',
     'spec.engineer.item3.title':'助教×3',
@@ -460,6 +464,8 @@ const TRANSLATIONS = {
     'spec.engineer.featuredLinkLabel':'라이브',
     'spec.engineer.item1.title':'프로세스 게임',
     'spec.engineer.item1.desc':'재미있는 공정 시뮬레이션으로 화학공학을 쉽게 (React, TypeScript, Canvas).',
+    'spec.engineer.item4.title':'반응기 시뮬레이터',
+    'spec.engineer.item4.desc':'대화형 CSTR/PFR 반응기 네트워크 시뮬레이터 — Levenspiel 플롯, 전환율·온도 프로파일, 열 운전선도, 외란 주입이 포함된 동적 응답. React + TypeScript + Recharts.',
     'spec.engineer.item2.title':'LP 식단 최적화 모델',
     'spec.engineer.item2.desc':'영양·예산 제약 조건이 있는 선형계획 주간 식단 최적화; 제약 분석 (Python + Solver).',
     'spec.engineer.item3.title':'조교 ×3',
@@ -572,7 +578,8 @@ const SPECIALIZATIONS = [
     secondary: [
       { titleKey: 'spec.engineer.item1.title', descKey: 'spec.engineer.item1.desc', link: 'https://process-design.vercel.app', status: 'In Development' },
       { titleKey: 'spec.engineer.item2.title', descKey: 'spec.engineer.item2.desc' },
-      { titleKey: 'spec.engineer.item3.title', descKey: 'spec.engineer.item3.desc' }
+      { titleKey: 'spec.engineer.item3.title', descKey: 'spec.engineer.item3.desc' },
+      { titleKey: 'spec.engineer.item4.title', descKey: 'spec.engineer.item4.desc', link: 'https://reactionsimulator.vercel.app' }
     ],
     certs: [
       { filename: '20261_enrollment_cert', name: 'Sogang University Enrollment', icon: '🏫' }
