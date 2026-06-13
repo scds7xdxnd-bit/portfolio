@@ -4,6 +4,9 @@ assets/
 # OPUS prompt files
 prompts/
 
+# PDFs
+*.pdf
+
 # OS
 .DS_Store
 .vercel
