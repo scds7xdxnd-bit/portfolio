@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeOS — Taeyang Han</title>
+  <meta name="description" content="How I built a unified personal life-management platform across finance, health, habits, and productivity — Next.js, Flask, PostgreSQL, LP macro optimizer, event-driven architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../opinions/opinions.css">
+  <link rel="stylesheet" href="projects.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Page navigation">
+    <a href="../opinions/index.html" class="op-topbar__back">&#x2190; Portfolio</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">LifeOS</div>
+      <div class="op-topbar__subtitle">Personal Platform · Next.js · Flask · PostgreSQL</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="https://lifeos-wine.vercel.app" target="_blank" rel="noopener" class="op-topbar__portfolio-link">Live demo &#x2197;</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Project Case Study</p>
+        <h1 class="op-article__title">Building the operating system for my own life</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;&middot;&nbsp; 5+ years in production</p>
+        <div class="op-article__meta">
+          <span class="op-badge op-badge--project-build">SYSTEMS</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">In active use</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Solo builder</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <img
+          src="../assets/projects/lifeos.jpg"
+          alt="LifeOS — unified personal life management platform"
+          class="proj-hero"
+          loading="eager"
+        />
+
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <div class="proj-stat__label">Stack</div>
+            <div class="proj-stat__value">Next.js · Flask · PostgreSQL</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Domains</div>
+            <div class="proj-stat__value">6 integrated modules</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">History</div>
+            <div class="proj-stat__value">5+ years of data</div>
+          </div>
+        </div>
+
+        <h2>The problem</h2>
+
+        <p>
+          I was managing my life across six different tools: a spreadsheet for finances, Notion for habits, a notes app for health logs, separate trackers for fitness and reading, and nothing at all connecting them. Every week I'd wonder the same questions — am I on budget? Did my sleep affect my productivity? What does an optimal meal plan look like given this month's grocery budget? — but the data to answer them lived in six different places.
+        </p>
+
+        <p>
+          The problem wasn't data. I had plenty of it. The problem was that each domain was a silo, so cross-domain insight was impossible. I couldn't see how a spending spike in one category compressed my food budget, or how my workout frequency correlated with mood scores. The answer wasn't a better note-taking app — it was a single platform where all six domains shared the same data layer.
+        </p>
+
+        <h2>The six domains</h2>
+
+        <div class="analogy-box">
+          <div class="analogy-title">Integrated domains</div>
+          <div class="analogy-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">💰</div>
+              <div class="analogy-drives">Finance — income, spending, budget targets</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">🥗</div>
+              <div class="analogy-drives">Nutrition — LP-optimised weekly meal plans</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">💪</div>
+              <div class="analogy-drives">Health — workouts, sleep, body metrics</div>
+            </div>
+          </div>
+          <div class="analogy-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 0;">
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">📈</div>
+              <div class="analogy-drives">Habits — streak tracking, trend analysis</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">📚</div>
+              <div class="analogy-drives">Learning — reading log, note capture</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:20px;">🎯</div>
+              <div class="analogy-drives">Goals — quarterly targets, milestone tracking</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Key decisions</h2>
+
+        <div class="proj-decisions">
+          <div class="proj-decision">
+            <div class="proj-decision__num">01</div>
+            <div>
+              <div class="proj-decision__title">LP macro optimizer for nutrition</div>
+              <p class="proj-decision__body">
+                Most nutrition apps track what you ate. This one tells you what to eat. A linear programming solver (Python + Flask) takes your weekly budget, protein target, calorie limit, and a list of available foods, then returns the minimum-cost meal plan that satisfies every constraint. The binding-constraint analysis shows exactly which constraint is limiting — if you want more protein, it shows whether that means spending more money or cutting calories.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">02</div>
+            <div>
+              <div class="proj-decision__title">Event-driven architecture for cross-domain consistency</div>
+              <p class="proj-decision__body">
+                Each domain publishes events when state changes — a logged expense emits a budget-updated event; a workout completion emits a recovery-metric-changed event. Other domains subscribe and update accordingly. This means the finance module can tighten the nutrition budget automatically after an unexpected expense, without the nutrition module knowing anything about finance. Loose coupling, cross-domain reactivity.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">03</div>
+            <div>
+              <div class="proj-decision__title">Flask for computation, Next.js for UI</div>
+              <p class="proj-decision__body">
+                The LP solver, regression models for trend analysis, and the CNN emotion classifier all live in Flask — computation-heavy tasks that don't belong in the browser or a Next.js API route. Next.js handles SSR for the dashboard and all UI state. The split lets each layer do what it's best at: Flask for numerical work, Next.js for fast page loads and React component trees.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">04</div>
+            <div>
+              <div class="proj-decision__title">PostgreSQL over NoSQL — analytics wins over flexibility</div>
+              <p class="proj-decision__body">
+                The finance module started as a standalone Python/Flask app 5+ years ago. That history matters: with years of transactions, workouts, and habit streaks in the database, the queries that provide insight are all time-series joins and aggregations — things relational databases handle well. A document store would have required materialising these joins in application code. PostgreSQL lets me ask cross-domain questions directly in SQL.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>Architecture</h2>
+
+        <div class="proj-arch">
+          <div class="proj-arch__label">System overview</div>
+          <div class="proj-arch__flow">
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">Next.js</div>
+              <div class="proj-arch__node-sub">Dashboard UI · SSR</div>
+            </div>
+            <div class="proj-arch__arrow">⇄</div>
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">Flask API</div>
+              <div class="proj-arch__node-sub">LP solver · ML · Event bus</div>
+            </div>
+            <div class="proj-arch__arrow">⇄</div>
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">PostgreSQL</div>
+              <div class="proj-arch__node-sub">5+ yrs of data</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-note">
+          <p>The personal accounting system predates LifeOS by several years — it started as a standalone Flask app. LifeOS was built around it, integrating the existing 5+ years of financial history without a migration.</p>
+        </div>
+
+        <div class="proj-stack">
+          <span class="proj-pill proj-pill--highlight">Next.js</span>
+          <span class="proj-pill">Flask</span>
+          <span class="proj-pill">PostgreSQL</span>
+          <span class="proj-pill">Python (LP Solver)</span>
+          <span class="proj-pill">TensorFlow</span>
+          <span class="proj-pill">Vercel</span>
+          <span class="proj-pill">Fly.io</span>
+        </div>
+
+        <h2>Result</h2>
+
+        <div class="proj-result">
+          <div class="proj-result__label" style="color: var(--mint);">In active use</div>
+          <ul class="proj-result__items">
+            <li class="proj-result__item">Live at <a href="https://lifeos-wine.vercel.app" target="_blank" rel="noopener" style="border-bottom: 2px solid var(--mint);">lifeos-wine.vercel.app</a> — in daily personal use</li>
+            <li class="proj-result__item">6 integrated life domains sharing one data layer and event bus</li>
+            <li class="proj-result__item">LP macro optimizer generates constraint-aware meal plans with binding-constraint analysis</li>
+            <li class="proj-result__item">5+ years of continuous financial history — the longest-running system in the portfolio</li>
+            <li class="proj-result__item">Custom design system applied consistently across all six modules</li>
+          </ul>
+        </div>
+
+        <div class="proj-cta-row">
+          <a href="https://lifeos-wine.vercel.app" target="_blank" rel="noopener" class="proj-cta">Open live demo ↗</a>
+          <a href="../opinions/index.html" class="proj-cta proj-cta--ghost">← Back to portfolio</a>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Project navigation">
+        <a href="reaction-simulator.html" class="op-article-nav__link">
+          <span class="op-article-nav__link-label">Previous project</span>
+          <span class="op-article-nav__link-title">&#x2190; Reaction Simulator</span>
+        </a>
+        <a href="../opinions/index.html" class="op-article-nav__back">Back to Portfolio &#x2192;</a>
+        <span style="min-width:120px;"></span>
+      </nav>
+
+    </article>
+  </main>
+
+</body>
+</html>

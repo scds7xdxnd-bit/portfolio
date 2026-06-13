@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reaction Simulator — Taeyang Han</title>
+  <meta name="description" content="How I built an interactive CSTR/PFR reactor network simulator with Levenspiel plots, temperature profiles, and disturbance injection — React + TypeScript + Recharts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../opinions/opinions.css">
+  <link rel="stylesheet" href="projects.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Page navigation">
+    <a href="../opinions/index.html" class="op-topbar__back">&#x2190; Case Studies</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Reaction Simulator</div>
+      <div class="op-topbar__subtitle">Chemical Engineering · React · TypeScript</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="https://reactionsimulator.vercel.app" target="_blank" rel="noopener" class="op-topbar__portfolio-link">Live demo &#x2197;</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Project Case Study</p>
+        <h1 class="op-article__title">An interactive reactor network simulator that textbooks can't be</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;&middot;&nbsp; Chemical Engineering + Business, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-badge op-badge--project-eng">ENGINEERING</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Completed 2025</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Solo builder</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <img
+          src="../assets/projects/reaction_simulator.png"
+          alt="Reaction Simulator — CSTR/PFR network with Levenspiel plot"
+          class="proj-hero"
+          loading="eager"
+        />
+
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <div class="proj-stat__label">Stack</div>
+            <div class="proj-stat__value">React · TypeScript · Recharts</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Status</div>
+            <div class="proj-stat__value">Live &amp; deployed</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Role</div>
+            <div class="proj-stat__value">Solo builder</div>
+          </div>
+        </div>
+
+        <h2>The problem</h2>
+
+        <p>
+          Chemical reaction engineering courses are full of reactor design equations that describe how conversion, temperature, and volume relate to each other — but every example in the textbook shows a final, static answer. You can't see what happens to the temperature profile when you raise the feed temperature by 10 K, or what the Levenspiel plot looks like when you switch from a single CSTR to a PFR–CSTR series.
+        </p>
+
+        <p>
+          The gap between "I can solve the equation" and "I understand how the system behaves" is exactly where engineering intuition lives. I built this simulator to close that gap.
+        </p>
+
+        <h2>What it does</h2>
+
+        <p>
+          The simulator covers four views, all updating in real time as you change reactor parameters:
+        </p>
+
+        <div class="analogy-box">
+          <div class="analogy-title">Four views, one system</div>
+          <div class="analogy-grid">
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Levenspiel</div>
+              <div class="analogy-drives">Volume = area under 1/(−r<sub>A</sub>) — see it directly on the curve</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">T-Profile</div>
+              <div class="analogy-drives">Temperature along reactor length for adiabatic &amp; isothermal cases</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Disturbance</div>
+              <div class="analogy-drives">Inject a step change in feed and watch the dynamic response unfold</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          You can build networks — chain a CSTR with a PFR, add recycle, compare configurations side-by-side. The thermal operating diagram shows stable and unstable operating points for a CSTR with exothermic reactions, which is notoriously hard to build intuition for from static diagrams alone.
+        </p>
+
+        <h2>Key decisions</h2>
+
+        <div class="proj-decisions">
+          <div class="proj-decision">
+            <div class="proj-decision__num">01</div>
+            <div>
+              <div class="proj-decision__title">Recharts over Canvas</div>
+              <p class="proj-decision__body">
+                The alternative was drawing plots on HTML5 Canvas imperatively, which is faster but makes it hard to update individual data points when state changes. Recharts binds directly to React state, so any slider change re-renders only the affected chart segments — the right tradeoff for an interactive tool where responsiveness matters more than raw frame rate.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">02</div>
+            <div>
+              <div class="proj-decision__title">TypeScript for reactor state types</div>
+              <p class="proj-decision__body">
+                Reactor networks carry complex interdependent state: each node has inlet composition, temperature, conversion, and outlet conditions that become the next node's inlet. Without types, a function that expected molar flow rate would silently accept a volumetric flow rate. TypeScript caught this class of mistake throughout development and made refactoring the network topology safe.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">03</div>
+            <div>
+              <div class="proj-decision__title">Levenspiel plot as the primary visual metaphor</div>
+              <p class="proj-decision__body">
+                The Levenspiel plot (1/(-r<sub>A</sub>) vs. X<sub>A</sub>) is the textbook's canonical tool for comparing reactor volumes — the area under the curve IS the volume required. Making it the central view rather than a secondary chart forced the simulator to teach the right mental model: reactor design is about picking the curve shape that minimises area.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">04</div>
+            <div>
+              <div class="proj-decision__title">Disturbance injection added after the first working version</div>
+              <p class="proj-decision__body">
+                The initial version only showed steady-state profiles. After using it, the missing piece was obvious: you couldn't tell if a CSTR would recover from a feed disturbance or spiral to a new steady state. Adding a step-change injector that runs a time-stepping simulation turned a steady-state tool into a dynamics demonstration — the feature that makes the thermal operating diagram legible.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>Architecture</h2>
+
+        <div class="proj-arch">
+          <div class="proj-arch__label">Data flow</div>
+          <div class="proj-arch__flow">
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">UI Controls</div>
+              <div class="proj-arch__node-sub">Sliders · Network builder</div>
+            </div>
+            <div class="proj-arch__arrow">→</div>
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">React State</div>
+              <div class="proj-arch__node-sub">Typed reactor config</div>
+            </div>
+            <div class="proj-arch__arrow">→</div>
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">Solver Module</div>
+              <div class="proj-arch__node-sub">ODE integration · CSTR balance</div>
+            </div>
+            <div class="proj-arch__arrow">→</div>
+            <div class="proj-arch__node">
+              <div class="proj-arch__node-title">Recharts</div>
+              <div class="proj-arch__node-sub">Live plot render</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-stack">
+          <span class="proj-pill proj-pill--highlight">React 18</span>
+          <span class="proj-pill">TypeScript</span>
+          <span class="proj-pill">Recharts</span>
+          <span class="proj-pill">Vite</span>
+          <span class="proj-pill">Vercel</span>
+        </div>
+
+        <h2>Result</h2>
+
+        <div class="proj-result">
+          <div class="proj-result__label" style="color: var(--sky);">Shipped</div>
+          <ul class="proj-result__items">
+            <li class="proj-result__item">Live at <a href="https://reactionsimulator.vercel.app" target="_blank" rel="noopener" style="border-bottom: 2px solid var(--sky);">reactionsimulator.vercel.app</a> — deployed, publicly accessible</li>
+            <li class="proj-result__item">Covers CSTR, PFR, and series networks with Levenspiel, T-profile, and thermal operating diagram views</li>
+            <li class="proj-result__item">Disturbance injection tab demonstrates dynamic response without a separate simulation environment</li>
+            <li class="proj-result__item">Used alongside Process Thermodynamics coursework at Sogang as a personal study aid</li>
+          </ul>
+        </div>
+
+        <div class="proj-cta-row">
+          <a href="https://reactionsimulator.vercel.app" target="_blank" rel="noopener" class="proj-cta">Open live demo ↗</a>
+          <a href="../opinions/index.html" class="proj-cta proj-cta--ghost">← Back to portfolio</a>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Project navigation">
+        <span style="min-width:120px;"></span>
+        <a href="../opinions/index.html" class="op-article-nav__back">&#x2190; Back to Portfolio</a>
+        <a href="lifeos.html" class="op-article-nav__link" style="text-align:right;">
+          <span class="op-article-nav__link-label">Next project</span>
+          <span class="op-article-nav__link-title">LifeOS &#x2192;</span>
+        </a>
+      </nav>
+
+    </article>
+  </main>
+
+</body>
+</html>
