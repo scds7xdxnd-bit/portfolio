@@ -5,8 +5,8 @@ let currentLang = localStorage.getItem('lang') || 'en';
 
 const TRANSLATIONS = {
   en: {
-    'nav.about':'Profile','nav.specializations':'Specializations','nav.opinions':'Field Notes',
-    
+    'nav.about':'Profile','nav.specializations':'Specializations','nav.work':'Work','nav.opinions':'Case Studies','nav.contact':'Contact',
+
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'Languages',
     'hero.stat.languages.5':'5',
@@ -23,17 +23,23 @@ const TRANSLATIONS = {
     'hero.speech':'I build fun, practical systems that help people learn, live better, and chase big goals.',
     'hero.startQuest':'Start Quest',
     'hero.copyEmail':'Copy Email',
+    'hero.downloadCV':'Download CV',
     'hero.quests':'Current Quests',
     'hero.quest.lifeos':'LifeOS',
     'hero.quest.lifeosDesc':'Build my personal operating system',
-    'hero.quest.finance':'Finance App',
-    'hero.quest.financeDesc':'Learn finance. Track. Grow.',
-    'hero.quest.processGame':'Process Game',
-    'hero.quest.processGameDesc':'Make chemical engineering fun',
-    'hero.quest.language':'Language Learning',
-    'hero.quest.languageDesc':'6 languages. One adventure.',
-    'hero.quest.buildLog':'Build Log',
-    'hero.quest.buildLogDesc':'Document the process',
+    'hero.quest.finance':'Reaction Simulator',
+    'hero.quest.financeDesc':'Interactive CSTR/PFR reactor network',
+    'hero.quest.processGame':'PALS Mentoring',
+    'hero.quest.processGameDesc':'150+ students. Still growing.',
+    'hero.quest.language':'Language Mastery',
+    'hero.quest.languageDesc':'5 languages. One more to go.',
+    'hero.quest.buildLog':'Case Studies',
+    'hero.quest.buildLogDesc':'Projects & field notes',
+    'hero.quest.lifeos.proof':'In daily use',
+    'hero.quest.finance.proof':'Live',
+    'hero.quest.processGame.proof':'150+ mentees',
+    'hero.quest.language.proof':'TOPIK 6',
+    'hero.quest.buildLog.proof':'4 published',
 
     'projects.headline':'Featured Quests',
     'project.hero.label':'ACTIVE QUEST','project.status.In Development':'In Progress','project.status.Active':'Active','project.status.Completed':'Complete',
@@ -76,8 +82,10 @@ const TRANSLATIONS = {
     'spec.badge':'★ Specializations',
     'spec.title':'What I Build & Why It Matters',
     'spec.subtitle':'Five domains. Five years of deliberate practice. One integrated story.',
-    'spec.masteryLabel':'Mastery',
+    'spec.overview':'Jump to a domain',
+    'spec.masteryLabel':'PROOF',
     'spec.liveLink':'Live',
+    'spec.caseStudyLink':'Case Study',
     'spec.certsTitle':'Certificates',
     'spec.tab.linguist':'Linguist',
     'spec.tab.engineer':'Engineer',
@@ -88,7 +96,7 @@ const TRANSLATIONS = {
     'spec.linguist.stat1':'5 languages',
     'spec.linguist.stat2':'7 organizations',
     'spec.linguist.stat3':'Diplomatic-level',
-    'spec.linguist.mastery':'90%',
+    'spec.linguist.mastery':'TOPIK 6 · 265/300',
     'spec.linguist.headline':'Official Korean–English–Malay interpreter — work covered by Yonhap News.',
     'spec.linguist.featuredTitle':'APEC Cooperation Dialogue',
     'spec.linguist.featuredDesc':'Interpreted the meeting between Gyeongbuk Governor Lee Cheol-woo and Malaysian Ambassador Mohd Zamruni bin Khalid on APEC 2025 Summit cooperation (Feb 18, 2025). Reported by Yonhap News and the Gyeongbuk provincial government.',
@@ -106,12 +114,12 @@ const TRANSLATIONS = {
     'spec.linguist.item6.title':'ASEZ',
     'spec.linguist.item6.desc':'Weekly multilingual interpretation on social/environmental safety (Oct 2023–present).',
     'spec.linguist.item7.title':'Incheon Airport Customs',
-    'spec.linguist.item7.desc':'Korean–Malay consecutive interpretation for a narcotics suspect interrogation at Incheon Int\'l Airport T2 (June 2026).',
+    'spec.linguist.item7.desc':'Korean–Malay consecutive interpretation at Incheon Int\'l Airport T2 (June 2026).',
     'spec.engineer.name':'⚗️ Engineer',
     'spec.engineer.stat1':'2 majors',
     'spec.engineer.stat2':'TA ×3',
     'spec.engineer.stat3':'Sogang University',
-    'spec.engineer.mastery':'75%',
+    'spec.engineer.mastery':'Sogang · dual degree',
     'spec.engineer.headline':'Chemical Engineering + Business dual degree, building tools that make process engineering tangible.',
     'spec.engineer.featuredTitle':'Reaction Simulator',
     'spec.engineer.featuredDesc':'Interactive CSTR/PFR reactor network simulator with Levenspiel plots, conversion & temperature profiles, thermal operating diagram, and dynamic response with disturbance injection. React + TypeScript + Recharts.',
@@ -128,7 +136,7 @@ const TRANSLATIONS = {
     'spec.builder.stat1':'5 yrs building',
     'spec.builder.stat2':'6 deployed',
     'spec.builder.stat3':'Full-stack + ML',
-    'spec.builder.mastery':'80%',
+    'spec.builder.mastery':'6 deployed apps',
     'spec.builder.headline':'Five years building. Six deployed systems across full-stack and ML.',
     'spec.builder.featuredTitle':'LifeOS',
     'spec.builder.featuredDesc':'Unified personal life-management platform (finance, health, habits, productivity). Next.js + Flask + PostgreSQL, event-driven architecture, LP macro optimizer, custom design system.',
@@ -147,7 +155,7 @@ const TRANSLATIONS = {
     'spec.community.stat1':'150+ mentees',
     'spec.community.stat2':'7 leadership roles',
     'spec.community.stat3':'18 countries',
-    'spec.community.mastery':'85%',
+    'spec.community.mastery':'150+ mentees',
     'spec.community.headline':'150+ mentees over 4 semesters. Rebuilt PALS from informal knowledge into a constitutional organization.',
     'spec.community.featuredTitle':'PALS Co-President (2025)',
     'spec.community.featuredDesc':'International-student mentoring org. Came up as a mentee, then authored the club\'s first written constitution and a formal executive-transition system. Prior: Outstanding Mentor Award (2024-1), Mentor of the Semester (2024-2).',
@@ -157,7 +165,7 @@ const TRANSLATIONS = {
     'spec.community.item2.desc':'Southeast-Asian scholar study community.',
     'spec.community.item3.title':'Event Host / Emcee',
     'spec.community.item3.desc':'7+ events incl. International Student Night, Sogang Alumni Scholarship Award Ceremony, Samsung Dream Forest Festival.',
-    'spec.community.item4.title':'Didimol AI Curriculum (2025)',
+    'spec.community.item4.title':'Didimdol AI Curriculum (2025)',
     'spec.community.item4.desc':'Designed an age-appropriate neural-network/AI curriculum for 13-year-old mentees.',
     'spec.community.item5.title':'Rainbow Stepping Stone',
     'spec.community.item5.desc':'Refugee mentoring — supported a Myanmar student via Kolon Group\'s program.',
@@ -167,7 +175,7 @@ const TRANSLATIONS = {
     'spec.scholar.stat1':'Full Tuition',
     'spec.scholar.stat2':'7 scholarships',
     'spec.scholar.stat3':'4 institutions',
-    'spec.scholar.mastery':'80%',
+    'spec.scholar.mastery':'7 scholarships',
     'spec.scholar.headline':'7 scholarships across 4 institutions.',
     'spec.scholar.featuredTitle':'Samsung Dream Scholarship (Global Hope)',
     'spec.scholar.featuredDesc':'Competitively selected via school nomination + Samsung Foundation panel, across 5 semesters. Differentiators: TOPIK 6, deliberate Korean-language investment, dual degree.',
@@ -184,8 +192,8 @@ const TRANSLATIONS = {
     'spec.scholar.item5.desc':'Framework/template product encoding the logic behind multiple winning applications.',
   },
   zh: {
-    'nav.about':'个人资料','nav.specializations':'专业领域','nav.opinions':'笔记',
-    
+    'nav.about':'个人资料','nav.specializations':'专业领域','nav.work':'作品','nav.opinions':'案例研究','nav.contact':'联系',
+
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'语言',
     'hero.stat.languages.5':'5',
@@ -202,17 +210,23 @@ const TRANSLATIONS = {
     'hero.speech':'我构建有趣又实用的系统，帮助人们一步步学习、生活得更好，并追逐更大的目标。',
     'hero.startQuest':'开始任务',
     'hero.copyEmail':'复制邮箱',
+    'hero.downloadCV':'下载简历',
     'hero.quests':'当前任务',
     'hero.quest.lifeos':'LifeOS',
     'hero.quest.lifeosDesc':'构建我的个人操作系统',
-    'hero.quest.finance':'财务应用',
-    'hero.quest.financeDesc':'学习财务，追踪，成长',
-    'hero.quest.processGame':'过程游戏',
-    'hero.quest.processGameDesc':'让化学工程变得有趣',
-    'hero.quest.language':'语言学习',
-    'hero.quest.languageDesc':'6种语言，一次冒险',
-    'hero.quest.buildLog':'构建日志',
-    'hero.quest.buildLogDesc':'记录整个过程',
+    'hero.quest.finance':'反应器模拟器',
+    'hero.quest.financeDesc':'交互式CSTR/PFR反应器网络',
+    'hero.quest.processGame':'PALS导师计划',
+    'hero.quest.processGameDesc':'150+名学员，持续成长中',
+    'hero.quest.language':'语言精通',
+    'hero.quest.languageDesc':'5种语言，还有一个在路上',
+    'hero.quest.buildLog':'案例研究',
+    'hero.quest.buildLogDesc':'项目与学习笔记',
+    'hero.quest.lifeos.proof':'日常使用',
+    'hero.quest.finance.proof':'在线',
+    'hero.quest.processGame.proof':'150+ 名学员',
+    'hero.quest.language.proof':'TOPIK 6',
+    'hero.quest.buildLog.proof':'已发布 4 篇',
 
     'projects.headline':'精选任务',
     'project.hero.label':'当前任务','project.status.In Development':'进行中','project.status.Active':'活跃','project.status.Completed':'已完成',
@@ -255,8 +269,10 @@ const TRANSLATIONS = {
     'spec.badge':'★ 专业领域',
     'spec.title':'我的构建与意义',
     'spec.subtitle':'五大领域。五年专注实践。一个完整的故事。',
-    'spec.masteryLabel':'掌握程度',
+    'spec.overview':'快速跳转',
+    'spec.masteryLabel':'实证',
     'spec.liveLink':'在线演示',
+    'spec.caseStudyLink':'项目详情',
     'spec.certsTitle':'证书',
     'spec.tab.linguist':'语言与翻译',
     'spec.tab.engineer':'工程师',
@@ -267,7 +283,7 @@ const TRANSLATIONS = {
     'spec.linguist.stat1':'5种语言',
     'spec.linguist.stat2':'7家机构',
     'spec.linguist.stat3':'外交级别',
-    'spec.linguist.mastery':'90%',
+    'spec.linguist.mastery':'TOPIK 6 · 265/300',
     'spec.linguist.headline':'韩英马来语官方口译员——工作获韩联社报道。',
     'spec.linguist.featuredTitle':'APEC合作对话',
     'spec.linguist.featuredDesc':'2025年2月18日，担任庆北道知事李喆雨与马来西亚大使Mohd Zamruni bin Khalid就APEC 2025峰会合作会谈的口译员。获韩联社及庆北道官方报道。',
@@ -285,12 +301,12 @@ const TRANSLATIONS = {
     'spec.linguist.item6.title':'ASEZ',
     'spec.linguist.item6.desc':'每周多语种口译，议题涉及社会和环境安全（2023年10月至今）。',
     'spec.linguist.item7.title':'仁川机场海关',
-    'spec.linguist.item7.desc':'仁川国际机场T2，麻醉药品违规嫌疑人审讯韩马连续口译（2026年6月）。',
+    'spec.linguist.item7.desc':'仁川国际机场T2，韩马连续口译（2026年6月）。',
     'spec.engineer.name':'⚗️ 工程师',
     'spec.engineer.stat1':'双专业',
     'spec.engineer.stat2':'助教×3',
     'spec.engineer.stat3':'西江大学',
-    'spec.engineer.mastery':'75%',
+    'spec.engineer.mastery':'西江大学 · 双专业',
     'spec.engineer.headline':'化学工程+商学双学位，用工具让工程可视化。',
     'spec.engineer.featuredTitle':'反应器模拟器',
     'spec.engineer.featuredDesc':'交互式 CSTR/PFR 反应器网络模拟器，含 Levenspiel 图、转化率与温度分布、热操作线图以及带扰动注入的动态响应。React + TypeScript + Recharts。',
@@ -307,7 +323,7 @@ const TRANSLATIONS = {
     'spec.builder.stat1':'5年开发经验',
     'spec.builder.stat2':'6个已部署',
     'spec.builder.stat3':'全栈 + ML',
-    'spec.builder.mastery':'80%',
+    'spec.builder.mastery':'6个已部署项目',
     'spec.builder.headline':'五年构建经验，六个已上线系统，涵盖全栈与机器学习。',
     'spec.builder.featuredTitle':'LifeOS',
     'spec.builder.featuredDesc':'统一个人生活管理平台（财务、健康、习惯、效率）。Next.js + Flask + PostgreSQL，事件驱动架构，LP宏观优化器，自定义设计系统。',
@@ -326,7 +342,7 @@ const TRANSLATIONS = {
     'spec.community.stat1':'150+名学员',
     'spec.community.stat2':'7个领导职务',
     'spec.community.stat3':'18个国家',
-    'spec.community.mastery':'85%',
+    'spec.community.mastery':'150+名学员',
     'spec.community.headline':'4个学期150+名学员。将PALS从非正式知识型组织重建为有章程的正规组织。',
     'spec.community.featuredTitle':'PALS联合会长（2025）',
     'spec.community.featuredDesc':'国际生辅导组织。从学员成长为领导者，主导撰写俱乐部首份书面章程和正式交接制度。此前荣获优秀导师奖（2024-1）、学期最佳导师（2024-2）。',
@@ -336,7 +352,7 @@ const TRANSLATIONS = {
     'spec.community.item2.desc':'三星奖学金东南亚学者学习社区。',
     'spec.community.item3.title':'活动主持人/司仪',
     'spec.community.item3.desc':'主持7+场活动，包括国际生之夜、西江校友奖学金颁奖典礼、三星Dream Forest节。',
-    'spec.community.item4.title':'Didimol AI课程（2025）',
+    'spec.community.item4.title':'Didimdol AI课程（2025）',
     'spec.community.item4.desc':'为13岁学员设计适龄的神经网络/AI课程。',
     'spec.community.item5.title':'Rainbow Stepping Stone',
     'spec.community.item5.desc':'难民辅导——通过Kolon集团项目支持一名缅甸学生。',
@@ -346,7 +362,7 @@ const TRANSLATIONS = {
     'spec.scholar.stat1':'全额学费',
     'spec.scholar.stat2':'7个奖学金',
     'spec.scholar.stat3':'4所机构',
-    'spec.scholar.mastery':'80%',
+    'spec.scholar.mastery':'7个奖学金',
     'spec.scholar.headline':'7项奖学金，来自4所机构。',
     'spec.scholar.featuredTitle':'三星梦想奖学金（全球希望）',
     'spec.scholar.featuredDesc':'经学校提名+三星基金会评审团竞争选拔，共5学期。核心优势：TOPIK 6、系统性韩语投入、双学位。',
@@ -363,7 +379,7 @@ const TRANSLATIONS = {
     'spec.scholar.item5.desc':'将多次成功申请背后的逻辑提炼为框架/模板产品。',
   },
   ko: {
-    'nav.about':'프로필','nav.specializations':'전문 분야','nav.opinions':'현장 노트',
+    'nav.about':'프로필','nav.specializations':'전문 분야','nav.work':'작업','nav.opinions':'케이스 스터디','nav.contact':'연락',
 
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'언어',
@@ -381,17 +397,23 @@ const TRANSLATIONS = {
     'hero.speech':'저는 사람들을 배우고 더 나은 삶을 살고 큰 목표를 추구할 수 있도록 재미있는 시스템을 만듭니다.',
     'hero.startQuest':'퀘스트 시작',
     'hero.copyEmail':'이메일 복사',
+    'hero.downloadCV':'이력서 다운로드',
     'hero.quests':'현재 퀘스트',
     'hero.quest.lifeos':'LifeOS',
     'hero.quest.lifeosDesc':'나만의 개인 운영체제 구축',
-    'hero.quest.finance':'재무 앱',
-    'hero.quest.financeDesc':'재무 학습. 추적. 성장.',
-    'hero.quest.processGame':'프로세스 게임',
-    'hero.quest.processGameDesc':'화학공학을 재미있게',
-    'hero.quest.language':'언어 학습',
-    'hero.quest.languageDesc':'6개 언어. 세상을 연결하다',
-    'hero.quest.buildLog':'빌드 로그',
-    'hero.quest.buildLogDesc':'과정을 기록하다',
+    'hero.quest.finance':'반응기 시뮬레이터',
+    'hero.quest.financeDesc':'CSTR/PFR 반응기 네트워크 시뮬',
+    'hero.quest.processGame':'PALS 멘토링',
+    'hero.quest.processGameDesc':'150명+ 멘티. 계속 성장 중.',
+    'hero.quest.language':'언어 마스터리',
+    'hero.quest.languageDesc':'5개 언어. 하나 더 남았다.',
+    'hero.quest.buildLog':'케이스 스터디',
+    'hero.quest.buildLogDesc':'프로젝트 & 학습 노트',
+    'hero.quest.lifeos.proof':'매일 사용',
+    'hero.quest.finance.proof':'라이브',
+    'hero.quest.processGame.proof':'멘티 150명+',
+    'hero.quest.language.proof':'TOPIK 6',
+    'hero.quest.buildLog.proof':'4편 게시',
 
     'projects.headline':'주요 퀘스트',
     'project.hero.label':'진행중 퀘스트','project.status.In Development':'개발중','project.status.Active':'액티브','project.status.Completed':'완료',
@@ -434,8 +456,10 @@ const TRANSLATIONS = {
     'spec.badge':'★ 전문 분야',
     'spec.title':'내가 만드는 것과 그 이유',
     'spec.subtitle':'다섯 분야. 5년의 집중적인 실천. 하나의 통합된 이야기.',
-    'spec.masteryLabel':'숙련도',
+    'spec.overview':'분야 바로가기',
+    'spec.masteryLabel':'증거',
     'spec.liveLink':'라이브',
+    'spec.caseStudyLink':'프로젝트 상세',
     'spec.certsTitle':'증서',
     'spec.tab.linguist':'통역사',
     'spec.tab.engineer':'엔지니어',
@@ -446,7 +470,7 @@ const TRANSLATIONS = {
     'spec.linguist.stat1':'5개 언어',
     'spec.linguist.stat2':'7개 기관',
     'spec.linguist.stat3':'외교급',
-    'spec.linguist.mastery':'90%',
+    'spec.linguist.mastery':'TOPIK 6 · 265/300',
     'spec.linguist.headline':'한·영·말레이어 공식 통역사 — 연합뉴스 보도.',
     'spec.linguist.featuredTitle':'APEC 협력 대화',
     'spec.linguist.featuredDesc':'2025년 2월 18일, APEC 2025 정상회의 협력을 주제로 한 이철우 경북도지사와 모흐드 잠루니 말레이시아 대사 간 회의를 통역했습니다. 연합뉴스 및 경북도 공식 보도.',
@@ -464,12 +488,12 @@ const TRANSLATIONS = {
     'spec.linguist.item6.title':'ASEZ',
     'spec.linguist.item6.desc':'사회·환경 안전 주제 주간 다국어 통역 (2023년 10월–현재).',
     'spec.linguist.item7.title':'인천공항세관',
-    'spec.linguist.item7.desc':'마약류 위반 피의자 신문 한·말 순차통역, 인천국제공항 제2여객터미널 (2026년 6월).',
+    'spec.linguist.item7.desc':'한·말 순차통역, 인천국제공항 제2여객터미널 (2026년 6월).',
     'spec.engineer.name':'⚗️ 엔지니어',
     'spec.engineer.stat1':'복수전공 2개',
     'spec.engineer.stat2':'조교 ×3',
     'spec.engineer.stat3':'서강대학교',
-    'spec.engineer.mastery':'75%',
+    'spec.engineer.mastery':'서강대 · 복수전공',
     'spec.engineer.headline':'화학공학 + 경영학 복수전공, 공학을 시각화하는 도구를 만들다.',
     'spec.engineer.featuredTitle':'반응기 시뮬레이터',
     'spec.engineer.featuredDesc':'대화형 CSTR/PFR 반응기 네트워크 시뮬레이터 — Levenspiel 플롯, 전환율·온도 프로파일, 열 운전선도, 외란 주입이 포함된 동적 응답. React + TypeScript + Recharts.',
@@ -486,7 +510,7 @@ const TRANSLATIONS = {
     'spec.builder.stat1':'5년 개발',
     'spec.builder.stat2':'6개 배포',
     'spec.builder.stat3':'풀스택 + ML',
-    'spec.builder.mastery':'80%',
+    'spec.builder.mastery':'배포 앱 6개',
     'spec.builder.headline':'5년 빌딩. 풀스택과 ML을 아우르는 6개 배포 시스템.',
     'spec.builder.featuredTitle':'LifeOS',
     'spec.builder.featuredDesc':'재무·건강·습관·생산성을 아우르는 통합 개인 생활 관리 플랫폼. Next.js + Flask + PostgreSQL, 이벤트 기반 아키텍처, LP 매크로 최적화기, 커스텀 디자인 시스템.',
@@ -505,7 +529,7 @@ const TRANSLATIONS = {
     'spec.community.stat1':'150명+ 멘티',
     'spec.community.stat2':'7개 리더십 역할',
     'spec.community.stat3':'18개국',
-    'spec.community.mastery':'85%',
+    'spec.community.mastery':'150명+ 멘티',
     'spec.community.headline':'4학기 150명+ 멘티. PALS를 비공식 조직에서 회칙 기반 조직으로 재건.',
     'spec.community.featuredTitle':'PALS 공동 회장 (2025)',
     'spec.community.featuredDesc':'국제학생 멘토링 단체. 멘티로 시작해 클럽 최초의 서면 회칙과 공식 임원 인수인계 시스템을 만들었습니다. 수상: 우수 멘토 활동상 (2024-1), 학기 최우수 멘토 (2024-2).',
@@ -515,7 +539,7 @@ const TRANSLATIONS = {
     'spec.community.item2.desc':'삼성 장학생 동남아시아 학습 커뮤니티.',
     'spec.community.item3.title':'행사 진행자 / MC',
     'spec.community.item3.desc':'국제학생의 밤, 서강 동문장학금 시상식, 삼성 Dream Forest Festival 등 7회+ 진행.',
-    'spec.community.item4.title':'Didimol AI 커리큘럼 (2025)',
+    'spec.community.item4.title':'Didimdol AI 커리큘럼 (2025)',
     'spec.community.item4.desc':'13세 멘티를 위한 연령 맞춤 신경망/AI 커리큘럼 설계.',
     'spec.community.item5.title':'Rainbow Stepping Stone',
     'spec.community.item5.desc':'난민 멘토링 — Kolon 그룹 프로그램을 통해 미얀마 학생 1명 지원.',
@@ -525,7 +549,7 @@ const TRANSLATIONS = {
     'spec.scholar.stat1':'전액 장학금',
     'spec.scholar.stat2':'7개 장학금',
     'spec.scholar.stat3':'4개 기관',
-    'spec.scholar.mastery':'80%',
+    'spec.scholar.mastery':'장학금 7개',
     'spec.scholar.headline':'4개 기관에서 7개 장학금 수상.',
     'spec.scholar.featuredTitle':'삼성 꿈장학금 (글로벌 희망)',
     'spec.scholar.featuredDesc':'학교 추천 + 삼성재단 심사를 통해 경쟁 선발, 5학기 연속 수혜. 차별점: TOPIK 6, 의도적인 한국어 투자, 복수전공.',
@@ -557,6 +581,43 @@ function applyTranslations() {
   document.documentElement.lang = currentLang === 'ko' ? 'ko' : currentLang === 'zh' ? 'zh' : 'en';
 }
 
+/* ═══════════════════════════════════════════════
+   0b. ICON SYSTEM — one consistent stroke set (replaces raw emoji)
+   ═══════════════════════════════════════════════ */
+const ICON_PATHS = {
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 4 9 14 14 0 0 1-4 9 14 14 0 0 1-4-9 14 14 0 0 1 4-9z"/>',
+  flask: '<path d="M9 3h6"/><path d="M10 3v6l-4.6 8.2A1.5 1.5 0 0 0 6.7 20h10.6a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/><path d="M7.5 15h9"/>',
+  code: '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/>',
+  cap: '<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.3 2.7 3 6 3s6-1.7 6-3v-5"/>',
+  dashboard: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  award: '<circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>'
+};
+
+function iconSvg(name) {
+  const p = ICON_PATHS[name];
+  if (!p) return '';
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+}
+
+function injectIcons(root) {
+  (root || document).querySelectorAll('[data-icon]').forEach(el => {
+    const svg = iconSvg(el.dataset.icon);
+    if (svg) el.innerHTML = svg;
+  });
+}
+
+/* Maps each specialization id to an icon name */
+const DOMAIN_ICON = {
+  linguist: 'globe',
+  engineer: 'flask',
+  builder: 'code',
+  community: 'users',
+  scholar: 'cap'
+};
+
 
 
 /* ═══════════════════════════════════════════════
@@ -570,10 +631,11 @@ const SPECIALIZATIONS = [
     mastery: 90,
     featuredUrl: 'https://www.yna.co.kr/view/AKR20250218100300053',
     featuredLinkKey: 'spec.linguist.featuredLinkLabel',
+    screenshot: 'assets/projects/apec_cooperation_dialogue.png',
     secondary: [
-      { titleKey: 'spec.linguist.item1.title', descKey: 'spec.linguist.item1.desc' },
-      { titleKey: 'spec.linguist.item2.title', descKey: 'spec.linguist.item2.desc' },
-      { titleKey: 'spec.linguist.item3.title', descKey: 'spec.linguist.item3.desc' },
+      { titleKey: 'spec.linguist.item1.title', descKey: 'spec.linguist.item1.desc', screenshot: 'assets/projects/gyeongbuk_provincial_government.jpg' },
+      { titleKey: 'spec.linguist.item2.title', descKey: 'spec.linguist.item2.desc', screenshot: 'assets/projects/supreme_prosecutors_office.png'  },
+      { titleKey: 'spec.linguist.item3.title', descKey: 'spec.linguist.item3.desc', screenshot: 'assets/projects/anti_corruption.png' },
       { titleKey: 'spec.linguist.item4.title', descKey: 'spec.linguist.item4.desc' },
       { titleKey: 'spec.linguist.item5.title', descKey: 'spec.linguist.item5.desc' },
       { titleKey: 'spec.linguist.item6.title', descKey: 'spec.linguist.item6.desc' },
@@ -591,11 +653,13 @@ const SPECIALIZATIONS = [
     mastery: 75,
     featuredUrl: 'https://reactionsimulator.vercel.app',
     featuredLinkKey: 'spec.engineer.featuredLinkLabel',
+    caseStudyUrl: 'projects/reaction-simulator.html',
+    screenshot: 'assets/projects/reaction_simulator.png',
     secondary: [
-      { titleKey: 'spec.engineer.item6.title', descKey: 'spec.engineer.item6.desc', link: 'https://fugacity-simulator.vercel.app', status: 'Completed' },
-      { titleKey: 'spec.engineer.item1.title', descKey: 'spec.engineer.item1.desc', link: 'https://process-design.vercel.app', status: 'In Development' },
-      { titleKey: 'spec.engineer.item2.title', descKey: 'spec.engineer.item2.desc' },
-      { titleKey: 'spec.engineer.item5.title', descKey: 'spec.engineer.item5.desc', link: 'https://apple-scm-web.vercel.app' }
+      { titleKey: 'spec.engineer.item6.title', descKey: 'spec.engineer.item6.desc', link: 'https://fugacity-simulator.vercel.app', status: 'Completed', screenshot: 'assets/projects/fugacity_simulator.jpg' },
+      { titleKey: 'spec.engineer.item1.title', descKey: 'spec.engineer.item1.desc', link: 'https://process-design.vercel.app', status: 'In Development', screenshot: 'assets/projects/process_game.jpg' },
+      { titleKey: 'spec.engineer.item5.title', descKey: 'spec.engineer.item5.desc', link: 'https://apple-scm-web.vercel.app', screenshot: 'assets/projects/apple_scm_analysis.png' },
+      { titleKey: 'spec.engineer.item2.title', descKey: 'spec.engineer.item2.desc', screenshot: 'assets/projects/lp_diet_optimization.png' }
     ],
     certs: [
       { filename: '20261_enrollment_cert', name: 'Sogang University Enrollment', icon: '🏫' }
@@ -608,10 +672,12 @@ const SPECIALIZATIONS = [
     mastery: 80,
     featuredUrl: 'https://lifeos-wine.vercel.app',
     featuredLinkKey: 'spec.builder.featuredLinkLabel',
+    caseStudyUrl: 'projects/lifeos.html',
+    screenshot: 'assets/projects/lifeos.jpg',
     secondary: [
-      { titleKey: 'spec.builder.item1.title', descKey: 'spec.builder.item1.desc', link: 'https://finance-app-private-alpha.fly.dev' },
-      { titleKey: 'spec.builder.item2.title', descKey: 'spec.builder.item2.desc', link: 'https://scmsimulator.vercel.app' },
-      { titleKey: 'spec.builder.item3.title', descKey: 'spec.builder.item3.desc' },
+      { titleKey: 'spec.builder.item1.title', descKey: 'spec.builder.item1.desc', link: 'https://finance-app-private-alpha.fly.dev', screenshot: 'assets/projects/accounting.jpg' },
+      { titleKey: 'spec.builder.item2.title', descKey: 'spec.builder.item2.desc', link: 'https://scmsimulator.vercel.app', screenshot: 'assets/projects/scm_simulator.jpg' },
+      { titleKey: 'spec.builder.item3.title', descKey: 'spec.builder.item3.desc', screenshot: 'assets/projects/cnn_emotion_classifier.png' },
       { titleKey: 'spec.builder.item4.title', descKey: 'spec.builder.item4.desc' },
       { titleKey: 'spec.builder.item5.title', descKey: 'spec.builder.item5.desc' }
     ],
@@ -624,12 +690,13 @@ const SPECIALIZATIONS = [
     mastery: 85,
     featuredUrl: null,
     featuredLinkKey: null,
+    screenshot: 'assets/projects/pals_copresident.png',
     secondary: [
-      { titleKey: 'spec.community.item1.title', descKey: 'spec.community.item1.desc' },
-      { titleKey: 'spec.community.item2.title', descKey: 'spec.community.item2.desc' },
-      { titleKey: 'spec.community.item3.title', descKey: 'spec.community.item3.desc' },
+      { titleKey: 'spec.community.item1.title', descKey: 'spec.community.item1.desc', screenshot: 'assets/projects/samsung_dream_scholars_president.jpg' },
+      { titleKey: 'spec.community.item2.title', descKey: 'spec.community.item2.desc', screenshot: 'assets/projects/sea_study_club_president.png' },
+      { titleKey: 'spec.community.item3.title', descKey: 'spec.community.item3.desc', screenshot: 'assets/projects/event_host.png' },
+      { titleKey: 'spec.community.item5.title', descKey: 'spec.community.item5.desc', screenshot: 'assets/projects/rainbow_stepping_stone.png' },
       { titleKey: 'spec.community.item4.title', descKey: 'spec.community.item4.desc' },
-      { titleKey: 'spec.community.item5.title', descKey: 'spec.community.item5.desc' },
       { titleKey: 'spec.community.item6.title', descKey: 'spec.community.item6.desc' }
     ],
     certs: [
@@ -647,11 +714,12 @@ const SPECIALIZATIONS = [
     mastery: 80,
     featuredUrl: 'https://webzine.sdream.or.kr/webzin/webzine96/sub1_4.html',
     featuredLinkKey: 'spec.scholar.featuredLinkLabel',
+    screenshot: 'assets/projects/samsung_dream_scholarship.png',
     secondary: [
+      { titleKey: 'spec.scholar.item4.title', descKey: 'spec.scholar.item4.desc', link: 'https://xhslink.com/m/6pTVib4GbZU', screenshot: 'assets/projects/xiaohongshu.jpg' },
+      { titleKey: 'spec.scholar.item2.title', descKey: 'spec.scholar.item2.desc', screenshot: 'assets/projects/sogang_alumni_scholarship.png' },
       { titleKey: 'spec.scholar.item1.title', descKey: 'spec.scholar.item1.desc' },
-      { titleKey: 'spec.scholar.item2.title', descKey: 'spec.scholar.item2.desc' },
       { titleKey: 'spec.scholar.item3.title', descKey: 'spec.scholar.item3.desc' },
-      { titleKey: 'spec.scholar.item4.title', descKey: 'spec.scholar.item4.desc', link: 'https://xhslink.com/m/6pTVib4GbZU' },
       { titleKey: 'spec.scholar.item5.title', descKey: 'spec.scholar.item5.desc' }
     ],
     certs: [
@@ -689,25 +757,37 @@ function renderSpecializations() {
       ? `<a class="specs__featured-link" href="${spec.featuredUrl}" target="_blank" rel="noopener" data-i18n="${spec.featuredLinkKey}">${t(spec.featuredLinkKey)} ↗</a>`
       : '';
 
-    const secondaryHtml = spec.secondary.map((item, i) => {
+    const caseStudyLinkHtml = spec.caseStudyUrl
+      ? `<a class="specs__case-study-link" href="${spec.caseStudyUrl}" data-i18n="spec.caseStudyLink">${t('spec.caseStudyLink')} →</a>`
+      : '';
+
+    const secondaryHtml = spec.secondary.map((item) => {
       const statusHtml = item.status
         ? `<span class="pill pill--status pill--status--in-development" data-i18n="project.status.${item.status}">${t('project.status.' + item.status)}</span>`
         : '';
       const linkHtml = item.link
         ? `<a class="specs__secondary-link" href="${item.link}" target="_blank" rel="noopener"><span data-i18n="spec.liveLink">${t('spec.liveLink')}</span> ↗</a>`
         : '';
+      const screenshotHtml = item.screenshot
+        ? `<img class="specs__secondary-screenshot" src="${item.screenshot}" alt="" loading="lazy" />`
+        : '';
+      const footerHtml = (statusHtml || linkHtml)
+        ? `<div class="specs__secondary-footer">${statusHtml}${linkHtml}</div>`
+        : '';
       return `
-        <div class="specs__secondary-card">
-          <h4 class="specs__secondary-title" data-i18n="${item.titleKey}">${t(item.titleKey)}</h4>
-          <p class="specs__secondary-desc" data-i18n="${item.descKey}">${t(item.descKey)}</p>
-          ${linkHtml}
-          ${statusHtml ? `<div class="specs__secondary-meta">${statusHtml}</div>` : ''}
+        <div class="specs__secondary-card${item.screenshot ? ' specs__secondary-card--has-img' : ''}">
+          ${screenshotHtml}
+          <div class="specs__secondary-body">
+            <h4 class="specs__secondary-title" data-i18n="${item.titleKey}">${t(item.titleKey)}</h4>
+            <p class="specs__secondary-desc" data-i18n="${item.descKey}">${t(item.descKey)}</p>
+          </div>
+          ${footerHtml}
         </div>`;
     }).join('');
 
     const certsHtml = spec.certs.length > 0 ? `
       <div class="specs__certs">
-        <p class="specs__certs-title">📜 <span data-i18n="spec.certsTitle">${t('spec.certsTitle')}</span></p>
+        <p class="specs__certs-title"><span class="specs__certs-icon" data-icon="award" aria-hidden="true"></span> <span data-i18n="spec.certsTitle">${t('spec.certsTitle')}</span></p>
         <div class="specs__certs-strip">
           ${spec.certs.map(c => `
             <div class="specs__cert-thumb" data-cert="${c.filename}" data-cert-name="${c.name}">
@@ -721,23 +801,36 @@ function renderSpecializations() {
         </div>
       </div>` : '';
 
+    const featuredScreenshotHtml = spec.screenshot
+      ? `<img class="specs__featured-screenshot" src="${spec.screenshot}" alt="" loading="lazy" />`
+      : '';
+
     panel.innerHTML = `
       <div class="specs__panel-header">
-        <h3 class="specs__panel-name" data-i18n="spec.${spec.id}.name">${t(`spec.${spec.id}.name`)}</h3>
+        <h3 class="specs__panel-name">
+          <span class="specs__panel-icon" data-icon="${DOMAIN_ICON[spec.id]}" aria-hidden="true"></span>
+          <span data-i18n="spec.tab.${spec.id}">${t(`spec.tab.${spec.id}`)}</span>
+        </h3>
         <div class="specs__stats">${statsHtml}</div>
       </div>
-      <div class="specs__mastery">
-        <span class="specs__mastery-label"><span data-i18n="spec.masteryLabel">${t('spec.masteryLabel')}</span></span>
-        <div class="progress">
-          <div class="progress__fill progress__fill--${spec.accent}" style="width:${spec.mastery}%"></div>
-        </div>
-        <span class="specs__mastery-pct" data-i18n="${masteryKey}">${masteryPct}</span>
+      <div class="specs__proof">
+        <span class="specs__proof-label" data-i18n="spec.masteryLabel">${t('spec.masteryLabel')}</span>
+        <span class="specs__proof-value specs__proof-value--${spec.accent}">
+          <span class="specs__proof-icon" data-icon="check" aria-hidden="true"></span>
+          <span data-i18n="${masteryKey}">${masteryPct}</span>
+        </span>
       </div>
       <div class="specs__headline" data-i18n="spec.${spec.id}.headline">${t(`spec.${spec.id}.headline`)}</div>
-      <div class="specs__featured specs__featured--${spec.accent}">
-        <h4 class="specs__featured-title" data-i18n="spec.${spec.id}.featuredTitle">${t(`spec.${spec.id}.featuredTitle`)}</h4>
-        <p class="specs__featured-desc" data-i18n="spec.${spec.id}.featuredDesc">${t(`spec.${spec.id}.featuredDesc`)}</p>
-        ${featuredLinkHtml}
+      <div class="specs__featured specs__featured--${spec.accent}${spec.screenshot ? ' specs__featured--has-img' : ''}">
+        <div class="specs__featured-content">
+          <h4 class="specs__featured-title" data-i18n="spec.${spec.id}.featuredTitle">${t(`spec.${spec.id}.featuredTitle`)}</h4>
+          <p class="specs__featured-desc" data-i18n="spec.${spec.id}.featuredDesc">${t(`spec.${spec.id}.featuredDesc`)}</p>
+          <div class="specs__featured-actions">
+            ${featuredLinkHtml}
+            ${caseStudyLinkHtml}
+          </div>
+        </div>
+        ${featuredScreenshotHtml}
       </div>
       <div class="specs__secondary">${secondaryHtml}</div>
       ${certsHtml}
@@ -745,6 +838,26 @@ function renderSpecializations() {
 
     container.appendChild(panel);
   });
+
+  injectIcons(container);
+}
+
+/* ═══════════════════════════════════════════════
+    3b-ii. RENDER DOMAINS OVERVIEW (launchpad / table of contents)
+    ═══════════════════════════════════════════════ */
+function renderDomainOverview() {
+  const container = document.getElementById('domain-overview');
+  if (!container) return;
+  container.innerHTML = SPECIALIZATIONS.map(spec => `
+    <a class="domain-tile domain-tile--${spec.accent}" href="#${spec.id}">
+      <span class="domain-tile__icon" data-icon="${DOMAIN_ICON[spec.id]}" aria-hidden="true"></span>
+      <span class="domain-tile__body">
+        <span class="domain-tile__name" data-i18n="spec.tab.${spec.id}">${t(`spec.tab.${spec.id}`)}</span>
+        <span class="domain-tile__proof" data-i18n="spec.${spec.id}.mastery">${t(`spec.${spec.id}.mastery`)}</span>
+      </span>
+    </a>
+  `).join('');
+  injectIcons(container);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1266,7 +1379,38 @@ function initLangToggle() {
     updateLangToggleLabel();
     applyTranslations();
     renderSpecializations();
+    renderDomainOverview();
     initScrollReveal();
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   11b. INIT NAV "WORK" DROPDOWN
+   ═══════════════════════════════════════════════ */
+function initNavDropdown() {
+  const dd = document.querySelector('.site-nav__dropdown');
+  if (!dd) return;
+  const trigger = dd.querySelector('.site-nav__dropdown-trigger');
+  const menu = dd.querySelector('.site-nav__dropdown-menu');
+  if (!trigger || !menu) return;
+
+  function close() {
+    menu.setAttribute('hidden', '');
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+  function open() {
+    menu.removeAttribute('hidden');
+    trigger.setAttribute('aria-expanded', 'true');
+  }
+
+  trigger.addEventListener('click', e => {
+    e.stopPropagation();
+    menu.hasAttribute('hidden') ? open() : close();
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('click', () => { if (!menu.hasAttribute('hidden')) close(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !menu.hasAttribute('hidden')) { close(); trigger.focus(); }
   });
 }
 
@@ -1300,6 +1444,8 @@ document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
   updateLangToggleLabel();
   renderSpecializations();
+  renderDomainOverview();
+  injectIcons();
   initScrollReveal();
   initSpecTabs();
   initSpecCertLightbox();
@@ -1310,6 +1456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copy-email-btn');
   if (copyBtn) copyBtn.addEventListener('click', copyEmail);
   initStickyNav();
+  initNavDropdown();
   initLangToggle();
   initHeroParallax();
   initGradientWaveText();
