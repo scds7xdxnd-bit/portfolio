@@ -2,6 +2,30 @@
 
 const OPINIONS_INDEX = [
   {
+    id: 'reaction-simulator',
+    title: 'Reaction Simulator',
+    summary: 'Interactive CSTR/PFR reactor network simulator with Levenspiel plots, temperature profiles, and disturbance injection \u2014 built to bridge the gap between textbook equations and real reactor intuition.',
+    domain: 'Engineering',
+    href: '../projects/reaction-simulator.html',
+    noteType: 'Project Case Study',
+    icon: '\u2697\uFE0F',
+    type: 'project',
+    stack: 'React \u00B7 TypeScript \u00B7 Recharts',
+    takeaway: 'What textbooks can\'t show you'
+  },
+  {
+    id: 'lifeos',
+    title: 'LifeOS',
+    summary: 'Unified personal life-management platform across finance, health, habits, and productivity \u2014 6 integrated domains, LP macro optimizer, event-driven architecture, and 5+ years of data.',
+    domain: 'Systems',
+    href: '../projects/lifeos.html',
+    noteType: 'Project Case Study',
+    icon: '\uD83D\uDCBB',
+    type: 'project',
+    stack: 'Next.js \u00B7 Flask \u00B7 PostgreSQL',
+    takeaway: 'The OS for your own life'
+  },
+  {
     id: 'chemical-potential',
     title: 'What does chemical potential actually mean?',
     summary: 'Why \u03BC\u1D62 behaves the way it does, what it means for two phases to share an equal chemical potential, and where the temperature-pressure analogy quietly breaks down.',
@@ -11,6 +35,7 @@ const OPINIONS_INDEX = [
     href: 'chemical-potential.html',
     noteType: 'Thermodynamics Note',
     icon: '\u2697\uFE0F',
+    type: 'note',
     status: 'Published',
     level: 'Intermediate',
     takeaway: 'Chemical potential as the direction of change'
@@ -25,6 +50,7 @@ const OPINIONS_INDEX = [
     href: 'engineering-under-uncertainty.html',
     noteType: 'Engineering Note',
     icon: '\u26A1',
+    type: 'note',
     status: 'Published',
     level: 'Practical',
     takeaway: 'Better decisions under incomplete information'
@@ -59,7 +85,7 @@ if (gridEl) {
     });
   }
 
-  /* Render Field Note cards */
+  /* Render cards \u2014 projects get a distinct badge + meta */
   function renderCards() {
     const items = activeFilter === 'all'
       ? OPINIONS_INDEX
@@ -67,24 +93,30 @@ if (gridEl) {
 
     gridEl.innerHTML = '';
     items.forEach(op => {
+      const isProject = op.type === 'project';
       const a = document.createElement('a');
-      a.className = 'op-card';
+      a.className = 'op-card' + (isProject ? ' op-card--project' : '');
       a.href = op.href;
-      a.setAttribute('aria-label', 'Read: ' + op.title);
-      a.innerHTML =
-        '<div class="op-card__icon-badge">' + (op.icon || '') + '</div>' +
-        '<div class="op-card__note-type">' + (op.noteType || '') + '</div>' +
-        '<h2 class="op-card__title">' + op.title + '</h2>' +
-        '<p class="op-card__summary">' + op.summary + '</p>' +
-        '<div class="op-card__meta-row">' +
-          '<span>' + op.readTime + '</span>' +
+      a.setAttribute('aria-label', (isProject ? 'View case study: ' : 'Read: ') + op.title);
+
+      const metaHtml = isProject
+        ? '<span>' + (op.stack || '') + '</span>'
+        : '<span>' + op.readTime + '</span>' +
           '<span class="op-card__meta-dot">&middot;</span>' +
           '<span>' + op.date + '</span>' +
           '<span class="op-card__meta-dot">&middot;</span>' +
-          '<span class="op-card__level">' + (op.level || '') + '</span>' +
-        '</div>' +
+          '<span class="op-card__level">' + (op.level || '') + '</span>';
+
+      const ctaText = isProject ? 'View Case Study \u2192' : 'Read Note \u2192';
+
+      a.innerHTML =
+        '<div class="op-card__icon-badge">' + (op.icon || '') + '</div>' +
+        '<div class="op-card__note-type' + (isProject ? ' op-card__note-type--project' : '') + '">' + (op.noteType || '') + '</div>' +
+        '<h2 class="op-card__title">' + op.title + '</h2>' +
+        '<p class="op-card__summary">' + op.summary + '</p>' +
+        '<div class="op-card__meta-row">' + metaHtml + '</div>' +
         '<div class="op-card__takeaway">' + (op.takeaway || '') + '</div>' +
-        '<div class="op-card__cta">Read Note \u2192</div>';
+        '<div class="op-card__cta">' + ctaText + '</div>';
       gridEl.appendChild(a);
     });
   }

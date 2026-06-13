@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Field Notes — Taeyang Han</title>
-  <meta name="description" content="Notes on systems, simulations, learning, and life design by Taeyang Han.">
+  <title>Case Studies — Taeyang Han</title>
+  <meta name="description" content="Project case studies and field notes on engineering, systems, and learning by Taeyang Han.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,11 +12,11 @@
 </head>
 <body>
 
-  <nav class="op-topbar" aria-label="Field Notes navigation">
+  <nav class="op-topbar" aria-label="Case Studies navigation">
     <a href="../index.html" class="op-topbar__back" aria-label="Back to Portfolio">&#x2190; Portfolio</a>
     <div class="op-topbar__center">
-      <div class="op-topbar__title">Field Notes</div>
-      <div class="op-topbar__subtitle">Systems, simulations, and learning logs</div>
+      <div class="op-topbar__title">Case Studies</div>
+      <div class="op-topbar__subtitle">Projects, engineering notes, and learning logs</div>
     </div>
     <div class="op-topbar__right">
       <a href="../index.html" class="op-topbar__portfolio-link">Player Profile &#x2192;</a>
@@ -28,24 +28,32 @@
 
       <header class="op-hub__header">
         <p class="op-hub__label">Quest Logs</p>
-        <h1 class="op-hub__headline">Field Notes</h1>
-        <p class="op-hub__tagline">Practical notes from building, learning, and testing systems</p>
+        <h1 class="op-hub__headline">Case Studies</h1>
+        <p class="op-hub__tagline">Projects, engineering notes, and learning logs</p>
       </header>
 
       <p class="op-hub__intro">
-        Short essays and visual notes on engineering, systems, learning,
-        and the process of turning complex ideas into something usable.
+        Deep dives into projects I've shipped and ideas I've worked through —
+        covering the problem, the decisions, and what actually happened.
       </p>
 
       <!-- Filter chips — populated by JS; noscript fallback below -->
       <div id="opinions-filters" class="op-filters" role="group" aria-label="Filter by domain"></div>
 
       <!-- Cards grid — populated by JS -->
-      <div id="opinions-grid" class="op-grid" aria-live="polite" aria-label="Field notes"></div>
+      <div id="opinions-grid" class="op-grid" aria-live="polite" aria-label="Case studies"></div>
 
       <!-- Static fallback if JS is disabled -->
       <noscript>
-        <ul class="op-fallback" aria-label="Field notes">
+        <ul class="op-fallback" aria-label="Case studies">
+          <li>
+            <a href="../projects/reaction-simulator.html">Reaction Simulator — case study</a>
+            <p style="font-size:13px;color:#555;margin-top:4px;">Engineering &middot; Project</p>
+          </li>
+          <li>
+            <a href="../projects/lifeos.html">LifeOS — case study</a>
+            <p style="font-size:13px;color:#555;margin-top:4px;">Systems &middot; Project</p>
+          </li>
           <li>
             <a href="chemical-potential.html">What does chemical potential actually mean?</a>
             <p style="font-size:13px;color:#555;margin-top:4px;">Thermodynamics &middot; 9 min read &middot; April 2026</p>
@@ -58,7 +66,7 @@
       </noscript>
 
       <footer class="op-hub__footer" aria-label="Page metadata">
-        Last updated: April 2026 &middot; 2 notes published
+        Last updated: June 2026 &middot; 4 published
       </footer>
 
     </div>

@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Taeyang Han — Life Systems Designer</title>
+  <meta name="description" content="Taeyang Han — Life Systems Designer. Chemical engineer at Sogang University, official Korean–English–Malay interpreter (TOPIK 6, 265/300), and builder of practical life systems.">
+  <meta property="og:title" content="Taeyang Han — Life Systems Designer">
+  <meta property="og:description" content="Chemical engineer, multilingual interpreter, and builder of practical life systems.">
+  <meta property="og:image" content="https://portfolio-han-taeyangs-projects.vercel.app/assets/hero.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Taeyang Han — Life Systems Designer">
+  <meta name="twitter:description" content="Chemical engineer, multilingual interpreter, and builder of practical life systems.">
+  <meta name="twitter:image" content="https://portfolio-han-taeyangs-projects.vercel.app/assets/hero.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,8 +24,21 @@
     <div class="site-nav__container">
       <div class="site-nav__links">
         <a href="#hero" class="site-nav__link" data-i18n="nav.about"></a>
-        <a href="#specializations" class="site-nav__link" data-i18n="nav.specializations"></a>
+        <div class="site-nav__dropdown">
+          <button class="site-nav__link site-nav__dropdown-trigger" aria-expanded="false" aria-haspopup="menu">
+            <span data-i18n="nav.work"></span>
+            <svg class="site-nav__caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="site-nav__dropdown-menu" role="menu" hidden>
+            <a class="site-nav__dropdown-link" href="#linguist" role="menuitem"><span class="site-nav__dropdown-icon" data-icon="globe" aria-hidden="true"></span><span data-i18n="spec.tab.linguist"></span></a>
+            <a class="site-nav__dropdown-link" href="#engineer" role="menuitem"><span class="site-nav__dropdown-icon" data-icon="flask" aria-hidden="true"></span><span data-i18n="spec.tab.engineer"></span></a>
+            <a class="site-nav__dropdown-link" href="#builder" role="menuitem"><span class="site-nav__dropdown-icon" data-icon="code" aria-hidden="true"></span><span data-i18n="spec.tab.builder"></span></a>
+            <a class="site-nav__dropdown-link" href="#community" role="menuitem"><span class="site-nav__dropdown-icon" data-icon="users" aria-hidden="true"></span><span data-i18n="spec.tab.community"></span></a>
+            <a class="site-nav__dropdown-link" href="#scholar" role="menuitem"><span class="site-nav__dropdown-icon" data-icon="cap" aria-hidden="true"></span><span data-i18n="spec.tab.scholar"></span></a>
+          </div>
+        </div>
         <a href="opinions/index.html" class="site-nav__link" data-i18n="nav.opinions"></a>
+        <a href="#footer" class="site-nav__link" data-i18n="nav.contact"></a>
       </div>
       <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
         <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
@@ -39,8 +61,14 @@
     <div class="mobile-nav__inner">
       <nav class="mobile-nav__links-list" aria-label="Mobile navigation">
         <a href="#hero" class="mobile-nav__link" data-i18n="nav.about"></a>
-        <a href="#specializations" class="mobile-nav__link" data-i18n="nav.specializations"></a>
+        <span class="mobile-nav__group-label" data-i18n="nav.work"></span>
+        <a href="#linguist" class="mobile-nav__link mobile-nav__link--sub" data-i18n="spec.tab.linguist"></a>
+        <a href="#engineer" class="mobile-nav__link mobile-nav__link--sub" data-i18n="spec.tab.engineer"></a>
+        <a href="#builder" class="mobile-nav__link mobile-nav__link--sub" data-i18n="spec.tab.builder"></a>
+        <a href="#community" class="mobile-nav__link mobile-nav__link--sub" data-i18n="spec.tab.community"></a>
+        <a href="#scholar" class="mobile-nav__link mobile-nav__link--sub" data-i18n="spec.tab.scholar"></a>
         <a href="opinions/index.html" class="mobile-nav__link" data-i18n="nav.opinions"></a>
+        <a href="#footer" class="mobile-nav__link" data-i18n="nav.contact"></a>
       </nav>
       <button class="lang-toggle mobile-nav__lang" id="mobile-lang-toggle" aria-label="Switch language">
         <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
@@ -84,7 +112,7 @@
         <div class="player-card__body">
           <div class="player-card__top">
             <div class="player-avatar">
-              <img src="assets/hero.jpg" alt="Portrait of Taeyang Han" class="player-avatar__img" width="120" height="120" />
+              <img src="assets/hero-sm.jpg" alt="Portrait of Taeyang Han" class="player-avatar__img" width="120" height="120" />
               <span class="player-avatar__level" aria-hidden="true">LVL.24</span>
             </div>
             <div class="player-card__identity">
@@ -122,6 +150,7 @@
           <div class="hero__actions">
             <a href="#specializations" class="btn btn--primary" id="hero-start-btn" data-i18n="hero.startQuest">Start Quest</a>
             <button class="btn btn--secondary" id="copy-email-btn" data-i18n="hero.copyEmail">Copy Email</button>
+            <a href="Taeyang%20Han%20%E2%80%94%20Life%20Systems%20Designer.pdf" class="btn btn--ghost" download data-i18n="hero.downloadCV">Download CV</a>
           </div>
         </div>
       </div>
@@ -132,59 +161,44 @@
           <div class="panel__header" data-i18n="hero.quests">Current Quests</div>
           <div class="panel__body">
             <a class="quest-row" href="#builder">
-              <span class="quest-row__icon" aria-hidden="true">&#128421;</span>
+              <span class="quest-row__icon" data-icon="dashboard" aria-hidden="true"></span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.lifeos">LifeOS</span>
                 <span class="quest-row__desc" data-i18n="hero.quest.lifeosDesc">Build my personal operating system</span>
-                <span class="progress" aria-hidden="true">
-                  <span class="progress__fill progress__fill--coral" style="width:60%"></span>
-                </span>
-                <span class="quest-row__pct">60%</span>
               </span>
-            </a>
-            <a class="quest-row" href="#builder">
-              <span class="quest-row__icon" aria-hidden="true">&#128176;</span>
-              <span class="quest-row__info">
-                <span class="quest-row__title" data-i18n="hero.quest.finance">Finance App</span>
-                <span class="quest-row__desc" data-i18n="hero.quest.financeDesc">Learn finance. Track. Grow.</span>
-                <span class="progress" aria-hidden="true">
-                  <span class="progress__fill progress__fill--mint" style="width:70%"></span>
-                </span>
-                <span class="quest-row__pct">70%</span>
-              </span>
+              <span class="quest-row__proof" data-i18n="hero.quest.lifeos.proof"></span>
             </a>
             <a class="quest-row" href="#engineer">
-              <span class="quest-row__icon" aria-hidden="true">&#128295;</span>
+              <span class="quest-row__icon" data-icon="flask" aria-hidden="true"></span>
               <span class="quest-row__info">
-                <span class="quest-row__title" data-i18n="hero.quest.processGame">Process Game</span>
-                <span class="quest-row__desc" data-i18n="hero.quest.processGameDesc">Make chemical engineering fun</span>
-                <span class="progress" aria-hidden="true">
-                  <span class="progress__fill progress__fill--purple" style="width:40%"></span>
-                </span>
-                <span class="quest-row__pct">40%</span>
+                <span class="quest-row__title" data-i18n="hero.quest.finance">Reaction Simulator</span>
+                <span class="quest-row__desc" data-i18n="hero.quest.financeDesc">Interactive CSTR/PFR reactor network</span>
               </span>
+              <span class="quest-row__proof" data-i18n="hero.quest.finance.proof"></span>
             </a>
-            <a class="quest-row" href="#specializations">
-              <span class="quest-row__icon" aria-hidden="true">&#127758;</span>
+            <a class="quest-row" href="#community">
+              <span class="quest-row__icon" data-icon="users" aria-hidden="true"></span>
+              <span class="quest-row__info">
+                <span class="quest-row__title" data-i18n="hero.quest.processGame">PALS Mentoring</span>
+                <span class="quest-row__desc" data-i18n="hero.quest.processGameDesc">150+ students. Still growing.</span>
+              </span>
+              <span class="quest-row__proof" data-i18n="hero.quest.processGame.proof"></span>
+            </a>
+            <a class="quest-row" href="#linguist">
+              <span class="quest-row__icon" data-icon="globe" aria-hidden="true"></span>
               <span class="quest-row__info">
                 <span class="quest-row__title" data-i18n="hero.quest.language">Language Learning</span>
                 <span class="quest-row__desc" data-i18n="hero.quest.languageDesc">6 languages. One adventure.</span>
-                <span class="progress" aria-hidden="true">
-                  <span class="progress__fill progress__fill--sky" style="width:80%"></span>
-                </span>
-                <span class="quest-row__pct">80%</span>
               </span>
+              <span class="quest-row__proof" data-i18n="hero.quest.language.proof"></span>
             </a>
             <a class="quest-row" href="opinions/">
-              <span class="quest-row__icon" aria-hidden="true">&#9997;</span>
+              <span class="quest-row__icon" data-icon="book" aria-hidden="true"></span>
               <span class="quest-row__info">
-                <span class="quest-row__title" data-i18n="hero.quest.buildLog">Build Log</span>
-                <span class="quest-row__desc" data-i18n="hero.quest.buildLogDesc">Document the process</span>
-                <span class="progress" aria-hidden="true">
-                  <span class="progress__fill progress__fill--sunshine" style="width:50%"></span>
-                </span>
-                <span class="quest-row__pct">50%</span>
+                <span class="quest-row__title" data-i18n="hero.quest.buildLog">Case Studies</span>
+                <span class="quest-row__desc" data-i18n="hero.quest.buildLogDesc">Projects & field notes</span>
               </span>
+              <span class="quest-row__proof" data-i18n="hero.quest.buildLog.proof"></span>
             </a>
           </div>
         </div>
@@ -207,25 +221,29 @@
         <!-- Part A: Section intro -->
         <span class="section__badge" data-i18n="spec.badge">★ Specializations</span>
         <h2 class="section__title" data-i18n="spec.title">What I Build &amp; Why It Matters</h2>
-        <p class="specs__subtitle" data-i18n="spec.subtitle">Five domains. Ten years of deliberate practice. One integrated story.</p>
+        <p class="specs__subtitle" data-i18n="spec.subtitle">Five domains. Five years of deliberate practice. One integrated story.</p>
+
+        <!-- Part A2: Domains overview launchpad (table of contents) -->
+        <p class="specs__overview-label" data-i18n="spec.overview">Jump to a domain</p>
+        <nav class="domain-overview" id="domain-overview" aria-label="Domain overview"></nav>
 
         <!-- Part B: Sticky tab bar -->
         <div class="specs__tabs-wrapper">
           <nav class="specs__tabs" role="tablist" aria-label="Specializations">
             <a href="#linguist" class="specs__tab" role="tab" aria-selected="false" data-panel="linguist">
-              <span aria-hidden="true">🌐</span> <span data-i18n="spec.tab.linguist">Linguist</span>
+              <span class="specs__tab-icon" data-icon="globe" aria-hidden="true"></span> <span data-i18n="spec.tab.linguist">Linguist</span>
             </a>
             <a href="#engineer" class="specs__tab" role="tab" aria-selected="false" data-panel="engineer">
-              <span aria-hidden="true">⚗️</span> <span data-i18n="spec.tab.engineer">Engineer</span>
+              <span class="specs__tab-icon" data-icon="flask" aria-hidden="true"></span> <span data-i18n="spec.tab.engineer">Engineer</span>
             </a>
             <a href="#builder" class="specs__tab" role="tab" aria-selected="false" data-panel="builder">
-              <span aria-hidden="true">💻</span> <span data-i18n="spec.tab.builder">Builder</span>
+              <span class="specs__tab-icon" data-icon="code" aria-hidden="true"></span> <span data-i18n="spec.tab.builder">Builder</span>
             </a>
             <a href="#community" class="specs__tab" role="tab" aria-selected="false" data-panel="community">
-              <span aria-hidden="true">🤝</span> <span data-i18n="spec.tab.community">Community</span>
+              <span class="specs__tab-icon" data-icon="users" aria-hidden="true"></span> <span data-i18n="spec.tab.community">Community</span>
             </a>
             <a href="#scholar" class="specs__tab" role="tab" aria-selected="false" data-panel="scholar">
-              <span aria-hidden="true">📊</span> <span data-i18n="spec.tab.scholar">Scholar</span>
+              <span class="specs__tab-icon" data-icon="cap" aria-hidden="true"></span> <span data-i18n="spec.tab.scholar">Scholar</span>
             </a>
           </nav>
         </div>

@@ -266,6 +266,10 @@ button { font-family: var(--font-body); cursor: pointer; }
   margin-bottom: 2px;
 }
 
+.op-card__note-type--project { color: var(--mint); }
+
+.op-card--project { border-left: 4px solid var(--mint); }
+
 .op-card__title {
   font-family: var(--font-game);
   font-size: 17px;
