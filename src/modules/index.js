@@ -1,0 +1,9 @@
+export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock } from './nav.js';
+export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg } from './hero.js';
+export { renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver } from './specs.js';
+export { initLifeSystem } from './life-system.js';
+export { initGradientWaveText, initSpecialText, initSignature } from './text-effects.js';
+export { initCommandPalette } from './command-palette.js';
+export { initTerminal } from './terminal.js';
+export { initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg } from './ambient.js';
+export { initBullwhipSim, initPhSim, initRxnSim, initGuestbook } from './sims.js';

@@ -1,0 +1,77 @@
+/* ── Pills (backward compat with script.js) ── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--ink);
+  background: var(--bg-panel);
+  color: var(--ink);
+  transition: transform var(--duration-fast) var(--ease-bounce),
+              box-shadow var(--duration-fast) var(--ease-bounce);
+}
+
+.pill:hover { transform: var(--hover-lift); box-shadow: var(--shadow-offset-sm); }
+.pill:active { transform: var(--active-press); box-shadow: var(--shadow-pressed); }
+
+.pill--filter {
+  cursor: pointer;
+}
+
+.pill--filter.is-active {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-offset-sm);
+  transform: translateY(-1px);
+}
+
+.pill--filter:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+}
+
+.pill--skill {
+  background: var(--bg-panel);
+}
+
+.pill--tech-dark {
+  background: rgba(255,255,255,0.12);
+  color: var(--text-on-dark);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.pill--tech-light {
+  background: var(--bg-primary);
+  border-color: var(--grey-light);
+}
+
+.pill--status {
+  background: var(--mint);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.pill--status--active {
+  background: var(--sunshine);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.pill--status--in-development {
+  background: var(--coral);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.pill--status--completed {
+  background: var(--mint);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media print {
+  .pill--filter { display: none !important; }
+}

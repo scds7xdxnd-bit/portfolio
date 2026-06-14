@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="opinions.css">
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <link rel="stylesheet" href="/src/styles/pages/opinions.css">
 </head>
 <body>
 
@@ -509,6 +510,10 @@
     </article>
   </main>
 
-  <script src="opinions.js"></script>
+  <script>
+    document.querySelectorAll('.term').forEach(t => {
+      t.addEventListener('click', () => t.classList.toggle('active'));
+    });
+  </script>
 </body>
 </html>

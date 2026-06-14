@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이력서 — 카이룰 아마르 하키미 (한태양)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 13mm 15mm 13mm 15mm;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 9pt;
+      color: #111;
+      line-height: 1.55;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── HEADER ─── */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 9px;
+      border-bottom: 1.8px solid #111;
+      margin-bottom: 12px;
+    }
+    .cv-header__info { flex: 1; }
+    .cv-header__name {
+      font-size: 20pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+    .cv-header__romanized {
+      font-size: 9.5pt;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .cv-header__contact {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.75;
+    }
+    .cv-header__contact a { color: #444; text-decoration: none; }
+    .cv-header__photo {
+      width: 82px;
+      height: 106px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid #ccc;
+      margin-left: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 11px; }
+    .section__title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      border-bottom: 1.2px solid #111;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+      letter-spacing: -0.2px;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .edu-name { font-weight: 700; font-size: 9.5pt; }
+    .edu-date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .edu-sub { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 2px; }
+    .edu-detail { font-size: 8pt; color: #444; }
+
+    /* ─── ENTRIES ─── */
+    .entry { margin-bottom: 8px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .entry__title { font-weight: 700; font-size: 9.5pt; flex: 1; }
+    .entry__date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .entry__org { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 3px; }
+    .entry__bullets { margin: 0; padding-left: 13px; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.5; }
+    .entry__tech { font-size: 7.5pt; color: #777; margin-top: 2px; }
+    .entry__link { color: #555; text-decoration: none; }
+
+    /* ─── TWO-COL PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 16px;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-table { width: 100%; border-collapse: collapse; }
+    .skills-table td { font-size: 8pt; padding: 2px 0; vertical-align: top; }
+    .skills-table td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      padding-right: 10px;
+      width: 68px;
+    }
+    .skills-table td:last-child { color: #444; }
+
+    /* ─── PAGE BREAKS ─── */
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+
+    /* ─── SCREEN ONLY ─── */
+    @media screen {
+      body {
+        max-width: 210mm;
+        margin: 24px auto;
+        padding: 13mm 15mm;
+        box-shadow: 0 2px 20px rgba(0,0,0,.13);
+        min-height: 297mm;
+      }
+    }
+    @media print {
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header class="cv-header">
+    <div class="cv-header__info">
+      <h1 class="cv-header__name">카이룰 아마르 하키미</h1>
+      <p class="cv-header__romanized">한태양 / Khairul Ammar Hakimi</p>
+      <div class="cv-header__contact">
+        <div>+82 10-6804-7882 &nbsp;|&nbsp; <a href="mailto:ammarhakimikm03@gmail.com">ammarhakimikm03@gmail.com</a></div>
+        <div><a href="https://portfolio-han-taeyangs-projects.vercel.app">portfolio-han-taeyangs-projects.vercel.app</a></div>
+      </div>
+    </div>
+    <img class="cv-header__photo" src="/assets/cv-photo.jpg" alt="증명사진" />
+  </header>
+
+  <!-- ══════════════ 학력 ══════════════ -->
+  <section class="section no-break">
+    <h2 class="section__title">학력</h2>
+    <div>
+      <div class="edu-row">
+        <span class="edu-name">국제경영 및 화공생명공학 학사 (이중전공)</span>
+        <span class="edu-date">2023년 2월 – 2026년 12월 (졸업예정)</span>
+      </div>
+      <p class="edu-sub">서강대학교 / 서강경영대학 및 공과대학 &nbsp;·&nbsp; 대한민국 서울특별시</p>
+      <p class="edu-detail">백점환산 99 / 100</p>
+    </div>
+  </section>
+
+  <!-- ══════════════ 화공 프로젝트 ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">화공생명공학 프로젝트</h2>
+    <div class="projects-grid">
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">반응 시뮬레이터</span>
+          <span class="entry__date">2024 – 현재</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://reactionsimulator.vercel.app">reactionsimulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>CSTR·PFR·직렬반응기 네트워크 실시간 농도·전환율 시뮬레이터</li>
+          <li>Arrhenius 기반 온도 의존성 반응속도 모델링 및 시각화</li>
+          <li>화공열역학·반응공학 이론을 인터랙티브 학습 도구로 구현</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Python · Flask · Vercel</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">비휘발도 시뮬레이터</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://fugacity-simulator.vercel.app">fugacity-simulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>Peng-Robinson·van der Waals 상태방정식 기반 비휘발도 계산</li>
+          <li>VLE 기액평형 상평형 다이어그램 자동 생성 및 시각화</li>
+        </ul>
+        <p class="entry__tech">Python · NumPy · Matplotlib · Flask</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">공정설계 게임</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://process-design.vercel.app">process-design.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>증류탑·열교환기·반응기 단위조작 최적화 인터랙티브 시뮬레이터</li>
+          <li>에너지 효율·경제성 지표 실시간 피드백 채점 시스템 구현</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Canvas API · Python</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">선형계획법 식단 최적화</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">학술 프로젝트</p>
+        <ul class="entry__bullets">
+          <li>LP로 영양소 제약 하 최소비용 최적 식단 산출 모델 개발</li>
+          <li>공학 최적화 기법을 생활 시스템에 응용</li>
+        </ul>
+        <p class="entry__tech">Python · SciPy · PuLP</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Apple 공급망 분석</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">학술 프로젝트</p>
+        <ul class="entry__bullets">
+          <li>반도체·소재 공급망 리스크 분석 및 채찍효과 수치 시뮬레이션</li>
+          <li>데이터 기반 SCM 최적화 전략 도출 및 시각화 보고서 작성</li>
+        </ul>
+        <p class="entry__tech">Python · Pandas · Excel</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ 소프트웨어 프로젝트 ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">소프트웨어 프로젝트</h2>
+    <div class="projects-grid">
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">LifeOS — 개인 생산성 운영체제</span>
+          <span class="entry__date">2024 – 현재</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://lifeos-wine.vercel.app">lifeos-wine.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>습관·목표·자산·학습을 통합 관리하는 풀스택 개인 운영체제</li>
+          <li>AI 연동 자동화 시스템 구축, 실 사용자 운용 중</li>
+        </ul>
+        <p class="entry__tech">Next.js · TypeScript · PostgreSQL · Vercel</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">CNN 감정 분류기</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">개인 프로젝트</p>
+        <ul class="entry__bullets">
+          <li>실시간 표정 인식 CNN 모델 학습</li>
+          <li>감정 기반 UI 색상 변환 시스템 개발</li>
+        </ul>
+        <p class="entry__tech">Python · TensorFlow · OpenCV</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ 통역·번역 경력 ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">통역·번역 경력</h2>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-말 수사통역 (피의자 신문)</span>
+        <span class="entry__date">2026년 6월</span>
+      </div>
+      <p class="entry__org">인천공항세관 · 인천국제공항 제2여객터미널</p>
+      <ul class="entry__bullets">
+        <li>마약류관리에관한법률 위반 피의사건 한-말레이어 순차통역 단독 수행</li>
+        <li>통역인각서 서명 하에 고도의 정확성·비밀유지 요구 환경에서 임무 완수</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 공식 통역</span>
+        <span class="entry__date">2026년 5월</span>
+      </div>
+      <p class="entry__org">경상북도청 / 경상북도교육청 · 경상북도</p>
+      <ul class="entry__bullets">
+        <li>말레이시아 전 연방영토부 장관 경북 방문 환담 시 경제부지사와의 양방향 통역</li>
+        <li>경상북도교육청-셀랑오르주 교육 교류 MOU 체결 사전 협의 통역</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 공식 통역</span>
+        <span class="entry__date">2025년 상반기</span>
+      </div>
+      <p class="entry__org">경상북도청 · 경상북도</p>
+      <ul class="entry__bullets">
+        <li>경상북도지사와 주한 말레이시아 대사 간 공식 회담 한-말레이어 동시통역 수행</li>
+        <li>외교 의전 및 지역 산업 협력 고급 어휘·전문 용어 정확 처리</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">교내 공식·자원 통역사</span>
+        <span class="entry__date">2023년 2월 – 현재</span>
+      </div>
+      <p class="entry__org">서강대학교 국제처 · 서울특별시</p>
+      <ul class="entry__bullets">
+        <li>외국인 학생 대상 한-영, 한-중 순차통역 및 문서번역 상시 지원</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 프리랜서 통역</span>
+        <span class="entry__date">2023년 11월 – 12월</span>
+      </div>
+      <p class="entry__org">대한민국 대검찰청 · 서울</p>
+      <ul class="entry__bullets">
+        <li>3개 언어 법률 용어 통역으로 해외 고객과의 회의 시간 10–15분 절감</li>
+        <li>말레이시아 고위급 대표단 방문 문화 교육 세션 진행</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 프리랜서 통역</span>
+        <span class="entry__date">2023년 11월 – 12월</span>
+      </div>
+      <p class="entry__org">국민권익위원회 · 대전광역시</p>
+      <ul class="entry__bullets">
+        <li>금융·법률 분야 3개 언어 양방향 동시통역으로 국제 연수생 민주시민교육 지원</li>
+        <li>교육 자료 번역으로 연수생 역량 평가 12% 향상</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 프리랜서 통역</span>
+        <span class="entry__date">2022년 2월 – 8월</span>
+      </div>
+      <p class="entry__org">말레이시아 대사관 · 서울</p>
+      <ul class="entry__bullets">
+        <li>병원 방문 말레이시아 유학생 의료 통역 — 환자-의사 정확 소통 보장</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">한-영-말 프리랜서 통역</span>
+        <span class="entry__date">2023년 10월 – 현재</span>
+      </div>
+      <p class="entry__org">ASEZ (세계시민청년봉사단) · 서울</p>
+      <ul class="entry__bullets">
+        <li>한국어·말레이어·영어·중국어·일본어 5개 국어 동시통역, 누적 서명 30만 건 달성 기여</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ 리더십·장학 ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">리더십 · 장학 · 수상</h2>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">PALS Co-President (공동회장)</span>
+        <span class="entry__date">2025년 3월 – 현재</span>
+      </div>
+      <p class="entry__org">서강대학교 국제학생 동아리 PALS (Peer Assistance &amp; Learning Support)</p>
+      <ul class="entry__bullets">
+        <li>15개국 이상 국제학생 대상 멘토십·교류 프로그램 총괄 운영</li>
+        <li>2024-1 Outstanding Mentor Activity Award · 2024-2 Mentor of the Semester 수상</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">삼성 글로벌꿈장학생</span>
+        <span class="entry__date">2024년 3월 – 현재</span>
+      </div>
+      <p class="entry__org">삼성꿈장학재단 — Global Hope Scholarship Award</p>
+      <ul class="entry__bullets">
+        <li>재단이 선정한 글로벌 리더 잠재 인재로 선발, 등록금 전액 및 생활비 지원</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">서강동문 역량우수 장학생</span>
+        <span class="entry__date">2025년 3월 – 현재</span>
+      </div>
+      <p class="entry__org">재단법인 서강동문장학회 (서강대학교)</p>
+      <ul class="entry__bullets">
+        <li>화공생명공학 전공 역량우수 장학생으로 선발 (제 25-STU-083호)</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">리앤원 아시안 펠로우십 · 리더십 우수상</span>
+        <span class="entry__date">2023년 1월 – 12월</span>
+      </div>
+      <p class="entry__org">리앤원 재단 — Asian Fellowship Programme</p>
+      <ul class="entry__bullets">
+        <li>지원자 500명 이상 중 18인 선발, 15개국 17인 팀 총괄팀장 역임</li>
+        <li>Exemplary Leadership Excellence Award 수상 (2023년 12월)</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ 역량 및 기술 ══════════════ -->
+  <section class="section no-break">
+    <h2 class="section__title">역량 및 기술</h2>
+    <table class="skills-table">
+      <tr>
+        <td>언어</td>
+        <td>한국어 TOPIK 6급 (265/300) &nbsp;·&nbsp; 영어 원어민 &nbsp;·&nbsp; 말레이어 원어민 &nbsp;·&nbsp; 중국어 비즈니스 &nbsp;·&nbsp; 일본어 일상</td>
+      </tr>
+      <tr>
+        <td>통역</td>
+        <td>동시통역, 순차통역 — 외교·법률·수사·의료·기업 도메인</td>
+      </tr>
+      <tr>
+        <td>화공 기술</td>
+        <td>반응공학, 열역학, 공정설계, 상평형, 선형계획법, 공급망 분석</td>
+      </tr>
+      <tr>
+        <td>데이터·SW</td>
+        <td>Python (NumPy · SciPy · Pandas · TensorFlow · Flask) &nbsp;·&nbsp; Next.js · TypeScript · PostgreSQL · Excel</td>
+      </tr>
+      <tr>
+        <td>기타</td>
+        <td>다국적 팀 리더십, 교육 콘텐츠 기획, 프로젝트 관리, AI 툴 실무 활용</td>
+      </tr>
+    </table>
+  </section>
+
+</body>
+</html>

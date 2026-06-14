@@ -1,0 +1,107 @@
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 20px;
+  font-family: var(--font-game);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: var(--border-thick);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-bounce),
+              box-shadow var(--duration-fast) var(--ease-bounce);
+  position: relative;
+  box-shadow: var(--shadow-offset-sm);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: var(--hover-lift);
+  box-shadow: var(--shadow-offset);
+}
+
+.btn:active {
+  transform: var(--active-press);
+  box-shadow: var(--shadow-pressed);
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  border-color: var(--ink);
+}
+
+.btn--secondary {
+  background: var(--bg-panel);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--grey-dark);
+  border-color: var(--grey-light);
+  font-size: 12px;
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.btn--coral {
+  background: var(--coral);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.btn--small {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 12px;
+  border-width: 2px;
+}
+
+/* ── Hero shimmer button effect ── */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.btn--primary.shimmer-active::after {
+  animation: heroShimmer var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+@keyframes heroShimmer {
+  from { left: -100%; }
+  to   { left: 150%; }
+}
+
+/* ── Nav "Work" dropdown trigger button ── */
+.site-nav__dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.site-nav__caret {
+  transition: transform var(--duration-fast) var(--ease-smooth);
+}
+
+.site-nav__dropdown-trigger[aria-expanded="true"] .site-nav__caret {
+  transform: rotate(180deg);
+}

@@ -1,5 +1,8 @@
 # Assets (images, certs — tracked separately)
-assets/
+# assets moved to public/ (tracked by git)
+node_modules/
+dist/
+.vite/
 
 # OPUS prompt files
 prompts/

@@ -1,0 +1,311 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 1rem 2rem;font-family:var(--font-sans)}
+.sliders{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
+.slider-group label{font-size:12px;color:var(--color-text-secondary);display:flex;justify-content:space-between;margin-bottom:4px}
+.slider-group label span{font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono);font-size:12px}
+.slider-group input{width:100%}
+.viz{display:flex;align-items:flex-end;gap:0;justify-content:center;margin-bottom:1rem}
+canvas{display:block}
+.status-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:0.75rem}
+.status-pill{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:500;transition:all 0.4s}
+.status-pill.eq{background:#EAF3DE;color:#27500A}
+.status-pill.neq{background:#FAEEDA;color:#633806}
+.delta-row{text-align:center;font-size:12px;color:var(--color-text-tertiary);font-family:var(--font-mono)}
+.legend{display:flex;justify-content:center;gap:20px;margin-top:1rem}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Interactive phase equilibrium: molecules move from high to low chemical potential</h2>
+
+<div class="sliders">
+  <div class="slider-group">
+    <label>μ in phase α <span id="va-out">−3200</span> J/mol</label>
+    <input type="range" id="va" min="-5000" max="0" step="100" value="-3200">
+  </div>
+  <div class="slider-group">
+    <label>μ in phase β <span id="vb-out">−1800</span> J/mol</label>
+    <input type="range" id="vb" min="-5000" max="0" step="100" value="-1800">
+  </div>
+</div>
+
+<div class="viz">
+  <canvas id="c" width="560" height="280"></canvas>
+</div>
+
+<div class="status-row">
+  <div class="status-pill neq" id="pill">not at equilibrium</div>
+</div>
+<div class="delta-row" id="delta">Δμ = 1400 J/mol — species i flows β → α</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>species i (mobile)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7"></div>solvent (fixed)</div>
+</div>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 560, H = 280;
+const BEAKER_W = 180, BEAKER_H = 200, BEAKER_FLOOR = H - 30;
+const AX = 60, BX = 320;
+const LIQUID_H = 170;
+const N_SOLVENT = 18;
+const N_MOBILE = 20;
+
+let muA = -3200, muB = -1800;
+
+function parseMu(v){ return parseInt(v); }
+
+const vaEl = document.getElementById('va');
+const vbEl = document.getElementById('vb');
+const vaOut = document.getElementById('va-out');
+const vbOut = document.getElementById('vb-out');
+const pill = document.getElementById('pill');
+const deltaEl = document.getElementById('delta');
+
+function fraction(muA, muB){
+  const range = 5000;
+  const normA = (muA + 5000) / range;
+  const normB = (muB + 5000) / range;
+  const total = normA + normB;
+  if(total === 0) return 0.5;
+  return normB / total;
+}
+
+let particles = [];
+
+function initParticles(){
+  particles = [];
+  const frac = fraction(muA, muB);
+  const countA = Math.round(N_MOBILE * frac);
+  const countB = N_MOBILE - countA;
+
+  for(let i=0;i<countA;i++){
+    particles.push({
+      phase:'a', mobile:true,
+      x: AX + 20 + Math.random()*(BEAKER_W-40),
+      y: BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20),
+      vx:(Math.random()-0.5)*0.4,
+      vy:(Math.random()-0.5)*0.4,
+      r:5, target:null, crossing:false
+    });
+  }
+  for(let i=0;i<countB;i++){
+    particles.push({
+      phase:'b', mobile:true,
+      x: BX + 20 + Math.random()*(BEAKER_W-40),
+      y: BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20),
+      vx:(Math.random()-0.5)*0.4,
+      vy:(Math.random()-0.5)*0.4,
+      r:5, target:null, crossing:false
+    });
+  }
+
+  for(let i=0;i<N_SOLVENT;i++){
+    const inA = i < N_SOLVENT/2;
+    const bx = inA ? AX : BX;
+    particles.push({
+      phase: inA?'a':'b', mobile:false,
+      x: bx + 30 + Math.random()*(BEAKER_W-60),
+      y: BEAKER_FLOOR - 15 - Math.random()*(LIQUID_H-30),
+      vx:0,vy:0,r:4,target:null,crossing:false
+    });
+  }
+}
+
+initParticles();
+
+function drawBeaker(bx, label, mu, fillColor){
+  const top = BEAKER_FLOOR - LIQUID_H;
+  ctx.strokeStyle = 'rgba(136,135,128,0.5)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(bx, top - 20);
+  ctx.lineTo(bx, BEAKER_FLOOR);
+  ctx.lineTo(bx + BEAKER_W, BEAKER_FLOOR);
+  ctx.lineTo(bx + BEAKER_W, top - 20);
+  ctx.stroke();
+
+  ctx.fillStyle = fillColor;
+  ctx.fillRect(bx+1.5, top, BEAKER_W-3, LIQUID_H);
+
+  ctx.strokeStyle = 'rgba(136,135,128,0.15)';
+  ctx.lineWidth = 0.5;
+  ctx.beginPath();
+  ctx.moveTo(bx+1.5, top);
+  ctx.lineTo(bx + BEAKER_W - 1.5, top);
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(136,135,128,0.8)';
+  ctx.font = '11px var(--font-sans, sans-serif)';
+  ctx.textAlign = 'center';
+  ctx.fillText(label, bx + BEAKER_W/2, BEAKER_FLOOR + 18);
+
+  ctx.fillStyle = 'rgba(136,135,128,0.6)';
+  ctx.font = '10px var(--font-mono, monospace)';
+  ctx.fillText(mu.toLocaleString() + ' J/mol', bx + BEAKER_W/2, top - 6);
+}
+
+function drawArrow(dir, strength){
+  const cx = W/2;
+  const cy = BEAKER_FLOOR - LIQUID_H/2;
+  const maxW = 40;
+  const arrowW = Math.min(maxW, strength/100 * maxW);
+
+  if(strength < 150){ return; }
+
+  ctx.fillStyle = 'rgba(136,135,128,0.35)';
+  ctx.font = '500 13px var(--font-sans, sans-serif)';
+  ctx.textAlign = 'center';
+
+  if(dir === 'left'){
+    ctx.beginPath();
+    ctx.moveTo(cx - 8, cy);
+    ctx.lineTo(cx - 8 + arrowW, cy - 6);
+    ctx.lineTo(cx - 8 + arrowW, cy + 6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(136,135,128,0.5)';
+    ctx.fillRect(cx - 8 + arrowW, cy - 2, 16, 4);
+  } else if(dir === 'right'){
+    ctx.beginPath();
+    ctx.moveTo(cx + 8, cy);
+    ctx.lineTo(cx + 8 - arrowW, cy - 6);
+    ctx.lineTo(cx + 8 - arrowW, cy + 6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(136,135,128,0.5)';
+    ctx.fillRect(cx + 8 - arrowW - 16, cy - 2, 16, 4);
+  }
+}
+
+function lerp(a, b, t){ return a + (b-a)*t; }
+
+let frame = 0;
+function animate(){
+  requestAnimationFrame(animate);
+  frame++;
+  ctx.clearRect(0,0,W,H);
+
+  const fillA = 'rgba(230,241,251,0.6)';
+  const fillB = 'rgba(230,241,251,0.6)';
+  drawBeaker(AX, 'phase α', muA, fillA);
+  drawBeaker(BX, 'phase β', muB, fillB);
+
+  const diff = muB - muA;
+  const absDiff = Math.abs(diff);
+  const atEq = absDiff < 200;
+
+  if(!atEq){
+    drawArrow(diff > 0 ? 'left' : 'right', absDiff);
+  }
+
+  const targetFrac = fraction(muA, muB);
+  const mobileParticles = particles.filter(p=>p.mobile);
+  const targetCountA = Math.round(N_MOBILE * targetFrac);
+  const currentCountA = mobileParticles.filter(p=>p.phase==='a'&&!p.crossing).length;
+
+  if(!atEq && frame % 90 === 0){
+    if(currentCountA < targetCountA){
+      const candidates = mobileParticles.filter(p=>p.phase==='b'&&!p.crossing);
+      if(candidates.length > 0){
+        const p = candidates[Math.floor(Math.random()*candidates.length)];
+        p.crossing = true;
+        p.phase = 'transit-ab';
+        p.targetX = AX + 20 + Math.random()*(BEAKER_W-40);
+        p.targetY = BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20);
+        p.progress = 0;
+      }
+    } else if(currentCountA > targetCountA){
+      const candidates = mobileParticles.filter(p=>p.phase==='a'&&!p.crossing);
+      if(candidates.length > 0){
+        const p = candidates[Math.floor(Math.random()*candidates.length)];
+        p.crossing = true;
+        p.phase = 'transit-ba';
+        p.targetX = BX + 20 + Math.random()*(BEAKER_W-40);
+        p.targetY = BEAKER_FLOOR - 10 - Math.random()*(LIQUID_H-20);
+        p.progress = 0;
+      }
+    }
+  }
+
+  for(const p of particles){
+    if(p.phase === 'transit-ab' || p.phase === 'transit-ba'){
+      p.progress = Math.min(1, (p.progress||0) + 0.012);
+      const midX = W/2;
+      const midY = BEAKER_FLOOR - LIQUID_H - 20;
+      const startX = p.x, startY = p.y;
+      if(p.progress < 0.5){
+        const t = p.progress * 2;
+        p.x = lerp(startX, midX, t);
+        p.y = lerp(startY, midY, t);
+      } else {
+        const t = (p.progress - 0.5)*2;
+        p.x = lerp(midX, p.targetX, t);
+        p.y = lerp(midY, p.targetY, t);
+      }
+      if(p.progress >= 1){
+        p.x = p.targetX; p.y = p.targetY;
+        p.phase = p.phase === 'transit-ab' ? 'a' : 'b';
+        p.crossing = false;
+        p.vx = (Math.random()-0.5)*0.4;
+        p.vy = (Math.random()-0.5)*0.4;
+        p.progress = 0;
+      }
+    } else if(p.mobile){
+      p.x += p.vx;
+      p.y += p.vy;
+      const bx = p.phase === 'a' ? AX : BX;
+      const liquidTop = BEAKER_FLOOR - LIQUID_H;
+      if(p.x < bx + p.r+2){ p.x = bx+p.r+2; p.vx *= -1; }
+      if(p.x > bx + BEAKER_W - p.r-2){ p.x = bx+BEAKER_W-p.r-2; p.vx *= -1; }
+      if(p.y < liquidTop + p.r+2){ p.y = liquidTop+p.r+2; p.vy *= -1; }
+      if(p.y > BEAKER_FLOOR - p.r-2){ p.y = BEAKER_FLOOR-p.r-2; p.vy *= -1; }
+    }
+
+    const isTransit = p.phase === 'transit-ab' || p.phase === 'transit-ba';
+    if(p.mobile){
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = isTransit ? 'rgba(55,138,221,0.5)' : '#378ADD';
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = '#B4B2A9';
+      ctx.fill();
+    }
+  }
+
+  const diff2 = muB - muA;
+  const abs2 = Math.abs(diff2);
+  const eq2 = abs2 < 200;
+
+  pill.className = 'status-pill ' + (eq2 ? 'eq' : 'neq');
+  pill.textContent = eq2 ? 'equilibrium' : 'not at equilibrium';
+
+  if(eq2){
+    deltaEl.textContent = 'μα = μβ — no net mass transfer';
+  } else if(diff2 > 0){
+    deltaEl.textContent = 'Δμ = ' + Math.abs(diff2).toLocaleString() + ' J/mol — species i flows β → α';
+  } else {
+    deltaEl.textContent = 'Δμ = ' + Math.abs(diff2).toLocaleString() + ' J/mol — species i flows α → β';
+  }
+}
+
+vaEl.addEventListener('input', ()=>{
+  muA = parseMu(vaEl.value);
+  vaOut.textContent = muA.toLocaleString();
+});
+vbEl.addEventListener('input', ()=>{
+  muB = parseMu(vbEl.value);
+  vbOut.textContent = muB.toLocaleString();
+});
+
+animate();
+</script>

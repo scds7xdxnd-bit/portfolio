@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════════════
+   20. LIFE-SYSTEM NODE GRAPH
+   ═══════════════════════════════════════════════ */
+.life-system-section {
+  padding: 0 0 32px;
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+
+.life-system__hint {
+  font-family: var(--font-hand);
+  font-size: 17px;
+  color: var(--grey-dark);
+  text-align: center;
+  margin-bottom: 14px;
+  transform: rotate(-1deg);
+}
+
+.life-system {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  margin: 0 auto;
+  max-width: 640px;
+  user-select: none;
+  touch-action: none;
+  overflow: visible;
+}
+
+.life-system__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.life-system__edge {
+  stroke: var(--border-light);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+}
+
+.life-system__node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 50%;
+  border: 3px solid var(--nc, var(--ink));
+  background: var(--bg-panel);
+  box-shadow: 3px 3px 0 var(--nc, var(--ink));
+  cursor: grab;
+  transition: transform var(--duration-fast) var(--ease-bounce),
+              box-shadow var(--duration-fast) var(--ease-bounce);
+  will-change: transform;
+  overflow: visible;
+}
+
+.life-system__node:hover {
+  box-shadow: 5px 5px 0 var(--nc, var(--ink));
+}
+
+.life-system__node.is-dragging {
+  cursor: grabbing;
+  box-shadow: 7px 7px 0 var(--nc, var(--ink));
+  z-index: 10;
+}
+
+.life-system__icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.life-system__label {
+  font-family: var(--font-game);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ── Node ring pulse animation ── */
+@keyframes node-ring {
+  0%   { transform: scale(1);    opacity: 0.85; }
+  100% { transform: scale(1.7);  opacity: 0; }
+}
+
+.life-system__node {
+  overflow: visible;
+}
+.life-system__node.is-pulse {
+  z-index: 200;
+}
+.life-system__node.is-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 3px solid var(--nc);
+  animation: node-ring 0.7s ease-out forwards;
+  pointer-events: none;
+  z-index: 201;
+}
+
+@media (max-width: 600px) {
+  .life-system { height: 220px; }
+  .life-system__node { width: 58px; height: 58px; }
+  .life-system__icon { font-size: 18px; }
+}

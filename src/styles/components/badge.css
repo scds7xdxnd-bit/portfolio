@@ -1,0 +1,23 @@
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  background: var(--bg-panel);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.badge--star   { border-color: var(--sunshine); background: var(--sunshine); }
+.badge--sky    { border-color: var(--sky);      background: var(--sky); color: var(--ink); }
+.badge--mint   { border-color: var(--mint);     background: var(--mint); }
+.badge--coral  { border-color: var(--coral);    background: var(--coral); color: #fff; }
+.badge--purple { border-color: var(--purple);   background: var(--purple); color: #fff; }

@@ -1,0 +1,317 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-serif, Georgia, serif); }
+
+  .essay-wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  .essay-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 0.75rem; }
+
+  h1 { font-size: 28px; font-weight: 400; line-height: 1.25; color: var(--color-text-primary); margin-bottom: 0.5rem; font-family: var(--font-serif); }
+
+  .byline { font-family: var(--font-sans); font-size: 13px; color: var(--color-text-tertiary); margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
+
+  p { font-size: 17px; line-height: 1.8; color: var(--color-text-primary); margin-bottom: 1.5rem; font-family: var(--font-serif); }
+
+  h2 { font-family: var(--font-sans); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-secondary); margin: 2.5rem 0 1rem; }
+
+  .eq-block { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin: 1.5rem 0; font-family: var(--font-mono); font-size: 15px; color: var(--color-text-primary); border-left: 2px solid var(--color-border-secondary); }
+  .eq-block .eq-label { font-family: var(--font-sans); font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .eq-block .eq-main { font-size: 16px; line-height: 1.6; }
+  .eq-block sub, .eq-block sup { font-size: 11px; }
+
+  .term { display: inline; border-bottom: 1px dashed var(--color-border-primary); cursor: help; position: relative; color: var(--color-text-primary); }
+  .term-tooltip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; width: 240px; font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); z-index: 10; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .term:hover .term-tooltip, .term.active .term-tooltip { display: block; }
+  .term-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--color-border-secondary); }
+
+  .analogy-box { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .analogy-box .analogy-title { font-family: var(--font-sans); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-tertiary); margin-bottom: 1rem; }
+  .analogy-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+  .analogy-col { padding: 0.75rem; text-align: center; }
+  .analogy-col:not(:last-child) { border-right: 0.5px solid var(--color-border-tertiary); }
+  .analogy-driver { font-family: var(--font-sans); font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .analogy-quantity { font-family: var(--font-mono); font-size: 18px; color: var(--color-text-primary); margin-bottom: 4px; }
+  .analogy-drives { font-family: var(--font-sans); font-size: 12px; color: var(--color-text-secondary); }
+  .analogy-arrow { display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--color-text-tertiary); padding-top: 1.5rem; }
+
+  .interactive-box { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin: 2rem 0; }
+  .interactive-box .int-title { font-family: var(--font-sans); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-tertiary); margin-bottom: 1.25rem; }
+  .phase-row { display: flex; gap: 12px; margin-bottom: 1rem; }
+  .phase-card { flex: 1; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; text-align: center; transition: background 0.3s; }
+  .phase-card.eq { background: var(--color-background-success); }
+  .phase-card .phase-name { font-family: var(--font-sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: 8px; }
+  .phase-card .phase-mu { font-family: var(--font-mono); font-size: 22px; color: var(--color-text-primary); font-weight: 500; }
+  .phase-card .phase-unit { font-family: var(--font-sans); font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .slider-row { margin-bottom: 8px; }
+  .slider-row label { font-family: var(--font-sans); font-size: 13px; color: var(--color-text-secondary); display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .slider-row input[type=range] { width: 100%; }
+  .eq-status { font-family: var(--font-sans); font-size: 13px; text-align: center; padding: 8px; border-radius: var(--border-radius-md); margin-top: 8px; transition: all 0.3s; }
+  .eq-status.eq { background: var(--color-background-success); color: var(--color-text-success); }
+  .eq-status.neq { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .transfer-arrow { font-family: var(--font-sans); font-size: 12px; color: var(--color-text-tertiary); text-align: center; margin: 4px 0; }
+
+  .margin-note { border-left: 2px solid var(--color-border-tertiary); padding-left: 1rem; margin: 1.5rem 0; }
+  .margin-note p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 0; font-style: italic; }
+
+  .reveal-btn { font-family: var(--font-sans); font-size: 13px; background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 14px; cursor: pointer; color: var(--color-text-secondary); margin: 0.25rem 0 1rem; display: inline-block; }
+  .reveal-btn:hover { background: var(--color-background-secondary); }
+  .reveal-content { display: none; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+  .reveal-content.open { display: block; }
+  .reveal-content p { font-size: 15px; margin-bottom: 0; color: var(--color-text-secondary); }
+
+  .flaw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0; }
+  .flaw-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.875rem 1rem; }
+  .flaw-card .flaw-label { font-family: var(--font-sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: 6px; }
+  .flaw-card .flaw-text { font-family: var(--font-sans); font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  hr.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 2.5rem 0; }
+</style>
+
+<div class="essay-wrap">
+  <p class="essay-label">Solution Thermodynamics — Essay 1</p>
+  <h1>What does chemical potential actually mean?</h1>
+  <p class="byline">Taeyang Han &nbsp;·&nbsp; Process Thermodynamics, Spring 2026</p>
+
+  <p>
+    Most undergraduate thermodynamics courses introduce
+    <span class="term">chemical potential<span class="term-tooltip">Symbol: μᵢ. Defined as the partial derivative of total Gibbs energy nG with respect to moles of species i, at constant T, P, and all other mole numbers nⱼ.</span></span>
+    through its definition and then move straight to the equilibrium condition. The derivation is tidy. The physical meaning is rarely discussed. This essay attempts to do what the derivation skips: explain why μᵢ behaves the way it does, what it means for two phases to share an equal chemical potential, and why the analogy to temperature and pressure — while useful — breaks down in ways worth understanding.
+  </p>
+
+  <h2>The definition, and what it actually says</h2>
+
+  <p>The
+    <span class="term">chemical potential<span class="term-tooltip">μᵢ quantifies how much the total Gibbs energy of a system changes when an infinitesimal amount of species i is added, holding T, P, and all other species constant.</span></span>
+    of species i is defined as:
+  </p>
+
+  <div class="eq-block">
+    <div class="eq-label">Eq. 10.1 — Definition of chemical potential</div>
+    <div class="eq-main">μᵢ ≡ (∂nG / ∂nᵢ)<sub>T, P, nⱼ</sub></div>
+  </div>
+
+  <p>
+    Reading this literally: if you add an infinitesimal amount of species i to a finite mixture at fixed temperature and pressure, μᵢ tells you how much the total
+    <span class="term">Gibbs energy<span class="term-tooltip">G = H − TS. The Gibbs energy is minimized at equilibrium for processes at constant T and P, which is why it governs most chemical and phase equilibria of practical interest.</span></span>
+    changes per mole added. A large μᵢ means the system's energy rises sharply when more of species i enters. A small μᵢ means it enters with little energetic cost.
+  </p>
+
+  <p>
+    This is why the
+    <span class="term">summability relation<span class="term-tooltip">M = Σ xᵢ M̄ᵢ. The mixture property M is the mole-fraction-weighted sum of the partial molar properties of all species. This is the reverse operation of the definition: instead of extracting partial properties from mixture data, you reconstruct the mixture from the parts.</span></span>
+    works the way it does. The Gibbs energy of the whole mixture is:
+  </p>
+
+  <div class="eq-block">
+    <div class="eq-label">Eq. 10.11 — Summability relation</div>
+    <div class="eq-main">G = Σ xᵢ Ḡᵢ &nbsp; where &nbsp; Ḡᵢ = μᵢ</div>
+  </div>
+
+  <p>
+    The chemical potential is identical to the
+    <span class="term">partial molar Gibbs energy<span class="term-tooltip">Ḡᵢ is the partial molar Gibbs energy of species i. Eq. 10.8 shows that μᵢ ≡ Ḡᵢ — they are the same quantity, just named differently depending on context.</span></span>
+    of species i. It is not a separate concept grafted onto the theory. It is the contribution of species i to the total Gibbs energy of the mixture, per mole of that species, as it exists dissolved in solution — not as a pure substance.
+  </p>
+
+  <hr class="divider">
+  <h2>The three-driver analogy</h2>
+
+  <p>
+    A useful starting point is the observation that three intensive properties drive the transfer of three extensive quantities between systems in thermal and mechanical contact:
+  </p>
+
+  <div class="analogy-box">
+    <div class="analogy-title">Driving forces for spontaneous transfer</div>
+    <div class="analogy-grid">
+      <div class="analogy-col">
+        <div class="analogy-driver">Driver</div>
+        <div class="analogy-quantity">T</div>
+        <div class="analogy-drives">drives heat transfer</div>
+      </div>
+      <div class="analogy-col">
+        <div class="analogy-driver">Driver</div>
+        <div class="analogy-quantity">P</div>
+        <div class="analogy-drives">drives volume change</div>
+      </div>
+      <div class="analogy-col">
+        <div class="analogy-driver">Driver</div>
+        <div class="analogy-quantity">μᵢ</div>
+        <div class="analogy-drives">drives mass transfer</div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Just as heat flows from high T to low T, and a piston moves from high P to low P, mass of species i moves from the phase where μᵢ is higher to the phase where it is lower. Equilibrium is reached when the driving force is zero — when the chemical potentials are equal across phases.
+  </p>
+
+  <p>
+    This is what
+    <span class="term">Eq. 10.6<span class="term-tooltip">μᵢᵅ = μᵢᵝ = … = μᵢᵖ for all species i. This is the general criterion for phase equilibrium: at fixed T and P, phases are in equilibrium when the chemical potential of every species is the same in every phase.</span></span>
+    states:
+  </p>
+
+  <div class="eq-block">
+    <div class="eq-label">Eq. 10.6 — Phase equilibrium criterion</div>
+    <div class="eq-main">μᵢᵅ = μᵢᵝ = · · · = μᵢᵖ &nbsp; (i = 1, 2, …, N)</div>
+  </div>
+
+  <h2>Interactive: see the equilibrium criterion at work</h2>
+  <p style="font-family: var(--font-sans); font-size: 14px; color: var(--color-text-secondary); margin-bottom: 1rem;">Adjust μ in each phase. Mass transfers from high to low μ until they equalize.</p>
+
+  <div class="interactive-box">
+    <div class="int-title">Phase equilibrium explorer — species i in two phases</div>
+
+    <div class="slider-row">
+      <label>μᵢ in phase α (α-phase) <span id="mu-a-val">−3200</span> J/mol</label>
+      <input type="range" id="mu-a" min="-5000" max="0" step="100" value="-3200">
+    </div>
+    <div class="slider-row">
+      <label>μᵢ in phase β (β-phase) <span id="mu-b-val">−1800</span> J/mol</label>
+      <input type="range" id="mu-b" min="-5000" max="0" step="100" value="-1800">
+    </div>
+
+    <div class="phase-row" id="phase-row">
+      <div class="phase-card" id="card-a">
+        <div class="phase-name">Phase α</div>
+        <div class="phase-mu" id="disp-a">−3200</div>
+        <div class="phase-unit">J/mol</div>
+      </div>
+      <div class="analogy-arrow" style="flex: 0 0 auto; padding-top: 1.5rem;" id="arrow-display">→</div>
+      <div class="phase-card" id="card-b">
+        <div class="phase-name">Phase β</div>
+        <div class="phase-mu" id="disp-b">−1800</div>
+        <div class="phase-unit">J/mol</div>
+      </div>
+    </div>
+
+    <div class="transfer-arrow" id="transfer-msg">Species i transfers from β → α &nbsp;(high μ to low μ)</div>
+    <div class="eq-status neq" id="eq-status">System not at equilibrium — Δμ = 1400 J/mol</div>
+  </div>
+
+  <hr class="divider">
+  <h2>Why Gibbs energy, and not enthalpy or entropy alone?</h2>
+
+  <p>
+    This is the question students rarely ask, and lectures rarely answer. At constant T and P — the conditions of virtually every chemical process and laboratory experiment — the
+    <span class="term">Gibbs energy is minimized<span class="term-tooltip">This follows from the second law. At constant T and P, the criterion for spontaneous change is dG ≤ 0. The system moves toward lower G until it reaches a minimum, which is the equilibrium state.</span></span>
+    at equilibrium. This is not a definition; it follows from the second law.
+  </p>
+
+  <p>
+    Enthalpy alone is insufficient because it ignores entropy — a purely exothermic process can still be non-spontaneous at high temperatures. Entropy alone is insufficient because it ignores energy — a purely disordering process can be non-spontaneous at low temperatures. Gibbs energy combines both through G = H − TS, and at any given T, it correctly identifies which direction change will proceed.
+  </p>
+
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? 'Hide example ↑' : 'Concrete example: water evaporating ↓'">Concrete example: water evaporating ↓</button>
+  <div class="reveal-content">
+    <p>
+      Consider water at 80°C in contact with water vapor at partial pressure P. The chemical potential of liquid water is μ<sup>liq</sup> and that of the vapor is μ<sup>vap</sup>. If μ<sup>liq</sup> > μ<sup>vap</sup>, molecules leave the liquid phase — evaporation occurs spontaneously. If μ<sup>liq</sup> = μ<sup>vap</sup>, the system is at phase equilibrium — the rate of evaporation equals condensation. The equilibrium vapor pressure at any T is precisely the pressure at which these two chemical potentials equalize.
+    </p>
+  </div>
+
+  <hr class="divider">
+  <h2>Where the analogy breaks down</h2>
+
+  <p>
+    The analogy between temperature, pressure, and chemical potential is pedagogically valuable, but it is imperfect in specific ways. Knowing where it breaks down matters more than knowing the analogy itself.
+  </p>
+
+  <div class="flaw-grid">
+    <div class="flaw-card">
+      <div class="flaw-label">Flaw 1 — Not directly measurable</div>
+      <div class="flaw-text">T and P are directly measurable with instruments. μᵢ is not — it must be inferred from measurable quantities like composition, temperature, and equations of state or activity models.</div>
+    </div>
+    <div class="flaw-card">
+      <div class="flaw-label">Flaw 2 — Composition dependence</div>
+      <div class="flaw-text">T and P are scalar fields in space. μᵢ depends on the local composition of the mixture, not just on position. This makes the "field" picture of chemical potential considerably more complex.</div>
+    </div>
+    <div class="flaw-card">
+      <div class="flaw-label">Flaw 3 — Coupled, not independent</div>
+      <div class="flaw-text">In a mixture of N species, the N chemical potentials are not independent — the Gibbs-Duhem equation constrains them. You cannot vary μᵢ for one species without affecting others at constant T and P.</div>
+    </div>
+    <div class="flaw-card">
+      <div class="flaw-label">Flaw 4 — Sign and scale are non-intuitive</div>
+      <div class="flaw-text">Chemical potentials for real solutions are typically large negative numbers. The absolute value has no direct physical meaning; only differences and equalities matter. This is unlike T or P, where the magnitude is directly interpretable.</div>
+    </div>
+  </div>
+
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? 'Hide: Gibbs-Duhem constraint ↑' : 'The Gibbs-Duhem constraint on μᵢ values ↓'">The Gibbs-Duhem constraint on μᵢ values ↓</button>
+  <div class="reveal-content">
+    <p>At constant T and P, the Gibbs-Duhem equation (Eq. 10.14) states:</p>
+    <div class="eq-block" style="margin: 0.75rem 0 0.5rem;">
+      <div class="eq-main">Σ xᵢ dμᵢ = 0 &nbsp; (const. T, P)</div>
+    </div>
+    <p style="margin-top: 0.75rem;">This means the chemical potentials cannot all increase or decrease simultaneously. If μ₁ rises as composition changes, at least one other μⱼ must fall, weighted by mole fractions. This is the thermodynamic coupling between species in a mixture — a constraint with no analogue in the temperature or pressure cases.</p>
+  </div>
+
+  <hr class="divider">
+  <h2>What this means practically</h2>
+
+  <p>
+    The phase equilibrium criterion μᵢᵅ = μᵢᵝ is the starting point for every VLE, LLE, and SLE calculation in chemical engineering. When you use Raoult's law, an activity coefficient model like
+    <span class="term">UNIFAC or Wilson<span class="term-tooltip">Activity coefficient models relate the chemical potential of a species in a real solution to its chemical potential in an ideal solution. The correction factor γᵢ captures non-ideal molecular interactions: γᵢ = 1 for ideal mixtures, γᵢ > 1 for repulsive interactions (positive deviations from Raoult's law), γᵢ < 1 for attractive interactions.</span></span>,
+    or an equation of state for fugacity, you are always solving the same underlying problem: find the conditions under which the chemical potential of each species is equal in all phases present. The machinery varies; the criterion does not.
+  </p>
+
+  <p>
+    This is also why the
+    <span class="term">partial molar Gibbs energy<span class="term-tooltip">Ḡᵢ ≡ μᵢ. Every equation relating solution-phase thermodynamic properties has a corresponding partial molar counterpart. The chemical potential is the partial molar Gibbs energy — the contribution of species i to the total G of the mixture, as it actually exists in solution.</span></span>
+    is the central quantity in solution thermodynamics, not the molar Gibbs energy of the pure component. A species in solution is not the same as that species in its pure form — its energy state is different, its interactions with neighbors are different, and its tendency to leave that phase is different. The chemical potential captures all of that in a single number.
+  </p>
+
+  <div class="margin-note">
+    <p>The chemical potential of species i in a mixture is not a property of i alone. It is a property of i as it exists in that specific mixture at that specific composition, temperature, and pressure. This is why composition always appears explicitly in any expression for μᵢ in a real solution.</p>
+  </div>
+
+</div>
+
+<script>
+  const muA = document.getElementById('mu-a');
+  const muB = document.getElementById('mu-b');
+  const muAVal = document.getElementById('mu-a-val');
+  const muBVal = document.getElementById('mu-b-val');
+  const dispA = document.getElementById('disp-a');
+  const dispB = document.getElementById('disp-b');
+  const cardA = document.getElementById('card-a');
+  const cardB = document.getElementById('card-b');
+  const arrowEl = document.getElementById('arrow-display');
+  const transferMsg = document.getElementById('transfer-msg');
+  const eqStatus = document.getElementById('eq-status');
+
+  function update() {
+    const a = parseInt(muA.value);
+    const b = parseInt(muB.value);
+    muAVal.textContent = a.toLocaleString();
+    muBVal.textContent = b.toLocaleString();
+    dispA.textContent = a.toLocaleString();
+    dispB.textContent = b.toLocaleString();
+    const diff = Math.abs(a - b);
+    if (diff < 200) {
+      cardA.classList.add('eq'); cardB.classList.add('eq');
+      eqStatus.className = 'eq-status eq';
+      eqStatus.textContent = 'Equilibrium reached — μᵢᵅ ≈ μᵢᵝ';
+      arrowEl.textContent = '=';
+      transferMsg.textContent = 'No net mass transfer';
+    } else {
+      cardA.classList.remove('eq'); cardB.classList.remove('eq');
+      eqStatus.className = 'eq-status neq';
+      eqStatus.textContent = 'Not at equilibrium — Δμ = ' + diff.toLocaleString() + ' J/mol';
+      if (a < b) {
+        arrowEl.textContent = '←';
+        transferMsg.textContent = 'Species i transfers from β → α  (high μ to low μ)';
+      } else {
+        arrowEl.textContent = '→';
+        transferMsg.textContent = 'Species i transfers from α → β  (high μ to low μ)';
+      }
+    }
+  }
+
+  muA.addEventListener('input', update);
+  muB.addEventListener('input', update);
+  update();
+
+  document.querySelectorAll('.term').forEach(t => {
+    t.addEventListener('click', () => t.classList.toggle('active'));
+  });
+</script>

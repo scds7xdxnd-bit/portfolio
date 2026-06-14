@@ -1,0 +1,73 @@
+/* ═══════════════════════════════════════════════
+   1. DESIGN TOKENS (merged from styles.css + opinions.css)
+   ═══════════════════════════════════════════════ */
+:root {
+  /* Brand Palette */
+  --sunshine: #FFD859;
+  --coral:   #FF6B6B;
+  --sky:     #6EC6FF;
+  --mint:    #7EE6A7;
+  --purple:  #B084F5;
+  --ink:     #1E1E1E;
+  --grey-dark:  #555555;
+  --grey-light: #DCDCDC;
+  --cream:   #FFF7E6;
+
+  /* Semantic */
+  --bg-primary:    var(--cream);
+  --bg-panel:      #FFFFFF;
+  --text-primary:  var(--ink);
+  --text-secondary:var(--grey-dark);
+  --text-muted:    #9CA3AF;
+  --text-on-dark:  #FFFFFF;
+  --border-main:   var(--ink);
+  --border-light:  var(--grey-light);
+
+  /* Typography */
+  --font-body:  'Inter', system-ui, -apple-system, 'Noto Sans KR', sans-serif;
+  --font-game:  'DM Sans', 'Noto Sans KR', system-ui, sans-serif;
+  --font-pixel: 'Press Start 2P', 'Courier New', Courier, monospace;
+  --font-hand:  'Caveat', 'Noto Sans KR', cursive; /* KO/ZH overridden via :lang() below */
+
+  /* Borders */
+  --border-thick:  3px solid var(--ink);
+  --border-thin:   2px solid var(--ink);
+  --border-subtle: 2px solid var(--grey-light);
+
+  /* Shadows — offset, solid */
+  --shadow-offset:    4px 4px 0 var(--ink);
+  --shadow-offset-sm: 2px 2px 0 var(--ink);
+  --shadow-pressed:   1px 1px 0 var(--ink);
+  --shadow-none:      0 0 0 transparent;
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-pill: 999px;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Effects */
+  --hover-lift: translateY(-2px);
+  --active-press: translateY(1px);
+
+  /* Motion */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-medium: 250ms;
+  --duration-slow:   400ms;
+}
+
+/* Language-specific handwriting fonts — override --font-hand when html[lang] changes */
+:lang(ko) { --font-hand: 'Nanum Pen Script', cursive; }
+:lang(ja) { --font-hand: 'Klee One', cursive; }
+:lang(zh) { --font-hand: 'ZCOOL KuaiLe', cursive; }

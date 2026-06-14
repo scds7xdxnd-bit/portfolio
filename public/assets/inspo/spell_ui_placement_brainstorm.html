@@ -1,0 +1,118 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 12px 0; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px 18px; position: relative; overflow: hidden; }
+.card:hover { border-color: var(--color-border-secondary); }
+.card-accent { position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
+.card-num { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.card-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.card-sub { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 12px; font-style: italic; }
+.card-section { margin-bottom: 10px; }
+.card-section-label { font-size: 11px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; margin-bottom: 4px; }
+.placement { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 5px; }
+.placement-tag { font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+.placement-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.4; }
+.note { font-size: 12px; color: var(--color-text-secondary); background: var(--color-background-secondary); border-radius: 6px; padding: 6px 10px; margin-top: 8px; line-height: 1.5; }
+.tag-hero { background: #EEEDFE; color: #3C3489; }
+.tag-bio { background: #E1F5EE; color: #0F6E56; }
+.tag-certs { background: #FAEEDA; color: #854F0B; }
+.tag-footer { background: #FBEAF0; color: #99355 6; }
+.tag-projects { background: #FAECE7; color: #993C1D; }
+.tag-footer { background: #E6F1FB; color: #185FA5; }
+.divider { height: 0.5px; background: var(--color-border-tertiary); margin: 8px 0; }
+.concern { font-size: 12px; color: var(--color-text-secondary); border-left: 2px solid #E24B4A; padding-left: 8px; margin-top: 6px; line-height: 1.4; }
+.fullwidth { grid-column: 1 / -1; }
+.impl-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.impl-pill { font-size: 11px; padding: 3px 9px; border-radius: 99px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+</style>
+
+<div style="padding: 4px 0 8px; font-size: 12px; color: var(--color-text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;">Spell UI × Portfolio — placement map</div>
+
+<div class="grid">
+
+  <!-- 1. Special Text -->
+  <div class="card">
+    <div class="card-accent" style="background: linear-gradient(90deg, #7F77DD, #AFA9EC);"></div>
+    <div class="card-num">01 · special text</div>
+    <div class="card-title">Matrix-style char scramble reveal</div>
+    <div class="card-sub">_!X$0-+*# → final text, letter by letter</div>
+    <div class="card-section">
+      <div class="card-section-label">Best placements</div>
+      <div class="placement"><span class="placement-tag tag-hero" style="background:#EEEDFE;color:#3C3489;">hero</span><span class="placement-text">Name reveal on load — "Taeyang Han" decoding from noise on first paint. High impact, immediate attention</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#E6F1FB;color:#185FA5;">nav</span><span class="placement-text">Nav links scramble-in on page load or scroll-into-view</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#EAF3DE;color:#3B6D11;">stats</span><span class="placement-text">Stat values (5, 30+, 7) scramble to their final numbers — feels earned</span></div>
+    </div>
+    <div class="note">Port: pure vanilla JS, no deps. Replace framer inView with IntersectionObserver. The monospace font switching is the only CSS delta.</div>
+  </div>
+
+  <!-- 2. Highlighted Text -->
+  <div class="card">
+    <div class="card-accent" style="background: linear-gradient(90deg, #1D9E75, #5DCAA5);"></div>
+    <div class="card-num">02 · highlighted text</div>
+    <div class="card-title">Ink-sweep block highlight, text stays white</div>
+    <div class="card-sub">Filled rectangle wipes in, mix-blend-difference reveals text</div>
+    <div class="card-section">
+      <div class="card-section-label">Best placements</div>
+      <div class="placement"><span class="placement-tag" style="background:#E1F5EE;color:#0F6E56;">bio</span><span class="placement-text">Wrap "Chem Eng × Intl Business" in the hero bio — highlight the dual major on scroll-trigger</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#EEEDFE;color:#3C3489;">hero</span><span class="placement-text">Wrap "Samsung Scholar" or "PALS President" in the roles line for pull-quote energy</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#FAEEDA;color:#854F0B;">section</span><span class="placement-text">Section headlines — highlight one word in "Projects" / "Certificates" titles as they scroll in</span></div>
+    </div>
+    <div class="note">Port: CSS-only via clip-path + transform on a pseudo-element. Motion library not needed — keyframe animation replaces Framer spring. Use your existing magenta as the fill color.</div>
+  </div>
+
+  <!-- 3. Signature -->
+  <div class="card">
+    <div class="card-accent" style="background: linear-gradient(90deg, #D85A30, #F0997B);"></div>
+    <div class="card-num">03 · signature</div>
+    <div class="card-title">SVG path-draw handwriting animation</div>
+    <div class="card-sub">opentype.js → per-glyph SVG strokes drawn in real-time</div>
+    <div class="card-section">
+      <div class="card-section-label">Best placements</div>
+      <div class="placement"><span class="placement-tag" style="background:#FAECE7;color:#993C1D;">hero</span><span class="placement-text">Replace the plain "Taeyang Han" name with the animated signature — draws in after page load. Premium, personal</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#E6F1FB;color:#185FA5;">footer</span><span class="placement-text">Footer sign-off — small signature draws when user reaches bottom. Memorable exit moment</span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="concern">Hard dep: opentype.js + LastoriaBoldRegular.otf font file (must host locally in /assets/fonts/). Also requires GSAP or vanilla SVG animation to replace Framer motion's pathLength. Non-trivial port — do last.</div>
+  </div>
+
+  <!-- 4. Gradient Wave Text -->
+  <div class="card">
+    <div class="card-accent" style="background: linear-gradient(90deg, #8d6869, #5a8ea6, #b9c96e);"></div>
+    <div class="card-num">04 · gradient wave text</div>
+    <div class="card-title">Apple-style animated color wave sweeping through text</div>
+    <div class="card-sub">rAF loop updating --gi CSS var → radial/linear gradient on background-clip: text</div>
+    <div class="card-section">
+      <div class="card-section-label">Best placements</div>
+      <div class="placement"><span class="placement-tag" style="background:#EEEDFE;color:#3C3489;">hero</span><span class="placement-text">The hero tagline / bio sentence — specifically the "unpredictability" word currently using gradient-clip. Upgrade it to an animated wave using your magenta/cyan palette</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#FAEEDA;color:#854F0B;">section</span><span class="placement-text">Section micro-labels ("ABOUT ME", "PROJECTS") — subtle wave on idle adds life without noise</span></div>
+      <div class="placement"><span class="placement-tag" style="background:#E1F5EE;color:#0F6E56;">footer</span><span class="placement-text">Footer name / tagline — slow wave, almost imperceptible. Elegant</span></div>
+    </div>
+    <div class="note">Port: easiest of the 5. Zero deps — pure CSS custom property + rAF. Drop the React wrapper, keep the gradient math and tick function. Override defaultColors with your brand palette: magenta → cyan → lime.</div>
+  </div>
+
+  <!-- 5. Animated Checkbox -->
+  <div class="card fullwidth">
+    <div class="card-accent" style="background: linear-gradient(90deg, #D4537E, #ED93B1);"></div>
+    <div class="card-num">05 · animated checkbox</div>
+    <div class="card-title">Spring-animated check + strikethrough — interactive list items</div>
+    <div class="card-sub">SVG pathLength spring → strikethrough div width spring on click</div>
+    <div class="card-section">
+      <div class="card-section-label">Best placements</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div class="placement"><span class="placement-tag" style="background:#FBEAF0;color:#993556;">projects</span><span class="placement-text">Project card "features" or "stack" list — each item is an animated checkbox. Shows completion/ownership without boring bullet points</span></div>
+        <div class="placement"><span class="placement-tag" style="background:#E1F5EE;color:#0F6E56;">skills</span><span class="placement-text">Skills / tools section — checkboxes for "proficient in", letting visitor click to mark relevance. Adds interactivity with zero backend</span></div>
+        <div class="placement"><span class="placement-tag" style="background:#EEEDFE;color:#3C3489;">hero</span><span class="placement-text">"What I'm building" sidebar — LifeOS, CNN classifier, scholarship app — animated list with checkboxes feels like a live OS dashboard. Matches LifeOS brand</span></div>
+        <div class="placement"><span class="placement-tag" style="background:#FAEEDA;color:#854F0B;">about</span><span class="placement-text">Values / principles — "Systems over tactics ✓", "Builder not consumer ✓" — pre-checked, draws in on scroll. Personality without being try-hard</span></div>
+      </div>
+    </div>
+    <div class="note">Port: simplest. Replace framer motion spring with CSS transition on width + SVG strokeDashoffset animation. 30–40 lines vanilla JS. Checkbox state is purely presentational — no form/backend needed.</div>
+  </div>
+
+</div>
+
+<div style="margin-top: 14px; padding: 12px 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 12px; color: var(--color-text-secondary); line-height: 1.6;">
+  <span style="font-weight: 500; color: var(--color-text-primary);">Port priority order (easiest → hardest):</span><br>
+  1. Gradient Wave Text (pure rAF, zero deps) → 2. Animated Checkbox (CSS transition only) → 3. Highlighted Text (clip-path keyframe) → 4. Special Text (vanilla JS state machine, direct port) → 5. Signature (opentype.js dep, hardest)
+</div>

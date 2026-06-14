@@ -1,0 +1,59 @@
+/* ── Panel ── */
+.panel {
+  background: var(--bg-panel);
+  border: var(--border-thick);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.panel--dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--text-on-dark);
+}
+
+.panel__header {
+  font-family: var(--font-game);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: var(--border-thin);
+  background: var(--sunshine);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel--dark .panel__header {
+  background: var(--ink);
+  border-bottom-color: rgba(255,255,255,0.12);
+  color: var(--sunshine);
+}
+
+.panel__body {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel--quests {
+  transition: box-shadow var(--duration-fast) var(--ease-bounce),
+              transform var(--duration-fast) var(--ease-bounce);
+}
+
+.panel--quests:hover {
+  box-shadow: var(--shadow-offset);
+  transform: translateY(-1px);
+}
+
+.panel--quests .panel__header {
+  background: var(--ink);
+  color: var(--sunshine);
+  border-bottom-color: rgba(255,255,255,0.12);
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════════
+   12. FOOTER
+   ═══════════════════════════════════════════════ */
+.footer {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  padding: 48px 24px;
+  border-top: var(--border-thick);
+  border-color: var(--ink);
+}
+
+.footer__container {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.footer__name {
+  font-family: var(--font-game);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.footer__tagline {
+  font-size: 13px;
+  color: #C7C9D1;
+  margin-bottom: 16px;
+}
+
+.footer__cta {
+  font-family: var(--font-game);
+  font-size: 14px;
+  color: var(--sunshine);
+  transition: color var(--duration-fast);
+  font-weight: 600;
+}
+
+.footer__cta:hover { color: #fff; }
+
+.footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer__icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  color: #C7C9D1;
+  transition: background var(--duration-fast),
+              color var(--duration-fast);
+}
+
+.footer__icon:hover {
+  background: var(--sunshine);
+  color: var(--ink);
+}
+
+.footer__lower {
+  max-width: 1040px;
+  margin: 32px auto 0;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.footer__sign-col {
+  flex: 0 0 220px;
+}
+
+.footer__doodle-col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* guestbook inside footer inherits dark text-on-dark context */
+.footer__doodle-col .guestbook__sub {
+  color: #C7C9D1;
+}
+.footer__doodle-col .guestbook__btn {
+  background: rgba(255,255,255,0.08);
+  color: #E5E7EB;
+  border-color: rgba(255,255,255,0.2);
+}
+.footer__doodle-col .guestbook__btn:hover {
+  background: rgba(255,255,255,0.18);
+}
+.footer__doodle-col .guestbook__btn--submit {
+  background: var(--sunshine);
+  color: var(--ink);
+  border-color: var(--sunshine);
+}
+.footer__doodle-col .guestbook__btn--submit:hover {
+  background: #ffe066;
+}
+
+/* ── Signature block (footer) ── */
+.signature {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.signature__name {
+  font-family: var(--font-hand);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  transform: rotate(-2deg);
+}
+
+.signature__flourish {
+  width: 180px;
+  height: 18px;
+  margin: 0 0 0 2px;
+  color: var(--sunshine);
+}
+
+.signature__flourish path {
+  transition: stroke-dashoffset 1000ms var(--ease-smooth);
+}
+
+.signature__note {
+  margin-top: 10px;
+  font-family: var(--font-hand);
+  font-size: 17px;
+  line-height: 1.15;
+  color: #C7C9D1;
+  max-width: 280px;
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+  .footer__container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .footer__socials {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer__lower {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .footer__sign-col { flex: none; }
+}
