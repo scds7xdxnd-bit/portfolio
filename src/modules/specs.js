@@ -63,7 +63,9 @@ function renderSpecializations() {
           ${spec.certs.map(c => `
             <div class="specs__cert-thumb" data-cert="${c.filename}" data-cert-name="${c.name}">
               <div class="specs__cert-placeholder" style="background: var(--bg-primary); border-color: var(--${spec.accent});">
-                <img src="/assets/certs/${c.filename}.webp" alt="${c.name}" data-cert="${c.filename}" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='${c.icon}';" style="display:none">
+                <img src="/assets/certs/${c.filename}.webp" alt="${c.name}" data-cert="${c.filename}" loading="lazy"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='';"
+                  onload="this.style.display='';this.nextElementSibling.style.display='none';">
                 <span aria-hidden="true">${c.icon}</span>
               </div>
               <span class="specs__cert-caption">${c.name}</span>
@@ -257,7 +259,7 @@ function initSpecCertLightbox() {
     if (!thumb) return;
     const filename = thumb.dataset.cert;
     const name = thumb.dataset.certName || '';
-    img.src = `assets/certs/${filename}.jpg`;
+    img.src = `assets/certs/${filename}.webp`;
     img.alt = name;
     caption.textContent = name;
     lb.removeAttribute('hidden');
