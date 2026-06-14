@@ -478,12 +478,22 @@
   }
 }
 
-@media (max-width: 399px) {
+/* Hero CTAs: keep all three on one row on phones (compact, not tiny) */
+@media (max-width: 480px) {
   .hero__actions {
-    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 6px;
   }
 
   .hero__actions .btn {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 6px;
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .hero__actions .btn--ghost {
+    font-size: 11px;
   }
 }

@@ -20,7 +20,6 @@ function initMobileNavMenu() {
   const hamburger = document.getElementById('nav-hamburger');
   const panel     = document.getElementById('mobile-nav-panel');
   const backdrop  = document.getElementById('mobile-nav-backdrop');
-  const mobileLangBtn = document.getElementById('mobile-lang-toggle');
   if (!hamburger || !panel || !backdrop) return;
 
   function openMenu() {
@@ -62,13 +61,6 @@ function initMobileNavMenu() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && panel.classList.contains('is-open')) closeMenu();
   });
-
-  // Sync mobile lang toggle with main lang toggle
-  if (mobileLangBtn) {
-    mobileLangBtn.addEventListener('click', () => {
-      document.getElementById('lang-toggle').click();
-    });
-  }
 }
 
 function initLangToggle() {

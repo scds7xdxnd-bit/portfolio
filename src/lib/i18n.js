@@ -26,6 +26,8 @@ export function switchToLang(lang) {
   renderTrophyShelf();
   initScrollReveal();
   notePolyglot();
+  // tab labels changed width — re-measure the sliding indicator
+  requestAnimationFrame(() => window._positionSpecIndicator?.());
 }
 
 const _langsSeen = new Set();
@@ -36,15 +38,13 @@ export function notePolyglot() {
 
 export function updateLangToggleLabel() {
   const labels = { en: 'EN', zh: '中文', ko: '한국어' };
-  ['lang-toggle', 'mobile-lang-toggle'].forEach(id => {
-    const btn = document.getElementById(id);
-    if (!btn) return;
-    btn.innerHTML = Object.entries(labels)
-      .map(([code, label]) =>
-        `<span${currentLang === code ? ' style="text-decoration:underline;text-underline-offset:3px;"' : ''}>${label}</span>`
-      )
-      .join('<span aria-hidden="true"> &middot; </span>');
-  });
+  const btn = document.getElementById('lang-toggle');
+  if (!btn) return;
+  btn.innerHTML = Object.entries(labels)
+    .map(([code, label]) =>
+      `<span${currentLang === code ? ' style="text-decoration:underline;text-underline-offset:3px;"' : ''}>${label}</span>`
+    )
+    .join('<span aria-hidden="true"> &middot; </span>');
 }
 
 export function initLangToggle() {
@@ -61,5 +61,6 @@ export function initLangToggle() {
     renderTrophyShelf();
     initScrollReveal();
     notePolyglot();
+    requestAnimationFrame(() => window._positionSpecIndicator?.());
   });
 }

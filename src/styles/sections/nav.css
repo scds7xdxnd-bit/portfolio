@@ -273,8 +273,6 @@
 
 .mobile-nav__link--sub:hover { color: var(--ink); }
 
-.mobile-nav__lang { margin-top: 8px; align-self: flex-start; }
-
 .mobile-nav-backdrop {
   position: fixed;
   inset: 0;
@@ -298,4 +296,7 @@
   .site-nav__links { display: none; }
   .site-nav__hamburger { display: flex; }
   .site-nav__container { padding: 0 16px; }
+
+  /* Hamburger on the far left; search + language toggle on the right */
+  .site-nav__hamburger { order: -1; margin-right: auto; }
 }

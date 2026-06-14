@@ -89,9 +89,6 @@
         <a href="opinions/index.html" class="mobile-nav__link" data-i18n="nav.opinions"></a>
         <a href="#footer" class="mobile-nav__link" data-i18n="nav.contact"></a>
       </nav>
-      <button class="lang-toggle mobile-nav__lang" id="mobile-lang-toggle" aria-label="Switch language">
-        <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
-      </button>
     </div>
   </div>
   <div id="mobile-nav-backdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
@@ -429,29 +426,5 @@
   </div>
 
   <script type="module" src="/src/main.js"></script>
-  <!-- SVG filter defs — liquid glass pill -->
-  <svg id="glass-filters" style="position:absolute;width:0;height:0;pointer-events:none;overflow:hidden" aria-hidden="true">
-    <defs>
-      <filter id="liquid-glass-pill" x="-14%" y="-120%" width="128%" height="340%" color-interpolation-filters="sRGB">
-        <!-- Subtle organic liquid displacement -->
-        <feTurbulence type="turbulence" baseFrequency="0.007 0.013" numOctaves="2" seed="9" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" result="liquid"/>
-        <!-- Specular highlight — top-left glass sheen -->
-        <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
-        <feSpecularLighting in="blur" surfaceScale="12" specularConstant="2.2" specularExponent="60" lighting-color="white" result="spec">
-          <feDistantLight azimuth="228" elevation="72"/>
-        </feSpecularLighting>
-        <feComposite in="spec" in2="SourceAlpha" operator="in" result="spec-in"/>
-        <feColorMatrix in="spec-in" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0" result="spec-final"/>
-        <!-- Subtle chromatic fringe on edges -->
-        <feColorMatrix in="liquid" type="matrix"
-          values="1 0 0 0 0.012   0 1 0 0 0   0 0 1 0 -0.012   0 0 0 1 0" result="fringe"/>
-        <feMerge>
-          <feMergeNode in="fringe"/>
-          <feMergeNode in="spec-final"/>
-        </feMerge>
-      </filter>
-    </defs>
-  </svg>
 </body>
 </html>

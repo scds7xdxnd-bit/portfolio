@@ -201,7 +201,29 @@ function initSpecTabs() {
   const tabs = document.querySelectorAll('.specs__tab');
   const panels = document.querySelectorAll('.specs__panel');
   const specsSection = document.getElementById('specializations');
-  if (!tabs.length || !panels.length || !specsSection) return;
+  const tabsNav = document.querySelector('.specs__tabs');
+  if (!tabs.length || !panels.length || !specsSection || !tabsNav) return;
+
+  // Sliding "liquid" indicator that glides between tabs
+  let indicator = tabsNav.querySelector('.specs__tab-indicator');
+  if (!indicator) {
+    indicator = document.createElement('span');
+    indicator.className = 'specs__tab-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    tabsNav.insertBefore(indicator, tabsNav.firstChild);
+  }
+
+  function positionIndicator() {
+    const active = tabsNav.querySelector('.specs__tab.is-active');
+    if (!active) { indicator.classList.remove('is-ready'); return; }
+    indicator.style.width  = active.offsetWidth + 'px';
+    indicator.style.height = active.offsetHeight + 'px';
+    indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+    indicator.classList.add('is-ready');
+    active.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+  // expose so language switches can re-measure after labels change width
+  window._positionSpecIndicator = positionIndicator;
 
   function setActiveTab(panelId) {
     tabs.forEach(t => {
@@ -209,7 +231,10 @@ function initSpecTabs() {
       t.classList.toggle('is-active', isActive);
       t.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
+    positionIndicator();
   }
+
+  window.addEventListener('resize', positionIndicator);
 
   function activateFromHash() {
     const hash = window.location.hash.replace('#', '');
@@ -220,6 +245,15 @@ function initSpecTabs() {
   }
 
   activateFromHash();
+
+  // Default the indicator onto the first tab so it has somewhere to slide from
+  if (!tabsNav.querySelector('.specs__tab.is-active')) {
+    setActiveTab(tabs[0].dataset.panel);
+  }
+  requestAnimationFrame(positionIndicator);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(positionIndicator);
+  }
 
   tabs.forEach(tab => {
     tab.addEventListener('click', e => {
