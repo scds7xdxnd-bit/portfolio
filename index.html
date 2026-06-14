@@ -15,10 +15,24 @@
   <meta name="twitter:image" content="https://portfolio-han-taeyangs-projects.vercel.app/assets/hero.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- Pixel RPG world map background -->
+  <div class="world-bg" aria-hidden="true">
+    <img src="assets/inspo/inspo2.PNG" alt="" draggable="false">
+  </div>
+
+  <!-- XP scroll bar -->
+  <div id="xp-bar" aria-hidden="true"><div id="xp-fill"></div></div>
+
+  <!-- Distillation column scroll indicator -->
+  <div id="distil-col" class="distil-col" aria-hidden="true">
+    <div class="distil-col__tube"><div id="distil-fill" class="distil-col__fill"></div></div>
+    <span id="distil-pct" class="distil-col__pct">0%</span>
+  </div>
 
   <nav id="site-nav" class="site-nav" aria-label="Main navigation">
     <div class="site-nav__container">
@@ -40,6 +54,11 @@
         <a href="opinions/index.html" class="site-nav__link" data-i18n="nav.opinions"></a>
         <a href="#footer" class="site-nav__link" data-i18n="nav.contact"></a>
       </div>
+      <button class="cmdk-trigger" id="cmdk-trigger" aria-label="Open command palette (⌘K)">
+        <span class="cmdk-trigger__icon" aria-hidden="true">⌘</span>
+        <span class="cmdk-trigger__label">Search</span>
+        <kbd class="cmdk-trigger__key">K</kbd>
+      </button>
       <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
         <span>EN</span><span aria-hidden="true"> &middot; </span><span>中文</span><span aria-hidden="true"> &middot; </span><span>한국어</span>
       </button>
@@ -116,6 +135,7 @@
               <span class="player-avatar__level" aria-hidden="true">LVL.24</span>
             </div>
             <div class="player-card__identity">
+              <span class="hero__hello" aria-hidden="true"><span class="hero__hello-wave">👋</span> <span class="hero__hello-word" lang="en">Hi</span></span>
               <h1 class="hero__greeting"><span data-i18n="hero.greeting">Hi! I&rsquo;m</span> <span class="hero__full-name">Taeyang Han</span></h1>
               <div class="hero__roles">
                 <span class="hero__role" data-i18n="hero.role.systemsBuilder">Systems Builder</span>
@@ -128,19 +148,29 @@
             </div>
           </div>
 
-          <div class="player-card__stats">
-            <span class="player-card__stat">
-              <span data-i18n="hero.stat.languages">Languages</span>
-              <strong data-i18n="hero.stat.languages.5">5</strong>
-            </span>
-            <span class="player-card__stat">
-              <span data-i18n="hero.stat.certificates">Certificates</span>
-              <strong data-i18n="hero.stat.certificates.30">30+</strong>
-            </span>
-            <span class="player-card__stat">
-              <span data-i18n="hero.stat.building">Building</span>
-              <strong data-i18n="hero.stat.building.5yrs">5yrs</strong>
-            </span>
+          <div class="stats-annotated">
+            <div class="player-card__stats">
+              <span class="player-card__stat" data-tip="EN · KO · ZH · MS · ES — TOPIK 6, HSK 4">
+                <span data-i18n="hero.stat.languages">Languages</span>
+                <strong data-i18n="hero.stat.languages.5">5</strong>
+              </span>
+              <span class="player-card__stat" data-tip="Coursera · LinkedIn · Google · Credly">
+                <span data-i18n="hero.stat.certificates">Certificates</span>
+                <strong data-i18n="hero.stat.certificates.30">30+</strong>
+              </span>
+              <span class="player-card__stat" data-tip="First deploy 2021 — 6 apps live">
+                <span data-i18n="hero.stat.building">Building</span>
+                <strong data-i18n="hero.stat.building.5yrs">5yrs</strong>
+              </span>
+            </div>
+            <div class="annotation annotation--stats">
+              <svg class="annotation__arrow" viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M 42 14 C 30 6, 16 8, 6 14" />
+                <path d="M 6 14 L 14 8" />
+                <path d="M 6 14 L 14 20" />
+              </svg>
+              <span class="annotation__text" data-i18n="anno.proof">every number here is backed by proof</span>
+            </div>
           </div>
 
           <div class="hero__speech">
@@ -214,6 +244,57 @@
 
   <main>
 
+    <!-- ═══════════════════════════════════════════
+         MANIFESTO — What I Believe / Stack / Connect
+         ═══════════════════════════════════════════ -->
+    <section class="manifesto reveal" aria-label="About this portfolio">
+      <div class="manifesto__inner">
+        <div class="manifesto__block">
+          <p class="manifesto__label" data-i18n="manifesto.beliefs.label">What I Believe</p>
+          <ul class="manifesto__list">
+            <li><span data-i18n="manifesto.beliefs.1">Systems beat willpower</span></li>
+            <li><span data-i18n="manifesto.beliefs.2">Build to understand</span></li>
+            <li><span data-i18n="manifesto.beliefs.3">Real proof, not self-score</span></li>
+          </ul>
+        </div>
+        <div class="manifesto__sep" aria-hidden="true"></div>
+        <div class="manifesto__block">
+          <p class="manifesto__label" data-i18n="manifesto.stack.label">Daily Stack</p>
+          <div class="manifesto__pills">
+            <span class="manifesto__pill">Claude Code</span>
+            <span class="manifesto__pill">Next.js</span>
+            <span class="manifesto__pill">Python</span>
+            <span class="manifesto__pill">Flask</span>
+            <span class="manifesto__pill">PostgreSQL</span>
+            <span class="manifesto__pill">TypeScript</span>
+          </div>
+        </div>
+        <div class="manifesto__sep" aria-hidden="true"></div>
+        <div class="manifesto__block">
+          <p class="manifesto__label" data-i18n="manifesto.connect.label">Connect</p>
+          <div class="manifesto__socials">
+            <a class="manifesto__social" href="https://github.com/scds7xdxnd-bit" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="manifesto__social" href="https://www.linkedin.com/in/khairul-ammar-hakimi" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="manifesto__social" href="https://xhslink.com/m/6pTVib4GbZU" target="_blank" rel="noopener">小红书 ↗</a>
+          </div>
+          <div class="seoul-clock" id="seoul-clock" aria-live="polite" aria-label="Current time in Seoul, Korea">
+            <span class="seoul-clock__dot" aria-hidden="true"></span>
+            <span class="seoul-clock__label">Seoul</span>
+            <span class="seoul-clock__time" id="seoul-time">--:--</span>
+          </div>
+          <a class="manifesto__cta" href="mailto:ammarhakimikm03@gmail.com" data-i18n="footer.cta">Let's build →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ Life System -->
+    <section class="life-system-section reveal" aria-label="How my domains connect">
+      <div class="section__container">
+        <p class="life-system__hint" data-i18n="life.hint" aria-hidden="true">Drag a node — watch the system respond</p>
+        <div class="life-system" id="life-system"></div>
+      </div>
+    </section>
+
     <!-- ★ Specializations -->
     <section id="specializations" class="specs section reveal">
       <div class="section__container">
@@ -271,7 +352,6 @@
   <footer id="footer" class="footer">
     <div class="footer__container">
       <div class="footer__identity">
-        <p class="footer__name" data-i18n="hero.name"></p>
         <p class="footer__tagline" data-i18n="footer.tagline"></p>
         <a class="footer__cta" href="mailto:ammarhakimikm03@gmail.com" data-i18n="footer.cta"></a>
       </div>
@@ -287,8 +367,91 @@
         </a>
       </div>
     </div>
+
+    <!-- ★ Signature + Guestbook side by side -->
+    <div class="footer__lower">
+      <div class="footer__sign-col">
+        <div class="signature" aria-label="Taeyang Han, signed">
+          <span class="signature__name">Taeyang&nbsp;Han</span>
+          <svg class="signature__flourish" viewBox="0 0 240 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 19 C 52 7, 118 27, 176 13 C 206 6, 224 16, 234 9" />
+          </svg>
+          <span class="signature__note" data-i18n="sign.off">Thanks for stopping by — now go build something.</span>
+        </div>
+        <div class="achievements" id="achievements" aria-label="Achievements"></div>
+      </div>
+      <div class="footer__doodle-col reveal" aria-label="Guestbook">
+        <span class="section__badge">✏️ Leave a Mark</span>
+        <p class="guestbook__sub">Doodle something and sign the wall.</p>
+        <div class="guestbook__studio">
+          <canvas id="doodle-canvas" class="guestbook__canvas" width="400" height="130"></canvas>
+          <div class="guestbook__controls">
+            <input type="color" id="doodle-color" class="guestbook__color" value="#1A1A2E" aria-label="Pen color" title="Pen color" />
+            <input type="range" id="doodle-size" class="guestbook__size" min="1" max="14" value="3" aria-label="Pen size" title="Pen size" />
+            <button id="doodle-clear" class="guestbook__btn">Clear</button>
+            <button id="doodle-submit" class="guestbook__btn guestbook__btn--submit">Sign ✓</button>
+          </div>
+        </div>
+        <div id="guestbook-wall" class="guestbook__wall"></div>
+      </div>
+    </div>
   </footer>
 
+  <!-- Ask-me terminal -->
+  <button id="terminal-toggle" class="terminal__fab" aria-label="Open terminal">&gt;_</button>
+  <div id="terminal" class="terminal" hidden>
+    <div class="terminal__bar">
+      <span class="terminal__title">taeyang@life-systems ~</span>
+      <button id="terminal-close" class="terminal__close" aria-label="Close">×</button>
+    </div>
+    <div id="terminal-output" class="terminal__output"></div>
+    <div class="terminal__input-row">
+      <span class="terminal__prompt" aria-hidden="true">$</span>
+      <input id="terminal-input" class="terminal__input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input" placeholder="type 'help' or press Tab" />
+    </div>
+    <div id="terminal-suggestions" class="terminal__suggestions" hidden></div>
+  </div>
+
+  <!-- Command palette -->
+  <div id="cmdk" class="cmdk" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+    <div class="cmdk__backdrop"></div>
+    <div class="cmdk__panel">
+      <div class="cmdk__search-wrap">
+        <span class="cmdk__icon" aria-hidden="true">⌘</span>
+        <input id="cmdk-input" class="cmdk__input" type="text" placeholder="Search or jump to…" autocomplete="off" spellcheck="false" />
+        <kbd class="cmdk__esc">esc</kbd>
+      </div>
+      <ul id="cmdk-list" class="cmdk__list" role="listbox"></ul>
+      <div class="cmdk__footer" aria-hidden="true">
+        <span>↑↓ navigate</span><span>↵ select</span><span>esc close</span>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <!-- SVG filter defs — liquid glass pill -->
+  <svg id="glass-filters" style="position:absolute;width:0;height:0;pointer-events:none;overflow:hidden" aria-hidden="true">
+    <defs>
+      <filter id="liquid-glass-pill" x="-14%" y="-120%" width="128%" height="340%" color-interpolation-filters="sRGB">
+        <!-- Subtle organic liquid displacement -->
+        <feTurbulence type="turbulence" baseFrequency="0.007 0.013" numOctaves="2" seed="9" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" result="liquid"/>
+        <!-- Specular highlight — top-left glass sheen -->
+        <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
+        <feSpecularLighting in="blur" surfaceScale="12" specularConstant="2.2" specularExponent="60" lighting-color="white" result="spec">
+          <feDistantLight azimuth="228" elevation="72"/>
+        </feSpecularLighting>
+        <feComposite in="spec" in2="SourceAlpha" operator="in" result="spec-in"/>
+        <feColorMatrix in="spec-in" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0" result="spec-final"/>
+        <!-- Subtle chromatic fringe on edges -->
+        <feColorMatrix in="liquid" type="matrix"
+          values="1 0 0 0 0.012   0 1 0 0 0   0 0 1 0 -0.012   0 0 0 1 0" result="fringe"/>
+        <feMerge>
+          <feMergeNode in="fringe"/>
+          <feMergeNode in="spec-final"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
 </body>
 </html>

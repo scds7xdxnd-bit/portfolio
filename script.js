@@ -190,6 +190,48 @@ const TRANSLATIONS = {
     'spec.scholar.item4.desc':'Public consulting-pipeline content; top post: 336 likes / 215 saves / 18 comments.',
     'spec.scholar.item5.title':'Scholarship Writing System',
     'spec.scholar.item5.desc':'Framework/template product encoding the logic behind multiple winning applications.',
+
+    'manifesto.beliefs.label':'What I Believe',
+    'manifesto.beliefs.1':'Systems beat willpower',
+    'manifesto.beliefs.2':'Build to understand',
+    'manifesto.beliefs.3':'Real proof, not self-score',
+    'manifesto.stack.label':'Daily Stack',
+    'manifesto.connect.label':'Connect',
+    'anno.proof':'every number here is backed by proof',
+    'sign.off':'Thanks for stopping by — now go build something.',
+    'demo.visit':'Open live site',
+    'ach.title':'Achievements',
+    'ach.unlocked':'Achievement unlocked',
+    'ach.locked':'Keep exploring to unlock',
+    'ach.polyglot.title':'Polyglot',
+    'ach.polyglot.desc':'Viewed the site in all three languages',
+    'ach.tinkerer.title':'Tinkerer',
+    'ach.tinkerer.desc':'Played with the bullwhip sim',
+    'ach.deepdiver.title':'Deep Diver',
+    'ach.deepdiver.desc':'Opened a case study',
+    'ach.reachout.title':'Reaching Out',
+    'ach.reachout.desc':'Copied my email',
+    'ach.secret.title':'Secret Finder',
+    'ach.secret.desc':'Found the hidden code',
+    'ach.completionist.title':'Completionist',
+    'ach.completionist.desc':'Unlocked everything — legend',
+    'life.hint':'Drag a node — watch the system respond',
+    'bullwhip.title':'Bullwhip Effect — Mini Sim',
+    'bullwhip.sub':'small demand blips amplify wildly upstream',
+    'bullwhip.sliderLabel':'Demand shock',
+    'bullwhip.agent.retailer':'Retailer',
+    'bullwhip.agent.distributor':'Distributor',
+    'bullwhip.agent.manufacturer':'Manufacturer',
+    'bullwhip.agent.supplier':'Supplier',
+    'bullwhip.insight.zero':'Move the slider — watch how far a small demand blip travels.',
+    'bullwhip.insight.active':'A {{shock}}% consumer blip → +{{amp}}% supplier orders ({{factor}}× amplification).',
+    'ph.title':'pH Scale — Mini Sim',
+    'ph.sub':'drag across the acid-base spectrum',
+    'ph.acid':'Acid',
+    'ph.base':'Base',
+    'ph.regime.acidic':'acidic',
+    'ph.regime.neutral':'neutral',
+    'ph.regime.basic':'basic',
   },
   zh: {
     'nav.about':'个人资料','nav.specializations':'专业领域','nav.work':'作品','nav.opinions':'案例研究','nav.contact':'联系',
@@ -377,6 +419,48 @@ const TRANSLATIONS = {
     'spec.scholar.item4.desc':'公开咨询引流内容；最高赞帖：336赞/215收藏/18评论。',
     'spec.scholar.item5.title':'奖学金申请写作系统',
     'spec.scholar.item5.desc':'将多次成功申请背后的逻辑提炼为框架/模板产品。',
+
+    'manifesto.beliefs.label':'我的信条',
+    'manifesto.beliefs.1':'系统胜过意志力',
+    'manifesto.beliefs.2':'在构建中理解',
+    'manifesto.beliefs.3':'真实证明，而非自评',
+    'manifesto.stack.label':'技术栈',
+    'manifesto.connect.label':'联系方式',
+    'anno.proof':'这里每个数字都有实证支撑',
+    'sign.off':'感谢到访 —— 去创造点什么吧。',
+    'demo.visit':'打开网站',
+    'ach.title':'成就',
+    'ach.unlocked':'成就解锁',
+    'ach.locked':'继续探索即可解锁',
+    'ach.polyglot.title':'语言达人',
+    'ach.polyglot.desc':'用三种语言浏览了网站',
+    'ach.tinkerer.title':'爱捣鼓',
+    'ach.tinkerer.desc':'玩了牛鞭效应模拟器',
+    'ach.deepdiver.title':'深潜者',
+    'ach.deepdiver.desc':'打开了一个案例研究',
+    'ach.reachout.title':'主动联系',
+    'ach.reachout.desc':'复制了我的邮箱',
+    'ach.secret.title':'秘密发现者',
+    'ach.secret.desc':'找到了隐藏代码',
+    'ach.completionist.title':'全成就',
+    'ach.completionist.desc':'解锁全部 —— 传奇',
+    'life.hint':'拖动节点 — 感受系统的牵引',
+    'bullwhip.title':'牛鞭效应 — 迷你模拟',
+    'bullwhip.sub':'微小需求波动在上游急剧放大',
+    'bullwhip.sliderLabel':'需求冲击',
+    'bullwhip.agent.retailer':'零售商',
+    'bullwhip.agent.distributor':'分销商',
+    'bullwhip.agent.manufacturer':'制造商',
+    'bullwhip.agent.supplier':'供应商',
+    'bullwhip.insight.zero':'移动滑块 — 看看小小的需求波动能传递多远。',
+    'bullwhip.insight.active':'{{shock}}% 的消费需求变动 → 供应商订单 +{{amp}}%（放大 {{factor}} 倍）。',
+    'ph.title':'pH 值 — 迷你模拟',
+    'ph.sub':'拖动探索酸碱范围',
+    'ph.acid':'酸性',
+    'ph.base':'碱性',
+    'ph.regime.acidic':'酸性',
+    'ph.regime.neutral':'中性',
+    'ph.regime.basic':'碱性',
   },
   ko: {
     'nav.about':'프로필','nav.specializations':'전문 분야','nav.work':'작업','nav.opinions':'케이스 스터디','nav.contact':'연락',
@@ -564,6 +648,48 @@ const TRANSLATIONS = {
     'spec.scholar.item4.desc':'공개 컨설팅 파이프라인 콘텐츠; 최고 성과 게시물: 336좋아요 / 215저장 / 18댓글.',
     'spec.scholar.item5.title':'장학금 신청 작성 시스템',
     'spec.scholar.item5.desc':'여러 번의 합격 경험을 바탕으로 프레임워크/템플릿 제품으로 정제.',
+
+    'manifesto.beliefs.label':'내가 믿는 것들',
+    'manifesto.beliefs.1':'시스템이 의지력을 이긴다',
+    'manifesto.beliefs.2':'만들면서 이해한다',
+    'manifesto.beliefs.3':'실제 증거가 자기평가보다 낫다',
+    'manifesto.stack.label':'기술 스택',
+    'manifesto.connect.label':'연락하기',
+    'anno.proof':'여기 모든 숫자는 실제 증거로 뒷받침됩니다',
+    'sign.off':'들러주셔서 감사합니다 — 이제 무언가 만들어 보세요.',
+    'demo.visit':'사이트 열기',
+    'ach.title':'업적',
+    'ach.unlocked':'업적 달성',
+    'ach.locked':'계속 둘러보면 열려요',
+    'ach.polyglot.title':'다국어 마스터',
+    'ach.polyglot.desc':'세 가지 언어로 사이트를 둘러봤어요',
+    'ach.tinkerer.title':'탐구가',
+    'ach.tinkerer.desc':'채찍 효과 시뮬레이터를 만져봤어요',
+    'ach.deepdiver.title':'심층 탐험가',
+    'ach.deepdiver.desc':'사례 연구를 열어봤어요',
+    'ach.reachout.title':'연결 시도',
+    'ach.reachout.desc':'제 이메일을 복사했어요',
+    'ach.secret.title':'비밀 발견',
+    'ach.secret.desc':'숨겨진 코드를 찾았어요',
+    'ach.completionist.title':'올 클리어',
+    'ach.completionist.desc':'전부 달성 — 레전드',
+    'life.hint':'노드를 드래그해보세요 — 시스템이 반응합니다',
+    'bullwhip.title':'채찍 효과 — 미니 시뮬레이터',
+    'bullwhip.sub':'작은 수요 변동이 상류에서 크게 증폭됩니다',
+    'bullwhip.sliderLabel':'수요 충격',
+    'bullwhip.agent.retailer':'소매업체',
+    'bullwhip.agent.distributor':'유통업체',
+    'bullwhip.agent.manufacturer':'제조업체',
+    'bullwhip.agent.supplier':'공급업체',
+    'bullwhip.insight.zero':'슬라이더를 움직여보세요 — 작은 수요 변동이 얼마나 멀리 전달되는지 확인하세요.',
+    'bullwhip.insight.active':'{{shock}}% 소비자 변동 → 공급업체 주문 +{{amp}}% ({{factor}}배 증폭).',
+    'ph.title':'pH 척도 — 미니 시뮬레이터',
+    'ph.sub':'산-염기 범위를 드래그해 탐색하세요',
+    'ph.acid':'산성',
+    'ph.base':'염기성',
+    'ph.regime.acidic':'산성',
+    'ph.regime.neutral':'중성',
+    'ph.regime.basic':'염기성',
   }
 };
 
@@ -652,6 +778,8 @@ const SPECIALIZATIONS = [
     accent: 'coral',
     mastery: 75,
     featuredUrl: 'https://reactionsimulator.vercel.app',
+    miniSim: 'ph',
+    miniSim2: 'rxn',
     featuredLinkKey: 'spec.engineer.featuredLinkLabel',
     caseStudyUrl: 'projects/reaction-simulator.html',
     screenshot: 'assets/projects/reaction_simulator.png',
@@ -671,6 +799,7 @@ const SPECIALIZATIONS = [
     accent: 'mint',
     mastery: 80,
     featuredUrl: 'https://lifeos-wine.vercel.app',
+    miniSim: 'bullwhip',
     featuredLinkKey: 'spec.builder.featuredLinkLabel',
     caseStudyUrl: 'projects/lifeos.html',
     screenshot: 'assets/projects/lifeos.jpg',
@@ -769,7 +898,9 @@ function renderSpecializations() {
         ? `<a class="specs__secondary-link" href="${item.link}" target="_blank" rel="noopener"><span data-i18n="spec.liveLink">${t('spec.liveLink')}</span> ↗</a>`
         : '';
       const screenshotHtml = item.screenshot
-        ? `<img class="specs__secondary-screenshot" src="${item.screenshot}" alt="" loading="lazy" />`
+        ? (item.link
+          ? `<a class="specs__secondary-shot" href="${item.link}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img class="specs__secondary-screenshot" src="${item.screenshot}" alt="" loading="lazy" /></a>`
+          : `<img class="specs__secondary-screenshot" src="${item.screenshot}" alt="" loading="lazy" />`)
         : '';
       const footerHtml = (statusHtml || linkHtml)
         ? `<div class="specs__secondary-footer">${statusHtml}${linkHtml}</div>`
@@ -802,8 +933,70 @@ function renderSpecializations() {
       </div>` : '';
 
     const featuredScreenshotHtml = spec.screenshot
-      ? `<img class="specs__featured-screenshot" src="${spec.screenshot}" alt="" loading="lazy" />`
+      ? (spec.featuredUrl
+        ? `<a class="specs__featured-shot" href="${spec.featuredUrl}" target="_blank" rel="noopener" aria-label="${t('demo.visit')}">
+            <img class="specs__featured-screenshot" src="${spec.screenshot}" alt="" loading="lazy" />
+            <span class="specs__featured-shot__overlay"><span data-i18n="demo.visit">${t('demo.visit')}</span> ↗</span>
+          </a>`
+        : `<img class="specs__featured-screenshot" src="${spec.screenshot}" alt="" loading="lazy" />`)
       : '';
+
+    const rxnHtml = `
+      <div class="rxn-sim" id="rxn-sim">
+        <div class="rxn-sim__head">
+          <span class="rxn-sim__title">CSTR vs PFR</span>
+          <span class="rxn-sim__sub">which reactor wins at your residence time?</span>
+        </div>
+        <div class="rxn-sim__toggle">
+          <button class="rxn-sim__btn is-active" data-mode="CSTR">CSTR</button>
+          <button class="rxn-sim__btn" data-mode="PFR">PFR</button>
+        </div>
+        <div class="rxn-sim__tau-wrap">
+          <span class="rxn-sim__tau-label">τ = <strong id="rxn-tau-val">5.0</strong> min</span>
+          <input type="range" id="rxn-tau" min="0" max="10" step="0.1" value="5" class="rxn-sim__slider" aria-label="Residence time" />
+        </div>
+        <div class="rxn-sim__result">
+          <div class="rxn-sim__bar-track"><div class="rxn-sim__bar" id="rxn-bar"></div></div>
+          <span class="rxn-sim__pct" id="rxn-pct">71.4%</span>
+        </div>
+        <p class="rxn-sim__lbl" id="rxn-lbl"></p>
+      </div>`;
+
+    const miniSimHtml =
+      spec.miniSim === 'bullwhip' ? `
+      <div class="bullwhip-sim" id="bullwhip-sim">
+        <div class="bullwhip-sim__head">
+          <span class="bullwhip-sim__title" data-i18n="bullwhip.title">${t('bullwhip.title')}</span>
+          <span class="bullwhip-sim__sub" data-i18n="bullwhip.sub">${t('bullwhip.sub')}</span>
+        </div>
+        <div class="bullwhip-sim__controls">
+          <label class="bullwhip-sim__slider-label" for="bullwhip-slider"><span data-i18n="bullwhip.sliderLabel">${t('bullwhip.sliderLabel')}</span> <strong id="bullwhip-shock-val">10%</strong></label>
+          <input class="bullwhip-sim__slider" type="range" id="bullwhip-slider" min="0" max="40" value="10" aria-label="Demand shock %" />
+        </div>
+        <div class="bullwhip-sim__bars" id="bullwhip-bars"></div>
+        <p class="bullwhip-sim__insight" id="bullwhip-insight"></p>
+      </div>` :
+      spec.miniSim === 'ph' ? `
+      <div class="ph-sim" id="ph-sim">
+        <div class="ph-sim__head">
+          <span class="ph-sim__title" data-i18n="ph.title">${t('ph.title')}</span>
+          <span class="ph-sim__sub" data-i18n="ph.sub">${t('ph.sub')}</span>
+        </div>
+        <div class="ph-sim__swatch" id="ph-swatch">
+          <span class="ph-sim__value" id="ph-val">7.0</span>
+          <span class="ph-sim__regime" id="ph-regime">${t('ph.regime.neutral')}</span>
+        </div>
+        <div class="ph-sim__slider-wrap">
+          <span class="ph-sim__end-label" data-i18n="ph.acid">${t('ph.acid')}</span>
+          <input class="ph-sim__slider" type="range" id="ph-slider" min="0" max="14" step="0.1" value="7" aria-label="pH value" />
+          <span class="ph-sim__end-label" data-i18n="ph.base">${t('ph.base')}</span>
+        </div>
+        <div class="ph-sim__readings">
+          <span class="ph-sim__conc" id="ph-conc"></span>
+          <span class="ph-sim__substance" id="ph-substance"></span>
+        </div>
+      </div>` :
+      '';
 
     panel.innerHTML = `
       <div class="specs__panel-header">
@@ -833,6 +1026,8 @@ function renderSpecializations() {
         ${featuredScreenshotHtml}
       </div>
       <div class="specs__secondary">${secondaryHtml}</div>
+      ${miniSimHtml}
+      ${spec.miniSim2 === 'rxn' ? rxnHtml : ''}
       ${certsHtml}
     `;
 
@@ -840,6 +1035,9 @@ function renderSpecializations() {
   });
 
   injectIcons(container);
+  initBullwhipSim();
+  initPhSim();
+  initRxnSim();
 }
 
 /* ═══════════════════════════════════════════════
@@ -957,7 +1155,7 @@ function initScrollReveal() {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('is-revealed'); obs.unobserve(e.target); }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '0px 0px 80px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
@@ -1045,6 +1243,7 @@ function copyEmail() {
   const btn = document.getElementById('copy-email-btn');
 
   function showCopied() {
+    unlockAchievement('reachout');
     if (!btn) return;
     const orig = btn.textContent;
     btn.textContent = 'Copied!';
@@ -1295,6 +1494,963 @@ function toggleBuildItem(div) {
 }
 
 /* ═══════════════════════════════════════════════
+   10i. SIGNATURE — draw-on flourish (footer)
+   ═══════════════════════════════════════════════ */
+function initSignature() {
+  const sig  = document.querySelector('.signature');
+  const path = document.querySelector('.signature__flourish path');
+  if (!sig || !path) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const len = path.getTotalLength();
+  path.style.strokeDasharray = len;
+  path.style.strokeDashoffset = reduced ? 0 : len;
+
+  if (reduced) { sig.classList.add('is-signed'); return; }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      sig.classList.add('is-signed');
+      requestAnimationFrame(() => { path.style.strokeDashoffset = 0; });
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  obs.observe(sig);
+}
+
+/* ═══════════════════════════════════════════════
+   10e-iv. BULLWHIP EFFECT MINI-SIM
+   ═══════════════════════════════════════════════ */
+function initBullwhipSim() {
+  const sim     = document.getElementById('bullwhip-sim');
+  if (!sim) return;
+  const slider  = document.getElementById('bullwhip-slider');
+  const valEl   = document.getElementById('bullwhip-shock-val');
+  const barsEl  = document.getElementById('bullwhip-bars');
+  const insight = document.getElementById('bullwhip-insight');
+  if (!slider || !valEl || !barsEl || !insight) return;
+
+  const AGENTS = [
+    { labelKey: 'bullwhip.agent.retailer',     factor: 1.3, color: 'var(--mint)'     },
+    { labelKey: 'bullwhip.agent.distributor',  factor: 2.1, color: 'var(--sunshine)' },
+    { labelKey: 'bullwhip.agent.manufacturer', factor: 3.5, color: 'var(--coral)'    },
+    { labelKey: 'bullwhip.agent.supplier',     factor: 5.8, color: 'var(--purple)'   },
+  ];
+  const MAX_W_PCT = 40 * 5.8;
+
+  function update(shock) {
+    valEl.textContent = shock + '%';
+    barsEl.innerHTML = AGENTS.map(a => {
+      const orderPct = Math.round(shock * a.factor);
+      const barW     = shock === 0 ? 0 : Math.min(100, (orderPct / MAX_W_PCT) * 100);
+      return `<div class="bullwhip-bar">
+        <span class="bullwhip-bar__label">${t(a.labelKey)}</span>
+        <div class="bullwhip-bar__track">
+          <div class="bullwhip-bar__fill" style="width:${barW}%;background:${a.color}"></div>
+        </div>
+        <span class="bullwhip-bar__val">${shock === 0 ? '—' : '+' + orderPct + '%'}</span>
+      </div>`;
+    }).join('');
+    insight.textContent = shock === 0
+      ? t('bullwhip.insight.zero')
+      : t('bullwhip.insight.active')
+          .replace('{{shock}}', shock)
+          .replace('{{amp}}', Math.round(shock * 5.8))
+          .replace('{{factor}}', '5.8');
+  }
+
+  slider.addEventListener('input', () => {
+    update(parseInt(slider.value, 10));
+    unlockAchievement('tinkerer');
+  });
+  update(parseInt(slider.value, 10));
+}
+
+/* ═══════════════════════════════════════════════
+   10e-vi. pH SCALE MINI-SIM
+   ═══════════════════════════════════════════════ */
+function initPhSim() {
+  const sim      = document.getElementById('ph-sim');
+  if (!sim) return;
+  const slider   = document.getElementById('ph-slider');
+  const valEl    = document.getElementById('ph-val');
+  const swatchEl = document.getElementById('ph-swatch');
+  const regimeEl = document.getElementById('ph-regime');
+  const concEl   = document.getElementById('ph-conc');
+  const substEl  = document.getElementById('ph-substance');
+  if (!slider || !valEl || !swatchEl) return;
+
+  // Universal-indicator colour stops, one per integer pH 0-14
+  const STOPS = [
+    '#E8000A','#F52000','#F75000','#E87500',
+    '#D4A000','#A8B800','#22A244','#009966',
+    '#0088BB','#0055AA','#2233AA','#5511AA',
+    '#7711BB','#9900BB','#BB00AA',
+  ];
+
+  const SUBSTANCES = [
+    'Battery acid (HCl)',   'Stomach acid',      'Lemon juice',
+    'Vinegar',              'Tomato / coffee',   'Black coffee',
+    'Milk / urine',         'Pure water ✓',      'Seawater',
+    'Baking soda',          'Milk of magnesia',  'Ammonia',
+    'Soapy water',          'Oven cleaner',      'Drain cleaner (NaOH)',
+  ];
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function phToColor(ph) {
+    const i  = Math.min(Math.floor(ph), 13);
+    const t  = ph - i;
+    const c1 = STOPS[i], c2 = STOPS[i + 1];
+    const parse = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+    const [r1,g1,b1] = parse(c1), [r2,g2,b2] = parse(c2);
+    return `rgb(${Math.round(lerp(r1,r2,t))},${Math.round(lerp(g1,g2,t))},${Math.round(lerp(b1,b2,t))})`;
+  }
+
+  function phToConc(ph) {
+    const exp = Math.floor(-ph);
+    const mant = Math.pow(10, -ph - Math.floor(-ph));
+    return `[H⁺] = ${mant.toFixed(1)} × 10<sup>${exp}</sup> mol/L`;
+  }
+
+  function update(ph) {
+    ph = parseFloat(ph);
+    const color  = phToColor(ph);
+    const regime = ph < 6.9 ? t('ph.regime.acidic') : ph > 7.1 ? t('ph.regime.basic') : t('ph.regime.neutral');
+    const textCol = (ph >= 4 && ph <= 10) ? '#1A1A2E' : '#fff';
+
+    valEl.textContent  = ph.toFixed(1);
+    regimeEl.textContent = regime;
+    valEl.style.color  = textCol;
+    regimeEl.style.color = textCol;
+    swatchEl.style.background = color;
+    concEl.innerHTML   = phToConc(ph);
+    substEl.textContent = SUBSTANCES[Math.round(Math.max(0, Math.min(14, ph)))];
+    unlockAchievement('tinkerer');
+  }
+
+  slider.addEventListener('input', () => update(slider.value));
+  update(slider.value);
+}
+
+/* ═══════════════════════════════════════════════
+   10e-v. ACHIEVEMENTS + GREETING + EASTER EGGS  (the "fun" layer)
+   ═══════════════════════════════════════════════ */
+const ACHIEVEMENTS = [
+  { id: 'polyglot',      icon: '🌐', titleKey: 'ach.polyglot.title',      descKey: 'ach.polyglot.desc' },
+  { id: 'tinkerer',      icon: '🔬', titleKey: 'ach.tinkerer.title',      descKey: 'ach.tinkerer.desc' },
+  { id: 'deepdiver',     icon: '📜', titleKey: 'ach.deepdiver.title',     descKey: 'ach.deepdiver.desc' },
+  { id: 'reachout',      icon: '✉️', titleKey: 'ach.reachout.title',      descKey: 'ach.reachout.desc' },
+  { id: 'secret',        icon: '🕹️', titleKey: 'ach.secret.title',        descKey: 'ach.secret.desc' },
+  { id: 'completionist', icon: '🏆', titleKey: 'ach.completionist.title', descKey: 'ach.completionist.desc' },
+];
+const BASE_ACH = ['polyglot', 'tinkerer', 'deepdiver', 'reachout', 'secret'];
+const ACH_KEY = 'th_achievements';
+let _unlocked;
+
+function _loadUnlocked() {
+  if (_unlocked) return _unlocked;
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(ACH_KEY) || '[]'); } catch (e) {}
+  _unlocked = new Set(Array.isArray(saved) ? saved : []);
+  return _unlocked;
+}
+
+function unlockAchievement(id) {
+  const set = _loadUnlocked();
+  if (set.has(id)) return;
+  if (!ACHIEVEMENTS.some(a => a.id === id)) return;
+  set.add(id);
+  try { localStorage.setItem(ACH_KEY, JSON.stringify([...set])); } catch (e) {}
+  renderTrophyShelf();
+  showAchievementToast(id);
+  confettiBurst({ big: id === 'completionist' || id === 'secret' });
+  if (id !== 'completionist' && BASE_ACH.every(b => set.has(b)) && !set.has('completionist')) {
+    setTimeout(() => unlockAchievement('completionist'), 1400);
+  }
+}
+
+function renderTrophyShelf() {
+  const el = document.getElementById('achievements');
+  if (!el) return;
+  const set = _loadUnlocked();
+  const count = ACHIEVEMENTS.filter(a => set.has(a.id)).length;
+  el.innerHTML = `
+    <p class="achievements__head">
+      <span data-i18n="ach.title">${t('ach.title')}</span>
+      <span class="achievements__count">${count}/${ACHIEVEMENTS.length}</span>
+    </p>
+    <div class="achievements__shelf">
+      ${ACHIEVEMENTS.map(a => {
+        const got = set.has(a.id);
+        const label = got ? t(a.titleKey) : '???';
+        const tip   = got ? t(a.descKey) : t('ach.locked');
+        return `<div class="achievement ${got ? 'is-unlocked' : 'is-locked'}" title="${label} — ${tip}">
+          <span class="achievement__icon">${got ? a.icon : '🔒'}</span>
+          <span class="achievement__label">${label}</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function showAchievementToast(id) {
+  const a = ACHIEVEMENTS.find(x => x.id === id);
+  if (!a) return;
+  const toast = document.createElement('div');
+  toast.className = 'ach-toast';
+  toast.setAttribute('role', 'status');
+  toast.innerHTML = `
+    <span class="ach-toast__icon">${a.icon}</span>
+    <span class="ach-toast__body">
+      <span class="ach-toast__kicker">${t('ach.unlocked')}</span>
+      <span class="ach-toast__title">${t(a.titleKey)}</span>
+    </span>`;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('is-in'));
+  setTimeout(() => {
+    toast.classList.remove('is-in');
+    setTimeout(() => toast.remove(), 400);
+  }, 3400);
+}
+
+function confettiBurst(opts) {
+  const big = opts && opts.big;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const colors = ['#FFD23F', '#FF6B6B', '#4ECDC4', '#5B8DEF', '#A66BFF'];
+  const n = big ? 90 : 30;
+  const layer = document.createElement('div');
+  layer.className = 'confetti-layer';
+  document.body.appendChild(layer);
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement('span');
+    p.className = 'confetti-piece';
+    p.style.left = (50 + (Math.random() * 2 - 1) * (big ? 46 : 22)) + 'vw';
+    p.style.background = colors[i % colors.length];
+    p.style.setProperty('--dx', ((Math.random() * 2 - 1) * 28) + 'vw');
+    p.style.setProperty('--dr', (Math.random() * 720 - 360) + 'deg');
+    p.style.animationDelay = (Math.random() * 0.25) + 's';
+    p.style.animationDuration = (1.2 + Math.random() * 0.9) + 's';
+    layer.appendChild(p);
+  }
+  setTimeout(() => layer.remove(), big ? 2800 : 2300);
+}
+
+/* Polyglot: track which UI languages the visitor has seen */
+const _langsSeen = new Set();
+function notePolyglot() {
+  _langsSeen.add(currentLang);
+  if (_langsSeen.size >= 3) unlockAchievement('polyglot');
+}
+
+/* Deep Diver: opening any case study */
+function initDeepDiver() {
+  document.addEventListener('click', e => {
+    if (e.target.closest && e.target.closest('.specs__case-study-link')) {
+      unlockAchievement('deepdiver');
+    }
+  });
+}
+
+/* #11 — rotating multilingual hello in the hero */
+function initHelloRotator() {
+  const word = document.querySelector('.hero__hello-word');
+  if (!word) return;
+  const greetings = [
+    { text: 'Hi',         lang: 'en' },
+    { text: '안녕하세요',  lang: 'ko' },
+    { text: '你好',        lang: 'zh' },
+    { text: 'Apa khabar', lang: 'ms' },
+    { text: 'Hola',       lang: 'es' },
+  ];
+  let i = 0;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(() => {
+    word.classList.add('is-swapping');
+    setTimeout(() => {
+      i = (i + 1) % greetings.length;
+      word.textContent = greetings[i].text;
+      word.lang        = greetings[i].lang;
+      word.classList.remove('is-swapping');
+    }, 260);
+  }, 3500);
+}
+
+/* #16 — tap the avatar 5× → secret achievement */
+function initAvatarEgg() {
+  const avatar = document.querySelector('.player-avatar__img');
+  if (!avatar) return;
+  avatar.style.cursor = 'pointer';
+  let taps = 0, timer = null;
+  avatar.addEventListener('click', () => {
+    taps++;
+    clearTimeout(timer);
+    if (taps >= 5) { taps = 0; unlockAchievement('secret'); }
+    else { timer = setTimeout(() => { taps = 0; }, 1800); }
+  });
+}
+
+/* #10 — Life-system node graph (draggable spring sim) */
+function initLifeSystem() {
+  const container = document.getElementById('life-system');
+  if (!container) return;
+
+  const W = container.offsetWidth || 560;
+  const H = container.offsetHeight || 260;
+  const cx = W / 2, cy = H / 2;
+  const r  = Math.min(W, H) * 0.33;
+  const NR = 34; // node hit-radius (px from center)
+
+  const NODES = [
+    { id: 'linguist',  icon: '🗣️', color: 'var(--sky)',      label: t('spec.tab.linguist')  },
+    { id: 'engineer',  icon: '⚗️', color: 'var(--coral)',    label: t('spec.tab.engineer')  },
+    { id: 'builder',   icon: '💻', color: 'var(--mint)',     label: t('spec.tab.builder')   },
+    { id: 'community', icon: '🤝', color: 'var(--purple)',   label: t('spec.tab.community') },
+    { id: 'scholar',   icon: '📊', color: 'var(--sunshine)', label: t('spec.tab.scholar')   },
+  ].map((n, i) => {
+    const angle = -Math.PI / 2 + i * 2 * Math.PI / 5;
+    return { ...n, x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), vx: 0, vy: 0 };
+  });
+
+  // Pure pentagon edges — symmetric so equilibrium is a regular pentagon
+  const EDGES = [[0,1],[1,2],[2,3],[3,4],[4,0]];
+  const REST_LEN = 2 * r * Math.sin(Math.PI / 5); // exact pentagon edge length
+  const K = 0.05, DAMP = 0.88;
+  const REPULSION_C = r * r * 3; // pairwise anti-overlap repulsion
+
+  // SVG for edge lines
+  const ns  = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('class', 'life-system__svg');
+  svg.setAttribute('aria-hidden', 'true');
+  container.appendChild(svg);
+
+  const lines = EDGES.map(() => {
+    const l = document.createElementNS(ns, 'line');
+    l.setAttribute('class', 'life-system__edge');
+    svg.appendChild(l);
+    return l;
+  });
+
+  // Node DOM elements
+  const nodeEls = NODES.map(n => {
+    const el = document.createElement('div');
+    el.className = 'life-system__node';
+    el.style.setProperty('--nc', n.color);
+    el.innerHTML = `<span class="life-system__icon">${n.icon}</span><span class="life-system__label" data-i18n="spec.tab.${n.id}">${n.label}</span>`;
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.dataset.domain = n.id;
+    container.appendChild(el);
+    return el;
+  });
+
+  let dragging = null, dragOx = 0, dragOy = 0;
+  let rafId = null, lastT = 0, animating = false;
+
+  function getXY(e) {
+    const t = e.touches ? e.touches[0] : e;
+    return [t.clientX, t.clientY];
+  }
+
+  function onDown(e) {
+    const idx = nodeEls.indexOf(e.currentTarget);
+    if (idx < 0) return;
+    dragging = idx;
+    const rect = container.getBoundingClientRect();
+    const [cx, cy] = getXY(e);
+    dragOx = cx - rect.left - NODES[idx].x;
+    dragOy = cy - rect.top  - NODES[idx].y;
+    nodeEls[idx].classList.add('is-dragging');
+    if (!animating) startSim();
+    e.preventDefault();
+  }
+
+  function onMove(e) {
+    if (dragging === null) return;
+    const rect = container.getBoundingClientRect();
+    const [cx, cy] = getXY(e);
+    NODES[dragging].x = Math.max(NR, Math.min(W - NR, cx - rect.left - dragOx));
+    NODES[dragging].y = Math.max(NR, Math.min(H - NR, cy - rect.top  - dragOy));
+    NODES[dragging].vx = 0; NODES[dragging].vy = 0;
+    e.preventDefault();
+  }
+
+  function onUp() {
+    if (dragging !== null) nodeEls[dragging].classList.remove('is-dragging');
+    dragging = null;
+  }
+
+  nodeEls.forEach(el => {
+    el.addEventListener('mousedown',  onDown);
+    el.addEventListener('touchstart', onDown, { passive: false });
+  });
+  document.addEventListener('mousemove',  onMove);
+  document.addEventListener('touchmove',  onMove, { passive: false });
+  document.addEventListener('mouseup',    onUp);
+  document.addEventListener('touchend',   onUp);
+
+  function tick(t) {
+    const dt = Math.min((t - lastT) / 16, 3);
+    lastT = t;
+
+    // Spring attraction along edges
+    EDGES.forEach(([ai, bi]) => {
+      const a = NODES[ai], b = NODES[bi];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const f = K * (dist - REST_LEN);
+      const fx = (dx / dist) * f, fy = (dy / dist) * f;
+      if (dragging !== ai) { a.vx += fx * dt; a.vy += fy * dt; }
+      if (dragging !== bi) { b.vx -= fx * dt; b.vy -= fy * dt; }
+    });
+
+    // Pairwise repulsion between ALL nodes — prevents any two from overlapping
+    for (let i = 0; i < NODES.length; i++) {
+      for (let j = i + 1; j < NODES.length; j++) {
+        const a = NODES[i], b = NODES[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist2 = Math.max(dx * dx + dy * dy, 1);
+        const dist  = Math.sqrt(dist2);
+        const f  = REPULSION_C / dist2;
+        const fx = (dx / dist) * f, fy = (dy / dist) * f;
+        if (dragging !== i) { a.vx -= fx * dt; a.vy -= fy * dt; }
+        if (dragging !== j) { b.vx += fx * dt; b.vy += fy * dt; }
+      }
+    }
+
+    let moving = false;
+    NODES.forEach((n, i) => {
+      if (dragging === i) return;
+      n.vx *= Math.pow(DAMP, dt); n.vy *= Math.pow(DAMP, dt);
+      n.x += n.vx * dt;           n.y += n.vy * dt;
+      n.x = Math.max(NR, Math.min(W - NR, n.x));
+      n.y = Math.max(NR, Math.min(H - NR, n.y));
+      if (Math.abs(n.vx) > 0.05 || Math.abs(n.vy) > 0.05) moving = true;
+    });
+
+    nodeEls.forEach((el, i) => {
+      el.style.transform = `translate(${NODES[i].x - NR}px, ${NODES[i].y - NR}px)`;
+    });
+    EDGES.forEach(([ai, bi], i) => {
+      lines[i].setAttribute('x1', NODES[ai].x); lines[i].setAttribute('y1', NODES[ai].y);
+      lines[i].setAttribute('x2', NODES[bi].x); lines[i].setAttribute('y2', NODES[bi].y);
+    });
+
+    // keep running while dragging or nodes are still moving
+    if (moving || dragging !== null) {
+      rafId = requestAnimationFrame(tick);
+    } else {
+      animating = false;
+    }
+  }
+
+  function startSim() {
+    if (animating) return;
+    animating = true;
+    lastT = performance.now();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // Initial draw (static)
+  nodeEls.forEach((el, i) => {
+    el.style.transform = `translate(${NODES[i].x - NR}px, ${NODES[i].y - NR}px)`;
+  });
+  EDGES.forEach(([ai, bi], i) => {
+    lines[i].setAttribute('x1', NODES[ai].x); lines[i].setAttribute('y1', NODES[ai].y);
+    lines[i].setAttribute('x2', NODES[bi].x); lines[i].setAttribute('y2', NODES[bi].y);
+  });
+
+  // Gentle nudge on first scroll-in
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      NODES.forEach(n => { n.vx = (Math.random() - 0.5) * 1.4; n.vy = (Math.random() - 0.5) * 1.4; });
+      startSim();
+      obs.disconnect();
+    }
+  }, { threshold: 0.4 });
+  obs.observe(container);
+}
+
+/* #17 — message for anyone who opens the console */
+/* ── XP scroll bar ── */
+function initXpBar() {
+  const fill = document.getElementById('xp-fill');
+  if (!fill) return;
+
+  function update() {
+    const scrolled = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if (maxScroll <= 0) return;
+    const pct = Math.min(100, (scrolled / maxScroll) * 100);
+    fill.style.width = pct + '%';
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ── Command palette ── */
+function switchToLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  updateLangToggleLabel();
+  applyTranslations();
+  renderSpecializations();
+  renderDomainOverview();
+  renderTrophyShelf();
+  initScrollReveal();
+  notePolyglot();
+}
+
+function initCommandPalette() {
+  const overlay = document.getElementById('cmdk');
+  const input   = document.getElementById('cmdk-input');
+  const list    = document.getElementById('cmdk-list');
+  if (!overlay || !input || !list) return;
+
+  function scrollTo(sel) {
+    document.querySelector(sel)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  const STATIC = [
+    { label: 'Jump to Specializations', icon: '⚔️',  cat: 'Navigate', action: () => scrollTo('#specializations') },
+    { label: 'Jump to Linguist',         icon: '🌐',  cat: 'Navigate', action: () => scrollTo('#linguist') },
+    { label: 'Jump to Engineer',         icon: '⚗️',  cat: 'Navigate', action: () => scrollTo('#engineer') },
+    { label: 'Jump to Builder',          icon: '🔨',  cat: 'Navigate', action: () => scrollTo('#builder') },
+    { label: 'Jump to Community',        icon: '👥',  cat: 'Navigate', action: () => scrollTo('#community') },
+    { label: 'Jump to Scholar',          icon: '📚',  cat: 'Navigate', action: () => scrollTo('#scholar') },
+    { label: 'Copy email address',       icon: '✉️',  cat: 'Action',   action: copyEmail },
+    { label: 'Download CV',              icon: '📄',  cat: 'Action',   action: () => document.querySelector('[download]')?.click() },
+    { label: 'Switch to 中文',           icon: '🇨🇳',  cat: 'Language', action: () => switchToLang('zh') },
+    { label: 'Switch to 한국어',         icon: '🇰🇷',  cat: 'Language', action: () => switchToLang('ko') },
+    { label: 'Switch to English',        icon: '🇬🇧',  cat: 'Language', action: () => switchToLang('en') },
+    { label: 'View case studies',        icon: '📖',  cat: 'Navigate', action: () => { window.location.href = 'opinions/'; } },
+    { label: 'Open terminal',            icon: '>_',  cat: 'Easter egg', action: () => document.getElementById('terminal-toggle')?.click() },
+  ];
+
+  const PROJECT_CMDS = [];
+  SPECIALIZATIONS.forEach(spec => {
+    if (spec.featuredUrl) PROJECT_CMDS.push({
+      label: TRANSLATIONS['en']['spec.' + spec.id + '.featuredTitle'] || spec.id,
+      icon: '⭐', cat: 'Project',
+      action: () => window.open(spec.featuredUrl, '_blank', 'noopener'),
+    });
+    (spec.secondary || []).forEach(item => {
+      if (item.link) PROJECT_CMDS.push({
+        label: TRANSLATIONS['en'][item.titleKey] || item.titleKey,
+        icon: '🔗', cat: 'Project',
+        action: () => window.open(item.link, '_blank', 'noopener'),
+      });
+    });
+  });
+
+  const ALL = [...STATIC, ...PROJECT_CMDS];
+  let filtered = [...ALL];
+  let active = 0;
+  let isOpen = false;
+
+  function open() {
+    isOpen = true;
+    overlay.hidden = false;
+    input.value = '';
+    render('');
+    requestAnimationFrame(() => { overlay.classList.add('is-open'); input.focus(); });
+  }
+
+  function close() {
+    isOpen = false;
+    overlay.classList.remove('is-open');
+    overlay.addEventListener('transitionend', () => { if (!isOpen) overlay.hidden = true; }, { once: true });
+  }
+
+  function setActive(i) {
+    active = Math.max(0, Math.min(filtered.length - 1, i));
+    list.querySelectorAll('.cmdk__item').forEach((el, idx) => {
+      el.classList.toggle('is-active', idx === active);
+      el.setAttribute('aria-selected', String(idx === active));
+    });
+    list.querySelector('.cmdk__item.is-active')?.scrollIntoView({ block: 'nearest' });
+  }
+
+  function render(q) {
+    q = q.toLowerCase().trim();
+    filtered = q
+      ? ALL.filter(c => c.label.toLowerCase().includes(q) || c.cat.toLowerCase().includes(q))
+      : ALL;
+    active = 0;
+    if (!filtered.length) {
+      list.innerHTML = `<li class="cmdk__empty">No matches for "${q}"</li>`;
+      return;
+    }
+    list.innerHTML = filtered.map((c, i) =>
+      `<li class="cmdk__item${i === 0 ? ' is-active' : ''}" role="option" aria-selected="${i === 0}" data-i="${i}">
+        <span class="cmdk__item-icon">${c.icon}</span>
+        <span class="cmdk__item-label">${c.label}</span>
+        <span class="cmdk__item-cat">${c.cat}</span>
+       </li>`
+    ).join('');
+    list.querySelectorAll('.cmdk__item').forEach(el => {
+      el.addEventListener('mouseenter', () => setActive(+el.dataset.i));
+      el.addEventListener('click', () => { filtered[+el.dataset.i]?.action?.(); close(); });
+    });
+  }
+
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+    else if (e.key === 'Enter') { e.preventDefault(); filtered[active]?.action?.(); close(); }
+    else if (e.key === 'Escape') close();
+  });
+  overlay.querySelector('.cmdk__backdrop').addEventListener('click', close);
+
+  document.getElementById('cmdk-trigger')?.addEventListener('click', () => isOpen ? close() : open());
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); isOpen ? close() : open(); }
+  });
+}
+
+/* ── NPC speech cycling ── */
+function initNpcDialogue() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const el = document.querySelector('.hero__speech p');
+  if (!el) return;
+  const LINES = {
+    en: [
+      null, // filled from i18n on first run
+      'Five languages. Two degrees. Six deployed apps.',
+      "If it can't be built, I'll figure out why.",
+      'Currently in Seoul, probably in a flow state.',
+      'I optimize for clarity — not cleverness.',
+    ],
+    ko: [
+      null,
+      '시스템이 의지력을 이깁니다.',
+      '다섯 개 언어, 여섯 개 앱, 하나의 이야기.',
+      '서울에서 코딩 중 — 아마 플로우 상태.',
+      '명확함을 위해 최적화합니다.',
+    ],
+    zh: [
+      null,
+      '系统胜过意志力。',
+      '五种语言，六个应用，一个故事。',
+      '在首尔写代码，可能处于心流状态。',
+      '我追求清晰，而非聪明。',
+    ],
+  };
+  let idx = 0;
+  el.style.transition = 'opacity 280ms';
+  setInterval(() => {
+    if (!window._heroInView) return;
+    const pool = LINES[currentLang] || LINES.en;
+    if (!pool[0]) pool[0] = el.textContent;
+    idx = (idx + 1) % pool.length;
+    el.style.opacity = '0';
+    setTimeout(() => { el.textContent = pool[idx] ?? pool[0]; el.style.opacity = '1'; }, 280);
+  }, 10000);
+}
+
+/* ── Idle avatar wiggle ── */
+function initIdleAvatar() {
+  const img = document.querySelector('.player-avatar__img');
+  if (!img) return;
+  let t;
+  const reset = () => {
+    img.classList.remove('is-idle');
+    clearTimeout(t);
+    t = setTimeout(() => {
+      if (window._heroInView) img.classList.add('is-idle');
+    }, 12000);
+  };
+  ['mousemove', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+    document.addEventListener(ev, reset, { passive: true })
+  );
+  reset();
+}
+
+/* ── Ask-me terminal ── */
+function initTerminal() {
+  const term   = document.getElementById('terminal');
+  const toggle = document.getElementById('terminal-toggle');
+  const output = document.getElementById('terminal-output');
+  const input  = document.getElementById('terminal-input');
+  if (!term || !toggle) return;
+
+  const PROJECTS = {
+    lifeos:         { desc: 'Personal OS — Next.js + Supabase. Habit tracking, journaling, goal cascading.', url: 'https://lifeos-wine.vercel.app' },
+    'reaction-sim': { desc: 'CSTR/PFR reactor network simulator. Interactive ChemE tool. Python + Plotly.', url: 'https://reactionsimulator.vercel.app' },
+    fugacity:       { desc: 'Thermodynamic VLE calculator. Fugacity coefficients via Peng-Robinson EOS.', url: 'https://fugacity-simulator.vercel.app' },
+    bullwhip:       { desc: 'Supply chain amplification toy. Shows how demand spikes cascade upstream.', url: 'https://scmsimulator.vercel.app' },
+    scm:            { desc: 'Apple supply chain LP optimizer. Python + Gurobi. Cost vs lead-time tradeoffs.', url: 'https://apple-scm-web.vercel.app' },
+    accounting:     { desc: 'Double-entry accounting app. Private alpha — 5 yrs in production.', url: 'https://finance-app-private-alpha.fly.dev' },
+    'process-game': { desc: 'Interactive process design simulator for ChemE students.', url: 'https://process-design.vercel.app' },
+  };
+
+  const CMDS = {
+    help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · clear",
+    whoami:     "→ Taeyang Han (한태양). Life Systems Designer. Sogang University, Seoul.",
+    about:      "→ Born in Malaysia. Moved to Seoul for university. Dual degree ChemE + CS. First app shipped 2021. Still shipping.",
+    education:  "→ Sogang University 2022-26 — ChemE + CS, full-tuition scholarship. TOPIK 6 · HSK 4 · IELTS 8.5.",
+    skills:     "→ EN KO ZH MS ES  |  Python · Flask · Next.js · PostgreSQL  |  ChemE ∩ CS",
+    where:      () => `→ Seoul — ${document.getElementById('seoul-time')?.textContent ?? 'KST'}. Usually coding or teaching.`,
+    contact:    () => { copyEmail(); return '→ ammarhakimikm03@gmail.com — copied ✓'; },
+    projects:   "→ " + Object.keys(PROJECTS).join(' · ') + "\n  (type a name for details, or 'open <name>')",
+    clear:      null,
+    secret:     () => { unlockAchievement('secret'); return '🕹️ Achievement unlocked: Secret Finder!'; },
+    ...Object.fromEntries(Object.entries(PROJECTS).map(([k, v]) =>
+      [k, `→ ${v.desc}\n  open ${k} → ${v.url}`]
+    )),
+  };
+
+  function print(text, cls = '') {
+    text.split('\n').forEach(line => {
+      const d = document.createElement('div');
+      d.className = 'terminal__line' + (cls ? ' terminal__line--' + cls : '');
+      d.textContent = line;
+      output.appendChild(d);
+    });
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function run(raw) {
+    const cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+    print('$ ' + cmd, 'cmd');
+    if (cmd === 'clear') { output.innerHTML = ''; return; }
+    if (cmd.startsWith('open ')) {
+      const key = cmd.slice(5).trim();
+      const proj = PROJECTS[key];
+      if (proj) { window.open(proj.url, '_blank', 'noopener'); print(`→ opening ${key}…`); }
+      else print(`→ no project named "${key}". try 'projects'.`, 'err');
+      return;
+    }
+    if (!(cmd in CMDS)) { print(`not found: "${cmd}". type 'help'.`, 'err'); return; }
+    const h = CMDS[cmd];
+    if (h !== null) print(typeof h === 'function' ? h() : h);
+  }
+
+  const suggestBox = document.getElementById('terminal-suggestions');
+  const ALL_CMDS = Object.keys(CMDS);
+
+  function showSuggestions(list) {
+    suggestBox.innerHTML = '';
+    list.forEach(cmd => {
+      const btn = document.createElement('button');
+      btn.className = 'terminal__suggest-chip';
+      btn.textContent = cmd;
+      btn.addEventListener('mousedown', e => {
+        e.preventDefault();
+        input.value = cmd;
+        input.focus();
+        hideSuggestions();
+      });
+      suggestBox.appendChild(btn);
+    });
+    suggestBox.hidden = list.length === 0;
+  }
+
+  function hideSuggestions() {
+    suggestBox.hidden = true;
+    suggestBox.innerHTML = '';
+  }
+
+  function commonPrefix(strs) {
+    if (!strs.length) return '';
+    return strs.reduce((a, b) => {
+      let i = 0;
+      while (i < a.length && a[i] === b[i]) i++;
+      return a.slice(0, i);
+    });
+  }
+
+  function open()  { term.hidden = false; requestAnimationFrame(() => { term.classList.add('is-open'); input.focus(); }); }
+  function close() { hideSuggestions(); term.classList.remove('is-open'); term.addEventListener('transitionend', () => { if (!term.classList.contains('is-open')) term.hidden = true; }, { once: true }); }
+
+  toggle.addEventListener('click', () => term.hidden ? open() : close());
+  document.getElementById('terminal-close').addEventListener('click', close);
+  input.addEventListener('blur', () => { setTimeout(hideSuggestions, 150); });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      run(input.value);
+      input.value = '';
+      hideSuggestions();
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const val = input.value.trim().toLowerCase();
+      if (!val) {
+        showSuggestions(ALL_CMDS);
+      } else {
+        const matches = ALL_CMDS.filter(c => c.startsWith(val));
+        if (matches.length === 1) {
+          input.value = matches[0];
+          hideSuggestions();
+        } else if (matches.length > 1) {
+          const prefix = commonPrefix(matches);
+          if (prefix.length > val.length) input.value = prefix;
+          showSuggestions(matches);
+        } else {
+          hideSuggestions();
+        }
+      }
+    } else if (e.key === 'Escape') {
+      if (!suggestBox.hidden) { hideSuggestions(); return; }
+    }
+  });
+  input.addEventListener('input', () => {
+    if (suggestBox.hidden) return;
+    const val = input.value.trim().toLowerCase();
+    showSuggestions(val ? ALL_CMDS.filter(c => c.startsWith(val)) : ALL_CMDS);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !term.hidden) close(); });
+
+  print("Life Systems Terminal v1.0 — type 'help'");
+}
+
+/* ── #6 CSTR/PFR reaction mixer ── */
+function initRxnSim() {
+  const sim = document.getElementById('rxn-sim');
+  if (!sim) return;
+  const tau   = document.getElementById('rxn-tau');
+  const tauLbl= document.getElementById('rxn-tau-val');
+  const bar   = document.getElementById('rxn-bar');
+  const pctEl = document.getElementById('rxn-pct');
+  const lbl   = document.getElementById('rxn-lbl');
+  if (!tau) return;
+  const k = 0.5; // first-order rate constant, min⁻¹
+  let mode = 'CSTR';
+
+  function X(t) { return mode === 'CSTR' ? (k*t)/(1+k*t) : 1 - Math.exp(-k*t); }
+
+  function update() {
+    const t = +tau.value;
+    const conv = X(t);
+    tauLbl.textContent = t.toFixed(1);
+    bar.style.width = (conv*100).toFixed(1) + '%';
+    bar.style.background = mode === 'CSTR' ? 'var(--sky)' : 'var(--coral)';
+    pctEl.textContent = (conv*100).toFixed(1) + '%';
+    lbl.textContent = mode === 'CSTR'
+      ? `CSTR: X = kτ/(1+kτ)  —  well-mixed, lower efficiency`
+      : `PFR: X = 1−e^(−kτ)  —  plug flow, always beats CSTR`;
+    unlockAchievement('tinkerer');
+  }
+
+  sim.querySelectorAll('.rxn-sim__btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      sim.querySelectorAll('.rxn-sim__btn').forEach(b => b.classList.toggle('is-active', b === btn));
+      update();
+    });
+  });
+  tau.addEventListener('input', update);
+  update();
+}
+
+/* ── #5 Skill-tree — spec tab ↔ life-system node resonance ── */
+function initSkillTree() {
+  document.querySelectorAll('.specs__tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.panel;
+      const node = document.querySelector(`.life-system__node[data-domain="${id}"]`);
+      if (!node) return;
+      node.classList.remove('is-pulse');
+      void node.offsetWidth; // force reflow
+      node.classList.add('is-pulse');
+      setTimeout(() => node.classList.remove('is-pulse'), 700);
+    });
+  });
+}
+
+/* ── #8 Distillation column scroll indicator ── */
+function initDistilCol() {
+  const fill = document.getElementById('distil-fill');
+  const pctEl = document.getElementById('distil-pct');
+  if (!fill) return;
+  window.addEventListener('scroll', () => {
+    const p = Math.min(100, (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+    fill.style.height = p.toFixed(1) + '%';
+    if (pctEl) pctEl.textContent = Math.round(p) + '%';
+  }, { passive: true });
+}
+
+/* ── #13 Guestbook doodle wall ── */
+function initGuestbook() {
+  const canvas = document.getElementById('doodle-canvas');
+  if (!canvas) return;
+  const ctx  = canvas.getContext('2d');
+  const wall = document.getElementById('guestbook-wall');
+  const MAX  = 12;
+  let drawing = false, color = '#1A1A2E', size = 3;
+
+  ctx.fillStyle = '#FFF7E6'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect(), s = e.touches ? e.touches[0] : e;
+    return [(s.clientX - r.left) * (canvas.width / r.width), (s.clientY - r.top) * (canvas.height / r.height)];
+  }
+  function draw(e) {
+    if (!drawing) return;
+    const [x, y] = pos(e);
+    ctx.lineTo(x, y); ctx.strokeStyle = color; ctx.lineWidth = size;
+    ctx.lineCap = 'round'; ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+  }
+  function start(e) { e.preventDefault?.(); drawing = true; const [x,y] = pos(e); ctx.beginPath(); ctx.moveTo(x,y); }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', draw);
+  ['mouseup','mouseleave'].forEach(ev => canvas.addEventListener(ev, () => drawing = false));
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); draw(e); }, { passive: false });
+  canvas.addEventListener('touchend', () => drawing = false);
+
+  document.getElementById('doodle-color').addEventListener('input', e => color = e.target.value);
+  document.getElementById('doodle-size').addEventListener('input', e => size = +e.target.value);
+  document.getElementById('doodle-clear').addEventListener('click', () => {
+    ctx.fillStyle = '#FFF7E6'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  });
+  document.getElementById('doodle-submit').addEventListener('click', () => {
+    const url = canvas.toDataURL('image/png');
+    const entries = JSON.parse(localStorage.getItem('th_guestbook') || '[]');
+    entries.unshift({ url, ts: Date.now() });
+    if (entries.length > MAX) entries.pop();
+    localStorage.setItem('th_guestbook', JSON.stringify(entries));
+    ctx.fillStyle = '#FFF7E6'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    renderWall(entries);
+  });
+
+  function renderWall(entries) {
+    wall.innerHTML = entries.length
+      ? entries.map(e => `<img class="guestbook__entry" src="${e.url}" alt="Guest mark" loading="lazy">`).join('')
+      : `<p class="guestbook__empty">No marks yet — be the first.</p>`;
+  }
+  renderWall(JSON.parse(localStorage.getItem('th_guestbook') || '[]'));
+}
+
+function initSeoulClock() {
+  const el = document.getElementById('seoul-time');
+  if (!el) return;
+  function tick() {
+    const seoul = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    const h = seoul.getHours();
+    const m = seoul.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = (h % 12 || 12).toString().padStart(2, '0');
+    el.textContent = `${h12}:${m} ${ampm}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+function initConsoleEgg() {
+  try {
+    console.log('%c👋 Hey, you opened the console.', 'font-size:14px;font-weight:700;color:#FF6B6B;');
+    console.log('%cThat makes you exactly the kind of person I built this for.\nLet\'s build something → ammarhakimikm03@gmail.com', 'font-size:12px;color:#4ECDC4;line-height:1.5;');
+    console.log('%cP.S. there\'s a hidden achievement. Try tapping the avatar 5×.', 'font-size:11px;color:#999;');
+  } catch (e) {}
+}
+
+/* ═══════════════════════════════════════════════
    10e-ii. MOBILE NAV MENU
    ═══════════════════════════════════════════════ */
 function initMobileNavMenu() {
@@ -1380,7 +2536,9 @@ function initLangToggle() {
     applyTranslations();
     renderSpecializations();
     renderDomainOverview();
+    renderTrophyShelf();
     initScrollReveal();
+    notePolyglot();
   });
 }
 
@@ -1437,6 +2595,20 @@ function initStickyNav() {
   });
 }
 
+/* ── World-bg parallax pan ── */
+function initWorldBgParallax() {
+  const img = document.querySelector('.world-bg img');
+  if (!img) return;
+  function update() {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    if (maxScroll <= 0) return;
+    const pct = (window.scrollY / maxScroll) * 100;
+    img.style.objectPosition = `center ${pct}%`;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
 /* ═══════════════════════════════════════════════
    13. INIT
    ═══════════════════════════════════════════════ */
@@ -1463,4 +2635,31 @@ document.addEventListener('DOMContentLoaded', () => {
   initSpecialText();
   renderHeroBuilds();
   initMobileNavMenu();
+  initSignature();
+  renderTrophyShelf();
+  initDeepDiver();
+  initHelloRotator();
+  initAvatarEgg();
+  initLifeSystem();
+  initConsoleEgg();
+  initSeoulClock();
+  initXpBar();
+  initCommandPalette();
+  initNpcDialogue();
+  initIdleAvatar();
+  initTerminal();
+  initSkillTree();
+  initDistilCol();
+  initGuestbook();
+  initWorldBgParallax();
+
+  // Hero viewport tracker — shared flag used by NPC dialogue + idle avatar
+  window._heroInView = true;
+  const _heroObs = new IntersectionObserver(([e]) => {
+    window._heroInView = e.isIntersecting;
+  }, { threshold: 0.1 });
+  const _heroEl = document.getElementById('hero');
+  if (_heroEl) _heroObs.observe(_heroEl);
+
+  notePolyglot();
 });
