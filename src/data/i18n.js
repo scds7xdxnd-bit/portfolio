@@ -57,6 +57,14 @@ export const TRANSLATIONS = {
     'certs.headline':'Unlocked Milestones',
     'certs.filter.all':'All','certs.filter.scholarship':'Scholarships','certs.filter.academic':'Academic','certs.filter.leadership':'Leadership','certs.filter.competitions':'Competitions','certs.filter.cultural':'Culture','certs.filter.language':'Languages',
     
+    'contact.badge':'Contact',
+    'contact.title':'Start a quest together',
+    'contact.sub':'I\'m a student open to internships, collaborations, and interesting problems. Not available for full-time until 2027.',
+    'contact.email.label':'Primary contact',
+    'contact.email.cta':'Email me \u2192',
+    'contact.response':'Typically responds within 24 h',
+    'contact.languages.label':'Available to work in',
+    'contact.find.label':'Find me',
     'footer.tagline':'Build systems. Level up life.','footer.cta':"Let\u2019s build \u2192",
 
     'project.lifeos.name':'LifeOS',

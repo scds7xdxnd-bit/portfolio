@@ -1,4 +1,139 @@
 /* ═══════════════════════════════════════════════
+   §6.1 CONTACT SECTION
+   ═══════════════════════════════════════════════ */
+.contact-section {
+  padding: 64px 24px;
+  border-top: var(--border-thin);
+}
+
+.contact-section__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.contact-section__head {
+  margin-bottom: 36px;
+}
+
+.contact-section__title {
+  font-family: var(--font-game);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: var(--ink);
+  margin: 8px 0 12px;
+}
+
+.contact-section__sub {
+  font-size: 15px;
+  color: var(--grey-dark);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin: 0;
+}
+
+.contact-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.contact-section__card {
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  padding: 20px 22px 22px;
+  background: var(--bg-panel);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-none);
+  transition: box-shadow var(--duration-fast) var(--ease-bounce),
+              transform var(--duration-fast) var(--ease-bounce);
+}
+
+.contact-section__card:hover {
+  box-shadow: var(--shadow-offset-sm);
+  transform: var(--hover-lift);
+}
+
+.contact-section__card-label {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin: 0;
+}
+
+.contact-section__email-btn {
+  display: inline-block;
+  padding: 9px 20px;
+  font-family: var(--font-game);
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--ink);
+  color: #fff;
+  border: var(--border-thick);
+  border-color: var(--ink);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background var(--duration-fast), box-shadow var(--duration-fast);
+  align-self: flex-start;
+  box-shadow: var(--shadow-none);
+}
+
+.contact-section__email-btn:hover {
+  background: var(--coral);
+  border-color: var(--coral);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.contact-section__response {
+  font-family: var(--font-hand);
+  font-size: 16px;
+  color: var(--grey-dark);
+  margin: 0;
+}
+
+.contact-section__langs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-section__lang {
+  font-family: var(--font-game);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.contact-section__find-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-section__find-link {
+  font-family: var(--font-game);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.contact-section__find-link:hover { color: var(--coral); }
+
+@media (max-width: 768px) {
+  .contact-section__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .contact-section__grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 48px 16px; }
+}
+
+/* ═══════════════════════════════════════════════
    12. FOOTER
    ═══════════════════════════════════════════════ */
 .footer {
