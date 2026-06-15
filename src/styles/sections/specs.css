@@ -25,6 +25,59 @@
 }
 
 /* ── Domains overview launchpad (table of contents) ── */
+/* §5.3 Skill radar layout */
+.specs__overview-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.specs__overview-tiles {
+  flex: 1;
+  min-width: 0;
+}
+
+.specs__radar-wrap {
+  width: 168px;
+  flex-shrink: 0;
+}
+
+.radar-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.radar__data {
+  transition: d 400ms var(--ease-smooth);
+}
+
+.radar__label {
+  font-family: var(--font-pixel);
+  font-size: 6.5px;
+  letter-spacing: 0.02em;
+  fill: var(--grey-dark);
+  pointer-events: none;
+}
+
+.radar__dot {
+  cursor: pointer;
+  transition: r 160ms, opacity 160ms;
+}
+
+.radar__dot:hover,
+.radar__dot:focus {
+  r: 6;
+  outline: none;
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .specs__overview-row { flex-direction: column; }
+  .specs__radar-wrap { width: 140px; align-self: center; }
+}
+
 .specs__overview-label {
   font-family: var(--font-pixel);
   font-size: 11px;
@@ -37,9 +90,9 @@
 
 .domain-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 0;
 }
 
 .domain-tile {

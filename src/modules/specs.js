@@ -211,6 +211,56 @@ function renderDomainOverview() {
     </a>
   `).join('');
   injectIcons(container);
+  renderSkillRadar();
+}
+
+// §5.3 Skill radar — pentagon chart of the 5 domain masteries
+function renderSkillRadar() {
+  const el = document.getElementById('skill-radar');
+  if (!el) return;
+
+  const SIZE = 160;
+  const CX = SIZE / 2, CY = SIZE / 2, R = SIZE * 0.38;
+  const ACCENT = { linguist:'var(--sky)', engineer:'var(--coral)', builder:'var(--mint)', community:'var(--purple)', scholar:'var(--sunshine)' };
+
+  // 5 vertices: top, upper-right, lower-right, lower-left, upper-left (clockwise from top)
+  const angles = SPECIALIZATIONS.map((_, i) => (Math.PI * 2 * i / SPECIALIZATIONS.length) - Math.PI / 2);
+
+  const gridPts = (scale) => angles.map(a => [CX + scale * R * Math.cos(a), CY + scale * R * Math.sin(a)]);
+  const toPath = pts => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + 'Z';
+
+  const masteries = SPECIALIZATIONS.map(s => s.mastery / 100);
+  const dataPts = angles.map((a, i) => [CX + masteries[i] * R * Math.cos(a), CY + masteries[i] * R * Math.sin(a)]);
+  const labelPts = angles.map(a => [CX + (R + 18) * Math.cos(a), CY + (R + 18) * Math.sin(a)]);
+
+  const gridLines = [0.25, 0.5, 0.75, 1].map(s => `<polygon points="${gridPts(s).map(p => p.join(',')).join(' ')}" fill="none" stroke="var(--border-light)" stroke-width="1"/>`).join('');
+  const spokes = angles.map(a => `<line x1="${CX}" y1="${CY}" x2="${(CX + R * Math.cos(a)).toFixed(1)}" y2="${(CY + R * Math.sin(a)).toFixed(1)}" stroke="var(--border-light)" stroke-width="1"/>`).join('');
+  const dataPath = `<path d="${toPath(dataPts)}" fill="var(--sky)" fill-opacity="0.12" stroke="var(--sky)" stroke-width="2" class="radar__data"/>`;
+
+  const dots = dataPts.map((p, i) => {
+    const spec = SPECIALIZATIONS[i];
+    return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="${ACCENT[spec.id]}" stroke="#fff" stroke-width="1.5" class="radar__dot" data-domain="${spec.id}" tabindex="0" role="button" aria-label="${t(`spec.tab.${spec.id}`)} — ${spec.mastery}%"><title>${t(`spec.tab.${spec.id}`)} ${spec.mastery}%</title></circle>`;
+  }).join('');
+
+  const labels = labelPts.map((p, i) => {
+    const spec = SPECIALIZATIONS[i];
+    const anchor = p[0] < CX - 4 ? 'end' : p[0] > CX + 4 ? 'start' : 'middle';
+    return `<text x="${p[0].toFixed(1)}" y="${p[1].toFixed(1)}" text-anchor="${anchor}" dominant-baseline="central" class="radar__label" data-i18n="spec.tab.${spec.id}">${t(`spec.tab.${spec.id}`)}</text>`;
+  }).join('');
+
+  el.innerHTML = `<svg viewBox="0 0 ${SIZE} ${SIZE}" aria-label="Skill radar chart" role="img" class="radar-svg">${gridLines}${spokes}${dataPath}${dots}${labels}</svg>`;
+
+  // Dot hover → highlight matching tab
+  el.querySelectorAll('.radar__dot').forEach(dot => {
+    const domainId = dot.dataset.domain;
+    const handler = () => {
+      const tab = document.querySelector(`.specs__tab[data-panel="${domainId}"]`);
+      tab?.click();
+      tab?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+    dot.addEventListener('click', handler);
+    dot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } });
+  });
 }
 
 function initSpecTabs() {
