@@ -206,6 +206,15 @@
 .status-badge.is-warn .status-badge__dot   { background: #FFD23F; }
 .status-badge.is-down .status-badge__dot   { background: #ff6b6b; }
 
+/* ── §4.6 Human story beat ── */
+.manifesto__story {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.80);
+  margin: 0;
+  max-width: 48ch;
+}
+
 /* ── §5.7 Now widget ── */
 .manifesto__block--now .manifesto__now-list {
   list-style: none;

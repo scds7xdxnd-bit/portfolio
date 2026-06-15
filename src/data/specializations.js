@@ -84,6 +84,7 @@ export const SPECIALIZATIONS = [
       { titleKey: 'spec.community.item5.title', descKey: 'spec.community.item5.desc', screenshot: '/assets/projects/rainbow_stepping_stone.webp' },
       { titleKey: 'spec.community.item4.title', descKey: 'spec.community.item4.desc' },
       { titleKey: 'spec.community.item6.title', descKey: 'spec.community.item6.desc' },
+      { titleKey: 'spec.community.item7.title', descKey: 'spec.community.item7.desc', link: '/samsung-leadership-camp/' },
     ],
     miniSim: 'ph',
     certs: [
