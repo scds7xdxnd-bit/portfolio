@@ -365,12 +365,12 @@
     <!-- ═══════════════════════════════════════════
          MANIFESTO — What I Believe / Stack / Connect
          ═══════════════════════════════════════════ -->
-    <section class="manifesto reveal" aria-label="About this portfolio">
+    <section class="manifesto reveal" aria-label="About">
       <div class="manifesto__inner">
-        <!-- §4.6 Human story beat -->
+        <!-- Story -->
         <div class="manifesto__block manifesto__block--story">
           <p class="manifesto__label" data-i18n="manifesto.story.label">The Short Version</p>
-          <p class="manifesto__story" data-i18n="manifesto.story.body">I grew up in Malaysia, moved to Seoul for university, and ended up building a chemical engineering degree and a software portfolio in parallel. I interpret at government events in the morning and deploy web apps in the evening — not out of obligation, but because both things genuinely interest me. I'll graduate in 2027, but I've already shipped 6 production systems, mentored 150+ students, and interpreted for organizations from the Supreme Prosecutors' Office to Yonhap News at APEC.</p>
+          <p class="manifesto__story" data-i18n="manifesto.story.body">Malaysian, based in Seoul. I study chemical engineering at Sogang, build software, and interpret Korean–English–Malay — three things I do because they genuinely interest me.</p>
         </div>
         <div class="manifesto__sep" aria-hidden="true"></div>
         <div class="manifesto__block">
@@ -394,34 +394,17 @@
           </div>
         </div>
         <div class="manifesto__sep" aria-hidden="true"></div>
-        <!-- §5.7 Now widget -->
+        <!-- Now -->
         <div class="manifesto__block manifesto__block--now">
           <p class="manifesto__label" data-i18n="manifesto.now.label">Now</p>
           <ul class="manifesto__now-list">
-            <li><span class="manifesto__now-icon" aria-hidden="true">🔨</span> <span data-i18n="manifesto.now.building">Building this portfolio's Web4 layer</span></li>
-            <li><span class="manifesto__now-icon" aria-hidden="true">📖</span> <span data-i18n="manifesto.now.reading">Reading: The Art of Doing Science &amp; Engineering</span></li>
-            <li><span class="manifesto__now-icon" aria-hidden="true">📍</span> <span data-i18n="manifesto.now.where">Seoul → back from BLCU exchange, Jun 2026</span></li>
+            <li><span class="manifesto__now-icon" aria-hidden="true">🎓</span> <span data-i18n="manifesto.now.building">TA for Chemical Engineering at Sogang</span></li>
+            <li><span class="manifesto__now-icon" aria-hidden="true">📍</span> <span data-i18n="manifesto.now.where">Seoul, back from BLCU exchange</span></li>
           </ul>
-          <p class="manifesto__now-date" aria-label="Last updated"><time datetime="2026-06-16" data-i18n="manifesto.now.updated">Updated Jun 2026</time></p>
-        </div>
-        <div class="manifesto__sep" aria-hidden="true"></div>
-        <div class="manifesto__block">
-          <p class="manifesto__label" data-i18n="manifesto.connect.label">Connect</p>
-          <div class="manifesto__socials">
-            <a class="manifesto__social" href="https://github.com/scds7xdxnd-bit" target="_blank" rel="noopener">GitHub ↗</a>
-            <a class="manifesto__social" href="https://www.linkedin.com/in/khairul-ammar-hakimi" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a class="manifesto__social" href="https://xhslink.com/m/6pTVib4GbZU" target="_blank" rel="noopener">小红书 ↗</a>
-          </div>
           <div class="seoul-clock" id="seoul-clock" aria-live="polite" aria-label="Current time in Seoul, Korea">
             <span class="seoul-clock__dot" aria-hidden="true"></span>
             <span class="seoul-clock__label">Seoul</span>
             <span class="seoul-clock__time" id="seoul-time">--:--</span>
-          </div>
-          <a class="manifesto__cta" href="mailto:ammarhakimikm03@gmail.com" data-i18n="footer.cta">Let's build →</a>
-          <!-- T3.1 live status badge -->
-          <div id="status-badge" class="status-badge" aria-live="polite" aria-label="System status">
-            <span class="status-badge__dot" aria-hidden="true"></span>
-            <span class="status-badge__text">checking systems…</span>
           </div>
         </div>
       </div>
@@ -489,14 +472,9 @@
         <h2 class="section__title" data-i18n="spec.title">What I Build &amp; Why It Matters</h2>
         <p class="specs__subtitle" data-i18n="spec.subtitle">Five domains. Five years of deliberate practice. One integrated story.</p>
 
-        <!-- Part A2: Domains overview + §5.3 Skill Radar -->
-        <div class="specs__overview-row">
-          <div class="specs__overview-tiles">
-            <p class="specs__overview-label" data-i18n="spec.overview">Jump to a domain</p>
-            <nav class="domain-overview" id="domain-overview" aria-label="Domain overview"></nav>
-          </div>
-          <div class="specs__radar-wrap" id="skill-radar" aria-label="Skill radar chart"></div>
-        </div>
+        <!-- Part A2: Domains overview launchpad (table of contents) -->
+        <p class="specs__overview-label" data-i18n="spec.overview">Jump to a domain</p>
+        <nav class="domain-overview" id="domain-overview" aria-label="Domain overview"></nav>
 
         <!-- Part B: Sticky tab bar -->
         <div class="specs__tabs-wrapper">
@@ -595,6 +573,13 @@
       </div>
     </div>
 
+    <!-- For AI agents — MCP server (static, click to copy) -->
+    <button id="mcp-cta" class="mcp-cta" aria-label="Copy MCP server URL for Claude" title="Click to copy MCP URL">
+      <span class="mcp-cta__icon" aria-hidden="true">🤖</span>
+      <span class="mcp-cta__text"><strong data-i18n="mcp.label">For AI agents</strong> — this portfolio is also an MCP server. Click to copy:</span>
+      <code class="mcp-cta__url">…/api/mcp</code>
+    </button>
+
     <!-- ★ Signature + Guestbook side by side -->
     <div class="footer__lower">
       <div class="footer__sign-col">
@@ -653,18 +638,6 @@
       <p id="tailor-error" class="tailor-panel__error" hidden></p>
     </div>
   </div>
-
-  <!-- T2.1 MCP CTA — for AI agents and curious humans -->
-  <button id="mcp-cta" class="mcp-cta" aria-label="Copy MCP server URL for Claude" title="Click to copy MCP URL">
-    <div class="mcp-cta__inner">
-      <span class="mcp-cta__icon" aria-hidden="true">🤖</span>
-      <div class="mcp-cta__text">
-        <strong>Add me to your Claude</strong>
-        <span>This portfolio is an MCP server — your AI agent can query it directly.</span>
-      </div>
-      <code class="mcp-cta__url">…/api/mcp</code>
-    </div>
-  </button>
 
   <!-- Ask-me terminal -->
   <button id="terminal-toggle" class="terminal__fab" aria-label="Open terminal">&gt;_</button>

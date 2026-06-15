@@ -2,7 +2,7 @@
    §5.4 JOURNEY TIMELINE
    ═══════════════════════════════════════════════ */
 .journey {
-  padding: 24px 0 0;
+  padding: 40px 0 16px;
 }
 
 .journey__label {
@@ -31,40 +31,45 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   flex: 1 1 0;
-  min-width: 110px;
+  min-width: 116px;
   text-align: center;
 }
 
-/* Connecting line between stops */
+/* Connecting line between stops — anchored to the dot center:
+   year line-height (15) + gap (9) + half dot (7) = 31px */
 .journey__stop::before {
   content: '';
   position: absolute;
-  top: 25px; /* aligns with dot */
+  top: calc(15px + 9px + 7px);
   left: 50%;
   width: 100%;
-  height: 2px;
-  background: var(--border-light);
+  height: 2.5px;
+  background: var(--grey-light);
+  transform: translateY(-50%);
   z-index: 0;
 }
 .journey__stop:last-child::before { display: none; }
+/* completed legs read as solid ink, the leg into "now" fades */
+.journey__stop--now::before { display: none; }
 
 .journey__year {
   font-family: var(--font-game);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
+  line-height: 15px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
   order: 1;
 }
 
 .journey__dot {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   border: 2.5px solid var(--ink);
-  background: var(--bg-panel);
+  background: var(--ink);
   flex-shrink: 0;
   order: 2;
   position: relative;
@@ -105,26 +110,21 @@
   .journey__track {
     flex-direction: column;
     gap: 0;
-    align-items: flex-start;
+    align-items: stretch;
     overflow-x: visible;
   }
   .journey__stop {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     min-width: 0;
     text-align: left;
     gap: 12px;
-    padding-bottom: 16px;
-    flex: 0;
+    padding: 7px 0;
+    flex: 0 0 auto;
   }
-  /* Connecting line goes vertical on mobile */
-  .journey__stop::before {
-    top: 14px;
-    left: 24px;
-    width: 2px;
-    height: 100%;
-  }
-  .journey__year { order: 0; width: 36px; flex-shrink: 0; padding-top: 1px; }
-  .journey__dot  { order: 0; margin-top: 3px; flex-shrink: 0; }
-  .journey__event { order: 0; max-width: none; }
+  /* clean stacked rows on mobile — no connector to misalign */
+  .journey__stop::before { display: none; }
+  .journey__year { order: 0; width: 42px; flex-shrink: 0; line-height: 1.3; }
+  .journey__dot  { order: 1; margin: 0; flex-shrink: 0; }
+  .journey__event { order: 2; max-width: none; flex: 1; }
 }

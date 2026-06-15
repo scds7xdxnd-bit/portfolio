@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Dependency Graph — portfolio</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#FFF7E6;overflow:hidden;font-family:system-ui,'Segoe UI',Roboto,sans-serif;color:#1a1a1a}
+  canvas{display:block;width:100vw;height:100vh;cursor:grab}
+  canvas:active{cursor:grabbing}
+  #ctrl{position:fixed;top:16px;left:16px;z-index:10;background:#FFF7E6;border:3px solid #1a1a1a;box-shadow:3px 3px 0 #1a1a1a;padding:14px 18px;display:flex;flex-direction:column;gap:10px;min-width:220px}
+  #ctrl .title{font-weight:800;font-size:15px;border-bottom:2px solid #1a1a1a;padding-bottom:6px;margin-bottom:2px}
+  #ctrl .meta{font-size:11px;opacity:.65;font-weight:600;margin-top:-4px}
+  #ctrl label{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer}
+  #ctrl input[type="checkbox"]{width:18px;height:18px;accent-color:#6EC6FF;cursor:pointer}
+  #ctrl input[type="text"]{border:2px solid #1a1a1a;padding:6px 10px;font-size:13px;font-family:inherit;background:#FFF7E6;outline:none;width:100%}
+  #ctrl input[type="text"]:focus{border-color:#6EC6FF}
+  #ctrl button{border:2px solid #1a1a1a;padding:6px 12px;font-size:13px;font-weight:600;font-family:inherit;background:#FFF7E6;cursor:pointer;color:#1a1a1a}
+  #ctrl button:hover{background:#1a1a1a;color:#FFF7E6}
+  #ctrl .row{display:flex;gap:8px}
+  #ctrl .row button{flex:1}
+  #panel{position:fixed;top:16px;right:16px;z-index:10;background:#FFF7E6;border:3px solid #1a1a1a;box-shadow:3px 3px 0 #1a1a1a;padding:16px 20px;min-width:230px;max-width:310px;display:none;font-size:14px;line-height:1.6;max-height:calc(100vh - 32px);overflow-y:auto}
+  #panel h3{font-size:14px;font-weight:800;margin-bottom:8px;border-bottom:2px solid #1a1a1a;padding-bottom:5px;padding-right:20px;word-break:break-all}
+  #panel .prop{display:flex;justify-content:space-between;gap:12px;padding:1px 0}
+  #panel .prop .lbl{font-weight:700;opacity:.6;white-space:nowrap}
+  #panel .prop .val{text-align:right;word-break:break-all}
+  #panel .nbsec{margin-top:9px;border-top:2px solid #1a1a1a;padding-top:8px}
+  #panel .nbsec strong{font-size:11px;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:3px}
+  #panel .nb{font-size:12px;padding:2px 0;cursor:pointer;text-decoration:underline dotted;word-break:break-all}
+  #panel .nb:hover{color:#6EC6FF}
+  #panel .nb .dir{font-weight:800;display:inline-block;width:14px}
+  #panel .close{position:absolute;top:8px;right:12px;font-size:18px;font-weight:700;cursor:pointer;background:none;border:none;font-family:inherit;color:#1a1a1a;line-height:1}
+  #panel .close:hover{color:#FF6B6B}
+  #legend{position:fixed;bottom:16px;left:16px;z-index:10;background:#FFF7E6;border:3px solid #1a1a1a;box-shadow:3px 3px 0 #1a1a1a;padding:12px 16px;font-size:12px;line-height:1.7;display:flex;flex-direction:column;gap:1px}
+  #legend .item{display:flex;align-items:center;gap:8px}
+  #legend .sw{width:14px;height:14px;border:2px solid #1a1a1a;flex-shrink:0}
+  #legend .sw.dot{border-radius:50%}
+  #legend .sw.line-solid{height:0;width:22px;border:none;border-top:2.5px solid #1a1a1a}
+  #legend .sw.line-dash{height:0;width:22px;border:none;border-top:2.5px dashed #7a5af8}
+  #legend .sw.line-call{height:0;width:22px;border:none;border-top:1.5px solid rgba(26,26,26,.3)}
+  #tooltip{position:fixed;z-index:20;background:#FFF7E6;border:2px solid #1a1a1a;padding:5px 10px;font-size:13px;font-weight:600;pointer-events:none;display:none;box-shadow:2px 2px 0 #1a1a1a;max-width:320px;word-break:break-all}
+</style>
+<script>const GRAPH = {"files":[{"id":"index.html","type":"html","group":"root"},{"id":"script.js","type":"js","group":"root"},{"id":"styles.css","type":"css","group":"root"},{"id":"opinions/index.html","type":"html","group":"opinions"},{"id":"opinions/opinions.js","type":"js","group":"opinions"},{"id":"opinions/opinions.css","type":"css","group":"opinions"},{"id":"opinions/chemical-potential.html","type":"html","group":"opinions"},{"id":"opinions/engineering-under-uncertainty.html","type":"html","group":"opinions"},{"id":"projects/lifeos.html","type":"html","group":"projects"},{"id":"projects/reaction-simulator.html","type":"html","group":"projects"},{"id":"projects/projects.css","type":"css","group":"projects"},{"id":"assets/inspo/chemical_potential_beaker_visual.html","type":"html","group":"inspo"},{"id":"assets/inspo/chemical_potential_essay.html","type":"html","group":"inspo"},{"id":"assets/inspo/spell_ui_placement_brainstorm.html","type":"html","group":"inspo"}],"fileEdges":[{"src":"index.html","dst":"script.js","kind":"include"},{"src":"index.html","dst":"styles.css","kind":"include"},{"src":"index.html","dst":"opinions/index.html","kind":"link"},{"src":"opinions/index.html","dst":"opinions/opinions.js","kind":"include"},{"src":"opinions/index.html","dst":"opinions/opinions.css","kind":"include"},{"src":"opinions/index.html","dst":"index.html","kind":"link"},{"src":"opinions/index.html","dst":"projects/lifeos.html","kind":"link"},{"src":"opinions/index.html","dst":"projects/reaction-simulator.html","kind":"link"},{"src":"opinions/index.html","dst":"opinions/chemical-potential.html","kind":"link"},{"src":"opinions/index.html","dst":"opinions/engineering-under-uncertainty.html","kind":"link"},{"src":"opinions/chemical-potential.html","dst":"opinions/opinions.js","kind":"include"},{"src":"opinions/chemical-potential.html","dst":"opinions/opinions.css","kind":"include"},{"src":"opinions/chemical-potential.html","dst":"index.html","kind":"link"},{"src":"opinions/chemical-potential.html","dst":"opinions/engineering-under-uncertainty.html","kind":"link"},{"src":"opinions/chemical-potential.html","dst":"opinions/index.html","kind":"link"},{"src":"opinions/engineering-under-uncertainty.html","dst":"opinions/opinions.js","kind":"include"},{"src":"opinions/engineering-under-uncertainty.html","dst":"opinions/opinions.css","kind":"include"},{"src":"opinions/engineering-under-uncertainty.html","dst":"index.html","kind":"link"},{"src":"opinions/engineering-under-uncertainty.html","dst":"opinions/chemical-potential.html","kind":"link"},{"src":"opinions/engineering-under-uncertainty.html","dst":"opinions/index.html","kind":"link"},{"src":"projects/lifeos.html","dst":"opinions/opinions.css","kind":"include"},{"src":"projects/lifeos.html","dst":"projects/projects.css","kind":"include"},{"src":"projects/lifeos.html","dst":"opinions/index.html","kind":"link"},{"src":"projects/lifeos.html","dst":"projects/reaction-simulator.html","kind":"link"},{"src":"projects/reaction-simulator.html","dst":"opinions/opinions.css","kind":"include"},{"src":"projects/reaction-simulator.html","dst":"projects/projects.css","kind":"include"},{"src":"projects/reaction-simulator.html","dst":"opinions/index.html","kind":"link"},{"src":"projects/reaction-simulator.html","dst":"projects/lifeos.html","kind":"link"}],"functions":[{"id":"script.js::t","file":"script.js","name":"t","line":696},{"id":"script.js::applyTranslations","file":"script.js","name":"applyTranslations","line":703},{"id":"script.js::iconSvg","file":"script.js","name":"iconSvg","line":725},{"id":"script.js::injectIcons","file":"script.js","name":"injectIcons","line":731},{"id":"script.js::renderSpecializations","file":"script.js","name":"renderSpecializations","line":866},{"id":"script.js::renderDomainOverview","file":"script.js","name":"renderDomainOverview","line":1022},{"id":"script.js::initSpecTabs","file":"script.js","name":"initSpecTabs","line":1040},{"id":"script.js::initSpecCertLightbox","file":"script.js","name":"initSpecCertLightbox","line":1091},{"id":"script.js::initScrollReveal","file":"script.js","name":"initScrollReveal","line":1129},{"id":"script.js::initHeroAnimation","file":"script.js","name":"initHeroAnimation","line":1141},{"id":"script.js::initProgressAnimation","file":"script.js","name":"initProgressAnimation","line":1154},{"id":"script.js::initLinksDropdown","file":"script.js","name":"initLinksDropdown","line":1182},{"id":"script.js::copyEmail","file":"script.js","name":"copyEmail","line":1217},{"id":"script.js::initShimmerHover","file":"script.js","name":"initShimmerHover","line":1246},{"id":"script.js::initHeroParallax","file":"script.js","name":"initHeroParallax","line":1259},{"id":"script.js::initGradientWaveText","file":"script.js","name":"initGradientWaveText","line":1293},{"id":"script.js::initSpecialText","file":"script.js","name":"initSpecialText","line":1329},{"id":"script.js::renderHeroBuilds","file":"script.js","name":"renderHeroBuilds","line":1418},{"id":"script.js::toggleBuildItem","file":"script.js","name":"toggleBuildItem","line":1460},{"id":"script.js::initSignature","file":"script.js","name":"initSignature","line":1475},{"id":"script.js::initBullwhipSim","file":"script.js","name":"initBullwhipSim","line":1501},{"id":"script.js::initPhSim","file":"script.js","name":"initPhSim","line":1549},{"id":"script.js::_loadUnlocked","file":"script.js","name":"_loadUnlocked","line":1628},{"id":"script.js::unlockAchievement","file":"script.js","name":"unlockAchievement","line":1636},{"id":"script.js::renderTrophyShelf","file":"script.js","name":"renderTrophyShelf","line":1650},{"id":"script.js::showAchievementToast","file":"script.js","name":"showAchievementToast","line":1673},{"id":"script.js::confettiBurst","file":"script.js","name":"confettiBurst","line":1693},{"id":"script.js::notePolyglot","file":"script.js","name":"notePolyglot","line":1717},{"id":"script.js::initDeepDiver","file":"script.js","name":"initDeepDiver","line":1723},{"id":"script.js::initHelloRotator","file":"script.js","name":"initHelloRotator","line":1732},{"id":"script.js::initAvatarEgg","file":"script.js","name":"initAvatarEgg","line":1756},{"id":"script.js::initLifeSystem","file":"script.js","name":"initLifeSystem","line":1770},{"id":"script.js::initSeoulClock","file":"script.js","name":"initSeoulClock","line":1951},{"id":"script.js::initConsoleEgg","file":"script.js","name":"initConsoleEgg","line":1966},{"id":"script.js::initMobileNavMenu","file":"script.js","name":"initMobileNavMenu","line":1977},{"id":"script.js::updateLangToggleLabel","file":"script.js","name":"updateLangToggleLabel","line":2032},{"id":"script.js::initLangToggle","file":"script.js","name":"initLangToggle","line":2048},{"id":"script.js::initNavDropdown","file":"script.js","name":"initNavDropdown","line":2069},{"id":"script.js::initStickyNav","file":"script.js","name":"initStickyNav","line":2099},{"id":"script.js::«DOMContentLoaded»","file":"script.js","name":"«DOMContentLoaded»","line":2122},{"id":"opinions/opinions.js::«module»","file":"opinions/opinions.js","name":"«module»","line":60},{"id":"opinions/opinions.js::renderCards","file":"opinions/opinions.js","name":"renderCards","line":89}],"callEdges":[{"src":"script.js::applyTranslations","dst":"script.js::t","file":"script.js"},{"src":"script.js::copyEmail","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::initAvatarEgg","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::initBullwhipSim","dst":"script.js::t","file":"script.js"},{"src":"script.js::initBullwhipSim","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::initDeepDiver","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::applyTranslations","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::initScrollReveal","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::notePolyglot","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::renderDomainOverview","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::renderSpecializations","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::renderTrophyShelf","file":"script.js"},{"src":"script.js::initLangToggle","dst":"script.js::updateLangToggleLabel","file":"script.js"},{"src":"script.js::initLifeSystem","dst":"script.js::t","file":"script.js"},{"src":"script.js::initPhSim","dst":"script.js::t","file":"script.js"},{"src":"script.js::initPhSim","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::injectIcons","dst":"script.js::iconSvg","file":"script.js"},{"src":"script.js::notePolyglot","dst":"script.js::unlockAchievement","file":"script.js"},{"src":"script.js::renderDomainOverview","dst":"script.js::injectIcons","file":"script.js"},{"src":"script.js::renderDomainOverview","dst":"script.js::t","file":"script.js"},{"src":"script.js::renderHeroBuilds","dst":"script.js::toggleBuildItem","file":"script.js"},{"src":"script.js::renderSpecializations","dst":"script.js::initBullwhipSim","file":"script.js"},{"src":"script.js::renderSpecializations","dst":"script.js::initPhSim","file":"script.js"},{"src":"script.js::renderSpecializations","dst":"script.js::injectIcons","file":"script.js"},{"src":"script.js::renderSpecializations","dst":"script.js::t","file":"script.js"},{"src":"script.js::renderTrophyShelf","dst":"script.js::_loadUnlocked","file":"script.js"},{"src":"script.js::renderTrophyShelf","dst":"script.js::t","file":"script.js"},{"src":"script.js::showAchievementToast","dst":"script.js::t","file":"script.js"},{"src":"script.js::unlockAchievement","dst":"script.js::_loadUnlocked","file":"script.js"},{"src":"script.js::unlockAchievement","dst":"script.js::confettiBurst","file":"script.js"},{"src":"script.js::unlockAchievement","dst":"script.js::renderTrophyShelf","file":"script.js"},{"src":"script.js::unlockAchievement","dst":"script.js::showAchievementToast","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::applyTranslations","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initAvatarEgg","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initConsoleEgg","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initDeepDiver","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initGradientWaveText","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initHelloRotator","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initHeroAnimation","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initHeroParallax","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initLangToggle","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initLifeSystem","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initLinksDropdown","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initMobileNavMenu","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initNavDropdown","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initProgressAnimation","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initScrollReveal","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initSeoulClock","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initShimmerHover","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initSignature","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initSpecCertLightbox","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initSpecTabs","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initSpecialText","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::initStickyNav","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::injectIcons","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::notePolyglot","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::renderDomainOverview","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::renderHeroBuilds","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::renderSpecializations","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::renderTrophyShelf","file":"script.js"},{"src":"script.js::«DOMContentLoaded»","dst":"script.js::updateLangToggleLabel","file":"script.js"},{"src":"opinions/opinions.js::«module»","dst":"opinions/opinions.js::renderCards","file":"opinions/opinions.js"}]};</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ctrl">
+  <div class="title">Repo connection graph</div>
+  <div class="meta" id="meta"></div>
+  <label><input type="checkbox" id="showFunc" checked> Show functions</label>
+  <div class="row"><input type="text" id="search" placeholder="Search node…"></div>
+  <div class="row"><button id="resetBtn">Reset view</button></div>
+</div>
+<div id="panel"><button class="close" id="closePanel">✕</button><div id="panelBody"></div></div>
+<div id="legend">
+  <div class="item"><span class="sw" style="background:#FF6B6B"></span> HTML file</div>
+  <div class="item"><span class="sw" style="background:#6EC6FF"></span> JS file</div>
+  <div class="item"><span class="sw" style="background:#7EE6A7"></span> CSS file</div>
+  <div class="item"><span class="sw dot" style="background:#B084F5;border-color:#B084F5"></span> Function</div>
+  <div class="item"><span class="sw dot" style="background:#FFD859;border-color:#1a1a1a"></span> « » entry point</div>
+  <div class="item"><span class="sw line-solid"></span> include (HTML→asset)</div>
+  <div class="item"><span class="sw line-dash"></span> link (page→page)</div>
+  <div class="item"><span class="sw line-call"></span> call (fn→fn)</div>
+</div>
+<div id="tooltip"></div>
+<script>
+(function(){
+'use strict';
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+const tip    = document.getElementById('tooltip');
+const panel  = document.getElementById('panel');
+const panelBody = document.getElementById('panelBody');
+
+if(typeof GRAPH === 'undefined'){
+  document.body.innerHTML='<h1 style="padding:40px;font-family:system-ui">ERROR: GRAPH not injected</h1>';
+  return;
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────
+const TYPE_COLOR = {html:'#FF6B6B', js:'#6EC6FF', css:'#7EE6A7'};
+const FILE_R  = 16;   // file node radius
+const FN_R    = 4.5;  // function node radius
+const INK     = '#1a1a1a';
+
+// ── State ─────────────────────────────────────────────────────────────────
+const dpr   = window.devicePixelRatio || 1;
+let W = window.innerWidth, H = window.innerHeight;
+let tx = 0, ty = 0, scale = 1;
+const MIN_S = 0.05, MAX_S = 20;
+
+let hovered  = null;
+let selected = null;
+
+// ── Build node + edge maps ─────────────────────────────────────────────────
+const nodes    = [];   // all nodes
+const nodeById = {};
+const fileMap  = {};
+const edges    = [];   // all visible edges
+
+GRAPH.files.forEach(f => {
+  const n = {
+    id: f.id, type:'file', fileType:f.type, group:f.group,
+    x:0, y:0, color: TYPE_COLOR[f.type] || '#999',
+    r: FILE_R, mass:10, vx:0, vy:0, pinned:false
+  };
+  nodes.push(n); nodeById[n.id] = n; fileMap[f.id] = n;
+});
+
+GRAPH.functions.forEach(fn => {
+  const parent = fileMap[fn.file];
+  if(!parent) return;
+  const quoted = /^[«»]/.test(fn.name);
+  const n = {
+    id: fn.id, type:'function', fileId:fn.file, parent,
+    name:fn.name, line:fn.line,
+    x:0, y:0, color: quoted ? '#FFD859' : parent.color,
+    r: FN_R, mass:1, vx:0, vy:0, pinned:false, quoted
+  };
+  nodes.push(n); nodeById[n.id] = n;
+});
+
+GRAPH.fileEdges.forEach(e => {
+  if(!nodeById[e.src] || !nodeById[e.dst]) return;
+  edges.push({src:e.src, dst:e.dst, kind: e.kind==='include'?'include':'link', type:'fileEdge'});
+});
+GRAPH.callEdges.forEach(e => {
+  if(!nodeById[e.src] || !nodeById[e.dst]) return;
+  edges.push({src:e.src, dst:e.dst, kind:'call', type:'callEdge'});
+});
+
+document.getElementById('meta').textContent =
+  GRAPH.files.length+' files · '+GRAPH.functions.length+' fns · '+(edges.length)+' edges';
+
+// ── Geometric layout (deterministic, no physics) ───────────────────────────
+function layout(){
+  const cx = W/2, cy = H/2;
+  const fileRing = Math.min(W, H) * 0.32;  // radius of the file orbit
+
+  const fileNodes = nodes.filter(n => n.type==='file');
+  const fnsByFile = {};
+  nodes.filter(n=>n.type==='function').forEach(n=>{
+    (fnsByFile[n.fileId] || (fnsByFile[n.fileId]=[])).push(n);
+  });
+
+  // Place file nodes evenly on a circle, top-biased
+  fileNodes.forEach((n, i) => {
+    const a = -Math.PI/2 + (i / fileNodes.length) * 2 * Math.PI;
+    n.x = cx + fileRing * Math.cos(a);
+    n.y = cy + fileRing * Math.sin(a);
+  });
+
+  // Place function nodes in a tight ring around their file
+  Object.entries(fnsByFile).forEach(([fid, fns]) => {
+    const pn = fileMap[fid];
+    if(!pn) return;
+    // Cluster radius scales with count so they don't overlap too much
+    const clusterR = 14 + Math.sqrt(fns.length) * 9;
+    fns.forEach((n, i) => {
+      const a = (i / fns.length) * 2 * Math.PI;
+      n.x = pn.x + clusterR * Math.cos(a);
+      n.y = pn.y + clusterR * Math.sin(a);
+    });
+  });
+}
+layout();
+
+// ── Canvas setup ──────────────────────────────────────────────────────────
+function setupCanvas(){
+  canvas.width  = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+}
+setupCanvas();
+
+// ── Draw ──────────────────────────────────────────────────────────────────
+function draw(){
+  // Reset transform, clear, then apply world→screen
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Fill background
+  ctx.fillStyle = '#FFF7E6';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // World→screen: screen_dev = dpr * (scale * (world + [tx,ty]))
+  ctx.setTransform(dpr*scale, 0, 0, dpr*scale, dpr*scale*tx, dpr*scale*ty);
+
+  const showFunc = document.getElementById('showFunc').checked;
+
+  // Highlight set
+  const focus = hovered || selected;
+  const hl = new Set();
+  if(focus){
+    hl.add(focus.id);
+    edges.forEach(e=>{
+      if(e.src===focus.id){ hl.add(e.dst); }
+      if(e.dst===focus.id){ hl.add(e.src); }
+    });
+  }
+  const dim = focus !== null;
+
+  // ── Edges ──
+  edges.forEach(e => {
+    const a = nodeById[e.src], b = nodeById[e.dst];
+    if(!a||!b) return;
+    if(!showFunc && (a.type==='function'||b.type==='function')) return;
+    const active = !dim || (hl.has(e.src) && hl.has(e.dst));
+    let alpha, lw;
+    if(e.type==='callEdge'){ alpha = active ? 0.35 : 0.04; lw = 0.8/Math.max(1,scale); }
+    else                    { alpha = active ? 1.00 : 0.07; lw = 1.5/Math.max(1,scale); }
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+    if(e.kind==='link'){
+      ctx.strokeStyle = `rgba(120,90,248,${alpha})`;
+      ctx.setLineDash([5,4]);
+    } else if(e.type==='callEdge'){
+      ctx.strokeStyle = `rgba(26,26,26,${alpha})`;
+      ctx.setLineDash([]);
+    } else {
+      ctx.strokeStyle = `rgba(26,26,26,${alpha})`;
+      ctx.setLineDash([]);
+    }
+    ctx.lineWidth = lw;
+    ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // ── Function nodes ──
+  if(showFunc){
+    nodes.forEach(n => {
+      if(n.type !== 'function') return;
+      const active = !dim || hl.has(n.id);
+      const alpha = active ? (hl.has(n.id)?1:0.85) : 0.10;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, 2*Math.PI);
+      ctx.fillStyle = n.color;
+      ctx.fill();
+      if(n.quoted){ ctx.strokeStyle=INK; ctx.lineWidth=1; ctx.stroke(); }
+      // Label when zoomed in or highlighted
+      if((scale > 1.4 || (dim && hl.has(n.id))) && active){
+        ctx.globalAlpha = Math.min(1, alpha * 1.5);
+        ctx.fillStyle = INK;
+        ctx.font = `${9/scale}px system-ui`;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n.name, n.x + n.r + 2/scale, n.y);
+      }
+      ctx.globalAlpha = 1;
+      // Highlight ring
+      if(focus && focus.id===n.id){
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r+2, 0, 2*Math.PI);
+        ctx.strokeStyle='#FF6B6B'; ctx.lineWidth=1.5; ctx.stroke();
+      }
+    });
+  }
+
+  // ── File nodes (drawn on top) ──
+  nodes.forEach(n => {
+    if(n.type !== 'file') return;
+    const active = !dim || hl.has(n.id);
+    ctx.globalAlpha = active ? 1 : 0.15;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, 2*Math.PI);
+    ctx.fillStyle = n.color;
+    ctx.fill();
+    ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.stroke();
+    // Label above node
+    ctx.fillStyle = INK;
+    ctx.font = `bold ${11/Math.max(1,scale)}px system-ui`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    const labelSize = Math.max(0.6, Math.min(1, scale));
+    ctx.font = `bold ${11}px system-ui`;
+    ctx.fillText(n.id, n.x, n.y - n.r - 4);
+    ctx.globalAlpha = 1;
+    if(focus && focus.id===n.id){
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r+3, 0, 2*Math.PI);
+      ctx.strokeStyle='#FF6B6B'; ctx.lineWidth=2; ctx.stroke();
+    }
+  });
+}
+
+function redraw(){ requestAnimationFrame(draw); }
+redraw();
+
+// ── Interaction ────────────────────────────────────────────────────────────
+let dragNode=null, dragOx=0, dragOy=0;
+let panning=false, panSx=0, panSy=0, panTx=0, panTy=0;
+let wasMoved=false;
+
+function cssMouse(e){
+  const r = canvas.getBoundingClientRect();
+  return { sx: e.clientX-r.left, sy: e.clientY-r.top };
+}
+function toWorld(sx, sy){ return { wx: sx/scale - tx, wy: sy/scale - ty }; }
+
+function hitTest(wx, wy){
+  // files first (on top visually)
+  for(const n of nodes){
+    if(n.type!=='file') continue;
+    if((wx-n.x)**2 + (wy-n.y)**2 <= (n.r+4)**2) return n;
+  }
+  if(document.getElementById('showFunc').checked){
+    for(const n of nodes){
+      if(n.type!=='function') continue;
+      if((wx-n.x)**2 + (wy-n.y)**2 <= (n.r+5)**2) return n;
+    }
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown', e=>{
+  wasMoved = false;
+  const {sx,sy} = cssMouse(e);
+  const {wx,wy} = toWorld(sx,sy);
+  const n = hitTest(wx,wy);
+  if(n){ dragNode=n; n.pinned=true; dragOx=wx-n.x; dragOy=wy-n.y; }
+  else { panning=true; panSx=sx; panSy=sy; panTx=tx; panTy=ty; }
+});
+
+canvas.addEventListener('mousemove', e=>{
+  const {sx,sy} = cssMouse(e);
+  const {wx,wy} = toWorld(sx,sy);
+  if(dragNode){ dragNode.x=wx-dragOx; dragNode.y=wy-dragOy; wasMoved=true; redraw(); return; }
+  if(panning){ tx=panTx+(sx-panSx)/scale; ty=panTy+(sy-panSy)/scale; wasMoved=true; redraw(); return; }
+  const n = hitTest(wx,wy);
+  if(n !== hovered){ hovered=n; redraw(); }
+  if(n){
+    tip.style.display='block'; tip.textContent=n.id;
+    const r=canvas.getBoundingClientRect();
+    let ttx=e.clientX-r.left+14, tty=e.clientY-r.top-10;
+    if(ttx+210>W) ttx=e.clientX-r.left-222;
+    tip.style.left=ttx+'px'; tip.style.top=Math.max(4,tty)+'px';
+  } else { tip.style.display='none'; }
+});
+
+window.addEventListener('mouseup', e=>{
+  if(dragNode){ dragNode.pinned=false; dragNode=null; }
+  if(panning) panning=false;
+  if(!wasMoved){
+    const {sx,sy} = cssMouse(e);
+    const {wx,wy} = toWorld(sx,sy);
+    const n = hitTest(wx,wy);
+    if(n){ selected=n; showPanel(n); redraw(); }
+    else { selected=null; panel.style.display='none'; redraw(); }
+  }
+  wasMoved=false;
+});
+
+canvas.addEventListener('mouseleave', ()=>{ hovered=null; tip.style.display='none'; redraw(); });
+
+canvas.addEventListener('wheel', e=>{
+  e.preventDefault();
+  const {sx,sy} = cssMouse(e);
+  const {wx,wy} = toWorld(sx,sy);
+  const factor = e.deltaY < 0 ? 1.13 : (1/1.13);
+  const ns = Math.min(MAX_S, Math.max(MIN_S, scale*factor));
+  tx = sx/ns - wx; ty = sy/ns - wy;
+  scale = ns;
+  redraw();
+},{passive:false});
+
+// Touch
+let touchId=null;
+function relay(type,t,target){
+  (target||canvas).dispatchEvent(new MouseEvent(type,{clientX:t.clientX,clientY:t.clientY,bubbles:true}));
+}
+canvas.addEventListener('touchstart',e=>{e.preventDefault();const t=e.changedTouches[0];touchId=t.identifier;relay('mousedown',t);},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.changedTouches)if(t.identifier===touchId)relay('mousemove',t);},{passive:false});
+canvas.addEventListener('touchend',e=>{e.preventDefault();for(const t of e.changedTouches)if(t.identifier===touchId){window.dispatchEvent(new MouseEvent('mouseup',{clientX:t.clientX,clientY:t.clientY}));touchId=null;}},{passive:false});
+
+// ── Panel ──────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function short(id){ const i=id.indexOf('::'); return i>=0?id.slice(i+2):id; }
+
+function showPanel(n){
+  panel.style.display='block';
+  let h = '<h3>'+esc(n.id)+'</h3>';
+  h += '<div class="prop"><span class="lbl">Kind</span><span class="val">'+n.type+'</span></div>';
+  if(n.type==='file'){
+    h += '<div class="prop"><span class="lbl">Type</span><span class="val">'+n.fileType+'</span></div>';
+    h += '<div class="prop"><span class="lbl">Group</span><span class="val">'+n.group+'</span></div>';
+  } else {
+    h += '<div class="prop"><span class="lbl">In file</span><span class="val">'+esc(n.fileId)+'</span></div>';
+    h += '<div class="prop"><span class="lbl">Line</span><span class="val">'+n.line+'</span></div>';
+  }
+  const callers=[], callees=[];
+  edges.forEach(e=>{
+    if(e.src===n.id) callees.push(e.dst);
+    if(e.dst===n.id) callers.push(e.src);
+  });
+  h += '<div class="prop"><span class="lbl">In-degree</span><span class="val">'+callers.length+'</span></div>';
+  h += '<div class="prop"><span class="lbl">Out-degree</span><span class="val">'+callees.length+'</span></div>';
+  if(callers.length){
+    h += '<div class="nbsec"><strong>Incoming ('+callers.length+')</strong>';
+    callers.forEach(id=>{ h+='<div class="nb" data-id="'+esc(id)+'"><span class="dir">←</span>'+esc(short(id))+'</div>'; });
+    h += '</div>';
+  }
+  if(callees.length){
+    h += '<div class="nbsec"><strong>Outgoing ('+callees.length+')</strong>';
+    callees.forEach(id=>{ h+='<div class="nb" data-id="'+esc(id)+'"><span class="dir">→</span>'+esc(short(id))+'</div>'; });
+    h += '</div>';
+  }
+  panelBody.innerHTML = h;
+  panelBody.querySelectorAll('.nb').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const tn = nodeById[el.dataset.id]; if(tn) focusOn(tn);
+    });
+  });
+}
+
+function focusOn(n){
+  selected=n; showPanel(n);
+  if(n.type==='function') document.getElementById('showFunc').checked=true;
+  scale = Math.max(scale, 1.8);
+  tx = W/2/scale - n.x; ty = H/2/scale - n.y;
+  redraw();
+}
+
+// ── Controls ───────────────────────────────────────────────────────────────
+document.getElementById('closePanel').addEventListener('click',()=>{
+  panel.style.display='none'; selected=null; redraw();
+});
+document.getElementById('showFunc').addEventListener('change',()=>{
+  if(!document.getElementById('showFunc').checked && selected && selected.type==='function'){
+    selected=null; panel.style.display='none';
+  }
+  redraw();
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  scale=1; tx=0; ty=0; redraw();
+});
+document.getElementById('search').addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase(); if(!q) return;
+  const showFn = document.getElementById('showFunc').checked;
+  const hit = nodes.find(n=> n.id.toLowerCase().includes(q) && (n.type!=='function'||showFn));
+  if(hit) focusOn(hit);
+});
+
+window.addEventListener('resize', ()=>{
+  W=window.innerWidth; H=window.innerHeight;
+  setupCanvas(); layout(); redraw();
+});
+
+draw();
+})();
+</script>
+</body>
+</html>

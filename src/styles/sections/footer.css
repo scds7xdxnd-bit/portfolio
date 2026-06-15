@@ -298,72 +298,57 @@
   .footer__sign-col { flex: none; }
 }
 
-/* ─── T2.1 MCP CTA ───────────────────────────────────────── */
+/* ─── MCP CTA — static footer line, click to copy ───────────── */
 .mcp-cta {
-  position: fixed;
-  bottom: 82px; left: 24px;
-  z-index: 9990;
-  max-width: 340px;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-}
-.mcp-cta__inner {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--ink);
-  border: 1.5px solid rgba(109, 255, 176, 0.3);
+  width: 100%;
+  margin: 28px 0 0;
+  padding: 12px 16px;
+  background: rgba(109, 255, 176, 0.05);
+  border: 1px solid rgba(109, 255, 176, 0.18);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
-  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.15);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s;
 }
-.mcp-cta__inner:hover {
-  border-color: rgba(109, 255, 176, 0.6);
-  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.3);
+.mcp-cta:hover {
+  border-color: rgba(109, 255, 176, 0.45);
+  background: rgba(109, 255, 176, 0.08);
 }
-.mcp-cta__icon { font-size: 20px; flex-shrink: 0; }
+.mcp-cta__icon { font-size: 16px; flex-shrink: 0; }
 .mcp-cta__text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
   flex: 1;
   min-width: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
 }
 .mcp-cta__text strong {
-  font-size: 11px;
   color: var(--mint);
   font-family: var(--font-game);
-  letter-spacing: 0.03em;
-}
-.mcp-cta__text span {
-  font-size: 10px;
-  color: var(--text-muted);
-  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 .mcp-cta__url {
   font-family: 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 11px;
   color: #6DFFB0;
-  background: rgba(109, 255, 176, 0.07);
-  border: 1px solid rgba(109, 255, 176, 0.2);
+  background: rgba(109, 255, 176, 0.08);
+  border: 1px solid rgba(109, 255, 176, 0.22);
   border-radius: 4px;
-  padding: 3px 6px;
+  padding: 4px 8px;
   white-space: nowrap;
-  cursor: text;
-  user-select: all;
   flex-shrink: 0;
 }
-.mcp-cta.is-copied .mcp-cta__inner {
-  border-color: rgba(109, 255, 176, 0.8);
-  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.4);
-}
+.mcp-cta.is-copied { border-color: rgba(109, 255, 176, 0.7); }
 .mcp-cta.is-copied .mcp-cta__text strong { color: #6DFFB0; }
 
-@media (max-width: 600px) { .mcp-cta { display: none; } }
+@media (max-width: 540px) {
+  .mcp-cta { flex-wrap: wrap; gap: 8px; }
+  .mcp-cta__text { flex-basis: 100%; }
+}
 
 /* §7 View Transitions — cross-fade for same-origin navigation */
 @media (prefers-reduced-motion: no-preference) {

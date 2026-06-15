@@ -8,8 +8,6 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
-    "api/ask.js":    { "runtime": "edge" },
-    "api/tailor.js": { "runtime": "edge" },
     "api/mcp.js":    { "maxDuration": 10 },
     "api/status.js": { "maxDuration": 15 },
     "api/github.js": { "maxDuration": 10 }
