@@ -13,3 +13,7 @@ prompts/
 # OS
 .DS_Store
 .vercel
+
+# local planning / scratch artifacts
+PORTFOLIO_UPGRADE_PLAN.md
+repo-graph.html
