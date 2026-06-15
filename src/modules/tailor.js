@@ -62,7 +62,7 @@ function initTailor() {
       _lastResult = data;
       showResult(data);
     } catch (err) {
-      showError('Could not reach the AI — check that ANTHROPIC_API_KEY is configured.');
+      showError('Could not reach the AI — check that DEEPSEEK_API_KEY is configured.');
     } finally {
       submitBtn.textContent = 'Match →';
       submitBtn.disabled = false;

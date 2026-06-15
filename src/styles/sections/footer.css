@@ -209,12 +209,14 @@
   align-items: flex-start;
 }
 
+/* 50:50 split so the signature has room to breathe */
 .footer__sign-col {
-  flex: 0 0 220px;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .footer__doodle-col {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
 }
 

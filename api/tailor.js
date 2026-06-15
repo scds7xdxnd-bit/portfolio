@@ -1,8 +1,8 @@
 export const config = { runtime: 'edge' };
 
 // T2.2 — "Tailor this portfolio to a role"
-// Visitor pastes a JD → Claude Opus re-ranks projects and writes a fit summary.
-// Uses structured output (output_config.format) for a typed JSON response.
+// Visitor pastes a JD → DeepSeek re-ranks projects and writes a fit summary.
+// Uses json_object response_format for a typed JSON response.
 
 const PROJECTS_CONTEXT = `
 TAEYANG HAN — PROJECTS & DOMAINS:
@@ -43,7 +43,7 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: 'Provide a job description (at least 50 characters).' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'Tailor feature not configured.' }), { status: 503, headers: { 'Content-Type': 'application/json' } });
   }
@@ -60,74 +60,36 @@ Given a job description, you will:
 
 Be specific — cite project names, real metrics, real skills. Do not make up credentials he doesn't have.
 
-${PROJECTS_CONTEXT}`;
+${PROJECTS_CONTEXT}
+
+Respond ONLY with valid JSON matching this exact shape:
+{
+  "orderedDomains": ["<one of: linguist|engineer|builder|community|scholar>", ...],
+  "highlightedProjects": [{ "id": "<id>", "name": "<name>", "relevanceNote": "<one sentence>" }, ...],
+  "fitSummary": "<2-3 sentence first-person summary>",
+  "gaps": ["<gap>", ...],
+  "recommendation": "<brief strategic advice>",
+  "matchScore": <0-100>
+}`;
 
   const userMessage = `Job Description:\n${safeJd}\n\nPlease analyze fit and return a structured response.`;
 
   let res;
   try {
-    res = await fetch('https://api.anthropic.com/v1/messages', {
+    res = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'claude-opus-4-8',
+        model: 'deepseek-chat',
         max_tokens: 1024,
-        thinking: { type: 'adaptive' },
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userMessage }],
-        output_config: {
-          format: {
-            type: 'json_schema',
-            name: 'portfolio_fit',
-            schema: {
-              type: 'object',
-              properties: {
-                orderedDomains: {
-                  type: 'array',
-                  items: { type: 'string', enum: ['linguist', 'engineer', 'builder', 'community', 'scholar'] },
-                  description: 'Domains ordered from most to least relevant for this JD',
-                },
-                highlightedProjects: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      id: { type: 'string' },
-                      name: { type: 'string' },
-                      relevanceNote: { type: 'string', description: 'One sentence on why this project is relevant to the JD' },
-                    },
-                    required: ['id', 'name', 'relevanceNote'],
-                  },
-                  description: 'Top 3-4 most relevant projects ordered by relevance',
-                },
-                fitSummary: {
-                  type: 'string',
-                  description: '2-3 sentence first-person summary of why Taeyang fits this role, citing specific work',
-                },
-                gaps: {
-                  type: 'array',
-                  items: { type: 'string' },
-                  description: 'Honest gaps or areas where his background is weaker for this role',
-                },
-                recommendation: {
-                  type: 'string',
-                  description: 'Brief strategic advice on how to position this application',
-                },
-                matchScore: {
-                  type: 'number',
-                  minimum: 0,
-                  maximum: 100,
-                  description: 'Estimated fit percentage (0-100)',
-                },
-              },
-              required: ['orderedDomains', 'highlightedProjects', 'fitSummary', 'gaps', 'recommendation', 'matchScore'],
-            },
-          },
-        },
+        response_format: { type: 'json_object' },
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userMessage },
+        ],
       }),
     });
   } catch (err) {
@@ -136,11 +98,11 @@ ${PROJECTS_CONTEXT}`;
 
   if (!res.ok) {
     const txt = await res.text().catch(() => '');
-    return new Response(JSON.stringify({ error: `Anthropic error ${res.status}` }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ error: `DeepSeek error ${res.status}` }), { status: 503, headers: { 'Content-Type': 'application/json' } });
   }
 
   const data = await res.json();
-  const content = data.content?.find(b => b.type === 'text')?.text || data.content?.[0]?.text || '{}';
+  const content = data.choices?.[0]?.message?.content || '{}';
 
   let parsed;
   try { parsed = JSON.parse(content); } catch {
