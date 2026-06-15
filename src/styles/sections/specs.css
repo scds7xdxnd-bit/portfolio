@@ -682,6 +682,40 @@
   transform: scale(1.05);
 }
 
+/* §4.5 Polaroid effect — Community panel only */
+#community .specs__secondary-card--has-img {
+  background: #fff;
+  padding: 8px 8px 28px;
+  box-shadow: 2px 5px 12px rgba(0,0,0,0.14), 0 1px 3px rgba(0,0,0,0.08);
+  transform: rotate(-1.8deg);
+  transition: transform 200ms var(--ease-bounce), box-shadow 200ms ease;
+  border-radius: 2px;
+}
+#community .specs__secondary-card--has-img:nth-child(even) {
+  transform: rotate(1.4deg);
+}
+#community .specs__secondary-card--has-img:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 4px 10px 24px rgba(0,0,0,0.18);
+}
+#community .specs__secondary-card--has-img .specs__secondary-screenshot {
+  border-radius: 1px;
+}
+#community .specs__secondary-card--has-img .specs__secondary-title {
+  font-family: var(--font-hand);
+  font-size: 15px;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #community .specs__secondary-card--has-img,
+  #community .specs__secondary-card--has-img:nth-child(even) {
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ── RESPONSIVE for Specializations ── */
 @media (min-width: 769px) and (max-width: 1023px) {
   .specs__secondary {
