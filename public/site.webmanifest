@@ -1,0 +1,12 @@
+{
+  "name": "Taeyang Han — Life Systems Designer",
+  "short_name": "Taeyang Han",
+  "description": "Portfolio of Taeyang Han: Chemical Engineer, Multilingual Interpreter, Builder. 5 domains, 6 deployed apps, 5 languages.",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#FFF7E6",
+  "theme_color": "#1E1E1E",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
