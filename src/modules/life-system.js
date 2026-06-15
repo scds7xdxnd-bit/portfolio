@@ -1,4 +1,5 @@
 import { t } from '../lib/i18n.js';
+import { currentLang } from '../data/i18n.js';
 
 function initLifeSystem() {
   const container = document.getElementById('life-system');
@@ -179,6 +180,64 @@ function initLifeSystem() {
     }
   }, { threshold: 0.4 });
   obs.observe(container);
+
+  // T4.3 — "Explain this system" narration via /api/ask
+  const narrateBtn = document.getElementById('life-system-narrate');
+  const narrateOut = document.getElementById('life-system-narrate-output');
+  if (narrateBtn && narrateOut) {
+    narrateBtn.addEventListener('click', async () => {
+      if (narrateBtn.dataset.loading) return;
+      narrateBtn.dataset.loading = '1';
+      narrateBtn.disabled = true;
+      narrateOut.hidden = false;
+      narrateOut.textContent = '…';
+
+      const q = 'In 2-3 sentences, explain how Taeyang\'s five domains (Linguist, Engineer, Builder, Community, Scholar) form a connected life system — how they reinforce each other.';
+
+      try {
+        const res = await fetch('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q, lang: currentLang }),
+        });
+
+        const ct = res.headers.get('content-type') || '';
+        if (ct.includes('application/json')) {
+          const data = await res.json().catch(() => ({}));
+          narrateOut.textContent = data.answer || data.error || '—';
+        } else if (res.ok && res.body) {
+          const reader = res.body.getReader();
+          const dec = new TextDecoder();
+          let answer = '', buf = '';
+          narrateOut.textContent = '';
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            const lines = buf.split('\n');
+            buf = lines.pop();
+            for (const line of lines) {
+              if (!line.startsWith('data: ')) continue;
+              const raw = line.slice(6).trim();
+              if (raw === '[DONE]') break;
+              try {
+                const chunk = JSON.parse(raw);
+                const delta = chunk.choices?.[0]?.delta?.content;
+                if (delta) { answer += delta; narrateOut.textContent = answer; }
+              } catch { /* ignore */ }
+            }
+          }
+        } else {
+          narrateOut.textContent = '—';
+        }
+      } catch {
+        narrateOut.textContent = '—';
+      }
+
+      delete narrateBtn.dataset.loading;
+      narrateBtn.disabled = false;
+    });
+  }
 }
 
 

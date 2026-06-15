@@ -14,6 +14,7 @@ export const SPECIALIZATIONS = [
     mastery: 90,
     featuredUrl: 'https://www.yna.co.kr/view/AKR20250218100300053',
     featuredLinkKey: 'spec.linguist.featuredLinkLabel',
+    verifiedBy: { label: 'Yonhap News', url: 'https://www.yna.co.kr/view/AKR20250218100300053', claimId: 'yonhap-apec-2025' },
     screenshot: '/assets/projects/apec_cooperation_dialogue.webp',
     secondary: [
       { titleKey: 'spec.linguist.item1.title', descKey: 'spec.linguist.item1.desc', screenshot: '/assets/projects/gyeongbuk_provincial_government.webp' },
@@ -74,6 +75,7 @@ export const SPECIALIZATIONS = [
     accent: 'purple',
     mastery: 92,
     featuredUrl: null,
+    verifiedBy: { label: 'Samsung C&T', url: 'https://news.samsungcnt.com/newscenter/webzine-202409/', claimId: 'samsung-webzine-2024' },
     screenshot: '/assets/projects/pals_copresident.webp',
     secondary: [
       { titleKey: 'spec.community.item3.title', descKey: 'spec.community.item3.desc', screenshot: '/assets/projects/event_host.webp', link: 'https://www.sg-alumni.org/page/bbs/board.php?bo_table=b02&wr_id=705&device=pc' },

@@ -405,6 +405,12 @@
       <div class="section__container">
         <p class="life-system__hint" data-i18n="life.hint" aria-hidden="true">Drag a node — watch the system respond</p>
         <div class="life-system" id="life-system"></div>
+        <div class="life-system__narrate-wrap">
+          <button id="life-system-narrate" class="life-system__narrate-btn" aria-label="Ask AI to explain this life system">
+            <span aria-hidden="true">✦</span> <span data-i18n="life.narrate">Explain this system →</span>
+          </button>
+          <div id="life-system-narrate-output" class="life-system__narrate-out" hidden></div>
+        </div>
       </div>
     </section>
 
@@ -563,6 +569,7 @@
     <div class="terminal__input-row">
       <span class="terminal__prompt" aria-hidden="true">$</span>
       <input id="terminal-input" class="terminal__input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input" placeholder="type 'help' or press Tab" />
+      <button id="terminal-mic" class="terminal__mic" aria-label="Voice input" title="Speak a question" hidden>🎤</button>
     </div>
     <div id="terminal-suggestions" class="terminal__suggestions" hidden></div>
   </div>

@@ -112,6 +112,47 @@
   z-index: 201;
 }
 
+/* ── T4.3 Life-system narrate ── */
+.life-system__narrate-wrap {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.life-system__narrate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  font-family: var(--font-game);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--grey-dark);
+  background: none;
+  border: 1.5px dashed var(--border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color var(--duration-fast), border-color var(--duration-fast);
+}
+.life-system__narrate-btn:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.life-system__narrate-btn:disabled { opacity: 0.5; cursor: wait; }
+
+.life-system__narrate-out {
+  max-width: 520px;
+  margin: 10px auto 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--grey-dark);
+  background: var(--bg-panel);
+  border: 1.5px solid var(--border-light);
+  border-radius: 6px;
+  text-align: left;
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
   .life-system { height: 220px; }
   .life-system__node { width: 58px; height: 58px; }

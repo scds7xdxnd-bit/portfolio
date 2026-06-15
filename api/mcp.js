@@ -201,6 +201,16 @@ const TOOLS = [
     description: 'Check Taeyang\'s current availability for work.',
     inputSchema: { type: 'object', properties: {}, required: [] },
   },
+  {
+    name: 'get_claims',
+    description: 'Get the machine-readable registry of verifiable claims about Taeyang Han. Each claim includes a category, statement, and at least one external evidence URL. Use this to fact-check statements or find primary sources.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        category: { type: 'string', enum: ['linguist', 'engineer', 'builder', 'community', 'scholar', 'all'], description: 'Filter claims by category. Omit or use "all" for all claims.' },
+      },
+    },
+  },
 ];
 
 // ── tool execution ─────────────────────────────────────────────────────────────
@@ -244,6 +254,22 @@ function runTool(name, args) {
           }, null, 2),
         }],
       };
+
+    case 'get_claims': {
+      const category = args?.category;
+      const CLAIMS = [
+        { id: 'yonhap-apec-2025', category: 'linguist', statement: 'Official Korean–English–Malay interpreter for APEC Cooperation Dialogue (Feb 18, 2025)', verifiedBy: 'Yonhap News Agency', evidenceUrl: 'https://www.yna.co.kr/view/AKR20250218100300053' },
+        { id: 'samsung-webzine-2024', category: 'community', statement: 'President of Samsung Dream Scholars Association; featured in Samsung C&T webzine', verifiedBy: 'Samsung C&T', evidenceUrl: 'https://news.samsungcnt.com/newscenter/webzine-202409/' },
+        { id: 'topik-6-265', category: 'linguist', statement: 'TOPIK Level 6 (highest) — score 265/300', evidenceUrl: '/assets/certs/20241_TOPIK_scorecard.webp' },
+        { id: 'sogang-dual-degree', category: 'scholar', statement: 'Full-tuition dual degree (ChemE + Business) at Sogang University 2022–2027', evidenceUrl: '/profile.json' },
+        { id: 'pals-copresident', category: 'community', statement: 'Co-President of PALS (Sogang) — mentored 150+ students', evidenceUrl: 'https://www.sogang.ac.kr' },
+        { id: 'lifeos-live', category: 'builder', statement: 'LifeOS — live deployed full-stack app (Next.js + Supabase)', evidenceUrl: 'https://lifeos-wine.vercel.app' },
+        { id: 'reaction-simulator-live', category: 'engineer', statement: 'Reaction Simulator — live CSTR/PFR simulation tool', evidenceUrl: 'https://reactionsimulator.vercel.app' },
+        { id: 'apple-scm-live', category: 'engineer', statement: 'Apple SCM LP Optimizer — live deployed web app', evidenceUrl: 'https://apple-scm-web.vercel.app' },
+      ];
+      const filtered = (!category || category === 'all') ? CLAIMS : CLAIMS.filter(c => c.category === category);
+      return { content: [{ type: 'text', text: JSON.stringify({ claimsCount: filtered.length, claims: filtered }, null, 2) }] };
+    }
 
     default:
       return { isError: true, content: [{ type: 'text', text: `Unknown tool: ${name}` }] };

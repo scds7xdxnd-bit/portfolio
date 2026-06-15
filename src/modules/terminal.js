@@ -233,6 +233,45 @@ function initTerminal() {
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !term.hidden) close(); });
 
+  // T4.2 — Voice input via Web Speech API
+  const micBtn = document.getElementById('terminal-mic');
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR && micBtn) {
+    micBtn.hidden = false;
+    const rec = new SR();
+    rec.lang = 'en-US';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+
+    let listening = false;
+    micBtn.addEventListener('click', () => {
+      if (listening) { rec.stop(); return; }
+      rec.start();
+    });
+
+    rec.addEventListener('start', () => {
+      listening = true;
+      micBtn.classList.add('is-listening');
+      micBtn.setAttribute('aria-label', 'Listening…');
+    });
+    rec.addEventListener('end', () => {
+      listening = false;
+      micBtn.classList.remove('is-listening');
+      micBtn.setAttribute('aria-label', 'Voice input');
+    });
+    rec.addEventListener('result', e => {
+      const transcript = e.results[0][0].transcript.trim();
+      if (!transcript) return;
+      // Auto-prefix with "ask " so voice naturally queries the AI
+      const cmd = transcript.toLowerCase().startsWith('ask ') ? transcript : `ask ${transcript}`;
+      run(cmd);
+    });
+    rec.addEventListener('error', () => {
+      listening = false;
+      micBtn.classList.remove('is-listening');
+    });
+  }
+
   print("Life Systems Terminal v2.0 — type 'help' or 'ask <question>'");
 }
 

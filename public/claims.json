@@ -1,0 +1,152 @@
+{
+  "schema": "claims/1.0",
+  "subject": "Taeyang Han (한태양)",
+  "generatedAt": "2026-06-16",
+  "note": "Machine-readable registry of verifiable claims about Taeyang Han. Each claim includes at least one external evidence URL. For human context see /llms.txt; for structured resume see /profile.json.",
+  "claims": [
+    {
+      "id": "yonhap-apec-2025",
+      "category": "linguist",
+      "statement": "Official Korean–English–Malay interpreter for APEC Cooperation Dialogue between Gyeongbuk Governor Lee Cheol-woo and Malaysian Ambassador Mohd Zamruni bin Khalid, Feb 18, 2025",
+      "verifiedBy": "Yonhap News Agency (연합뉴스)",
+      "evidence": [
+        {
+          "type": "press-article",
+          "label": "Yonhap News Agency — AKR20250218100300053",
+          "url": "https://www.yna.co.kr/view/AKR20250218100300053",
+          "datePublished": "2025-02-18"
+        }
+      ],
+      "tags": ["interpreter", "APEC", "government", "Gyeongbuk", "Korea-Malaysia"]
+    },
+    {
+      "id": "samsung-webzine-2024",
+      "category": "community",
+      "statement": "President of Samsung Dream Scholars Association; leadership story featured in Samsung C&T Newsroom webzine",
+      "verifiedBy": "Samsung C&T",
+      "evidence": [
+        {
+          "type": "publication",
+          "label": "Samsung C&T Webzine 2024-09",
+          "url": "https://news.samsungcnt.com/newscenter/webzine-202409/",
+          "datePublished": "2024-09"
+        }
+      ],
+      "tags": ["Samsung", "leadership", "scholarship", "community"]
+    },
+    {
+      "id": "topik-6-265",
+      "category": "linguist",
+      "statement": "TOPIK Level 6 (highest level) with a score of 265/300",
+      "evidence": [
+        {
+          "type": "official-certificate",
+          "label": "TOPIK Scorecard (certificate on file)",
+          "url": "/assets/certs/20241_TOPIK_scorecard.webp"
+        }
+      ],
+      "tags": ["Korean", "TOPIK", "certification", "language"]
+    },
+    {
+      "id": "sogang-dual-degree",
+      "category": "scholar",
+      "statement": "Dual degree in Chemical Engineering + Business Administration at Sogang University (2022–2027) on full-tuition scholarship",
+      "evidence": [
+        {
+          "type": "transcript",
+          "label": "Profile JSON (academic section)",
+          "url": "/profile.json"
+        }
+      ],
+      "tags": ["Sogang", "ChemE", "Business", "dual-degree", "scholarship"]
+    },
+    {
+      "id": "pals-copresident",
+      "category": "community",
+      "statement": "Co-President of PALS (Peer Assisted Learning System) at Sogang University — mentored 150+ students across 10 subjects",
+      "evidence": [
+        {
+          "type": "institutional",
+          "label": "Sogang PALS official page",
+          "url": "https://www.sogang.ac.kr"
+        }
+      ],
+      "tags": ["PALS", "mentorship", "Sogang", "teaching"]
+    },
+    {
+      "id": "sogang-ta",
+      "category": "scholar",
+      "statement": "Teaching Assistant for Chemical Engineering Lab (Sogang University, 2026)",
+      "evidence": [
+        {
+          "type": "institutional",
+          "label": "Profile JSON (work section)",
+          "url": "/profile.json"
+        }
+      ],
+      "tags": ["TA", "ChemE", "Sogang", "teaching"]
+    },
+    {
+      "id": "lifeos-live",
+      "category": "builder",
+      "statement": "LifeOS — deployed full-stack personal operating system (Next.js + Supabase + PostgreSQL), live production app",
+      "evidence": [
+        {
+          "type": "live-app",
+          "label": "LifeOS (live deployment)",
+          "url": "https://lifeos-wine.vercel.app"
+        },
+        {
+          "type": "case-study",
+          "label": "Case study",
+          "url": "/projects/lifeos.html"
+        }
+      ],
+      "tags": ["Next.js", "Supabase", "fullstack", "builder"]
+    },
+    {
+      "id": "reaction-simulator-live",
+      "category": "engineer",
+      "statement": "Reaction Simulator — CSTR/PFR reactor network simulation tool (Python + Plotly), live deployment",
+      "evidence": [
+        {
+          "type": "live-app",
+          "label": "Reaction Simulator (live)",
+          "url": "https://reactionsimulator.vercel.app"
+        },
+        {
+          "type": "case-study",
+          "label": "Case study",
+          "url": "/projects/reaction-simulator.html"
+        }
+      ],
+      "tags": ["ChemE", "Python", "Plotly", "simulation"]
+    },
+    {
+      "id": "apple-scm-live",
+      "category": "engineer",
+      "statement": "Apple Supply Chain LP Optimizer (Python + Gurobi), deployed as interactive web app",
+      "evidence": [
+        {
+          "type": "live-app",
+          "label": "Apple SCM Web (live)",
+          "url": "https://apple-scm-web.vercel.app"
+        }
+      ],
+      "tags": ["supply-chain", "Python", "Gurobi", "optimization"]
+    },
+    {
+      "id": "gyeongbuk-federal-territories-minister",
+      "category": "linguist",
+      "statement": "Interpreted for Gyeongbuk Provincial Government meeting with Malaysian Federal Territories Minister (2025)",
+      "evidence": [
+        {
+          "type": "institutional",
+          "label": "MCP profile endpoint",
+          "url": "/api/mcp"
+        }
+      ],
+      "tags": ["interpreter", "government", "Malaysia", "Korea"]
+    }
+  ]
+}

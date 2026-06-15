@@ -106,3 +106,25 @@
   color: #fff;
   outline: none;
 }
+
+/* ── T4.2 Voice mic button ── */
+.terminal__mic {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0 4px;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--duration-fast);
+  line-height: 1;
+}
+.terminal__mic:hover { opacity: 1; }
+.terminal__mic.is-listening {
+  opacity: 1;
+  animation: mic-pulse 0.9s ease-in-out infinite;
+}
+@keyframes mic-pulse {
+  0%, 100% { transform: scale(1);   }
+  50%       { transform: scale(1.3); }
+}

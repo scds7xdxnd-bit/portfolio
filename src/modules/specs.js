@@ -22,9 +22,13 @@ function renderSpecializations() {
     const masteryKey = `spec.${spec.id}.mastery`;
     const masteryPct = t(masteryKey);
 
-    const featuredLinkHtml = spec.featuredUrl
-      ? `<a class="specs__featured-link" href="${spec.featuredUrl}" target="_blank" rel="noopener" data-i18n="${spec.featuredLinkKey}">${t(spec.featuredLinkKey)} ↗</a>`
+    const claimBadgeHtml = spec.verifiedBy
+      ? `<a class="claim-badge" href="${spec.verifiedBy.url}" target="_blank" rel="noopener" aria-label="Verified by ${spec.verifiedBy.label}" title="Verified: ${spec.verifiedBy.label}">✓ ${spec.verifiedBy.label}</a>`
       : '';
+
+    const featuredLinkHtml = spec.featuredUrl
+      ? `<a class="specs__featured-link" href="${spec.featuredUrl}" target="_blank" rel="noopener" data-i18n="${spec.featuredLinkKey}">${t(spec.featuredLinkKey)} ↗</a>${claimBadgeHtml}`
+      : claimBadgeHtml;
 
     const caseStudyLinkHtml = spec.caseStudyUrl
       ? `<a class="specs__case-study-link" href="${spec.caseStudyUrl}" data-i18n="spec.caseStudyLink">${t('spec.caseStudyLink')} →</a>`

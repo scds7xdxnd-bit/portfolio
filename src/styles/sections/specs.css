@@ -762,3 +762,29 @@
     font-size: 14px;
   }
 }
+
+/* ── T5 — Verified claim badges ── */
+.claim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-game);
+  letter-spacing: 0.04em;
+  color: var(--mint, #7ee6a7);
+  background: color-mix(in srgb, var(--mint, #7ee6a7) 12%, transparent);
+  border: 1.5px solid var(--mint, #7ee6a7);
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.claim-badge:hover {
+  background: var(--mint, #7ee6a7);
+  color: var(--ink);
+}
