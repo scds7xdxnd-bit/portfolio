@@ -28,7 +28,7 @@ function initTerminal() {
     help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · ask <question> · interview · clear",
     whoami:     "→ Taeyang Han (한태양). Life Systems Designer. Sogang University, Seoul.",
     about:      "→ Born in Malaysia. Moved to Seoul for university. Dual degree ChemE + Business. First app shipped 2021. Still shipping.",
-    education:  "→ Sogang University 2022-27 — ChemE + Business, full-tuition scholarship. TOPIK 6 · BLCU exchange · IELTS 8.5.",
+    education:  "→ Sogang University 2022-27 — ChemE + Business, full-tuition scholarship. TOPIK 6 · BLCU exchange.",
     skills:     "→ EN KO ZH MS ES  |  Python · Flask · Next.js · PostgreSQL  |  ChemE ∩ CS",
     where:      () => `→ Seoul — ${document.getElementById('seoul-time')?.textContent ?? 'KST'}. Usually coding or teaching.`,
     contact:    () => { copyEmail(); return '→ ammarhakimikm03@gmail.com — copied ✓'; },

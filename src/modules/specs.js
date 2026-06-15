@@ -31,8 +31,9 @@ function renderSpecializations() {
       : '';
 
     const secondaryHtml = spec.secondary.map((item) => {
+      const statusSlug = item.status ? item.status.toLowerCase().replace(/\s+/g, '-') : '';
       const statusHtml = item.status
-        ? `<span class="pill pill--status pill--status--in-development" data-i18n="project.status.${item.status}">${t('project.status.' + item.status)}</span>`
+        ? `<span class="pill pill--status pill--status--${statusSlug}" data-i18n="project.status.${item.status}">${t('project.status.' + item.status)}</span>`
         : '';
       const linkHtml = item.link
         ? `<a class="specs__secondary-link" href="${item.link}" target="_blank" rel="noopener"><span data-i18n="spec.liveLink">${t('spec.liveLink')}</span> ↗</a>`

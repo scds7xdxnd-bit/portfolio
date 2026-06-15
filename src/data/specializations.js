@@ -60,7 +60,7 @@ export const SPECIALIZATIONS = [
     screenshot: '/assets/projects/lifeos.webp',
     secondary: [
       { titleKey: 'spec.builder.item2.title', descKey: 'spec.builder.item2.desc', screenshot: '/assets/projects/scm_simulator.webp', link: 'https://scmsimulator.vercel.app' },
-      { titleKey: 'spec.builder.item1.title', descKey: 'spec.builder.item1.desc', screenshot: '/assets/projects/accounting.webp', status: 'In Development' },
+      { titleKey: 'spec.builder.item1.title', descKey: 'spec.builder.item1.desc', screenshot: '/assets/projects/accounting.webp', status: 'Active' },
       { titleKey: 'spec.builder.item3.title', descKey: 'spec.builder.item3.desc', screenshot: '/assets/projects/cnn_emotion_classifier.webp' },
       { titleKey: 'spec.builder.item4.title', descKey: 'spec.builder.item4.desc' },
       { titleKey: 'spec.builder.item5.title', descKey: 'spec.builder.item5.desc' },
