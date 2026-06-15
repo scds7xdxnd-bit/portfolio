@@ -25,7 +25,7 @@ function initTerminal() {
   const MAX_HISTORY = 8;
 
   const CMDS = {
-    help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · ask <question> · clear",
+    help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · ask <question> · interview · clear",
     whoami:     "→ Taeyang Han (한태양). Life Systems Designer. Sogang University, Seoul.",
     about:      "→ Born in Malaysia. Moved to Seoul for university. Dual degree ChemE + Business. First app shipped 2021. Still shipping.",
     education:  "→ Sogang University 2022-27 — ChemE + Business, full-tuition scholarship. TOPIK 6 · BLCU exchange · IELTS 8.5.",
@@ -34,6 +34,7 @@ function initTerminal() {
     contact:    () => { copyEmail(); return '→ ammarhakimikm03@gmail.com — copied ✓'; },
     projects:   "→ " + Object.keys(PROJECTS).join(' · ') + "\n  (type a name for details, or 'open <name>')",
     ask:        '→ ask <your question> — queries the AI about my background, projects, and skills.',
+    interview:  null, // handled in run()
     clear:      null,
     secret:     () => { unlockAchievement('secret'); return '🕹️ Achievement unlocked: Secret Finder!'; },
     ...Object.fromEntries(Object.entries(PROJECTS).map(([k, v]) =>
@@ -150,6 +151,43 @@ function initTerminal() {
     if (!cmd) return;
     print('$ ' + cmd, 'cmd');
     if (cmd === 'clear') { output.innerHTML = ''; chatHistory.length = 0; return; }
+
+    if (cmd === 'interview') {
+      const QUESTIONS = [
+        "Tell me about yourself — who are you and what do you build?",
+        "What's your most technically impressive project and why?",
+        "You're a Chemical Engineering student who also builds software — how does that combination create value?",
+        "Walk me through a time you shipped something under real constraints.",
+        "What's next for you after graduation in 2027?",
+      ];
+      let qi = 0;
+      chatHistory.length = 0; // fresh session for interview
+      print('─── Interview Mode ─── (AI answers as Taeyang)', 'ai');
+      print(`Q${qi + 1}/${QUESTIONS.length}: ${QUESTIONS[qi]}`);
+      streamAsk(QUESTIONS[qi]).then(() => {
+        qi++;
+        function nextQ() {
+          if (qi >= QUESTIONS.length) {
+            print('─── End of interview ─── type "ask <question>" to continue');
+            return;
+          }
+          const chip = document.createElement('button');
+          chip.className = 'terminal__suggest-chip';
+          chip.textContent = `Next → Q${qi + 1}`;
+          chip.style.marginTop = '6px';
+          chip.addEventListener('mousedown', e => {
+            e.preventDefault();
+            chip.remove();
+            print(`Q${qi + 1}/${QUESTIONS.length}: ${QUESTIONS[qi]}`);
+            streamAsk(QUESTIONS[qi]).then(() => { qi++; nextQ(); });
+          });
+          output.appendChild(chip);
+          output.scrollTop = output.scrollHeight;
+        }
+        nextQ();
+      });
+      return;
+    }
 
     if (cmd.startsWith('open ')) {
       const key = cmd.slice(5).trim();
