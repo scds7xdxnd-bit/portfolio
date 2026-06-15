@@ -25,6 +25,23 @@
   z-index: 1;
 }
 
+/* §5.6 Cursor spotlight overlay */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 280px at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(255, 210, 63, 0.12),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 280ms ease;
+  z-index: 0;
+}
+.hero.has-spotlight::after { opacity: 1; }
+
 /* ── Greeting (inside player-card) ── */
 .hero__greeting {
   font-family: var(--font-game);

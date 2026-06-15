@@ -216,4 +216,28 @@ function initIdleAvatar() {
 }
 
 
-export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg };
+// §5.6 Cursor spotlight — desktop hero only, reduced-motion aware
+function initCursorSpotlight() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return; // skip touch devices
+
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const pctX = (x / rect.width * 100).toFixed(1);
+    const pctY = (y / rect.height * 100).toFixed(1);
+    hero.style.setProperty('--spotlight-x', `${pctX}%`);
+    hero.style.setProperty('--spotlight-y', `${pctY}%`);
+    hero.classList.add('has-spotlight');
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    hero.classList.remove('has-spotlight');
+  });
+}
+
+export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight };

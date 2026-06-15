@@ -5,7 +5,7 @@ import { renderTrophyShelf } from './lib/achievements.js';
 import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, initShimmerHover } from './lib/dom.js';
 import {
   initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle,
-  initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg,
+  initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight,
   renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver,
   initLifeSystem,
   initGradientWaveText, initSpecialText, initSignature,
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommandPalette();
   initNpcDialogue();
   initIdleAvatar();
+  initCursorSpotlight();
   initTerminal();
   initSkillTree();
   initDistilCol();

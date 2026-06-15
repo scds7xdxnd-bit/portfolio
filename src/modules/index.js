@@ -1,5 +1,5 @@
 export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle } from './nav.js';
-export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg } from './hero.js';
+export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight } from './hero.js';
 export { renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver } from './specs.js';
 export { initLifeSystem } from './life-system.js';
 export { initGradientWaveText, initSpecialText, initSignature } from './text-effects.js';
