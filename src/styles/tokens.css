@@ -22,6 +22,9 @@
   --text-on-dark:  #FFFFFF;
   --border-main:   var(--ink);
   --border-light:  var(--grey-light);
+  /* "dark band" surface (footer, manifesto) — stays dark in BOTH themes,
+     unlike --ink which flips to light text-ink in dark mode */
+  --surface-invert: var(--ink);
 
   /* Typography */
   --font-body:  'Inter', system-ui, -apple-system, 'Noto Sans KR', sans-serif;
@@ -86,6 +89,7 @@
   --text-on-dark:  #E8E6E0;
   --border-main:   #E8E6E0;
   --border-light:  #3A3835;
+  --surface-invert: #100F0E;
 
   /* Keep accent colors but slightly muted */
   --sunshine: #D4A800;

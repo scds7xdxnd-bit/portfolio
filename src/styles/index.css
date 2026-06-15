@@ -835,6 +835,8 @@
   cursor: pointer; transition: background 100ms;
 }
 .rxn-sim__btn.is-active { background: var(--ink); color: #fff; }
+/* dark mode: --ink fill flips light, so the active label must go dark */
+[data-theme="dark"] .rxn-sim__btn.is-active { color: var(--bg-primary); }
 
 .rxn-sim__tau-wrap {
   display: flex; align-items: center; gap: 12px;

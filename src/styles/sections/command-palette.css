@@ -193,6 +193,12 @@
 }
 .tailor-panel__textarea:focus { border-color: var(--accent-primary, #6DFFB0); }
 
+/* iOS Safari auto-zooms when a focused field is < 16px — keep 16px on touch */
+@media (max-width: 768px) {
+  .cmdk__input,
+  .tailor-panel__textarea { font-size: 16px; }
+}
+
 .tailor-panel__btn, .tailor-panel__apply {
   display: inline-block; margin-top: 12px;
   background: var(--accent-primary, #6DFFB0); color: #0D1117;

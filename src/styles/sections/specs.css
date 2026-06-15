@@ -796,3 +796,23 @@
     font-size: 14px;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   DARK MODE — the hardcoded pastel fills (#EBF6FF, #FFF0F0 …) stay light
+   in dark mode, leaving light text on light cards. Re-tint each toward the
+   dark panel surface while preserving the accent hue.
+   ═══════════════════════════════════════════════ */
+[data-theme="dark"] .specs__panel--sky      .specs__panel-header,
+[data-theme="dark"] .specs__featured--sky      { background: color-mix(in srgb, var(--sky) 16%, var(--bg-panel)); }
+[data-theme="dark"] .specs__panel--coral    .specs__panel-header,
+[data-theme="dark"] .specs__featured--coral    { background: color-mix(in srgb, var(--coral) 16%, var(--bg-panel)); }
+[data-theme="dark"] .specs__panel--mint     .specs__panel-header,
+[data-theme="dark"] .specs__featured--mint     { background: color-mix(in srgb, var(--mint) 16%, var(--bg-panel)); }
+[data-theme="dark"] .specs__panel--purple   .specs__panel-header,
+[data-theme="dark"] .specs__featured--purple   { background: color-mix(in srgb, var(--purple) 16%, var(--bg-panel)); }
+[data-theme="dark"] .specs__panel--sunshine .specs__panel-header,
+[data-theme="dark"] .specs__featured--sunshine { background: color-mix(in srgb, var(--sunshine) 16%, var(--bg-panel)); }
+
+/* Community polaroids stay white photo frames — force the caption dark again */
+[data-theme="dark"] #community .specs__secondary-card--has-img,
+[data-theme="dark"] #community .specs__secondary-card--has-img .specs__secondary-title { color: #1E1E1E; }

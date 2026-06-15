@@ -137,7 +137,7 @@
    12. FOOTER
    ═══════════════════════════════════════════════ */
 .footer {
-  background: var(--ink);
+  background: var(--surface-invert);
   color: var(--text-on-dark);
   padding: 48px 24px;
   border-top: var(--border-thick);
@@ -376,3 +376,7 @@
     }
   }
 }
+
+/* ── Dark mode: buttons whose fill flips to a light/accent tone need dark labels ── */
+[data-theme="dark"] .contact-section__email-btn { color: var(--bg-primary); }
+[data-theme="dark"] .footer__doodle-col .guestbook__btn--submit { color: #1A1917; }

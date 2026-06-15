@@ -2,7 +2,7 @@
    16. MANIFESTO BAND (What I Believe / Stack / Connect)
    ═══════════════════════════════════════════════ */
 .manifesto {
-  background: var(--ink);
+  background: var(--surface-invert);
   color: var(--text-on-dark);
   padding: 44px 24px;
   border-top: 4px solid var(--sunshine);
@@ -121,6 +121,8 @@
 }
 
 .manifesto__cta:hover { background: #fff; }
+/* dark mode: --ink text flips light; keep the gold/white CTA label dark */
+[data-theme="dark"] .manifesto__cta { color: #1A1917; }
 
 /* ── Seoul live clock ── */
 .seoul-clock {

@@ -88,6 +88,10 @@
   to   { left: 150%; }
 }
 
+/* Dark mode: --ink flips to a light ink, so the filled primary button becomes
+   a light pill — its label must be dark to stay legible. */
+[data-theme="dark"] .btn--primary { color: var(--bg-primary); }
+
 /* ── Nav "Work" dropdown trigger button ── */
 .site-nav__dropdown-trigger {
   display: inline-flex;

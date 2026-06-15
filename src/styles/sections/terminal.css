@@ -74,6 +74,10 @@
   font-size: 12px; color: #e6edf3;
   caret-color: var(--mint);
 }
+/* iOS Safari auto-zooms when a focused field is < 16px — keep 16px on touch */
+@media (max-width: 768px) {
+  .terminal__input { font-size: 16px; }
+}
 
 /* ═══════════════════════════════════════════════
    31. TERMINAL TAB-COMPLETION SUGGESTIONS
