@@ -20,6 +20,10 @@ function initTerminal() {
     'process-game': { desc: 'Interactive process design simulator for ChemE students.', url: 'https://process-design.vercel.app' },
   };
 
+  // Session conversation memory — max 8 turns (user+assistant pairs)
+  const chatHistory = [];
+  const MAX_HISTORY = 8;
+
   const CMDS = {
     help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · ask <question> · clear",
     whoami:     "→ Taeyang Han (한태양). Life Systems Designer. Sogang University, Seoul.",
@@ -59,7 +63,7 @@ function initTerminal() {
       res = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, lang: currentLang }),
+        body: JSON.stringify({ question, lang: currentLang, history: chatHistory }),
       });
     } catch {
       thinking.textContent = t('terminal.ask.error');
@@ -77,7 +81,13 @@ function initTerminal() {
     const ct = res.headers.get('content-type') || '';
     if (ct.includes('application/json')) {
       const data = await res.json().catch(() => ({}));
-      thinking.textContent = '→ ' + (data.answer || data.error || t('terminal.ask.error'));
+      const reply = data.answer || data.error || t('terminal.ask.error');
+      thinking.textContent = '→ ' + reply;
+      if (data.answer) {
+        chatHistory.push({ role: 'user', content: question });
+        chatHistory.push({ role: 'assistant', content: data.answer });
+        if (chatHistory.length > MAX_HISTORY * 2) chatHistory.splice(0, 2);
+      }
       return;
     }
 
@@ -126,6 +136,11 @@ function initTerminal() {
       return;
     }
 
+    // Store in conversation memory
+    chatHistory.push({ role: 'user', content: question });
+    chatHistory.push({ role: 'assistant', content: answer });
+    if (chatHistory.length > MAX_HISTORY * 2) chatHistory.splice(0, 2);
+
     output.scrollTop = output.scrollHeight;
     unlockAchievement('interrogator');
   }
@@ -134,7 +149,7 @@ function initTerminal() {
     const cmd = raw.trim().toLowerCase();
     if (!cmd) return;
     print('$ ' + cmd, 'cmd');
-    if (cmd === 'clear') { output.innerHTML = ''; return; }
+    if (cmd === 'clear') { output.innerHTML = ''; chatHistory.length = 0; return; }
 
     if (cmd.startsWith('open ')) {
       const key = cmd.slice(5).trim();

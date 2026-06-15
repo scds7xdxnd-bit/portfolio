@@ -119,13 +119,21 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   }
 
-  const { question, lang = 'en' } = body;
+  const { question, lang = 'en', history = [] } = body;
   if (!question || typeof question !== 'string' || question.trim().length < 2) {
     return new Response(JSON.stringify({ error: 'Missing question' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   }
 
   // Hard cap on input length — treat user text as DATA, never as instructions
   const safeQuestion = question.trim().slice(0, 600);
+
+  // Validate and sanitize history — only allow user/assistant roles, cap each turn
+  const safeHistory = Array.isArray(history)
+    ? history.slice(-8).filter(m => m.role === 'user' || m.role === 'assistant').map(m => ({
+        role: m.role,
+        content: String(m.content || '').slice(0, 400),
+      }))
+    : [];
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
@@ -160,6 +168,7 @@ ${PORTFOLIO_CONTEXT}`;
         model: 'deepseek-chat',
         messages: [
           { role: 'system', content: systemPrompt },
+          ...safeHistory,
           { role: 'user', content: safeQuestion },
         ],
         stream: true,
