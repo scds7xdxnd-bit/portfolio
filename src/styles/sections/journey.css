@@ -1,0 +1,130 @@
+/* ═══════════════════════════════════════════════
+   §5.4 JOURNEY TIMELINE
+   ═══════════════════════════════════════════════ */
+.journey {
+  padding: 24px 0 0;
+}
+
+.journey__label {
+  font-family: var(--font-game);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.journey__track {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.journey__stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 0;
+  min-width: 110px;
+  text-align: center;
+}
+
+/* Connecting line between stops */
+.journey__stop::before {
+  content: '';
+  position: absolute;
+  top: 25px; /* aligns with dot */
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border-light);
+  z-index: 0;
+}
+.journey__stop:last-child::before { display: none; }
+
+.journey__year {
+  font-family: var(--font-game);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  order: 1;
+}
+
+.journey__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid var(--ink);
+  background: var(--bg-panel);
+  flex-shrink: 0;
+  order: 2;
+  position: relative;
+  z-index: 1;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.journey__stop--now .journey__dot {
+  background: var(--mint);
+  border-color: var(--mint);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--mint) 25%, transparent);
+  animation: journey-pulse 2s ease-in-out infinite;
+}
+
+@keyframes journey-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--mint) 25%, transparent); }
+  50%       { box-shadow: 0 0 0 7px color-mix(in srgb, var(--mint) 10%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey__stop--now .journey__dot { animation: none; }
+}
+
+.journey__event {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  order: 3;
+  max-width: 120px;
+}
+
+.journey__stop--now .journey__event {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .journey__track {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    overflow-x: visible;
+  }
+  .journey__stop {
+    flex-direction: row;
+    align-items: flex-start;
+    min-width: 0;
+    text-align: left;
+    gap: 12px;
+    padding-bottom: 16px;
+    flex: 0;
+  }
+  /* Connecting line goes vertical on mobile */
+  .journey__stop::before {
+    top: 14px;
+    left: 24px;
+    width: 2px;
+    height: 100%;
+  }
+  .journey__year { order: 0; width: 36px; flex-shrink: 0; padding-top: 1px; }
+  .journey__dot  { order: 0; margin-top: 3px; flex-shrink: 0; }
+  .journey__event { order: 0; max-width: none; }
+}

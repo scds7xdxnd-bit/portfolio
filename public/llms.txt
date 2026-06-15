@@ -165,14 +165,45 @@ Available at: https://portfolio-han-taeyangs-projects.vercel.app/opinions/
 
 ## For AI Agents
 
-This portfolio is accessible as an MCP (Model Context Protocol) server:
-  Endpoint: https://portfolio-han-taeyangs-projects.vercel.app/api/mcp
-  Tools: get_profile · list_projects · get_project · get_experience · get_languages
+This portfolio is a Web4 agentic site — it serves both humans and AI agents.
 
-You can also ask questions in the terminal on the portfolio homepage:
-  Try: "Has Taeyang done supply-chain work?" or "What languages does he speak?"
+### MCP Server (Model Context Protocol)
+  Endpoint: https://portfolio-han-taeyangs-projects.vercel.app/api/mcp
+  Protocol: JSON-RPC 2.0 over HTTP (GET = server info, POST = tool calls)
+  Tools:
+    get_profile          — name, role, contact, education, languages
+    list_projects(domain?)  — all 7 projects, filterable by domain
+    get_project(id)      — deep dive on a specific project
+    get_experience(area) — experience per specialization (linguist/engineer/builder/community/scholar)
+    get_languages        — all 5 languages with proficiency levels
+    check_availability   — current work availability
+    get_claims(category?)— verifiable claim registry with evidence URLs
+
+### AI Chat Endpoint
+  POST https://portfolio-han-taeyangs-projects.vercel.app/api/ask
+  Body: { "question": "...", "lang": "en|zh|ko", "history": [...prior turns] }
+  Returns: SSE stream (DeepSeek-compatible) or JSON fallback
+  Rate limit: 8 requests/min per IP
+  The assistant speaks as Taeyang in first person, cites sources, supports multi-turn conversation.
+
+### Verified Claims Registry
+  https://portfolio-han-taeyangs-projects.vercel.app/claims.json
+  Machine-readable list of verifiable claims with external evidence URLs.
+  Categories: linguist · engineer · builder · community · scholar
+
+### Voice Interface
+  The terminal on the homepage has a Web Speech API mic button — visitors can speak their questions.
+
+### JD Tailor Endpoint
+  POST https://portfolio-han-taeyangs-projects.vercel.app/api/tailor
+  Body: { "jd": "..." }  (job description, 50–3000 chars)
+  Returns: JSON with orderedDomains, highlightedProjects, fitSummary, gaps, matchScore (0–100)
+  Uses Claude Opus with structured output.
 
 ## Structured Data
 
-JSON Resume: https://portfolio-han-taeyangs-projects.vercel.app/profile.json
-JSON-LD: embedded in https://portfolio-han-taeyangs-projects.vercel.app/ (head > script[type=application/ld+json])
+JSON Resume:    https://portfolio-han-taeyangs-projects.vercel.app/profile.json
+Claims JSON:    https://portfolio-han-taeyangs-projects.vercel.app/claims.json
+Sitemap:        https://portfolio-han-taeyangs-projects.vercel.app/sitemap.xml
+JSON-LD:        embedded in index.html (head > script[type=application/ld+json])
+  Types: WebSite · Person (with knowsLanguage, award, hasCredential) · 6× SoftwareApplication
