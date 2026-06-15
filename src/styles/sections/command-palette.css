@@ -146,3 +146,82 @@
   color: var(--grey-dark);
   letter-spacing: 0.06em;
 }
+
+/* ─── T2.2 Tailor-to-role panel ──────────────────────────── */
+.tailor-panel {
+  position: fixed; inset: 0; z-index: 9998;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 180ms;
+}
+.tailor-panel[hidden] { display: none; }
+.tailor-panel.is-open  { opacity: 1; }
+
+.tailor-panel__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+.tailor-panel__card {
+  position: relative; z-index: 1;
+  background: var(--card-bg, #181A2E);
+  border: var(--border-thick);
+  border-radius: var(--radius-lg);
+  box-shadow: 6px 6px 0 var(--accent-primary, #6DFFB0);
+  padding: 28px 32px;
+  width: min(600px, calc(100vw - 40px));
+  max-height: 90vh; overflow-y: auto;
+  transform: translateY(12px) scale(0.97);
+  transition: transform 200ms var(--ease-bounce, cubic-bezier(.34,1.56,.64,1));
+}
+.tailor-panel.is-open .tailor-panel__card { transform: none; }
+
+.tailor-panel__close {
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; color: var(--text-muted); font-size: 20px;
+  cursor: pointer; line-height: 1; padding: 4px 6px;
+}
+.tailor-panel__close:hover { color: var(--text-primary); }
+.tailor-panel__title { font-family: var(--font-game); font-size: 14px; margin: 0 0 6px; color: var(--accent-primary, #6DFFB0); }
+.tailor-panel__sub   { font-size: 13px; color: var(--text-muted); margin: 0 0 16px; line-height: 1.55; }
+
+.tailor-panel__textarea {
+  width: 100%; box-sizing: border-box;
+  background: rgba(0,0,0,0.3); border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm); color: var(--text-primary);
+  font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.6;
+  padding: 12px; resize: vertical; outline: none;
+}
+.tailor-panel__textarea:focus { border-color: var(--accent-primary, #6DFFB0); }
+
+.tailor-panel__btn, .tailor-panel__apply {
+  display: inline-block; margin-top: 12px;
+  background: var(--accent-primary, #6DFFB0); color: #0D1117;
+  font-family: var(--font-game); font-size: 11px; font-weight: 700;
+  border: none; border-radius: var(--radius-sm); padding: 10px 20px;
+  cursor: pointer; transition: transform 100ms, box-shadow 100ms;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+}
+.tailor-panel__btn:hover, .tailor-panel__apply:hover  { transform: translateY(-1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.4); }
+.tailor-panel__btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.tailor-panel__apply { background: #5B8DEF; color: #fff; margin-left: 10px; }
+
+.tailor-panel__result { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; }
+.tailor-panel__score-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.tailor-panel__score-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.tailor-panel__score { font-family: var(--font-game); font-size: 22px; font-weight: 700; }
+
+.tailor-panel__summary { font-size: 13px; line-height: 1.65; color: var(--text-primary); margin: 0 0 16px; }
+.tailor-panel__section { margin-bottom: 14px; }
+.tailor-panel__section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; }
+.tailor-panel__projects, .tailor-panel__gaps { margin: 0; padding-left: 18px; }
+.tailor-panel__projects li, .tailor-panel__gaps li { font-size: 12px; line-height: 1.6; margin-bottom: 4px; color: var(--text-secondary); }
+.tailor-panel__projects strong { color: var(--text-primary); }
+.tailor-panel__recommendation { font-size: 12px; font-style: italic; color: var(--text-muted); border-left: 2px solid var(--accent-primary, #6DFFB0); padding-left: 10px; margin: 14px 0 0; }
+.tailor-panel__error { color: #ff6b6b; font-size: 12px; margin-top: 10px; }
+
+/* Flash effect when a domain panel is promoted */
+@keyframes tailored-flash {
+  0%, 100% { box-shadow: none; }
+  30%       { box-shadow: 0 0 0 3px var(--accent-primary, #6DFFB0), 0 0 24px rgba(109,255,176,.3); }
+}
+.is-tailored { animation: tailored-flash 1.8s ease; }

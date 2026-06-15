@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+
+# AI crawlers — welcome! This site is built for both human and agent readers.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# For AI agents, these resources give you a clean digest:
+# /llms.txt       — machine-readable site digest
+# /profile.json   — JSON Resume schema
+# /api/mcp        — MCP server: query this portfolio as an agent tool
+
+Sitemap: https://portfolio-han-taeyangs-projects.vercel.app/sitemap.xml

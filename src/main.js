@@ -13,6 +13,7 @@ import {
   initTerminal,
   initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg,
   initBullwhipSim, initPhSim, initRxnSim, initGuestbook,
+  initStatusBadge, initTailor,
 } from './modules/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -58,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initBullwhipSim();
   initPhSim();
   initRxnSim();
+  initStatusBadge();
+  initTailor();
 
   window._heroInView = true;
   const _heroObs = new IntersectionObserver(([e]) => {

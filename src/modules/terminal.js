@@ -1,4 +1,7 @@
 import { unlockAchievement } from '../lib/achievements.js';
+import { t } from '../lib/i18n.js';
+import { currentLang } from '../data/i18n.js';
+import { copyEmail } from '../lib/dom.js';
 
 function initTerminal() {
   const term   = document.getElementById('terminal');
@@ -18,14 +21,15 @@ function initTerminal() {
   };
 
   const CMDS = {
-    help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · clear",
+    help:       () => "→ whoami · about · education · skills · where · contact · projects · <project-name> · open <project> · ask <question> · clear",
     whoami:     "→ Taeyang Han (한태양). Life Systems Designer. Sogang University, Seoul.",
-    about:      "→ Born in Malaysia. Moved to Seoul for university. Dual degree ChemE + CS. First app shipped 2021. Still shipping.",
-    education:  "→ Sogang University 2022-26 — ChemE + CS, full-tuition scholarship. TOPIK 6 · HSK 4 · IELTS 8.5.",
+    about:      "→ Born in Malaysia. Moved to Seoul for university. Dual degree ChemE + Business. First app shipped 2021. Still shipping.",
+    education:  "→ Sogang University 2022-27 — ChemE + Business, full-tuition scholarship. TOPIK 6 · BLCU exchange · IELTS 8.5.",
     skills:     "→ EN KO ZH MS ES  |  Python · Flask · Next.js · PostgreSQL  |  ChemE ∩ CS",
     where:      () => `→ Seoul — ${document.getElementById('seoul-time')?.textContent ?? 'KST'}. Usually coding or teaching.`,
     contact:    () => { copyEmail(); return '→ ammarhakimikm03@gmail.com — copied ✓'; },
     projects:   "→ " + Object.keys(PROJECTS).join(' · ') + "\n  (type a name for details, or 'open <name>')",
+    ask:        '→ ask <your question> — queries the AI about my background, projects, and skills.',
     clear:      null,
     secret:     () => { unlockAchievement('secret'); return '🕹️ Achievement unlocked: Secret Finder!'; },
     ...Object.fromEntries(Object.entries(PROJECTS).map(([k, v]) =>
@@ -34,13 +38,96 @@ function initTerminal() {
   };
 
   function print(text, cls = '') {
+    let last;
     text.split('\n').forEach(line => {
       const d = document.createElement('div');
       d.className = 'terminal__line' + (cls ? ' terminal__line--' + cls : '');
       d.textContent = line;
       output.appendChild(d);
+      last = d;
     });
     output.scrollTop = output.scrollHeight;
+    return last;
+  }
+
+  // Stream answer from /api/ask
+  async function streamAsk(question) {
+    const thinking = print(t('terminal.ask.thinking'), 'ai');
+
+    let res;
+    try {
+      res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, lang: currentLang }),
+      });
+    } catch {
+      thinking.textContent = t('terminal.ask.error');
+      thinking.className = 'terminal__line terminal__line--err';
+      return;
+    }
+
+    if (res.status === 429) {
+      thinking.textContent = t('terminal.ask.ratelimit');
+      thinking.className = 'terminal__line terminal__line--err';
+      return;
+    }
+
+    // Fallback JSON mode (no DEEPSEEK_API_KEY configured)
+    const ct = res.headers.get('content-type') || '';
+    if (ct.includes('application/json')) {
+      const data = await res.json().catch(() => ({}));
+      thinking.textContent = '→ ' + (data.answer || data.error || t('terminal.ask.error'));
+      return;
+    }
+
+    if (!res.ok || !res.body) {
+      thinking.textContent = t('terminal.ask.error');
+      thinking.className = 'terminal__line terminal__line--err';
+      return;
+    }
+
+    // SSE streaming — DeepSeek/OpenAI format
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let answer = '';
+    let buf = '';
+
+    thinking.className = 'terminal__line terminal__line--ai';
+    thinking.textContent = '→ ';
+
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        const lines = buf.split('\n');
+        buf = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const raw = line.slice(6).trim();
+          if (raw === '[DONE]') break;
+          try {
+            const chunk = JSON.parse(raw);
+            const delta = chunk.choices?.[0]?.delta?.content;
+            if (delta) {
+              answer += delta;
+              thinking.textContent = '→ ' + answer;
+              output.scrollTop = output.scrollHeight;
+            }
+          } catch { /* ignore malformed chunks */ }
+        }
+      }
+    } catch { /* network abort */ }
+
+    if (!answer) {
+      thinking.textContent = t('terminal.ask.error');
+      thinking.className = 'terminal__line terminal__line--err';
+      return;
+    }
+
+    output.scrollTop = output.scrollHeight;
+    unlockAchievement('interrogator');
   }
 
   function run(raw) {
@@ -48,6 +135,7 @@ function initTerminal() {
     if (!cmd) return;
     print('$ ' + cmd, 'cmd');
     if (cmd === 'clear') { output.innerHTML = ''; return; }
+
     if (cmd.startsWith('open ')) {
       const key = cmd.slice(5).trim();
       const proj = PROJECTS[key];
@@ -55,7 +143,18 @@ function initTerminal() {
       else print(`→ no project named "${key}". try 'projects'.`, 'err');
       return;
     }
-    if (!(cmd in CMDS)) { print(`not found: "${cmd}". type 'help'.`, 'err'); return; }
+
+    // 'ask <question>' or '? <question>'
+    const askMatch = raw.trim().match(/^(?:ask|[?])\s+(.+)/is);
+    if (askMatch) {
+      streamAsk(askMatch[1].trim());
+      return;
+    }
+
+    if (!(cmd in CMDS)) {
+      print(`not found: "${cmd}". type 'help' or 'ask <question>'.`, 'err');
+      return;
+    }
     const h = CMDS[cmd];
     if (h !== null) print(typeof h === 'function' ? h() : h);
   }
@@ -71,7 +170,7 @@ function initTerminal() {
       btn.textContent = cmd;
       btn.addEventListener('mousedown', e => {
         e.preventDefault();
-        input.value = cmd;
+        input.value = cmd === 'ask' ? 'ask ' : cmd;
         input.focus();
         hideSuggestions();
       });
@@ -113,7 +212,7 @@ function initTerminal() {
       } else {
         const matches = ALL_CMDS.filter(c => c.startsWith(val));
         if (matches.length === 1) {
-          input.value = matches[0];
+          input.value = matches[0] === 'ask' ? 'ask ' : matches[0];
           hideSuggestions();
         } else if (matches.length > 1) {
           const prefix = commonPrefix(matches);
@@ -134,8 +233,7 @@ function initTerminal() {
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !term.hidden) close(); });
 
-  print("Life Systems Terminal v1.0 — type 'help'");
+  print("Life Systems Terminal v2.0 — type 'help' or 'ask <question>'");
 }
-
 
 export { initTerminal };

@@ -162,3 +162,59 @@
   }
   .footer__sign-col { flex: none; }
 }
+
+/* ─── T2.1 MCP CTA ───────────────────────────────────────── */
+.mcp-cta {
+  position: fixed;
+  bottom: 82px; left: 24px;
+  z-index: 9990;
+  max-width: 340px;
+}
+.mcp-cta__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  border: 1.5px solid rgba(109, 255, 176, 0.3);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.15);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mcp-cta__inner:hover {
+  border-color: rgba(109, 255, 176, 0.6);
+  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.3);
+}
+.mcp-cta__icon { font-size: 20px; flex-shrink: 0; }
+.mcp-cta__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.mcp-cta__text strong {
+  font-size: 11px;
+  color: var(--mint);
+  font-family: var(--font-game);
+  letter-spacing: 0.03em;
+}
+.mcp-cta__text span {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.mcp-cta__url {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: #6DFFB0;
+  background: rgba(109, 255, 176, 0.07);
+  border: 1px solid rgba(109, 255, 176, 0.2);
+  border-radius: 4px;
+  padding: 3px 6px;
+  white-space: nowrap;
+  cursor: text;
+  user-select: all;
+  flex-shrink: 0;
+}
+@media (max-width: 600px) { .mcp-cta { display: none; } }

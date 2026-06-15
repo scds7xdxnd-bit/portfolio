@@ -1,0 +1,178 @@
+# Taeyang Han — Life Systems Designer
+# https://portfolio-han-taeyangs-projects.vercel.app
+# Last updated: 2026-06-16
+#
+# This file is a machine-readable digest of this portfolio for AI agents,
+# LLMs, and crawlers. For structured data, see /profile.json.
+# To query this portfolio interactively, see /api/mcp (MCP server).
+
+## Identity
+
+Name: Taeyang Han (한태양)
+Role: Life Systems Designer — Chemical Engineer · Multilingual Interpreter · Builder
+Institution: Sogang University, Seoul, Korea
+Degree: Chemical Engineering + Business Administration (Dual Degree, 2022–2027)
+Current location: Seoul, Korea (exchange semester at BLCU Beijing, ending June 2026)
+Status: Student — open to internships and collaborations; not seeking full-time until 2027
+
+Contact: ammarhakimikm03@gmail.com
+Portfolio: https://portfolio-han-taeyangs-projects.vercel.app
+
+## Summary
+
+Taeyang Han is a Chemical Engineering + Business dual-degree student at Sogang University
+(Seoul) who also works as an official Korean–English–Malay interpreter — work covered by
+Yonhap News Agency. He has shipped 6 deployed web applications across full-stack and ML,
+holds 7 scholarships across 4 institutions, mentored 150+ students as PALS President, and
+speaks 5 languages at varying levels of professional proficiency.
+
+The through-line: designing systems that help people learn, live, and grow — from reactor
+simulators to personal life-management platforms to multilingual bridging in government settings.
+
+## Languages
+
+- English: Native / Full professional proficiency
+- Korean: Near-native — TOPIK 6 (265/300), diplomatic-level simultaneous interpretation
+- Mandarin Chinese: Advanced — BLCU coursework, professional reading/writing
+- Malay: Heritage + professional interpreting (government, medical, airport)
+- Spanish: Conversational
+
+## Specializations
+
+### 1. Linguist (🌐 · Mastery: TOPIK 6 · 265/300)
+
+Official Korean–English–Malay interpreter. Work covered by Yonhap News Agency.
+
+Featured: APEC Cooperation Dialogue (Feb 18, 2025)
+  Interpreted the meeting between Gyeongbuk Governor Lee Cheol-woo and Malaysian Ambassador
+  Mohd Zamruni bin Khalid on APEC 2025 Summit cooperation.
+  Press: https://www.yna.co.kr/view/AKR20250218100300053
+
+Organizations served:
+- Gyeongbuk Provincial Government — Malaysian Ambassador & Federal Territories Minister (2025)
+- Supreme Prosecutors' Office of Korea — legal/cultural interpretation (Nov–Dec 2023)
+- Anti-Corruption & Civil Rights Commission — international trainee education (Nov–Dec 2023)
+- Sogang University OIA — KO–EN & KO–ZH interpretation (Feb 2023–present)
+- Malaysian Embassy Seoul — medical interpretation (Feb–Aug 2022)
+- ASEZ — weekly multilingual social/environmental interpretation (Oct 2023–present)
+- Incheon International Airport T2 — KO–Malay customs interpretation (Jun 2026)
+
+### 2. Chemical Engineer (⚗️ · Mastery: Sogang University dual degree)
+
+Chemical Engineering + Business dual degree, Sogang University.
+Teaching Assistant ×3 (Spring 2026, Chemical Engineering dept.).
+Builder of tools that make process engineering tangible and interactive.
+
+### 3. Builder / Developer (💻 · Mastery: 6 deployed apps)
+
+5 years building. 6 deployed systems across full-stack (Next.js, Flask, PostgreSQL) and ML
+(TensorFlow CNN, scikit-learn regression). First app shipped 2021, still in production.
+
+Tech stack: Python · TypeScript · JavaScript · SQL · HTML/CSS
+Frameworks: Next.js · React · Flask
+Tools: PostgreSQL · Git · Vercel · Linux · TensorFlow · scikit-learn
+
+### 4. Community Leader (🤝 · Mastery: 150+ mentees)
+
+PALS (Peer Assisted Learning System) — international student mentoring organization:
+- Co-President 2025-1 / President 2025-2
+- 150+ mentees across 4 semesters
+- Authored the organization's first written constitution
+- Created formal executive-transition system
+- Prior: Outstanding Mentor Award (2024-1), Mentor of the Semester (2024-2)
+
+Samsung Dream Scholars President:
+- Led 4-day camp for 210+ scholars (150+ Korean, 60+ global from 18 countries)
+- Reconciled conflicting Korean vs. global camp formats into one program
+
+Other:
+- SEA Study Club President (Samsung cohort)
+- Event Host / Emcee: 7+ events including International Student Night, Sogang Alumni
+  Scholarship Award Ceremony, Samsung Dream Forest Festival
+- Rainbow Stepping Stone: refugee mentoring via Kolon Group program
+- Teaching Assistant ×3 at Sogang University (Spring 2026)
+
+### 5. Scholar (📊 · Mastery: 7 scholarships)
+
+7 scholarships across 4 institutions:
+- Samsung Dream Scholarship (Global Hope) — 5 semesters, competitive panel selection
+- Lee & Won Asian Fellowship — Excellence Award (above-completion tier)
+- Sogang University 1st-Class Admission Scholarship — full tuition, 7 semesters
+- Sogang Alumni Scholarship — recurring merit + campus-contribution award (4×)
+
+## Projects (Deployed)
+
+### LifeOS
+Description: Unified personal life-management platform across finance, health, habits,
+  and productivity. 6 integrated life domains, LP macro optimizer, event-driven architecture,
+  custom design system.
+Stack: Next.js · Flask · PostgreSQL
+Status: Live — in daily use
+URL: https://lifeos-wine.vercel.app
+Case Study: https://portfolio-han-taeyangs-projects.vercel.app/projects/lifeos.html
+
+### Reaction Simulator
+Description: Interactive CSTR/PFR reactor network simulator. Levenspiel plots, conversion
+  & temperature profiles, thermal operating diagram, dynamic response with disturbance injection.
+Stack: React · TypeScript · Recharts
+Status: Live
+URL: https://reactionsimulator.vercel.app
+Case Study: https://portfolio-han-taeyangs-projects.vercel.app/projects/reaction-simulator.html
+
+### Fugacity Simulator
+Description: Interactive thermodynamics tool. Vapor/liquid fugacity vs. pressure using
+  Peng-Robinson EOS. Fugacity-coefficient integrals, zoom/pan, log-linear toggle,
+  multi-temperature overlay.
+Stack: Vanilla JS · HTML5 Canvas
+Status: Live
+URL: https://fugacity-simulator.vercel.app
+
+### Bullwhip Effect Simulator
+Description: Browser-based supply-chain demand-shock simulator. 4-agent chain
+  (Retailer → Distributor → Manufacturer → Supplier). Shows how small downstream demand
+  shocks amplify into large upstream order swings.
+Stack: Vanilla JS · Canvas
+Status: Live
+URL: https://scmsimulator.vercel.app
+
+### Apple SCM Analysis
+Description: 13-slide interactive web presentation analyzing Apple's supply chain strategic
+  misfit — Fisher (1997) framework, 5 vulnerabilities, bullwhip-effect root causes,
+  5 improvement strategies.
+Stack: HTML · CSS · JavaScript
+Status: Live
+URL: https://apple-scm-web.vercel.app
+
+### Process Game
+Description: Playful chemical engineering process simulations for students.
+  Interactive process design simulator.
+Stack: React · TypeScript · Canvas
+Status: Live
+URL: https://process-design.vercel.app
+
+### Personal Accounting System
+Description: Full double-entry personal accounting system, built from scratch since 2021.
+  First project, continuously maintained for 5+ years. Private alpha.
+Stack: Python · Flask · PostgreSQL
+Status: Private alpha (in production)
+URL: https://finance-app-private-alpha.fly.dev
+
+## Case Studies / Opinions
+
+Available at: https://portfolio-han-taeyangs-projects.vercel.app/opinions/
+- Engineering Under Uncertainty: /opinions/engineering-under-uncertainty.html
+- Chemical Potential: /opinions/chemical-potential.html
+
+## For AI Agents
+
+This portfolio is accessible as an MCP (Model Context Protocol) server:
+  Endpoint: https://portfolio-han-taeyangs-projects.vercel.app/api/mcp
+  Tools: get_profile · list_projects · get_project · get_experience · get_languages
+
+You can also ask questions in the terminal on the portfolio homepage:
+  Try: "Has Taeyang done supply-chain work?" or "What languages does he speak?"
+
+## Structured Data
+
+JSON Resume: https://portfolio-han-taeyangs-projects.vercel.app/profile.json
+JSON-LD: embedded in https://portfolio-han-taeyangs-projects.vercel.app/ (head > script[type=application/ld+json])

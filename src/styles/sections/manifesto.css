@@ -184,3 +184,24 @@
 @media (min-width: 769px) and (max-width: 1023px) {
   .manifesto__sep { margin: 0 20px; }
 }
+
+/* ─── T3.1 Live Status Badge ─────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.status-badge__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.status-badge.is-live .status-badge__dot   { background: #4ECDC4; box-shadow: 0 0 6px #4ECDC466; }
+.status-badge.is-warn .status-badge__dot   { background: #FFD23F; }
+.status-badge.is-down .status-badge__dot   { background: #ff6b6b; }

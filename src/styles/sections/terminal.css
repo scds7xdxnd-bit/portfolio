@@ -59,6 +59,7 @@
 }
 .terminal__line--cmd { color: #6ec6ff; }
 .terminal__line--err { color: #ff6b6b; }
+.terminal__line--ai  { color: #a8d8a8; white-space: pre-wrap; word-break: break-word; }
 
 .terminal__input-row {
   display: flex; align-items: center; gap: 8px;

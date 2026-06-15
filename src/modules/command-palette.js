@@ -3,6 +3,38 @@ import { TRANSLATIONS } from '../data/i18n.js';
 import { switchToLang } from '../lib/i18n.js';
 import { copyEmail } from '../lib/dom.js';
 
+// T3.4 — Lightweight keyword search corpus (no runtime API cost)
+const SEARCH_CORPUS = [
+  { label: 'LifeOS — personal life-management platform', icon: '💻', cat: 'Project', keywords: 'life os lifeos productivity finance health habits nextjs flask postgresql personal operating system', action: () => window.open('https://lifeos-wine.vercel.app', '_blank', 'noopener') },
+  { label: 'Reaction Simulator — CSTR/PFR ChemE tool', icon: '⚗️', cat: 'Project', keywords: 'reaction simulator cstr pfr reactor chemical engineering levenspiel temperature conversion typescript react', action: () => window.open('https://reactionsimulator.vercel.app', '_blank', 'noopener') },
+  { label: 'Fugacity Simulator — thermodynamics VLE', icon: '⚗️', cat: 'Project', keywords: 'fugacity thermodynamics vapor liquid equilibrium peng robinson eos pressure simulation canvas', action: () => window.open('https://fugacity-simulator.vercel.app', '_blank', 'noopener') },
+  { label: 'Bullwhip Effect Simulator — supply chain', icon: '📦', cat: 'Project', keywords: 'bullwhip supply chain scm demand shock amplification retailer distributor manufacturer inventory', action: () => window.open('https://scmsimulator.vercel.app', '_blank', 'noopener') },
+  { label: 'Apple SCM Analysis — supply chain strategy', icon: '📊', cat: 'Project', keywords: 'apple supply chain scm fisher framework strategic analysis bullwhip', action: () => window.open('https://apple-scm-web.vercel.app', '_blank', 'noopener') },
+  { label: 'Process Game — ChemE educational sim', icon: '🎮', cat: 'Project', keywords: 'process game chemical engineering simulation students education react', action: () => window.open('https://process-design.vercel.app', '_blank', 'noopener') },
+  { label: 'TOPIK 6 Korean proficiency (265/300)', icon: '🌐', cat: 'Skill', keywords: 'korean topik language proficiency fluency interpretation diplomat', action: () => document.querySelector('#linguist')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'Official Korean–English–Malay interpreter', icon: '🌐', cat: 'Experience', keywords: 'interpreter interpreting korean english malay translation yonhap apec government diplomat', action: () => document.querySelector('#linguist')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'Samsung Dream Scholarship (Global Hope)', icon: '🏆', cat: 'Award', keywords: 'scholarship samsung dream scholar award funding fellowship', action: () => document.querySelector('#scholar')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'PALS President — 150+ mentees', icon: '🤝', cat: 'Leadership', keywords: 'pals president mentor mentoring leadership community students international', action: () => document.querySelector('#community')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'Machine Learning — CNN emotion classifier', icon: '🤖', cat: 'Skill', keywords: 'machine learning cnn neural network tensorflow emotion classifier deep learning ai ml', action: () => document.querySelector('#builder')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'Full-stack development (Next.js + Flask + PostgreSQL)', icon: '💻', cat: 'Skill', keywords: 'fullstack full stack web development nextjs react flask python postgresql backend frontend', action: () => document.querySelector('#builder')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: 'Chemical Engineering + Business dual degree', icon: '⚗️', cat: 'Education', keywords: 'chemical engineering business dual degree sogang university cheme', action: () => document.querySelector('#engineer')?.scrollIntoView({ behavior: 'smooth' }) },
+];
+
+function semanticSearch(q) {
+  if (q.length < 3) return [];
+  const words = q.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  if (!words.length) return [];
+  return SEARCH_CORPUS
+    .map(item => {
+      const hay = (item.label + ' ' + item.keywords).toLowerCase();
+      const hits = words.filter(w => hay.includes(w)).length;
+      return { ...item, hits };
+    })
+    .filter(item => item.hits > 0)
+    .sort((a, b) => b.hits - a.hits)
+    .slice(0, 5);
+}
+
 function initCommandPalette() {
   const overlay = document.getElementById('cmdk');
   const input   = document.getElementById('cmdk-input');
@@ -27,6 +59,8 @@ function initCommandPalette() {
     { label: 'Switch to English',        icon: '🇬🇧',  cat: 'Language', action: () => switchToLang('en') },
     { label: 'View case studies',        icon: '📖',  cat: 'Navigate', action: () => { window.location.href = 'opinions/'; } },
     { label: 'Open terminal',            icon: '>_',  cat: 'Easter egg', action: () => document.getElementById('terminal-toggle')?.click() },
+    { label: 'Tailor portfolio to a role', icon: '🎯', cat: 'AI',       action: () => document.getElementById('tailor-panel')?.dispatchEvent(new CustomEvent('tailor:open')) },
+    { label: 'Ask me anything (AI)',     icon: '🗣️',  cat: 'AI',        action: () => { document.getElementById('terminal-toggle')?.click(); setTimeout(() => { const inp = document.getElementById('terminal-input'); if (inp) { inp.value = 'ask '; inp.focus(); } }, 350); } },
   ];
 
   const PROJECT_CMDS = [];
@@ -74,13 +108,19 @@ function initCommandPalette() {
   }
 
   function render(q) {
-    q = q.toLowerCase().trim();
-    filtered = q
-      ? ALL.filter(c => c.label.toLowerCase().includes(q) || c.cat.toLowerCase().includes(q))
+    const qRaw = q.toLowerCase().trim();
+    let base = qRaw
+      ? ALL.filter(c => c.label.toLowerCase().includes(qRaw) || c.cat.toLowerCase().includes(qRaw))
       : ALL;
+
+    // T3.4 semantic search: append results when no command matches or query is a phrase
+    const semResults = qRaw.length > 4 ? semanticSearch(qRaw) : [];
+    const semNew = semResults.filter(s => !base.some(b => b.label === s.label));
+    filtered = [...base, ...semNew];
+
     active = 0;
     if (!filtered.length) {
-      list.innerHTML = `<li class="cmdk__empty">No matches for "${q}"</li>`;
+      list.innerHTML = `<li class="cmdk__empty">No matches — try "ask ${qRaw}" in the terminal</li>`;
       return;
     }
     list.innerHTML = filtered.map((c, i) =>

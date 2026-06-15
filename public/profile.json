@@ -1,0 +1,218 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Taeyang Han",
+    "label": "Life Systems Designer — Chemical Engineer · Multilingual Interpreter · Builder",
+    "image": "https://portfolio-han-taeyangs-projects.vercel.app/assets/hero.jpg",
+    "email": "ammarhakimikm03@gmail.com",
+    "url": "https://portfolio-han-taeyangs-projects.vercel.app",
+    "summary": "Chemical Engineering + Business dual-degree student at Sogang University (Seoul, Korea). Official Korean–English–Malay interpreter (TOPIK 6, 265/300) whose work has been covered by Yonhap News Agency. Builder of 6 deployed systems across full-stack and ML. 7 scholarships across 4 institutions. PALS President, 150+ mentees. Samsung Dream Scholar. Through-line: designing systems that help people learn, live, and grow.",
+    "location": {
+      "city": "Seoul",
+      "countryCode": "KR",
+      "region": "Seoul"
+    },
+    "profiles": [
+      {
+        "network": "Portfolio",
+        "url": "https://portfolio-han-taeyangs-projects.vercel.app"
+      }
+    ]
+  },
+  "education": [
+    {
+      "institution": "Sogang University",
+      "url": "https://www.sogang.ac.kr",
+      "area": "Chemical Engineering + Business Administration",
+      "studyType": "Dual Degree (B.E. + B.B.A.)",
+      "startDate": "2022-03",
+      "endDate": "2027-02",
+      "location": "Seoul, Korea"
+    },
+    {
+      "institution": "Beijing Language and Culture University (BLCU)",
+      "area": "Mandarin Chinese",
+      "studyType": "Exchange Semester",
+      "startDate": "2026-01",
+      "endDate": "2026-06",
+      "location": "Beijing, China"
+    }
+  ],
+  "work": [
+    {
+      "name": "Freelance",
+      "position": "Official Interpreter — Korean · English · Malay",
+      "startDate": "2022-02",
+      "summary": "Official interpreter for government and institutional clients. Work covered by Yonhap News Agency.",
+      "highlights": [
+        "APEC Cooperation Dialogue (Feb 18, 2025) — Gyeongbuk Governor ↔ Malaysian Ambassador. Reported by Yonhap News: https://www.yna.co.kr/view/AKR20250218100300053",
+        "Gyeongbuk Provincial Government — Malaysian Ambassador & Federal Territories Minister meetings (2025)",
+        "Supreme Prosecutors' Office of Korea — legal/cultural interpretation (Nov–Dec 2023)",
+        "Anti-Corruption & Civil Rights Commission — international trainee financial/legal education (Nov–Dec 2023)",
+        "Sogang University OIA — KO–EN & KO–ZH interpretation and document translation (Feb 2023–present)",
+        "Malaysian Embassy Seoul — medical interpretation & document translation (Feb–Aug 2022)",
+        "ASEZ — weekly multilingual interpretation on social/environmental safety (Oct 2023–present)",
+        "Incheon International Airport T2 — KO–Malay consecutive interpretation (Jun 2026)"
+      ]
+    },
+    {
+      "name": "Sogang University, Chemical Engineering Department",
+      "position": "Teaching Assistant (×3 courses)",
+      "startDate": "2026-03",
+      "summary": "Office hours, grading, and recitation sections (Spring 2026)."
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "PALS — Peer Assisted Learning System, Sogang University",
+      "position": "President (2025-2) / Co-President (2025-1)",
+      "startDate": "2024-03",
+      "summary": "International-student peer-mentoring organization. 150+ mentees across 4 semesters. Authored the organization's first written constitution and formal executive-transition system. Prior: Outstanding Mentor Award (2024-1), Mentor of the Semester (2024-2).",
+      "highlights": [
+        "Grew mentee base to 150+ over 4 semesters",
+        "Authored first written constitution and executive-transition system",
+        "Outstanding Mentor Award 2024-1 · Mentor of the Semester 2024-2"
+      ]
+    },
+    {
+      "organization": "Samsung Dream Scholars, Korea",
+      "position": "President — Global & University Cohort",
+      "startDate": "2024-01",
+      "endDate": "2024-12",
+      "summary": "Led 4-day camp for 210+ scholars (150+ Korean, 60+ global from 18 countries). Reconciled conflicting Korean vs. global camp formats into one integrated program.",
+      "url": "https://portfolio-han-taeyangs-projects.vercel.app/assets/projects/samsung_dream_scholars_president.webp"
+    },
+    {
+      "organization": "Rainbow Stepping Stone (Kolon Group)",
+      "position": "Refugee Mentor",
+      "summary": "Supported a Myanmar student through Kolon Group's refugee mentoring program."
+    }
+  ],
+  "skills": [
+    {
+      "name": "Programming Languages",
+      "level": "Advanced",
+      "keywords": ["Python", "TypeScript", "JavaScript", "SQL", "HTML/CSS"]
+    },
+    {
+      "name": "Frameworks & Libraries",
+      "keywords": ["Next.js", "React", "Flask", "TensorFlow", "scikit-learn", "Recharts"]
+    },
+    {
+      "name": "Infrastructure & Tools",
+      "keywords": ["PostgreSQL", "Git", "Vercel", "Linux", "Supabase"]
+    },
+    {
+      "name": "Domains",
+      "keywords": ["Chemical Engineering", "Supply Chain Analysis", "Systems Design", "Financial Modeling", "Machine Learning", "Process Engineering", "Content Strategy"]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native / Full professional proficiency"
+    },
+    {
+      "language": "Korean",
+      "fluency": "Near-native — TOPIK 6 (265/300), diplomatic-level simultaneous interpretation"
+    },
+    {
+      "language": "Mandarin Chinese",
+      "fluency": "Advanced — BLCU coursework, professional reading/writing"
+    },
+    {
+      "language": "Malay",
+      "fluency": "Heritage + professional interpreting (government, medical, customs)"
+    },
+    {
+      "language": "Spanish",
+      "fluency": "Conversational"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Samsung Dream Scholarship — Global Hope",
+      "date": "2024",
+      "awarder": "Samsung Dream Scholarship Foundation",
+      "summary": "Competitively selected via school nomination + Samsung Foundation panel. 5 semesters. Differentiators: TOPIK 6, deliberate Korean-language investment, dual degree."
+    },
+    {
+      "title": "Lee & Won Asian Fellowship — Excellence Award",
+      "date": "2023",
+      "awarder": "Lee & Won Foundation",
+      "summary": "Earned the Excellence Award (above-completion tier)."
+    },
+    {
+      "title": "Sogang University 1st-Class Admission Scholarship",
+      "date": "2022",
+      "awarder": "Sogang University",
+      "summary": "Full tuition across 7 semesters."
+    },
+    {
+      "title": "Sogang Alumni Scholarship (×4)",
+      "awarder": "Sogang University Alumni Association",
+      "summary": "Recurring merit + campus-contribution award. 2024-2, 2025-2, 2026-1."
+    },
+    {
+      "title": "PALS Outstanding Mentor of the Semester",
+      "date": "2024",
+      "awarder": "PALS, Sogang University",
+      "summary": "2024-1 (Outstanding Mentor) and 2024-2 (Mentor of the Semester)."
+    }
+  ],
+  "projects": [
+    {
+      "name": "LifeOS",
+      "description": "Unified personal life-management platform across finance, health, habits, and productivity. 6 integrated life domains, LP macro optimizer, event-driven architecture, custom design system.",
+      "highlights": ["Next.js + Flask + PostgreSQL", "LP macro optimizer", "Event-driven architecture"],
+      "url": "https://lifeos-wine.vercel.app",
+      "keywords": ["Next.js", "Flask", "PostgreSQL", "full-stack", "systems"]
+    },
+    {
+      "name": "Reaction Simulator",
+      "description": "Interactive CSTR/PFR reactor network simulator. Levenspiel plots, conversion & temperature profiles, thermal operating diagram, dynamic disturbance injection.",
+      "highlights": ["React + TypeScript + Recharts", "Levenspiel plots", "Real-time thermal operating diagram"],
+      "url": "https://reactionsimulator.vercel.app",
+      "keywords": ["React", "TypeScript", "Chemical Engineering", "simulation"]
+    },
+    {
+      "name": "Fugacity Simulator",
+      "description": "Interactive thermodynamics tool. Vapor/liquid fugacity vs. pressure using Peng-Robinson EOS. Multi-temperature overlay, zoom/pan, log-linear toggle.",
+      "highlights": ["Vanilla JS + HTML5 Canvas", "Peng-Robinson EOS", "Multi-temperature overlay"],
+      "url": "https://fugacity-simulator.vercel.app",
+      "keywords": ["Vanilla JS", "Canvas", "thermodynamics", "Chemical Engineering"]
+    },
+    {
+      "name": "Bullwhip Effect Simulator",
+      "description": "Browser-based supply-chain demand-shock simulator. 4-agent chain (Retailer → Distributor → Manufacturer → Supplier). Visualizes how small downstream shocks amplify upstream.",
+      "highlights": ["4-agent chain", "Vanilla JS + Canvas", "Real-time amplification charting"],
+      "url": "https://scmsimulator.vercel.app",
+      "keywords": ["supply chain", "simulation", "Vanilla JS"]
+    },
+    {
+      "name": "Apple SCM Analysis",
+      "description": "13-slide interactive web presentation analyzing Apple's supply chain using Fisher (1997) framework. 5 vulnerabilities, bullwhip-effect root causes, 5 improvement strategies.",
+      "url": "https://apple-scm-web.vercel.app",
+      "keywords": ["supply chain", "strategy", "interactive presentation"]
+    },
+    {
+      "name": "Process Game",
+      "description": "Playful chemical engineering process simulations for students. Interactive process design simulator.",
+      "url": "https://process-design.vercel.app",
+      "keywords": ["React", "TypeScript", "Chemical Engineering", "education"]
+    },
+    {
+      "name": "Personal Accounting System",
+      "description": "Full double-entry personal accounting system built from scratch since 2021. First project, continuously maintained for 5+ years. Private alpha.",
+      "highlights": ["5+ years in production", "Built since age ~20", "Double-entry accounting"],
+      "url": "https://finance-app-private-alpha.fly.dev",
+      "keywords": ["Python", "Flask", "PostgreSQL", "finance"]
+    }
+  ],
+  "meta": {
+    "canonical": "https://portfolio-han-taeyangs-projects.vercel.app/profile.json",
+    "version": "v1.0.0",
+    "lastModified": "2026-06-16",
+    "notes": "For AI agents: also available as MCP server at /api/mcp and as a plain-text digest at /llms.txt"
+  }
+}
