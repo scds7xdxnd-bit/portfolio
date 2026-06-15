@@ -2,7 +2,7 @@ import { currentLang } from './data/i18n.js';
 import { applyTranslations, updateLangToggleLabel, notePolyglot } from './lib/i18n.js';
 import { injectIcons } from './lib/icons.js';
 import { renderTrophyShelf } from './lib/achievements.js';
-import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, initShimmerHover } from './lib/dom.js';
+import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, initShimmerHover, initCardTilt } from './lib/dom.js';
 import {
   initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle,
   initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight,
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProgressAnimation();
   initLinksDropdown();
   initShimmerHover();
+  initCardTilt();
   const copyBtn = document.getElementById('copy-email-btn');
   if (copyBtn) copyBtn.addEventListener('click', copyEmail);
   initStickyNav();

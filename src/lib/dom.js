@@ -101,3 +101,25 @@ export function initShimmerHover() {
     btn.classList.add('shimmer-active');
   });
 }
+
+// §5.6 Subtle 3D tilt on spec panels and domain tiles — desktop + reduced-motion aware
+export function initCardTilt() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const TILT_MAX = 4; // degrees
+
+  function applyTilt(el) {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5; // -0.5 to 0.5
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      el.style.transform = `perspective(600px) rotateY(${(x * TILT_MAX).toFixed(2)}deg) rotateX(${(-y * TILT_MAX).toFixed(2)}deg) translateY(-2px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  }
+
+  document.querySelectorAll('.domain-tile, .specs__featured-card').forEach(applyTilt);
+}
