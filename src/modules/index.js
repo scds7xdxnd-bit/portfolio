@@ -1,4 +1,4 @@
-export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock } from './nav.js';
+export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle } from './nav.js';
 export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg } from './hero.js';
 export { renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver } from './specs.js';
 export { initLifeSystem } from './life-system.js';

@@ -121,4 +121,23 @@ function initStickyNav() {
 }
 
 
-export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock };
+function initThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  const saved = localStorage.getItem('th_theme');
+  if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+  btn.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('th_theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('th_theme', 'dark');
+    }
+  });
+}
+
+export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle };

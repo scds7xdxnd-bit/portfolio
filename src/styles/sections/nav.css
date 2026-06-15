@@ -300,3 +300,27 @@
   /* Hamburger on the far left; search + language toggle on the right */
   .site-nav__hamburger { order: -1; margin-right: auto; }
 }
+
+/* ── §5.5 Dark mode theme toggle ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: none;
+  border: 2px solid var(--border-light);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: border-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: rotate(15deg);
+}
+.theme-toggle__icon { line-height: 1; }
+[data-theme='dark'] .theme-toggle__icon::before { content: '◑'; }
+.theme-toggle__icon { content: '◐'; }

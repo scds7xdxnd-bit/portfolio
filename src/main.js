@@ -4,7 +4,7 @@ import { injectIcons } from './lib/icons.js';
 import { renderTrophyShelf } from './lib/achievements.js';
 import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, initShimmerHover } from './lib/dom.js';
 import {
-  initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock,
+  initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle,
   initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg,
   renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver,
   initLifeSystem,
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyNav();
   initNavDropdown();
   initLangToggle();
+  initThemeToggle();
   initHeroParallax();
   initGradientWaveText();
   initSpecialText();

@@ -205,3 +205,33 @@
 .status-badge.is-live .status-badge__dot   { background: #4ECDC4; box-shadow: 0 0 6px #4ECDC466; }
 .status-badge.is-warn .status-badge__dot   { background: #FFD23F; }
 .status-badge.is-down .status-badge__dot   { background: #ff6b6b; }
+
+/* ── §5.7 Now widget ── */
+.manifesto__block--now .manifesto__now-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.manifesto__block--now .manifesto__now-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.manifesto__now-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.manifesto__now-date {
+  margin-top: 10px;
+  font-size: 10px;
+  font-family: var(--font-game);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
