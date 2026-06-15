@@ -128,6 +128,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Klee+One&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/styles/index.css">
+  <!-- §7 View Transitions API — progressive enhancement for same-origin navigation -->
+  <meta name="view-transition" content="same-origin">
 </head>
 <body>
 
@@ -561,16 +563,16 @@
   </div>
 
   <!-- T2.1 MCP CTA — for AI agents and curious humans -->
-  <div class="mcp-cta" aria-label="MCP server for AI agents">
+  <button id="mcp-cta" class="mcp-cta" aria-label="Copy MCP server URL for Claude" title="Click to copy MCP URL">
     <div class="mcp-cta__inner">
       <span class="mcp-cta__icon" aria-hidden="true">🤖</span>
       <div class="mcp-cta__text">
         <strong>Add me to your Claude</strong>
         <span>This portfolio is an MCP server — your AI agent can query it directly.</span>
       </div>
-      <code class="mcp-cta__url" title="MCP endpoint URL">portfolio…/api/mcp</code>
+      <code class="mcp-cta__url">…/api/mcp</code>
     </div>
-  </div>
+  </button>
 
   <!-- Ask-me terminal -->
   <button id="terminal-toggle" class="terminal__fab" aria-label="Open terminal">&gt;_</button>

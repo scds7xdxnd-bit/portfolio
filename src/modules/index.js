@@ -7,6 +7,6 @@ export { initCommandPalette } from './command-palette.js';
 export { initTerminal } from './terminal.js';
 export { initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg } from './ambient.js';
 export { initBullwhipSim, initPhSim, initRxnSim, initGuestbook } from './sims.js';
-export { initStatusBadge } from './status.js';
+export { initStatusBadge, initMcpCta } from './status.js';
 export { initTailor } from './tailor.js';
 export { initVisitorFraming } from './visitor.js';

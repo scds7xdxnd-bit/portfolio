@@ -13,7 +13,7 @@ import {
   initTerminal,
   initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg,
   initBullwhipSim, initPhSim, initRxnSim, initGuestbook,
-  initStatusBadge, initTailor, initVisitorFraming,
+  initStatusBadge, initMcpCta, initTailor, initVisitorFraming,
 } from './modules/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPhSim();
   initRxnSim();
   initStatusBadge();
+  initMcpCta();
   initTailor();
   initVisitorFraming();
 

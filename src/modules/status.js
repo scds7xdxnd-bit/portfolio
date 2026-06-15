@@ -1,4 +1,4 @@
-// T3.1 + T3.2 — Live status badge + GitHub pulse.
+// T3.1 + T3.2 — Live status badge + GitHub pulse. Also wires MCP CTA copy.
 
 export function initStatusBadge() {
   const badge = document.getElementById('status-badge');
@@ -33,4 +33,29 @@ export function initStatusBadge() {
   }
 
   refresh();
+}
+
+// MCP CTA — click to copy endpoint URL, show brief feedback
+export function initMcpCta() {
+  const btn = document.getElementById('mcp-cta');
+  if (!btn) return;
+  const MCP_URL = `${window.location.origin}/api/mcp`;
+  const urlEl = btn.querySelector('.mcp-cta__url');
+  if (urlEl) urlEl.textContent = `${window.location.hostname}/api/mcp`;
+
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(MCP_URL);
+      btn.classList.add('is-copied');
+      const strong = btn.querySelector('strong');
+      const origText = strong?.textContent;
+      if (strong) strong.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        if (strong && origText) strong.textContent = origText;
+      }, 1800);
+    } catch {
+      window.open(MCP_URL, '_blank', 'noopener');
+    }
+  });
 }

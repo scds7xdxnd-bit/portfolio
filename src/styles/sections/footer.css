@@ -169,6 +169,11 @@
   bottom: 82px; left: 24px;
   z-index: 9990;
   max-width: 340px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
 }
 .mcp-cta__inner {
   display: flex;
@@ -217,4 +222,35 @@
   user-select: all;
   flex-shrink: 0;
 }
+.mcp-cta.is-copied .mcp-cta__inner {
+  border-color: rgba(109, 255, 176, 0.8);
+  box-shadow: 2px 2px 0 rgba(109, 255, 176, 0.4);
+}
+.mcp-cta.is-copied .mcp-cta__text strong { color: #6DFFB0; }
+
 @media (max-width: 600px) { .mcp-cta { display: none; } }
+
+/* §7 View Transitions — cross-fade for same-origin navigation */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (view-transition-name: main) {
+    html::view-transition-old(root),
+    html::view-transition-new(root) {
+      animation-duration: 200ms;
+      animation-timing-function: ease-out;
+    }
+    html::view-transition-old(root) {
+      animation-name: vt-slide-out;
+    }
+    html::view-transition-new(root) {
+      animation-name: vt-slide-in;
+    }
+    @keyframes vt-slide-out {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-8px); }
+    }
+    @keyframes vt-slide-in {
+      from { opacity: 0; transform: translateX(8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  }
+}
