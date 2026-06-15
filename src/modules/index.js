@@ -9,3 +9,4 @@ export { initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg } from '.
 export { initBullwhipSim, initPhSim, initRxnSim, initGuestbook } from './sims.js';
 export { initStatusBadge } from './status.js';
 export { initTailor } from './tailor.js';
+export { initVisitorFraming } from './visitor.js';

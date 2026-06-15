@@ -144,6 +144,7 @@ function initAvatarEgg() {
 function initNpcDialogue() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const el = document.querySelector('.hero__speech p');
+  const bubble = document.querySelector('.hero__speech');
   if (!el) return;
   const LINES = {
     en: [
@@ -152,6 +153,7 @@ function initNpcDialogue() {
       "If it can't be built, I'll figure out why.",
       'Currently in Seoul, probably in a flow state.',
       'I optimize for clarity — not cleverness.',
+      '← click to ask me anything',
     ],
     ko: [
       null,
@@ -159,6 +161,7 @@ function initNpcDialogue() {
       '다섯 개 언어, 여섯 개 앱, 하나의 이야기.',
       '서울에서 코딩 중 — 아마 플로우 상태.',
       '명확함을 위해 최적화합니다.',
+      '← 뭐든지 물어보세요',
     ],
     zh: [
       null,
@@ -166,6 +169,7 @@ function initNpcDialogue() {
       '五种语言，六个应用，一个故事。',
       '在首尔写代码，可能处于心流状态。',
       '我追求清晰，而非聪明。',
+      '← 有什么想问的都可以',
     ],
   };
   let idx = 0;
@@ -178,6 +182,20 @@ function initNpcDialogue() {
     el.style.opacity = '0';
     setTimeout(() => { el.textContent = pool[idx] ?? pool[0]; el.style.opacity = '1'; }, 280);
   }, 10000);
+
+  // T4.1 — click speech bubble to open terminal and pre-fill "ask "
+  if (bubble) {
+    bubble.style.cursor = 'pointer';
+    bubble.title = 'Click to ask me anything';
+    bubble.addEventListener('click', () => {
+      const toggle = document.getElementById('terminal-toggle');
+      const inp = document.getElementById('terminal-input');
+      toggle?.click();
+      setTimeout(() => {
+        if (inp) { inp.value = 'ask '; inp.focus(); }
+      }, 350);
+    });
+  }
 }
 
 function initIdleAvatar() {
