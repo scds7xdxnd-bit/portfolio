@@ -109,6 +109,18 @@ function renderSpecializations() {
       </div>`;
 
     const miniSimHtml =
+      spec.miniSim === 'lang-quiz' ? `
+      <div class="lang-quiz" id="lang-quiz">
+        <div class="lang-quiz__head">
+          <span class="lang-quiz__title" data-i18n="langquiz.title">${t('langquiz.title')}</span>
+          <span class="lang-quiz__sub" data-i18n="langquiz.sub">${t('langquiz.sub')}</span>
+        </div>
+        <div class="lang-quiz__phrase-wrap">
+          <p class="lang-quiz__phrase" id="lang-quiz-phrase" aria-live="polite"></p>
+        </div>
+        <div class="lang-quiz__choices" id="lang-quiz-choices"></div>
+        <p class="lang-quiz__score" id="lang-quiz-score"></p>
+      </div>` :
       spec.miniSim === 'bullwhip' ? `
       <div class="bullwhip-sim" id="bullwhip-sim">
         <div class="bullwhip-sim__head">

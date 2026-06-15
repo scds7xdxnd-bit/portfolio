@@ -12,7 +12,7 @@ import {
   initCommandPalette,
   initTerminal,
   initWorldBgParallax, initXpBar, initDistilCol, initConsoleEgg,
-  initBullwhipSim, initPhSim, initRxnSim, initGuestbook,
+  initBullwhipSim, initPhSim, initRxnSim, initGuestbook, initLangQuiz,
   initStatusBadge, initMcpCta, initTailor, initVisitorFraming,
 } from './modules/index.js';
 
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBullwhipSim();
   initPhSim();
   initRxnSim();
+  initLangQuiz();
   initStatusBadge();
   initMcpCta();
   initTailor();

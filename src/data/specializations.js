@@ -25,7 +25,7 @@ export const SPECIALIZATIONS = [
       { titleKey: 'spec.linguist.item6.title', descKey: 'spec.linguist.item6.desc' },
       { titleKey: 'spec.linguist.item7.title', descKey: 'spec.linguist.item7.desc' },
     ],
-    miniSim: null,
+    miniSim: 'lang-quiz',
     certs: [
       { filename: '20241_TOPIK_scorecard', name: 'TOPIK Scorecard', icon: '📝' },
       { filename: '20261_BLCU_transcript', name: 'BLCU Transcript (2026-1)', icon: '🇨🇳' },

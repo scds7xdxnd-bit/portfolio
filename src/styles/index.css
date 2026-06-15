@@ -874,6 +874,128 @@
 }
 
 /* ═══════════════════════════════════════════════
+   28b. LANGUAGE QUIZ MINI-SIM
+   ═══════════════════════════════════════════════ */
+.lang-quiz {
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: var(--bg-panel);
+}
+
+.lang-quiz__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.lang-quiz__title {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.lang-quiz__sub {
+  font-family: var(--font-hand);
+  font-size: 15px;
+  color: var(--grey-dark);
+}
+
+.lang-quiz__phrase-wrap {
+  padding: 20px 18px 12px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.lang-quiz__phrase {
+  font-family: var(--font-body, system-ui);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.lang-quiz__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 14px;
+}
+
+.lang-quiz__choice {
+  padding: 6px 14px;
+  font-family: var(--font-game);
+  font-size: 12px;
+  font-weight: 600;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  background: var(--bg-primary);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 120ms, color 120ms, border-color 120ms, transform 120ms;
+}
+
+.lang-quiz__choice:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+}
+
+.lang-quiz__choice:disabled { cursor: default; }
+
+.lang-quiz__choice.is-correct {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: #fff;
+}
+
+.lang-quiz__choice.is-wrong {
+  background: var(--coral);
+  border-color: var(--coral);
+  color: #fff;
+}
+
+.lang-quiz__score {
+  font-family: var(--font-game);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--grey-dark);
+  padding: 0 18px 14px;
+  margin: 0;
+}
+
+.lang-quiz__retry {
+  padding: 7px 18px;
+  font-family: var(--font-game);
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid var(--sky);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--sky);
+  cursor: pointer;
+  transition: background 120ms, color 120ms;
+  margin-top: 4px;
+}
+
+.lang-quiz__retry:hover {
+  background: var(--sky);
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .lang-quiz__choice { font-size: 11px; padding: 5px 11px; }
+}
+
+/* ═══════════════════════════════════════════════
    29. GUESTBOOK DOODLE WALL
    ═══════════════════════════════════════════════ */
 .guestbook-section {

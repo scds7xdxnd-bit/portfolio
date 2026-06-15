@@ -201,4 +201,67 @@ function initGuestbook() {
 }
 
 
-export { initBullwhipSim, initPhSim, initRxnSim, initGuestbook };
+// §3.5 — Language Quiz: "Guess the language" interactive game
+function initLangQuiz() {
+  const sim = document.getElementById('lang-quiz');
+  if (!sim) return;
+  const phraseEl  = document.getElementById('lang-quiz-phrase');
+  const choicesEl = document.getElementById('lang-quiz-choices');
+  const scoreEl   = document.getElementById('lang-quiz-score');
+  if (!phraseEl || !choicesEl || !scoreEl) return;
+
+  // 5 phrases, one per language Taeyang speaks — each about the same topic (self-introduction)
+  const ROUNDS = [
+    { text: 'I design systems that help people live better.', lang: 'English', langCode: 'en' },
+    { text: '저는 시스템을 설계해서 사람들이 더 잘 살 수 있도록 돕습니다.', lang: '한국어', langCode: 'ko' },
+    { text: '我设计系统，帮助人们过上更好的生活。', lang: '中文', langCode: 'zh' },
+    { text: 'Saya mereka bentuk sistem untuk membantu orang hidup lebih baik.', lang: 'Bahasa Melayu', langCode: 'ms' },
+    { text: 'Diseño sistemas que ayudan a las personas a vivir mejor.', lang: 'Español', langCode: 'es' },
+  ];
+  const ALL_LANGS = ROUNDS.map(r => r.lang);
+  const shuffled = [...ROUNDS].sort(() => Math.random() - 0.5);
+  let qi = 0, score = 0, done = false;
+
+  function render() {
+    if (qi >= shuffled.length) {
+      done = true;
+      phraseEl.textContent = '';
+      choicesEl.innerHTML = '';
+      const pct = Math.round(score / shuffled.length * 100);
+      scoreEl.textContent = `${score}/${shuffled.length} — ${pct >= 80 ? '🌐 ' : ''}${t('langquiz.result').replace('{score}', score).replace('{total}', shuffled.length)}`;
+      const retry = document.createElement('button');
+      retry.className = 'lang-quiz__retry';
+      retry.textContent = t('langquiz.retry');
+      retry.addEventListener('click', () => { qi = 0; score = 0; done = false; scoreEl.textContent = ''; choicesEl.innerHTML = ''; shuffled.sort(() => Math.random() - 0.5); render(); });
+      choicesEl.appendChild(retry);
+      return;
+    }
+
+    const round = shuffled[qi];
+    phraseEl.textContent = `"${round.text}"`;
+    phraseEl.lang = round.langCode;
+    scoreEl.textContent = `${t('langquiz.q')} ${qi + 1}/${shuffled.length}`;
+
+    choicesEl.innerHTML = '';
+    ALL_LANGS.forEach(lang => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-quiz__choice';
+      btn.textContent = lang;
+      btn.addEventListener('click', () => {
+        const correct = lang === round.lang;
+        if (correct) score++;
+        choicesEl.querySelectorAll('.lang-quiz__choice').forEach(b => {
+          b.disabled = true;
+          if (b.textContent === round.lang) b.classList.add('is-correct');
+          else if (b === btn && !correct) b.classList.add('is-wrong');
+        });
+        setTimeout(() => { qi++; render(); }, 900);
+      });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  render();
+}
+
+export { initBullwhipSim, initPhSim, initRxnSim, initGuestbook, initLangQuiz };
