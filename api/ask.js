@@ -1,9 +1,21 @@
 export const config = { runtime: 'edge' };
 
-// In-memory rate limiting per IP (resets on cold start — good enough for a portfolio)
+// --- env-tunable limits (all defaulted so the function runs with zero new env set) ---
+const MAX_PER_WINDOW = Number(process.env.MAX_PER_WINDOW) || 8;
+const WINDOW_SECONDS  = Number(process.env.WINDOW_SECONDS)  || 60;
+const WINDOW_MS       = WINDOW_SECONDS * 1000;
+const DAILY_MAX       = Number(process.env.DAILY_MAX)       || 500;
+
+// --- optional durable store (REST, fail-open) ---
+const STORE_URL   = process.env.KV_REST_API_URL   || process.env.UPSTASH_REDIS_REST_URL   || '';
+const STORE_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
+const STORE_ON    = Boolean(STORE_URL && STORE_TOKEN);
+
+// --- optional origin allowlist (defense-in-depth, default-allow) ---
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || '';
+
+// --- in-memory rate limiting (fallback when durable store is absent or unreachable) ---
 const _counts = new Map();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 8;
 
 function checkRate(ip) {
   const now = Date.now();
@@ -12,6 +24,57 @@ function checkRate(ip) {
   entry.count++;
   _counts.set(ip, entry);
   return entry.count <= MAX_PER_WINDOW;
+}
+
+// --- trusted client IP (fix #1 — spoofable identity) ---
+function clientId(req) {
+  const real = req.headers.get('x-real-ip');
+  if (real) return real.trim();
+  const xff = req.headers.get('x-forwarded-for');
+  if (xff) {
+    const parts = xff.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length) return parts[parts.length - 1];
+  }
+  return 'anon';
+}
+
+// --- durable store helper (REST pipeline, no npm deps — fix #2) ---
+async function store(commands) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 800);
+  try {
+    const res = await fetch(`${STORE_URL}/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${STORE_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(commands),
+      signal: ctrl.signal,
+    });
+    if (!res.ok) throw new Error(`store ${res.status}`);
+    return res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function checkRateDurable(id) {
+  const key = `rl:ip:${id}`;
+  const [incr] = await store([
+    ["INCR", key],
+    ["EXPIRE", key, String(WINDOW_SECONDS), "NX"],
+  ]);
+  const count = Number(incr.result);
+  return count <= MAX_PER_WINDOW;
+}
+
+async function checkDailyDurable() {
+  const day = new Date().toISOString().slice(0, 10);
+  const key = `rl:global:${day}`;
+  const [incr] = await store([
+    ["INCR", key],
+    ["EXPIRE", key, "172800", "NX"],
+  ]);
+  const count = Number(incr.result);
+  return count <= DAILY_MAX;
 }
 
 const PORTFOLIO_CONTEXT = `
@@ -106,8 +169,25 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anon';
-  if (!checkRate(ip)) {
+  // optional origin allowlist (§6) — default-allow, env-gated
+  if (ALLOWED_ORIGIN) {
+    const origin = req.headers.get('origin') || '';
+    if (origin && origin !== ALLOWED_ORIGIN) {
+      return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
+
+  const id = clientId(req);
+
+  // per-IP rate limit — durable if store configured, else in-memory fallback (fail-open)
+  let allowed = true;
+  if (STORE_ON) {
+    try { allowed = await checkRateDurable(id); }
+    catch (e) { console.warn('[ask] store rate-limit failed, falling back:', e.message); allowed = checkRate(id); }
+  } else {
+    allowed = checkRate(id);
+  }
+  if (!allowed) {
     return new Response(
       JSON.stringify({ error: 'Rate limit reached — try again in a minute.' }),
       { status: 429, headers: { 'Content-Type': 'application/json' } }
@@ -124,24 +204,43 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: 'Missing question' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   }
 
-  // Hard cap on input length — treat user text as DATA, never as instructions
   const safeQuestion = question.trim().slice(0, 600);
 
-  // Validate and sanitize history — only allow user/assistant roles, cap each turn
-  const safeHistory = Array.isArray(history)
-    ? history.slice(-8).filter(m => m.role === 'user' || m.role === 'assistant').map(m => ({
-        role: m.role,
-        content: String(m.content || '').slice(0, 400),
-      }))
-    : [];
+  // hardened history (fix #3 — bounded turns, chars, and total budget)
+  const MAX_HISTORY_TURNS = 6;
+  const MAX_TURN_CHARS    = 300;
+  const MAX_HISTORY_CHARS = 1500;
+
+  let total = 0;
+  const safeHistory = (Array.isArray(history) ? history : [])
+    .slice(-MAX_HISTORY_TURNS)
+    .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .map(m => ({ role: m.role, content: m.content.slice(0, MAX_TURN_CHARS) }))
+    .filter(m => {
+      total += m.content.length;
+      return total <= MAX_HISTORY_CHARS;
+    });
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
-    // Graceful degradation: return fallback JSON the terminal can display
     return new Response(
       JSON.stringify({ mode: 'fallback', answer: "The AI assistant isn't configured yet — but the terminal has plenty of commands! Try: whoami · about · projects · skills · contact" }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
+  }
+
+  // global daily cap — gated here so only requests that would actually spend on DeepSeek
+  // count toward it (malformed/empty POSTs can't burn the kill-switch). Fail-open on store error.
+  if (STORE_ON) {
+    let underCap = true;
+    try { underCap = await checkDailyDurable(); }
+    catch (e) { console.warn('[ask] store daily-cap failed, allowing:', e.message); underCap = true; }
+    if (!underCap) {
+      return new Response(
+        JSON.stringify({ mode: 'fallback', answer: "I'm getting a lot of questions right now — try a terminal command like `projects`, `skills`, or `contact`, or come back in a bit." }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
   }
 
   const langInstruction = LANG_INSTRUCTION[lang] || LANG_INSTRUCTION.en;
@@ -191,7 +290,6 @@ ${PORTFOLIO_CONTEXT}`;
     );
   }
 
-  // Pass the SSE stream straight through — DeepSeek uses OpenAI SSE format
   return new Response(upstream.body, {
     headers: {
       'Content-Type': 'text/event-stream',
