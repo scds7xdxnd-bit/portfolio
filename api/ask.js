@@ -80,10 +80,11 @@ async function checkDailyDurable() {
 const PORTFOLIO_CONTEXT = `
 === TAEYANG HAN — PORTFOLIO FACTS (ground truth) ===
 
-Name: Taeyang Han (한태양)
+Name: Taeyang Han (한태양); legal name Khairul Ammar Hakimi
+Nationality: Malaysian — born and raised in Malaysia
 Role: Life Systems Designer
 University: Sogang University, Seoul — Chemical Engineering + Business Administration (Dual Degree, 2022–2027)
-Exchange: BLCU Beijing, Jan–Jun 2026 (Mandarin)
+Exchange: BLCU Beijing, Jan 2026 only (one month, Mandarin intensive)
 Status: Student — open to internships & collaborations; not seeking full-time until 2027
 Contact: ammarhakimikm03@gmail.com
 Portfolio: https://portfolio-han-taeyangs-projects.vercel.app
