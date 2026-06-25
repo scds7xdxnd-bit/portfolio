@@ -22,14 +22,13 @@
     {
       "id": "samsung-webzine-2024",
       "category": "community",
-      "statement": "President of Samsung Dream Scholars Association; leadership story featured in Samsung C&T Newsroom webzine",
-      "verifiedBy": "Samsung C&T",
+      "statement": "President of the Samsung Dream Scholars (Global & University Cohort); leadership story featured in the Samsung Dream Scholarship Foundation webzine",
+      "verifiedBy": "Samsung Dream Scholarship Foundation",
       "evidence": [
         {
           "type": "publication",
-          "label": "Samsung C&T Webzine 2024-09",
-          "url": "https://news.samsungcnt.com/newscenter/webzine-202409/",
-          "datePublished": "2024-09"
+          "label": "Samsung Dream Scholarship Foundation Webzine (issue 96)",
+          "url": "https://webzine.sdream.or.kr/webzin/webzine96/sub1_4.html"
         }
       ],
       "tags": ["Samsung", "leadership", "scholarship", "community"]
@@ -63,7 +62,7 @@
     {
       "id": "pals-copresident",
       "category": "community",
-      "statement": "Co-President of PALS (Peer Assisted Learning System) at Sogang University — mentored 150+ students across 10 subjects",
+      "statement": "President (2025-2) / Co-President (2025-1) of PALS (Peer Assisted Learning System) at Sogang University — 150+ mentees across 4 semesters",
       "evidence": [
         {
           "type": "institutional",
@@ -76,7 +75,7 @@
     {
       "id": "sogang-ta",
       "category": "scholar",
-      "statement": "Teaching Assistant for Chemical Engineering Lab (Sogang University, 2026)",
+      "statement": "Teaching Assistant for 3 courses in the Chemical Engineering Department (Sogang University, Spring 2026)",
       "evidence": [
         {
           "type": "institutional",
@@ -89,7 +88,7 @@
     {
       "id": "lifeos-live",
       "category": "builder",
-      "statement": "LifeOS — deployed full-stack personal operating system (Next.js + Supabase + PostgreSQL), live production app",
+      "statement": "LifeOS — deployed full-stack personal operating system (Next.js + Flask + PostgreSQL), live production app",
       "evidence": [
         {
           "type": "live-app",
@@ -102,12 +101,12 @@
           "url": "/projects/lifeos.html"
         }
       ],
-      "tags": ["Next.js", "Supabase", "fullstack", "builder"]
+      "tags": ["Next.js", "Flask", "fullstack", "builder"]
     },
     {
       "id": "reaction-simulator-live",
       "category": "engineer",
-      "statement": "Reaction Simulator — CSTR/PFR reactor network simulation tool (Python + Plotly), live deployment",
+      "statement": "Reaction Simulator — interactive CSTR/PFR reactor network simulation tool (React + TypeScript + Recharts), live deployment",
       "evidence": [
         {
           "type": "live-app",
@@ -120,12 +119,12 @@
           "url": "/projects/reaction-simulator.html"
         }
       ],
-      "tags": ["ChemE", "Python", "Plotly", "simulation"]
+      "tags": ["ChemE", "React", "TypeScript", "simulation"]
     },
     {
       "id": "apple-scm-live",
       "category": "engineer",
-      "statement": "Apple Supply Chain LP Optimizer (Python + Gurobi), deployed as interactive web app",
+      "statement": "Apple SCM Analysis — 13-slide interactive web presentation analyzing Apple's supply chain using the Fisher (1997) framework (HTML + CSS + JavaScript), deployed as a live web app",
       "evidence": [
         {
           "type": "live-app",
@@ -133,7 +132,7 @@
           "url": "https://apple-scm-web.vercel.app"
         }
       ],
-      "tags": ["supply-chain", "Python", "Gurobi", "optimization"]
+      "tags": ["supply-chain", "strategy", "interactive-presentation"]
     },
     {
       "id": "gyeongbuk-federal-territories-minister",

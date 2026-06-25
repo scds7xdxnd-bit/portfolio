@@ -113,7 +113,6 @@ function initHelloRotator() {
     { text: 'こんにちは',  lang: 'ja' },
     { text: '你好',        lang: 'zh' },
     { text: 'Apa khabar', lang: 'ms' },
-    { text: 'Hola',       lang: 'es' },
   ];
   let i = 0;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

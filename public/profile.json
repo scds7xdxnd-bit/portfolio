@@ -32,9 +32,9 @@
     {
       "institution": "Beijing Language and Culture University (BLCU)",
       "area": "Mandarin Chinese",
-      "studyType": "Exchange Semester",
+      "studyType": "Exchange — Mandarin Intensive (1 month)",
       "startDate": "2026-01",
-      "endDate": "2026-06",
+      "endDate": "2026-01",
       "location": "Beijing, China"
     }
   ],
@@ -118,15 +118,15 @@
     },
     {
       "language": "Mandarin Chinese",
-      "fluency": "Advanced — BLCU coursework, professional reading/writing"
+      "fluency": "Intermediate — BLCU coursework, professional reading/writing"
     },
     {
       "language": "Malay",
       "fluency": "Heritage + professional interpreting (government, medical, customs)"
     },
     {
-      "language": "Spanish",
-      "fluency": "Conversational"
+      "language": "Japanese",
+      "fluency": "Conversational — everyday basic to intermediate"
     }
   ],
   "awards": [

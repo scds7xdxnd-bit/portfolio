@@ -92,9 +92,9 @@ Portfolio: https://portfolio-han-taeyangs-projects.vercel.app
 LANGUAGES:
 - English: native / full professional
 - Korean: TOPIK 6 (265/300) — diplomatic-level simultaneous interpretation
-- Mandarin Chinese: advanced — BLCU coursework
+- Mandarin Chinese: intermediate — BLCU coursework
 - Malay: heritage + professional interpreting (government, medical, airport)
-- Spanish: conversational
+- Japanese: conversational — everyday basic to intermediate
 
 INTERPRETING (covered by Yonhap News):
 - APEC Cooperation Dialogue, Feb 18 2025 — Gyeongbuk Governor ↔ Malaysian Ambassador

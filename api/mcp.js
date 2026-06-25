@@ -25,9 +25,9 @@ const PROFILE = {
   languages: [
     { language: 'English', level: 'Native / Full professional' },
     { language: 'Korean', level: 'TOPIK 6 (265/300) — diplomatic-level interpretation' },
-    { language: 'Mandarin Chinese', level: 'Advanced — BLCU coursework' },
+    { language: 'Mandarin Chinese', level: 'Intermediate — BLCU coursework' },
     { language: 'Malay', level: 'Heritage + professional interpreting' },
-    { language: 'Spanish', level: 'Conversational' },
+    { language: 'Japanese', level: 'Conversational — everyday basic to intermediate' },
   ],
   scholarships: 7,
   mentees: '150+',

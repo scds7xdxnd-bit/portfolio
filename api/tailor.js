@@ -26,7 +26,7 @@ EXPERIENCE AREAS:
 - scholar: 7 scholarships across 4 institutions (Samsung Dream, Lee & Won Excellence, Sogang full-tuition)
 
 SKILLS: Python · TypeScript · JavaScript · SQL · Next.js · React · Flask · PostgreSQL · TensorFlow · scikit-learn · ChemE · Supply Chain · Systems Design · Financial Modeling
-LANGUAGES: English (native) · Korean (TOPIK 6) · Mandarin Chinese (BLCU) · Malay (professional) · Spanish (conversational)
+LANGUAGES: English (native) · Korean (TOPIK 6) · Mandarin Chinese (intermediate, BLCU) · Malay (professional) · Japanese (conversational)
 STATUS: Student — open to internships & collaborations, not full-time until 2027
 `;
 

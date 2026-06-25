@@ -48,6 +48,17 @@
   transform: translateY(-1px);
 }
 
+.panel--hoverable {
+  box-shadow: var(--shadow-none);
+  transition: box-shadow var(--duration-fast) var(--ease-bounce),
+              transform var(--duration-fast) var(--ease-bounce);
+}
+
+.panel--hoverable:hover {
+  box-shadow: var(--shadow-offset-sm);
+  transform: var(--hover-lift);
+}
+
 .panel--quests .panel__header {
   background: var(--ink);
   color: var(--sunshine);

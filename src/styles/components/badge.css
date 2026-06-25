@@ -21,3 +21,4 @@
 .badge--mint   { border-color: var(--mint);     background: var(--mint); }
 .badge--coral  { border-color: var(--coral);    background: var(--coral); color: #fff; }
 .badge--purple { border-color: var(--purple);   background: var(--purple); color: #fff; }
+.badge--ghost  { border-color: var(--ink);      background: var(--bg-panel); color: var(--ink); }

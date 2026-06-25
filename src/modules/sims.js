@@ -216,7 +216,7 @@ function initLangQuiz() {
     { text: '저는 시스템을 설계해서 사람들이 더 잘 살 수 있도록 돕습니다.', lang: '한국어', langCode: 'ko' },
     { text: '我设计系统，帮助人们过上更好的生活。', lang: '中文', langCode: 'zh' },
     { text: 'Saya mereka bentuk sistem untuk membantu orang hidup lebih baik.', lang: 'Bahasa Melayu', langCode: 'ms' },
-    { text: 'Diseño sistemas que ayudan a las personas a vivir mejor.', lang: 'Español', langCode: 'es' },
+    { text: '私は人々がより良い生活を送れるよう、システムを設計しています。', lang: '日本語', langCode: 'ja' },
   ];
   const ALL_LANGS = ROUNDS.map(r => r.lang);
   const shuffled = [...ROUNDS].sort(() => Math.random() - 0.5);

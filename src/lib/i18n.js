@@ -1,7 +1,7 @@
 import { currentLang, TRANSLATIONS, setCurrentLang } from '../data/i18n.js';
 import { renderTrophyShelf, unlockAchievement } from './achievements.js';
 import { initScrollReveal } from './dom.js';
-import { renderSpecializations, renderDomainOverview } from '../modules/specs.js';
+import { renderSpecializations } from '../modules/specs.js';
 
 export function t(key) {
   const lang = TRANSLATIONS[currentLang];
@@ -22,7 +22,6 @@ export function switchToLang(lang) {
   updateLangToggleLabel();
   applyTranslations();
   renderSpecializations();
-  renderDomainOverview();
   renderTrophyShelf();
   initScrollReveal();
   notePolyglot();

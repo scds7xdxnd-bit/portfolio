@@ -6,7 +6,7 @@ import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, 
 import {
   initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, initSeoulClock, initThemeToggle,
   initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight,
-  renderSpecializations, renderDomainOverview, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver,
+  renderSpecializations, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver,
   initLifeSystem,
   initGradientWaveText, initSpecialText, initSignature,
   initCommandPalette,
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
   updateLangToggleLabel();
   renderSpecializations();
-  renderDomainOverview();
   injectIcons();
   initScrollReveal();
   initSpecTabs();
