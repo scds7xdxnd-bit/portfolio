@@ -16,6 +16,24 @@ import {
   initStatusBadge, initMcpCta, initTailor, initVisitorFraming,
 } from './modules/index.js';
 
+function lazyInitOrrery() {
+  const section = document.getElementById('life-system');
+  if (!section) return;
+  let loaded = false;
+  const obs = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting && !loaded) {
+      loaded = true;
+      obs.disconnect();
+      import('./modules/orrery.js').then(({ initOrrery }) => {
+        initOrrery();
+      }).catch(() => {
+        initLifeSystem();
+      });
+    }
+  }, { rootMargin: '200px' });
+  obs.observe(section);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
   updateLangToggleLabel();
@@ -45,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDeepDiver();
   initHelloRotator();
   initAvatarEgg();
-  initLifeSystem();
+  lazyInitOrrery();
   initConsoleEgg();
   initSeoulClock();
   initXpBar();

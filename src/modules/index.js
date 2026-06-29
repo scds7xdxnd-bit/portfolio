@@ -2,6 +2,7 @@ export { initStickyNav, initMobileNavMenu, initNavDropdown, initLangToggle, init
 export { initHeroAnimation, initHeroParallax, renderHeroBuilds, initHelloRotator, initNpcDialogue, initIdleAvatar, initAvatarEgg, initCursorSpotlight } from './hero.js';
 export { renderSpecializations, initSpecTabs, initSpecCertLightbox, initSkillTree, initDeepDiver } from './specs.js';
 export { initLifeSystem } from './life-system.js';
+export { initOrrery } from './orrery.js';
 export { initGradientWaveText, initSpecialText, initSignature } from './text-effects.js';
 export { initCommandPalette } from './command-palette.js';
 export { initTerminal } from './terminal.js';

@@ -112,33 +112,6 @@
   z-index: 201;
 }
 
-/* ── T4.3 Life-system narrate ── */
-.life-system__narrate-wrap {
-  text-align: center;
-  margin-top: 16px;
-}
-
-.life-system__narrate-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  font-family: var(--font-game);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: var(--grey-dark);
-  background: none;
-  border: 1.5px dashed var(--border-light);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: color var(--duration-fast), border-color var(--duration-fast);
-}
-.life-system__narrate-btn:hover:not(:disabled) {
-  color: var(--ink);
-  border-color: var(--ink);
-}
-.life-system__narrate-btn:disabled { opacity: 0.5; cursor: wait; }
-
 .life-system__narrate-out {
   max-width: 520px;
   margin: 10px auto 0;
@@ -157,4 +130,179 @@
   .life-system { height: 220px; }
   .life-system__node { width: 58px; height: 58px; }
   .life-system__icon { font-size: 18px; }
+}
+
+/* ── Orrery 3D scene ── */
+.life-system:has(canvas) {
+  height: 440px;
+  max-width: 720px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.orrery__label {
+  font-family: var(--font-game);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: var(--bg-panel);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--shadow-offset-sm);
+  line-height: 1;
+}
+
+/* ── Keyboard-accessible domain buttons ── */
+.orrery__kb-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 0 8px;
+}
+
+.orrery__kb-btn {
+  font-family: var(--font-game);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: var(--bg-panel);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-offset-sm);
+  transition: box-shadow var(--duration-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.orrery__kb-btn:hover,
+.orrery__kb-btn:focus-visible {
+  box-shadow: var(--shadow-offset);
+}
+
+.orrery__kb-btn::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent, var(--ink));
+  border: 1.5px solid var(--ink);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .life-system:has(canvas) {
+    height: 300px;
+  }
+
+  .orrery__label {
+    font-size: 7px;
+    padding: 1px 4px;
+    border-width: 1.5px;
+  }
+}
+
+@media (max-width: 375px) {
+  .life-system:has(canvas) {
+    height: 260px;
+  }
+
+  .orrery__kb-btn {
+    font-size: 8px;
+    padding: 2px 8px;
+  }
+}
+
+/* ── Orrery modal ── */
+.orrery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orrery-modal[hidden] {
+  display: none;
+}
+
+.orrery-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.orrery-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border: var(--border-thick);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-offset);
+  padding: 24px 24px 20px;
+}
+
+.orrery-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.orrery-modal__close:hover {
+  background: var(--border-light);
+}
+
+.orrery-modal__title {
+  font-family: var(--font-game);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent, var(--border-light));
+}
+
+.orrery-modal__text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--grey-dark);
+  min-height: 40px;
+}
+
+@media (max-width: 600px) {
+  .orrery-modal__panel {
+    padding: 20px 16px 16px;
+  }
+  .orrery-modal__title {
+    font-size: 12px;
+  }
+  .orrery-modal__text {
+    font-size: 13px;
+  }
 }
