@@ -44,7 +44,7 @@
   font-family: var(--font-game);
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--ink);
   transition: color var(--duration-fast);
   white-space: nowrap;
   position: relative;
@@ -324,3 +324,10 @@
 .theme-toggle__icon { line-height: 1; }
 [data-theme='dark'] .theme-toggle__icon::before { content: '◑'; }
 .theme-toggle__icon { content: '◐'; }
+
+[data-theme="dark"] .site-nav {
+  background: rgba(26, 25, 23, 0.85);
+}
+[data-theme="dark"] .mobile-nav-backdrop {
+  background: rgba(26, 25, 23, 0.85);
+}

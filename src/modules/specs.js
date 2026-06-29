@@ -127,11 +127,13 @@ function renderSpecializations() {
     glassHtml += '<div class="specs__featured-glass">';
     glassHtml += '<span class="badge ' + (ACCENT_BADGE[spec.accent] || 'badge--ghost') + ' specs__featured-badge" data-i18n="spec.featuredLabel">' + t('spec.featuredLabel') + '</span>';
     glassHtml += '<h4 class="specs__featured-title" data-i18n="spec.' + spec.id + '.featuredTitle">' + t('spec.' + spec.id + '.featuredTitle') + '</h4>';
-    glassHtml += '<p class="specs__featured-desc" data-i18n="spec.' + spec.id + '.featuredDesc">' + t('spec.' + spec.id + '.featuredDesc') + '</p>';
+    glassHtml += '</div>';
+    glassHtml += '</div>';
+
+    var featuredMetaHtml = '<p class="specs__featured-desc" data-i18n="spec.' + spec.id + '.featuredDesc">' + t('spec.' + spec.id + '.featuredDesc') + '</p>';
     if (hasFeaturedActions) {
-      glassHtml += '<div class="specs__featured-actions">' + featuredLinkHtml + caseStudyLinkHtml + '</div>';
+      featuredMetaHtml += '<div class="specs__featured-actions">' + featuredLinkHtml + caseStudyLinkHtml + '</div>';
     }
-    glassHtml += '</div></div>';
 
     var rxnHtml = '<div class="rxn-sim" id="rxn-sim">'
       + '<div class="rxn-sim__head">'
@@ -235,6 +237,7 @@ function renderSpecializations() {
       + '</div>'
       + '<div class="specs__panel-right">'
       + glassHtml
+      + featuredMetaHtml
       + certsHtml
       + '</div>'
       + '</div>'

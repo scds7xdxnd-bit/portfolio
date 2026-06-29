@@ -108,7 +108,7 @@
   font-family: var(--font-game);
   font-size: 14px;
   font-weight: 600;
-  color: var(--grey-dark);
+  color: var(--ink);
   border-radius: var(--radius-pill);
   border: 2px solid transparent;
   background: transparent;
@@ -120,7 +120,7 @@
 }
 
 .specs__tab:hover {
-  color: var(--ink);
+  opacity: 0.85;
 }
 
 .specs__tab.is-active {
@@ -271,7 +271,7 @@
 /* ── Featured card (glass, right column) ── */
 .panel.specs__featured-card {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border: var(--border-thin);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-offset);
@@ -284,6 +284,8 @@
 .specs__featured-media {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
 }
 .specs__featured-media-img {
   width: 100%;
@@ -346,10 +348,11 @@
 
 .specs__featured-desc {
   font-size: 13px;
-  color: inherit;
+  color: var(--ink);
   opacity: 0.85;
   line-height: 1.6;
   margin: 0;
+  padding: 14px 0 0;
 }
 
 .specs__featured-actions {
@@ -357,7 +360,7 @@
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
-  margin-top: 2px;
+  margin-top: 10px;
 }
 
 .specs__case-study-link {
@@ -650,6 +653,19 @@
    ═══════════════════════════════════════════════ */
 [data-theme="dark"] #community .specs__secondary-card--has-img,
 [data-theme="dark"] #community .specs__secondary-card--has-img .specs__secondary-title { color: #1E1E1E; }
+
+[data-theme="dark"] .specs__tabs-wrapper {
+  background: rgba(26, 25, 23, 0.85);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="dark"] .section--alt .specs__tabs-wrapper {
+  background: rgba(26, 25, 23, 0.85);
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
