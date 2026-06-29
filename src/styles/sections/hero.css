@@ -55,6 +55,29 @@
   color: var(--coral);
 }
 
+.hero__lang-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.hero__lang-toggle:hover {
+  background: var(--ink);
+  color: var(--sunshine);
+}
+
 /* Scramble animation state */
 .hero__full-name.is-scrambling {
   font-family: var(--font-pixel);

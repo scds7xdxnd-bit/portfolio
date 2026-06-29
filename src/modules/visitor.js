@@ -42,15 +42,4 @@ export function initVisitorFraming() {
   if (!domain) return;
 
   sessionStorage.setItem(KEY, domain);
-
-  // After a short delay (let the page paint first), scroll to and flash the matched domain
-  setTimeout(() => {
-    const section = document.getElementById(domain);
-    if (!section) return;
-    // Bring this spec panel to the front of the flex order temporarily
-    section.style.order = '-1';
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    section.classList.add('is-tailored');
-    setTimeout(() => section.classList.remove('is-tailored'), 2200);
-  }, 800);
 }

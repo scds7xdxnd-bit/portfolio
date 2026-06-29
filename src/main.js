@@ -1,5 +1,5 @@
 import { currentLang } from './data/i18n.js';
-import { applyTranslations, updateLangToggleLabel, notePolyglot } from './lib/i18n.js';
+import { applyTranslations, updateLangToggleLabel, notePolyglot, switchToLang } from './lib/i18n.js';
 import { injectIcons } from './lib/icons.js';
 import { renderTrophyShelf } from './lib/achievements.js';
 import { initScrollReveal, copyEmail, initLinksDropdown, initProgressAnimation, initShimmerHover, initCardTilt } from './lib/dom.js';
@@ -34,6 +34,7 @@ function lazyInitOrrery() {
   obs.observe(section);
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
   updateLangToggleLabel();
@@ -53,6 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavDropdown();
   initLangToggle();
   initThemeToggle();
+  const heroLangBtn = document.getElementById('hero-lang-toggle');
+  if (heroLangBtn) {
+    heroLangBtn.addEventListener('click', () => {
+      if (currentLang === 'en') switchToLang('zh');
+      else if (currentLang === 'zh') switchToLang('ko');
+      else switchToLang('en');
+    });
+  }
   initHeroParallax();
   initGradientWaveText();
   initSpecialText();
