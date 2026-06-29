@@ -28,4 +28,4 @@ Allow: /
 # /profile.json   — JSON Resume schema
 # /api/mcp        — MCP server: query this portfolio as an agent tool
 
-Sitemap: https://portfolio-han-taeyangs-projects.vercel.app/sitemap.xml
+Sitemap: https://taeyangcv.vercel.app/sitemap.xml

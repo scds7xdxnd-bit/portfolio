@@ -19,7 +19,7 @@ const PROFILE = {
   alternateName: '한태양',
   role: 'Life Systems Designer',
   email: 'ammarhakimikm03@gmail.com',
-  url: 'https://portfolio-han-taeyangs-projects.vercel.app',
+  url: 'https://taeyangcv.vercel.app',
   university: 'Sogang University, Seoul — Chemical Engineering + Business (Dual Degree, 2022–2027)',
   status: 'Student — open to internships & collaborations; not seeking full-time until 2027',
   languages: [
@@ -42,7 +42,7 @@ const PROJECTS = {
     description: 'Unified personal life-management platform across finance, health, habits, and productivity. 6 integrated domains, LP macro optimizer, event-driven architecture.',
     stack: ['Next.js', 'Flask', 'PostgreSQL'],
     url: 'https://lifeos-wine.vercel.app',
-    caseStudy: 'https://portfolio-han-taeyangs-projects.vercel.app/projects/lifeos.html',
+    caseStudy: 'https://taeyangcv.vercel.app/projects/lifeos.html',
     status: 'live',
   },
   'reaction-sim': {
@@ -52,7 +52,7 @@ const PROJECTS = {
     description: 'Interactive CSTR/PFR reactor network simulator. Levenspiel plots, conversion & temperature profiles, thermal operating diagram.',
     stack: ['React', 'TypeScript', 'Recharts'],
     url: 'https://reactionsimulator.vercel.app',
-    caseStudy: 'https://portfolio-han-taeyangs-projects.vercel.app/projects/reaction-simulator.html',
+    caseStudy: 'https://taeyangcv.vercel.app/projects/reaction-simulator.html',
     status: 'live',
   },
   fugacity: {

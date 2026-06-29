@@ -87,7 +87,7 @@ University: Sogang University, Seoul — Chemical Engineering + Business Adminis
 Exchange: BLCU Beijing, Jan 2026 only (one month, Mandarin intensive)
 Status: Student — open to internships & collaborations; not seeking full-time until 2027
 Contact: ammarhakimikm03@gmail.com
-Portfolio: https://portfolio-han-taeyangs-projects.vercel.app
+Portfolio: https://taeyangcv.vercel.app
 
 LANGUAGES:
 - English: native / full professional
@@ -154,9 +154,9 @@ PROJECTS (all deployed):
    Python + Flask + PostgreSQL. Full double-entry accounting, built since 2021.
    First project, 5+ years in production. Private alpha.
 
-Case studies: https://portfolio-han-taeyangs-projects.vercel.app/opinions/
-MCP server (for agent tools): https://portfolio-han-taeyangs-projects.vercel.app/api/mcp
-Machine-readable digest: https://portfolio-han-taeyangs-projects.vercel.app/llms.txt
+Case studies: https://taeyangcv.vercel.app/opinions/
+MCP server (for agent tools): https://taeyangcv.vercel.app/api/mcp
+Machine-readable digest: https://taeyangcv.vercel.app/llms.txt
 `;
 
 const LANG_INSTRUCTION = {

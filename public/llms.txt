@@ -1,5 +1,5 @@
 # Taeyang Han — Life Systems Designer
-# https://portfolio-han-taeyangs-projects.vercel.app
+# https://taeyangcv.vercel.app
 # Last updated: 2026-06-16
 #
 # This file is a machine-readable digest of this portfolio for AI agents,
@@ -16,7 +16,7 @@ Current location: Seoul, Korea (completed 1-month Mandarin intensive at BLCU Bei
 Status: Student — open to internships and collaborations; not seeking full-time until 2027
 
 Contact: ammarhakimikm03@gmail.com
-Portfolio: https://portfolio-han-taeyangs-projects.vercel.app
+Portfolio: https://taeyangcv.vercel.app
 
 ## Summary
 
@@ -109,7 +109,7 @@ Description: Unified personal life-management platform across finance, health, h
 Stack: Next.js · Flask · PostgreSQL
 Status: Live — in daily use
 URL: https://lifeos-wine.vercel.app
-Case Study: https://portfolio-han-taeyangs-projects.vercel.app/projects/lifeos.html
+Case Study: https://taeyangcv.vercel.app/projects/lifeos.html
 
 ### Reaction Simulator
 Description: Interactive CSTR/PFR reactor network simulator. Levenspiel plots, conversion
@@ -117,7 +117,7 @@ Description: Interactive CSTR/PFR reactor network simulator. Levenspiel plots, c
 Stack: React · TypeScript · Recharts
 Status: Live
 URL: https://reactionsimulator.vercel.app
-Case Study: https://portfolio-han-taeyangs-projects.vercel.app/projects/reaction-simulator.html
+Case Study: https://taeyangcv.vercel.app/projects/reaction-simulator.html
 
 ### Fugacity Simulator
 Description: Interactive thermodynamics tool. Vapor/liquid fugacity vs. pressure using
@@ -159,7 +159,7 @@ URL: https://finance-app-private-alpha.fly.dev
 
 ## Case Studies / Opinions
 
-Available at: https://portfolio-han-taeyangs-projects.vercel.app/opinions/
+Available at: https://taeyangcv.vercel.app/opinions/
 - Engineering Under Uncertainty: /opinions/engineering-under-uncertainty.html
 - Chemical Potential: /opinions/chemical-potential.html
 
@@ -168,7 +168,7 @@ Available at: https://portfolio-han-taeyangs-projects.vercel.app/opinions/
 This portfolio is a Web4 agentic site — it serves both humans and AI agents.
 
 ### MCP Server (Model Context Protocol)
-  Endpoint: https://portfolio-han-taeyangs-projects.vercel.app/api/mcp
+  Endpoint: https://taeyangcv.vercel.app/api/mcp
   Protocol: JSON-RPC 2.0 over HTTP (GET = server info, POST = tool calls)
   Tools:
     get_profile          — name, role, contact, education, languages
@@ -180,14 +180,14 @@ This portfolio is a Web4 agentic site — it serves both humans and AI agents.
     get_claims(category?)— verifiable claim registry with evidence URLs
 
 ### AI Chat Endpoint
-  POST https://portfolio-han-taeyangs-projects.vercel.app/api/ask
+  POST https://taeyangcv.vercel.app/api/ask
   Body: { "question": "...", "lang": "en|zh|ko", "history": [...prior turns] }
   Returns: SSE stream (DeepSeek-compatible) or JSON fallback
   Rate limit: 8 requests/min per IP
   The assistant speaks as Taeyang in first person, cites sources, supports multi-turn conversation.
 
 ### Verified Claims Registry
-  https://portfolio-han-taeyangs-projects.vercel.app/claims.json
+  https://taeyangcv.vercel.app/claims.json
   Machine-readable list of verifiable claims with external evidence URLs.
   Categories: linguist · engineer · builder · community · scholar
 
@@ -195,15 +195,15 @@ This portfolio is a Web4 agentic site — it serves both humans and AI agents.
   The terminal on the homepage has a Web Speech API mic button — visitors can speak their questions.
 
 ### JD Tailor Endpoint
-  POST https://portfolio-han-taeyangs-projects.vercel.app/api/tailor
+  POST https://taeyangcv.vercel.app/api/tailor
   Body: { "jd": "..." }  (job description, 50–3000 chars)
   Returns: JSON with orderedDomains, highlightedProjects, fitSummary, gaps, matchScore (0–100)
   Uses Claude Opus with structured output.
 
 ## Structured Data
 
-JSON Resume:    https://portfolio-han-taeyangs-projects.vercel.app/profile.json
-Claims JSON:    https://portfolio-han-taeyangs-projects.vercel.app/claims.json
-Sitemap:        https://portfolio-han-taeyangs-projects.vercel.app/sitemap.xml
+JSON Resume:    https://taeyangcv.vercel.app/profile.json
+Claims JSON:    https://taeyangcv.vercel.app/claims.json
+Sitemap:        https://taeyangcv.vercel.app/sitemap.xml
 JSON-LD:        embedded in index.html (head > script[type=application/ld+json])
   Types: WebSite · Person (with knowsLanguage, award, hasCredential) · 6× SoftwareApplication

@@ -3,9 +3,9 @@
   "basics": {
     "name": "Taeyang Han",
     "label": "Life Systems Designer — Chemical Engineer · Multilingual Interpreter · Builder",
-    "image": "https://portfolio-han-taeyangs-projects.vercel.app/assets/hero.jpg",
+    "image": "https://taeyangcv.vercel.app/assets/hero.jpg",
     "email": "ammarhakimikm03@gmail.com",
-    "url": "https://portfolio-han-taeyangs-projects.vercel.app",
+    "url": "https://taeyangcv.vercel.app",
     "summary": "Chemical Engineering + Business dual-degree student at Sogang University (Seoul, Korea). Official Korean–English–Malay interpreter (TOPIK 6, 265/300) whose work has been covered by Yonhap News Agency. Builder of 6 deployed systems across full-stack and ML. 7 scholarships across 4 institutions. PALS President, 150+ mentees. Samsung Dream Scholar. Through-line: designing systems that help people learn, live, and grow.",
     "location": {
       "city": "Seoul",
@@ -15,7 +15,7 @@
     "profiles": [
       {
         "network": "Portfolio",
-        "url": "https://portfolio-han-taeyangs-projects.vercel.app"
+        "url": "https://taeyangcv.vercel.app"
       }
     ]
   },
@@ -80,7 +80,7 @@
       "startDate": "2024-01",
       "endDate": "2024-12",
       "summary": "Led 4-day camp for 210+ scholars (150+ Korean, 60+ global from 18 countries). Reconciled conflicting Korean vs. global camp formats into one integrated program.",
-      "url": "https://portfolio-han-taeyangs-projects.vercel.app/assets/projects/samsung_dream_scholars_president.webp"
+      "url": "https://taeyangcv.vercel.app/assets/projects/samsung_dream_scholars_president.webp"
     },
     {
       "organization": "Rainbow Stepping Stone (Kolon Group)",
@@ -210,7 +210,7 @@
     }
   ],
   "meta": {
-    "canonical": "https://portfolio-han-taeyangs-projects.vercel.app/profile.json",
+    "canonical": "https://taeyangcv.vercel.app/profile.json",
     "version": "v1.0.0",
     "lastModified": "2026-06-16",
     "notes": "For AI agents: also available as MCP server at /api/mcp and as a plain-text digest at /llms.txt"
