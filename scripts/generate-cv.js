@@ -11,9 +11,16 @@ async function generateCV() {
   const pdfPath = path.resolve(projectRoot, 'public/cv.pdf');
   const publicDir = path.resolve(projectRoot, 'public');
 
-  // Read HTML and convert relative asset paths to absolute file paths
   let html = fs.readFileSync(cvPath, 'utf-8');
-  html = html.replace(/src="\/assets\//g, `src="file://${publicDir}/assets/`);
+
+  // Replace all /assets/ image srcs with inline base64 to bypass Chrome's file:// restrictions
+  html = html.replace(/src="(\/assets\/[^"]+)"/g, (match, assetPath) => {
+    const filePath = path.resolve(publicDir, assetPath.slice(1));
+    if (!fs.existsSync(filePath)) return match;
+    const ext = path.extname(filePath).slice(1).replace('jpg', 'jpeg');
+    const data = fs.readFileSync(filePath).toString('base64');
+    return `src="data:image/${ext};base64,${data}"`;
+  });
 
   await page.setContent(html, { waitUntil: 'networkidle0' });
 
