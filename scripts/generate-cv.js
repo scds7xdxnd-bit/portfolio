@@ -6,10 +6,16 @@ async function generateCV() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  const cvPath = path.resolve(__dirname, '../public/cv.html');
-  const pdfPath = path.resolve(__dirname, '../public/cv.pdf');
+  const projectRoot = path.resolve(__dirname, '..');
+  const cvPath = path.resolve(projectRoot, 'public/cv.html');
+  const pdfPath = path.resolve(projectRoot, 'public/cv.pdf');
+  const publicDir = path.resolve(projectRoot, 'public');
 
-  await page.goto(`file://${cvPath}`, { waitUntil: 'networkidle0' });
+  // Read HTML and convert relative asset paths to absolute file paths
+  let html = fs.readFileSync(cvPath, 'utf-8');
+  html = html.replace(/src="\/assets\//g, `src="file://${publicDir}/assets/`);
+
+  await page.setContent(html, { waitUntil: 'networkidle0' });
 
   await page.pdf({
     path: pdfPath,
