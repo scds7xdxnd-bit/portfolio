@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/generate-cv.js",
     "build": "vite build",
     "preview": "vite preview",
     "generate-cv": "node scripts/generate-cv.js"
