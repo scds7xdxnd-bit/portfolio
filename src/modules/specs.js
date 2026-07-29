@@ -306,10 +306,12 @@ function initSecondaryPagination() {
 
 function initSpecTabs() {
   const tabs = document.querySelectorAll('.specs__tab');
-  const panels = document.querySelectorAll('.specs__panel');
   const specsSection = document.getElementById('specializations');
   const tabsNav = document.querySelector('.specs__tabs');
-  if (!tabs.length || !panels.length || !specsSection || !tabsNav) return;
+  // panels are re-created on every renderSpecializations() (e.g. language switch),
+  // so they must be queried live rather than captured once here
+  const getPanels = () => document.querySelectorAll('.specs__panel');
+  if (!tabs.length || !getPanels().length || !specsSection || !tabsNav) return;
 
   let indicator = tabsNav.querySelector('.specs__tab-indicator');
   if (!indicator) {
@@ -331,6 +333,12 @@ function initSpecTabs() {
 
   window._positionSpecIndicator = positionIndicator;
 
+  // re-sync freshly rendered panels with whichever tab is currently active
+  window._syncSpecPanel = () => {
+    const active = tabsNav.querySelector('.specs__tab.is-active');
+    if (active) showPanel(active.dataset.panel);
+  };
+
   function setActiveTab(panelId) {
     tabs.forEach(t => {
       const isActive = t.dataset.panel === panelId;
@@ -342,7 +350,7 @@ function initSpecTabs() {
   }
 
   function showPanel(panelId) {
-    panels.forEach(p => {
+    getPanels().forEach(p => {
       if (p.id === panelId) {
         p.classList.remove('is-hidden');
         p.style.animation = 'none';

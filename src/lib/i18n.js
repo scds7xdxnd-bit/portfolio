@@ -22,6 +22,7 @@ export function switchToLang(lang) {
   updateLangToggleLabel();
   applyTranslations();
   renderSpecializations();
+  window._syncSpecPanel?.();
   renderTrophyShelf();
   initScrollReveal();
   notePolyglot();
@@ -50,16 +51,8 @@ export function initLangToggle() {
   const btn = document.getElementById('lang-toggle');
   if (!btn) return;
   btn.addEventListener('click', () => {
-    if (currentLang === 'en') setCurrentLang('zh');
-    else if (currentLang === 'zh') setCurrentLang('ko');
-    else setCurrentLang('en');
-    updateLangToggleLabel();
-    applyTranslations();
-    renderSpecializations();
-    renderDomainOverview();
-    renderTrophyShelf();
-    initScrollReveal();
-    notePolyglot();
-    requestAnimationFrame(() => window._positionSpecIndicator?.());
+    if (currentLang === 'en') switchToLang('zh');
+    else if (currentLang === 'zh') switchToLang('ko');
+    else switchToLang('en');
   });
 }
