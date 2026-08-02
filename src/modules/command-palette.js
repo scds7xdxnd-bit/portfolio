@@ -58,6 +58,7 @@ function initCommandPalette() {
     { label: 'Switch to 한국어',         icon: '🇰🇷',  cat: 'Language', action: () => switchToLang('ko') },
     { label: 'Switch to English',        icon: '🇬🇧',  cat: 'Language', action: () => switchToLang('en') },
     { label: 'View case studies',        icon: '📖',  cat: 'Navigate', action: () => { window.location.href = 'opinions/'; } },
+    { label: 'Open private brain',        icon: '🔐',  cat: 'Navigate', action: () => { window.open('https://private-brain-rho.vercel.app', '_blank', 'noopener,noreferrer'); } },
     { label: 'Open terminal',            icon: '>_',  cat: 'Easter egg', action: () => document.getElementById('terminal-toggle')?.click() },
     { label: 'Tailor portfolio to a role', icon: '🎯', cat: 'AI',       action: () => document.getElementById('tailor-panel')?.dispatchEvent(new CustomEvent('tailor:open')) },
     { label: 'Ask me anything (AI)',     icon: '🗣️',  cat: 'AI',        action: () => { document.getElementById('terminal-toggle')?.click(); setTimeout(() => { const inp = document.getElementById('terminal-input'); if (inp) { inp.value = 'ask '; inp.focus(); } }, 350); } },

@@ -2,7 +2,7 @@ export let currentLang = localStorage.getItem('lang') || 'en';
 
 export const TRANSLATIONS = {
   en: {
-    'nav.about':'Profile','nav.specializations':'Specializations','nav.work':'Work','nav.opinions':'Case Studies','nav.contact':'Contact',
+    'nav.about':'Profile','nav.specializations':'Specializations','nav.work':'Work','nav.opinions':'Case Studies','nav.brain':'Private Brain ↗','nav.contact':'Contact',
 
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'Languages',
@@ -272,7 +272,7 @@ export const TRANSLATIONS = {
     'ph.regime.basic':'basic',
   },
   zh: {
-    'nav.about':'个人资料','nav.specializations':'专业领域','nav.work':'作品','nav.opinions':'案例研究','nav.contact':'联系',
+    'nav.about':'个人资料','nav.specializations':'专业领域','nav.work':'作品','nav.opinions':'案例研究','nav.brain':'私人知识库 ↗','nav.contact':'联系',
 
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'语言',
@@ -534,7 +534,7 @@ export const TRANSLATIONS = {
     'ph.regime.basic':'碱性',
   },
   ko: {
-    'nav.about':'프로필','nav.specializations':'전문 분야','nav.work':'작업','nav.opinions':'케이스 스터디','nav.contact':'연락',
+    'nav.about':'프로필','nav.specializations':'전문 분야','nav.work':'작업','nav.opinions':'케이스 스터디','nav.brain':'프라이빗 브레인 ↗','nav.contact':'연락',
 
     'hero.name':'Taeyang Han',
     'hero.stat.languages':'언어',

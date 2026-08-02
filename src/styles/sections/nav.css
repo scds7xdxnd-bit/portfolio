@@ -52,6 +52,21 @@
 
 .site-nav__link:hover { color: var(--ink); }
 
+.site-nav__link--private {
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 6px 9px;
+  background: var(--sunshine);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.site-nav__link--private:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.site-nav__link--private::after { display: none; }
+
 .site-nav__link::after {
   content: '';
   position: absolute;
@@ -251,6 +266,15 @@
 }
 
 .mobile-nav__link:hover { background: var(--sunshine); }
+
+.mobile-nav__link--private {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--ink);
+  background: var(--sunshine);
+  box-shadow: 3px 3px 0 var(--ink);
+  margin-top: 8px;
+}
 
 .mobile-nav__group-label {
   font-family: var(--font-pixel);
