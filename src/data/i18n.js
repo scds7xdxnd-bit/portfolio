@@ -200,6 +200,8 @@ export const TRANSLATIONS = {
     'spec.scholar.item4.desc':'Public consulting-pipeline content; top post: 336 likes / 215 saves / 18 comments.',
     'spec.scholar.item5.title':'Scholarship Writing System',
     'spec.scholar.item5.desc':'Framework/template product encoding the logic behind multiple winning applications.',
+    'spec.scholar.item6.title':'ZHAOYING Scholarship Ebook',
+    'spec.scholar.item6.desc':'¥99 Chinese-language ebook and protected reader that turns ₩73M+ in documented Korea scholarship experience into an evidence-based application system.',
 
     'manifesto.story.label':'The Short Version',
     'manifesto.story.body':'Malaysian, based in Seoul. I study chemical engineering at Sogang, build software, and interpret Korean–English–Malay — three things I do because they genuinely interest me.',
@@ -460,6 +462,8 @@ export const TRANSLATIONS = {
     'spec.scholar.item4.desc':'公开咨询引流内容；最高赞帖：336赞/215收藏/18评论。',
     'spec.scholar.item5.title':'奖学金申请写作系统',
     'spec.scholar.item5.desc':'将多次成功申请背后的逻辑提炼为框架/模板产品。',
+    'spec.scholar.item6.title':'照应｜韩国奖学金电子书',
+    'spec.scholar.item6.desc':'面向中国学生的¥99电子书与付费阅读站，把7300万韩元+真实经历整理成一套有证据、可执行的申请系统。',
 
     'manifesto.story.label':'简短介绍',
     'manifesto.story.body':'马来西亚人，现居首尔。我在西江大学攻读化学工程，做软件开发，也从事韩—英—马来语口译——这三件事都是出于真正的兴趣。',
@@ -720,6 +724,8 @@ export const TRANSLATIONS = {
     'spec.scholar.item4.desc':'공개 컨설팅 파이프라인 콘텐츠; 최고 성과 게시물: 336좋아요 / 215저장 / 18댓글.',
     'spec.scholar.item5.title':'장학금 신청 작성 시스템',
     'spec.scholar.item5.desc':'여러 번의 합격 경험을 바탕으로 프레임워크/템플릿 제품으로 정제.',
+    'spec.scholar.item6.title':'照应 한국 장학금 전자책',
+    'spec.scholar.item6.desc':'중국인 유학생을 위한 ¥99 전자책과 유료 리더로, 공식 기록 기준 7,300만 원+의 장학 경험을 증거 기반 신청 시스템으로 정리.',
 
     'manifesto.story.label':'간단한 소개',
     'manifesto.story.body':'말레이시아 출신, 서울 거주. 서강대에서 화학공학을 공부하면서 소프트웨어를 만들고, 한–영–말레이어 통역을 합니다 — 세 가지 모두 진심으로 흥미롭기 때문입니다.',

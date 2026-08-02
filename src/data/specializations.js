@@ -104,6 +104,7 @@ export const SPECIALIZATIONS = [
     featuredLinkKey: 'spec.scholar.featuredLinkLabel',
     screenshot: '/assets/projects/samsung_dream_scholarship.webp',
     secondary: [
+      { titleKey: 'spec.scholar.item6.title', descKey: 'spec.scholar.item6.desc', screenshot: '/assets/projects/zhaoying_ebook.webp', link: 'https://zhaoying-ebook.vercel.app', status: 'Active' },
       { titleKey: 'spec.scholar.item4.title', descKey: 'spec.scholar.item4.desc', screenshot: '/assets/projects/xiaohongshu.webp', link: 'https://xhslink.com/m/6pTVib4GbZU' },
       { titleKey: 'spec.scholar.item3.title', descKey: 'spec.scholar.item3.desc', screenshot: '/assets/projects/leenwon_asian_fellowship.webp', link: 'http://www.leewonfoundation.org/bin/minihome/neo_main758.htm?seq=9659&_aldo=154' },
       { titleKey: 'spec.scholar.item2.title', descKey: 'spec.scholar.item2.desc', screenshot: '/assets/projects/sogang_alumni_scholarship.webp' },
