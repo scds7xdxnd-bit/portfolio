@@ -303,7 +303,17 @@
           <div class="hero__actions">
             <a href="#specializations" class="btn btn--primary" id="hero-start-btn" data-i18n="hero.startQuest">Start Quest</a>
             <button class="btn btn--secondary" id="copy-email-btn" data-i18n="hero.copyEmail">Copy Email</button>
-            <a href="/cv.pdf" class="btn btn--ghost" download="Khairul-Ammar-Hakimi_이력서.pdf" data-i18n="hero.downloadCV">Download CV</a>
+            <div class="hero__cv">
+              <button type="button" class="btn btn--ghost hero__cv-trigger" id="cv-download-btn" aria-haspopup="menu" aria-expanded="false" data-i18n="hero.downloadCV">Download CV</button>
+              <div class="hero__dropdown hero__cv-menu" role="menu" hidden>
+                <a class="hero__dropdown-item" href="/cv-en.pdf" download="Khairul-Ammar-Hakimi_CV_EN.pdf" role="menuitem" data-cv="en">
+                  <span>English</span>
+                </a>
+                <a class="hero__dropdown-item" href="/cv.pdf" download="Khairul-Ammar-Hakimi_이력서.pdf" role="menuitem" data-cv="ko">
+                  <span>한국어</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

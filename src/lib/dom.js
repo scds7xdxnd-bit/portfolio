@@ -34,36 +34,41 @@ export function initProgressAnimation() {
   document.querySelectorAll('.progress').forEach(el => obs.observe(el));
 }
 
-export function initLinksDropdown() {
-  const trigger = document.querySelector('.hero__overflow-trigger');
-  const dropdown = document.querySelector('.hero__dropdown');
+function bindDropdown(trigger, dropdown) {
   if (!trigger || !dropdown) return;
+
+  const close = () => {
+    if (dropdown.hasAttribute('hidden')) return;
+    dropdown.setAttribute('hidden', '');
+    trigger.setAttribute('aria-expanded', 'false');
+  };
 
   trigger.addEventListener('click', e => {
     e.stopPropagation();
-    const isOpen = !dropdown.hasAttribute('hidden');
-    if (isOpen) {
-      dropdown.setAttribute('hidden', '');
-      trigger.setAttribute('aria-expanded', 'false');
+    if (!dropdown.hasAttribute('hidden')) {
+      close();
     } else {
       dropdown.removeAttribute('hidden');
       trigger.setAttribute('aria-expanded', 'true');
     }
   });
 
-  document.addEventListener('click', () => {
-    if (!dropdown.hasAttribute('hidden')) {
-      dropdown.setAttribute('hidden', '');
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-  });
-
+  dropdown.addEventListener('click', () => close());
+  document.addEventListener('click', close);
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !dropdown.hasAttribute('hidden')) {
-      dropdown.setAttribute('hidden', '');
-      trigger.setAttribute('aria-expanded', 'false');
-    }
+    if (e.key === 'Escape') close();
   });
+}
+
+export function initLinksDropdown() {
+  bindDropdown(
+    document.querySelector('.hero__overflow-trigger'),
+    document.querySelector('.hero__dropdown:not(.hero__cv-menu)'),
+  );
+  bindDropdown(
+    document.querySelector('.hero__cv-trigger'),
+    document.querySelector('.hero__cv-menu'),
+  );
 }
 
 export function copyEmail() {

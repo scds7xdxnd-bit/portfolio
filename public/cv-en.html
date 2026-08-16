@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Vitae — Khairul Ammar Hakimi (한태양)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 13mm 15mm 13mm 15mm;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 9pt;
+      color: #111;
+      line-height: 1.55;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── HEADER ─── */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 9px;
+      border-bottom: 1.8px solid #111;
+      margin-bottom: 12px;
+    }
+    .cv-header__info { flex: 1; }
+    .cv-header__name {
+      font-size: 20pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+    .cv-header__romanized {
+      font-size: 9.5pt;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .cv-header__contact {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.75;
+    }
+    .cv-header__contact a { color: #444; text-decoration: none; }
+    .cv-header__photo {
+      width: 82px;
+      height: 106px;
+      object-fit: cover;
+      object-position: center top;
+      margin-left: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 11px; }
+    .section__title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      border-bottom: 1.2px solid #111;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+      letter-spacing: -0.2px;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .edu-name { font-weight: 700; font-size: 9.5pt; }
+    .edu-date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .edu-sub { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 2px; }
+    .edu-detail { font-size: 8pt; color: #444; }
+
+    /* ─── ENTRIES ─── */
+    .entry { margin-bottom: 8px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .entry__title { font-weight: 700; font-size: 9.5pt; flex: 1; }
+    .entry__date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .entry__org { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 3px; }
+    .entry__bullets { margin: 0; padding-left: 13px; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.5; }
+    .entry__tech { font-size: 7.5pt; color: #777; margin-top: 2px; }
+    .entry__link { color: #555; text-decoration: none; }
+
+    /* ─── TWO-COL PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 16px;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-table { width: 100%; border-collapse: collapse; }
+    .skills-table td { font-size: 8pt; padding: 2px 0; vertical-align: top; }
+    .skills-table td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      padding-right: 10px;
+      width: 86px;
+    }
+    .skills-table td:last-child { color: #444; }
+
+    /* ─── PAGE BREAKS ─── */
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+
+    /* ─── SCREEN ONLY ─── */
+    @media screen {
+      body {
+        max-width: 210mm;
+        margin: 24px auto;
+        padding: 13mm 15mm;
+        box-shadow: 0 2px 20px rgba(0,0,0,.13);
+        min-height: 297mm;
+      }
+    }
+    @media print {
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header class="cv-header">
+    <div class="cv-header__info">
+      <h1 class="cv-header__name">Khairul Ammar Hakimi</h1>
+      <p class="cv-header__romanized">Korean name: 한태양 (Han Taeyang)</p>
+      <div class="cv-header__contact">
+        <div>+82 10-6804-7882 &nbsp;|&nbsp; <a href="mailto:ammarhakimikm03@gmail.com">ammarhakimikm03@gmail.com</a></div>
+        <div><a href="https://taeyangcv.vercel.app">taeyangcv.vercel.app</a></div>
+      </div>
+    </div>
+    <img class="cv-header__photo" src="/assets/cv-photo.jpg" alt="Portrait" />
+  </header>
+
+  <!-- ══════════════ EDUCATION ══════════════ -->
+  <section class="section no-break">
+    <h2 class="section__title">Education</h2>
+    <div>
+      <div class="edu-row">
+        <span class="edu-name">B.A. International Business &amp; B.S. Chemical and Biomolecular Engineering (Double Major)</span>
+        <span class="edu-date">Feb 2023 – Dec 2026 (expected)</span>
+      </div>
+      <p class="edu-sub">Sogang University / Sogang Business School &amp; College of Engineering &nbsp;·&nbsp; Seoul, South Korea</p>
+      <p class="edu-detail">Converted score 99 / 100</p>
+    </div>
+  </section>
+
+  <!-- ══════════════ CHEMICAL ENGINEERING PROJECTS ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">Chemical Engineering Projects</h2>
+    <div class="projects-grid">
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Reaction Simulator</span>
+          <span class="entry__date">2024 – Present</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://reactionsimulator.vercel.app">reactionsimulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>Real-time concentration and conversion simulator for CSTR, PFR, and reactors in series</li>
+          <li>Arrhenius-based temperature-dependent rate modelling and visualisation</li>
+          <li>Turns reaction engineering and thermodynamics theory into an interactive learning tool</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Python · Flask · Vercel</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Fugacity Simulator</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://fugacity-simulator.vercel.app">fugacity-simulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>Fugacity calculations from Peng-Robinson and van der Waals equations of state</li>
+          <li>Automatic generation and plotting of vapour-liquid equilibrium phase diagrams</li>
+        </ul>
+        <p class="entry__tech">Python · NumPy · Matplotlib · Flask</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Process Design Game</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://process-design.vercel.app">process-design.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>Interactive simulator for optimising distillation columns, heat exchangers, and reactors</li>
+          <li>Scoring system giving real-time feedback on energy efficiency and economic metrics</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Canvas API · Python</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Linear Programming Diet Optimisation</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">Academic project</p>
+        <ul class="entry__bullets">
+          <li>LP model producing a minimum-cost diet under nutritional constraints</li>
+          <li>Applied engineering optimisation methods to everyday life systems</li>
+        </ul>
+        <p class="entry__tech">Python · SciPy · PuLP</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Apple Supply Chain Analysis</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">Academic project</p>
+        <ul class="entry__bullets">
+          <li>Risk analysis of semiconductor and materials supply chains with numerical bullwhip-effect simulation</li>
+          <li>Derived data-driven SCM optimisation strategies and produced a visual report</li>
+        </ul>
+        <p class="entry__tech">Python · Pandas · Excel</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ SOFTWARE PROJECTS ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">Software Projects</h2>
+    <div class="projects-grid">
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">LifeOS — Personal Productivity OS</span>
+          <span class="entry__date">2024 – Present</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://lifeos-wine.vercel.app">lifeos-wine.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>Full-stack personal operating system unifying habits, goals, finances, and study</li>
+          <li>Built AI-connected automation; in active use by real users</li>
+        </ul>
+        <p class="entry__tech">Next.js · TypeScript · PostgreSQL · Vercel</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">CNN Emotion Classifier</span>
+          <span class="entry__date">2024</span>
+        </div>
+        <p class="entry__org">Personal project</p>
+        <ul class="entry__bullets">
+          <li>Trained a CNN for real-time facial expression recognition</li>
+          <li>Built an emotion-driven UI colour adaptation system</li>
+        </ul>
+        <p class="entry__tech">Python · TensorFlow · OpenCV</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ INTERPRETING & TRANSLATION ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">Interpreting &amp; Translation</h2>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–Malay Investigative Interpreter (Suspect Interrogation)</span>
+        <span class="entry__date">Jun 2026</span>
+      </div>
+      <p class="entry__org">Incheon Airport Customs · Incheon International Airport Terminal 2</p>
+      <ul class="entry__bullets">
+        <li>Sole Korean–Malay consecutive interpreter for a narcotics-control law violation case</li>
+        <li>Served under a signed interpreter's affidavit in a setting demanding high accuracy and confidentiality</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Official Interpreter</span>
+        <span class="entry__date">May 2026</span>
+      </div>
+      <p class="entry__org">Gyeongsangbuk-do Provincial Government / Office of Education · Gyeongsangbuk-do</p>
+      <ul class="entry__bullets">
+        <li>Two-way interpreting between the Vice Governor for Economic Affairs and Malaysia's former Minister of Federal Territories</li>
+        <li>Interpreted preliminary talks for an education exchange MOU between Gyeongbuk and Selangor</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Official Interpreter</span>
+        <span class="entry__date">First half of 2025</span>
+      </div>
+      <p class="entry__org">Gyeongsangbuk-do Provincial Government · Gyeongsangbuk-do</p>
+      <ul class="entry__bullets">
+        <li>Korean–Malay simultaneous interpreting for official talks between the Governor and the Malaysian Ambassador to Korea</li>
+        <li>Handled advanced diplomatic protocol and regional industry cooperation terminology accurately</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Official &amp; Volunteer Campus Interpreter</span>
+        <span class="entry__date">Feb 2023 – Present</span>
+      </div>
+      <p class="entry__org">Sogang University Office of International Affairs · Seoul</p>
+      <ul class="entry__bullets">
+        <li>Ongoing Korean–English and Korean–Chinese consecutive interpreting and document translation for international students</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Freelance Interpreter</span>
+        <span class="entry__date">Nov – Dec 2023</span>
+      </div>
+      <p class="entry__org">Supreme Prosecutors' Office of the Republic of Korea · Seoul</p>
+      <ul class="entry__bullets">
+        <li>Cut meeting time with overseas clients by 10–15 minutes through trilingual legal terminology interpreting</li>
+        <li>Ran cultural briefing sessions for a visiting senior Malaysian delegation</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Freelance Interpreter</span>
+        <span class="entry__date">Nov – Dec 2023</span>
+      </div>
+      <p class="entry__org">Anti-Corruption &amp; Civil Rights Commission · Daejeon</p>
+      <ul class="entry__bullets">
+        <li>Trilingual two-way simultaneous interpreting on finance and law for international trainees' civic education</li>
+        <li>Translated training materials, raising trainee competency assessment scores by 12%</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Freelance Interpreter</span>
+        <span class="entry__date">Feb – Aug 2022</span>
+      </div>
+      <p class="entry__org">Embassy of Malaysia · Seoul</p>
+      <ul class="entry__bullets">
+        <li>Medical interpreting for Malaysian students at hospital visits, ensuring accurate patient–doctor communication</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Korean–English–Malay Freelance Interpreter</span>
+        <span class="entry__date">Oct 2023 – Present</span>
+      </div>
+      <p class="entry__org">ASEZ (Save the Earth from A to Z) · Seoul</p>
+      <ul class="entry__bullets">
+        <li>Simultaneous interpreting across Korean, Malay, English, Chinese, and Japanese; contributed to reaching 300,000 cumulative signatures</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ LEADERSHIP & SCHOLARSHIPS ══════════════ -->
+  <section class="section">
+    <h2 class="section__title">Leadership · Scholarships · Awards</h2>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">PALS Co-President</span>
+        <span class="entry__date">Mar 2025 – Present</span>
+      </div>
+      <p class="entry__org">Sogang University international student club PALS (Peer Assistance &amp; Learning Support)</p>
+      <ul class="entry__bullets">
+        <li>Lead mentorship and exchange programmes for international students from 15+ countries</li>
+        <li>2024-1 Outstanding Mentor Activity Award · 2024-2 Mentor of the Semester</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Samsung Global Dream Scholar</span>
+        <span class="entry__date">Mar 2024 – Present</span>
+      </div>
+      <p class="entry__org">Samsung Dream Scholarship Foundation — Global Hope Scholarship Award</p>
+      <ul class="entry__bullets">
+        <li>Selected by the foundation as a prospective global leader; full tuition plus living stipend</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Sogang Alumni Excellence Scholar</span>
+        <span class="entry__date">Mar 2025 – Present</span>
+      </div>
+      <p class="entry__org">Sogang Alumni Scholarship Foundation (Sogang University)</p>
+      <ul class="entry__bullets">
+        <li>Selected as an excellence scholar in Chemical and Biomolecular Engineering (No. 25-STU-083)</li>
+      </ul>
+    </div>
+
+    <div class="entry no-break">
+      <div class="entry__header">
+        <span class="entry__title">Lee&amp;Won Asian Fellowship · Leadership Excellence Award</span>
+        <span class="entry__date">Jan – Dec 2023</span>
+      </div>
+      <p class="entry__org">Lee&amp;Won Foundation — Asian Fellowship Programme</p>
+      <ul class="entry__bullets">
+        <li>One of 18 fellows chosen from 500+ applicants; led a 17-member team spanning 15 countries</li>
+        <li>Received the Exemplary Leadership Excellence Award (Dec 2023)</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ SKILLS ══════════════ -->
+  <section class="section no-break">
+    <h2 class="section__title">Skills</h2>
+    <table class="skills-table">
+      <tr>
+        <td>Languages</td>
+        <td>Korean TOPIK Level 6 (265/300) &nbsp;·&nbsp; English native &nbsp;·&nbsp; Malay native &nbsp;·&nbsp; Chinese business &nbsp;·&nbsp; Japanese conversational</td>
+      </tr>
+      <tr>
+        <td>Interpreting</td>
+        <td>Simultaneous and consecutive — diplomatic, legal, investigative, medical, and corporate domains</td>
+      </tr>
+      <tr>
+        <td>Chemical Eng.</td>
+        <td>Reaction engineering, thermodynamics, process design, phase equilibria, linear programming, supply chain analysis</td>
+      </tr>
+      <tr>
+        <td>Data &amp; SW</td>
+        <td>Python (NumPy · SciPy · Pandas · TensorFlow · Flask) &nbsp;·&nbsp; Next.js · TypeScript · PostgreSQL · Excel</td>
+      </tr>
+      <tr>
+        <td>Other</td>
+        <td>Multinational team leadership, educational content design, project management, applied AI tooling</td>
+      </tr>
+    </table>
+  </section>
+
+</body>
+</html>

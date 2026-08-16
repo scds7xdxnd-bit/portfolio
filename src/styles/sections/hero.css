@@ -213,6 +213,27 @@
   flex-shrink: 0;
 }
 
+/* ── CV Download Dropdown ── */
+.hero__cv {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Opens upward: .player-card clips overflow, so a downward menu would be cut off */
+.hero__cv-menu {
+  top: auto;
+  bottom: calc(100% + 6px);
+  right: auto;
+  left: 0;
+  min-width: 140px;
+  animation: cvDropdownIn var(--duration-fast) var(--ease-smooth);
+}
+
+@keyframes cvDropdownIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ── Right Column: Current Quests Panel ── */
 .hero__quests .panel {
   box-shadow: var(--shadow-offset);
@@ -535,5 +556,20 @@
 
   .hero__actions .btn--ghost {
     font-size: 11px;
+  }
+
+  .hero__actions .hero__cv {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .hero__cv-trigger {
+    width: 100%;
+  }
+
+  /* right-aligned so the menu can't spill past the viewport edge */
+  .hero__cv-menu {
+    left: auto;
+    right: 0;
   }
 }

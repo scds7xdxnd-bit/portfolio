@@ -7,9 +7,10 @@ dist/
 # OPUS prompt files
 prompts/
 
-# PDFs (except cv.pdf which is tracked)
+# PDFs (except the CVs, which are tracked)
 *.pdf
 !public/cv.pdf
+!public/cv-en.pdf
 
 # OS
 .DS_Store
