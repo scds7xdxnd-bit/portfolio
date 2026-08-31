@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人简历 - Khairul Ammar Hakimi (한태양)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 13mm 15mm 13mm 15mm;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans KR', sans-serif;
+      font-size: 9pt;
+      color: #111;
+      line-height: 1.55;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── HEADER ─── */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 9px;
+      border-bottom: 1.8px solid #111;
+      margin-bottom: 12px;
+    }
+    .cv-header__info { flex: 1; }
+    .cv-header__name {
+      font-size: 20pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+    .cv-header__romanized {
+      font-size: 9.5pt;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .cv-header__contact {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.75;
+    }
+    .cv-header__contact a { color: #444; text-decoration: none; }
+    .cv-header__photo {
+      width: 82px;
+      height: 106px;
+      object-fit: cover;
+      object-position: center top;
+      margin-left: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 11px; }
+    .section__title {
+      break-after: avoid;
+      font-size: 10.5pt;
+      font-weight: 700;
+      border-bottom: 1.2px solid #111;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+      letter-spacing: -0.2px;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .edu-name { font-weight: 700; font-size: 9.5pt; }
+    .edu-date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .edu-sub { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 2px; }
+    .edu-detail { font-size: 8pt; color: #444; }
+
+    /* ─── ENTRIES ─── */
+    .entry { margin-bottom: 8px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .entry__title { font-weight: 700; font-size: 9.5pt; flex: 1; }
+    .entry__date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .entry__org { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 3px; }
+    .entry__bullets { margin: 0; padding-left: 13px; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.5; }
+    .entry__tech { font-size: 7.5pt; color: #777; margin-top: 2px; }
+    .entry__link { color: #555; text-decoration: none; }
+
+    /* ─── TWO-COL PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 16px;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-table { width: 100%; border-collapse: collapse; }
+    .skills-table td { font-size: 8pt; padding: 2px 0; vertical-align: top; }
+    .skills-table td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      padding-right: 10px;
+      width: 86px;
+    }
+    .skills-table td:last-child { color: #444; }
+
+    /* ─── PAGE BREAKS ─── */
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+
+    /* ─── SCREEN ONLY ─── */
+    @media screen {
+      body {
+        max-width: 210mm;
+        margin: 24px auto;
+        padding: 13mm 15mm;
+        box-shadow: 0 2px 20px rgba(0,0,0,.13);
+        min-height: 297mm;
+      }
+    }
+    @media print {
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <header class="cv-header">
+    <div class="cv-header__info">
+      <h1 class="cv-header__name">Khairul Ammar Hakimi</h1>
+      <p class="cv-header__romanized">韩文姓名：한태양 (Han Taeyang)</p>
+      <div class="cv-header__contact">
+        <div>+82 10-6804-7882 &nbsp;|&nbsp; <a href="mailto:ammarhakimikm03@gmail.com">ammarhakimikm03@gmail.com</a></div>
+        <div><a href="https://taeyangcv.vercel.app">taeyangcv.vercel.app</a></div>
+      </div>
+    </div>
+    <img class="cv-header__photo" src="/assets/cv-photo.jpg" alt="个人照片" />
+  </header>
+
+  <section class="section no-break">
+    <h2 class="section__title">教育背景</h2>
+    <div class="edu-row">
+      <span class="edu-name">国际商务文学学士、化学与生物分子工程理学学士（双专业）</span>
+      <span class="edu-date">2023年2月 - 2026年12月（预计）</span>
+    </div>
+    <p class="edu-sub">西江大学 / 商学院与工学院 &nbsp;·&nbsp; 韩国首尔</p>
+    <p class="edu-detail">换算成绩：99 / 100</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">化学工程项目</h2>
+    <div class="projects-grid">
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">化学反应模拟器</span><span class="entry__date">2024年至今</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://reactionsimulator.vercel.app">reactionsimulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>开发实时浓度与转化率模拟器，支持连续搅拌釜式反应器（CSTR）、平推流反应器（PFR）及串联反应器</li>
+          <li>基于阿伦尼乌斯方程，建立反应速率随温度变化的模型并实现可视化</li>
+          <li>将反应工程与热力学理论转化为交互式学习工具</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Python · Flask · Vercel</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">逸度模拟器</span><span class="entry__date">2024</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://fugacity-simulator.vercel.app">fugacity-simulator.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>基于 Peng-Robinson 与范德华状态方程计算逸度</li>
+          <li>自动生成并绘制汽液平衡相图</li>
+        </ul>
+        <p class="entry__tech">Python · NumPy · Matplotlib · Flask</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">工艺设计游戏</span><span class="entry__date">2024</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://process-design.vercel.app">process-design.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>开发交互式模拟器，用于优化精馏塔、换热器与反应器</li>
+          <li>构建评分系统，实时反馈能源效率与经济性指标</li>
+        </ul>
+        <p class="entry__tech">JavaScript · Canvas API · Python</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">线性规划膳食优化</span><span class="entry__date">2024</span></div>
+        <p class="entry__org">课程项目</p>
+        <ul class="entry__bullets">
+          <li>建立线性规划模型，在满足营养约束的条件下生成最低成本膳食方案</li>
+          <li>将工程优化方法应用于日常生活系统</li>
+        </ul>
+        <p class="entry__tech">Python · SciPy · PuLP</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">苹果公司供应链分析</span><span class="entry__date">2024</span></div>
+        <p class="entry__org">课程项目</p>
+        <ul class="entry__bullets">
+          <li>分析半导体与材料供应链风险，并对牛鞭效应进行数值模拟</li>
+          <li>提出数据驱动的供应链管理优化策略，并制作可视化报告</li>
+        </ul>
+        <p class="entry__tech">Python · Pandas · Excel</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">软件项目</h2>
+    <div class="projects-grid">
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">LifeOS - 个人效率管理系统</span><span class="entry__date">2024年至今</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://lifeos-wine.vercel.app">lifeos-wine.vercel.app</a></p>
+        <ul class="entry__bullets">
+          <li>开发整合习惯、目标、财务与学习管理的全栈个人系统</li>
+          <li>构建集成 AI 的自动化功能，系统已投入实际使用</li>
+        </ul>
+        <p class="entry__tech">Next.js · TypeScript · PostgreSQL · Vercel</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">CNN 情绪分类器</span><span class="entry__date">2024</span></div>
+        <p class="entry__org">个人项目</p>
+        <ul class="entry__bullets">
+          <li>训练卷积神经网络，实现实时面部表情识别</li>
+          <li>构建根据情绪自动调整界面颜色的系统</li>
+        </ul>
+        <p class="entry__tech">Python · TensorFlow · OpenCV</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">口笔译经历</h2>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语与马来语侦查口译员（嫌疑人讯问）</span><span class="entry__date">2026年6月</span></div>
+      <p class="entry__org">仁川机场海关 · 仁川国际机场第二航站楼</p>
+      <ul class="entry__bullets">
+        <li>在一起违反毒品管制法律的案件中，独立承担韩语与马来语交替传译</li>
+        <li>签署口译员宣誓书，在对准确性与保密性要求严格的场合提供口译服务</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语官方口译员</span><span class="entry__date">2026年5月</span></div>
+      <p class="entry__org">庆尚北道政府 / 教育厅 · 庆尚北道</p>
+      <ul class="entry__bullets">
+        <li>为经济副知事与马来西亚前联邦直辖区部长的会谈提供双向口译</li>
+        <li>为庆尚北道与雪兰莪州教育交流谅解备忘录的前期磋商提供口译</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语官方口译员</span><span class="entry__date">2025年上半年</span></div>
+      <p class="entry__org">庆尚北道政府 · 庆尚北道</p>
+      <ul class="entry__bullets">
+        <li>为知事与马来西亚驻韩国大使的正式会谈提供韩语与马来语同声传译</li>
+        <li>准确处理外交礼宾及区域产业合作领域的专业术语</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">校内官方及志愿口译员</span><span class="entry__date">2023年2月至今</span></div>
+      <p class="entry__org">西江大学国际事务处 · 首尔</p>
+      <ul class="entry__bullets"><li>持续为国际学生提供韩英、韩中交替传译及文件笔译服务</li></ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语自由职业口译员</span><span class="entry__date">2023年11月 - 12月</span></div>
+      <p class="entry__org">韩国大检察厅 · 首尔</p>
+      <ul class="entry__bullets">
+        <li>通过三语法律术语口译，将与海外客户的会议时间缩短10至15分钟</li>
+        <li>为来访的马来西亚高级代表团开展文化背景说明会</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语自由职业口译员</span><span class="entry__date">2023年11月 - 12月</span></div>
+      <p class="entry__org">韩国国民权益委员会 · 大田</p>
+      <ul class="entry__bullets">
+        <li>为国际研修人员的公民教育培训提供金融与法律领域的三语双向同声传译</li>
+        <li>翻译培训材料，使研修人员能力评估成绩提高12%</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语自由职业口译员</span><span class="entry__date">2022年2月 - 8月</span></div>
+      <p class="entry__org">马来西亚驻韩国大使馆 · 首尔</p>
+      <ul class="entry__bullets"><li>为马来西亚学生就医提供医疗口译，确保医患沟通准确</li></ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">韩语、英语与马来语自由职业口译员</span><span class="entry__date">2023年10月至今</span></div>
+      <p class="entry__org">ASEZ（Save the Earth from A to Z）· 首尔</p>
+      <ul class="entry__bullets"><li>提供韩语、马来语、英语、中文及日语同声传译，助力累计征集30万份签名</li></ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">领导经历、奖学金与荣誉</h2>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">PALS 联合会长</span><span class="entry__date">2025年3月至今</span></div>
+      <p class="entry__org">西江大学国际学生社团 PALS（同伴互助与学习支持）</p>
+      <ul class="entry__bullets">
+        <li>领导面向来自15个以上国家的国际学生的朋辈辅导与交流项目</li>
+        <li>2024年第一学期优秀导师活动奖 · 2024年第二学期学期最佳导师</li>
+      </ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">三星全球梦想奖学金获得者</span><span class="entry__date">2024年3月至今</span></div>
+      <p class="entry__org">三星梦想奖学金基金会 - 全球希望奖学金</p>
+      <ul class="entry__bullets"><li>获基金会评选为具有全球领导潜力的奖学金获得者，享有全额学费资助及生活津贴</li></ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">西江校友优秀奖学金获得者</span><span class="entry__date">2025年3月至今</span></div>
+      <p class="entry__org">西江校友奖学金基金会（西江大学）</p>
+      <ul class="entry__bullets"><li>获选为化学与生物分子工程专业优秀奖学金获得者（编号：25-STU-083）</li></ul>
+    </div>
+    <div class="entry no-break">
+      <div class="entry__header"><span class="entry__title">Lee&amp;Won 亚洲青年项目 · 卓越领导力奖</span><span class="entry__date">2023年1月 - 12月</span></div>
+      <p class="entry__org">Lee&amp;Won 基金会 - 亚洲青年项目</p>
+      <ul class="entry__bullets">
+        <li>从500多名申请者中脱颖而出，成为18名入选者之一；领导由来自15个国家的17名成员组成的团队</li>
+        <li>荣获模范领导力卓越奖（2023年12月）</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section no-break">
+    <h2 class="section__title">技能</h2>
+    <table class="skills-table">
+      <tr><td>语言能力</td><td>韩语 TOPIK 6级（265/300）&nbsp;·&nbsp; 英语：母语 &nbsp;·&nbsp; 马来语：母语 &nbsp;·&nbsp; 中文：商务水平 &nbsp;·&nbsp; 日语：日常会话</td></tr>
+      <tr><td>口译</td><td>同声传译与交替传译，涵盖外交、法律、侦查、医疗及企业领域</td></tr>
+      <tr><td>化学工程</td><td>反应工程、热力学、工艺设计、相平衡、线性规划、供应链分析</td></tr>
+      <tr><td>数据与软件</td><td>Python (NumPy · SciPy · Pandas · TensorFlow · Flask) &nbsp;·&nbsp; Next.js · TypeScript · PostgreSQL · Excel</td></tr>
+      <tr><td>其他</td><td>跨国团队领导、教学内容设计、项目管理、AI 工具应用</td></tr>
+    </table>
+  </section>
+</body>
+</html>

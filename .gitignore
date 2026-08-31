@@ -11,6 +11,8 @@ prompts/
 *.pdf
 !public/cv.pdf
 !public/cv-en.pdf
+!public/cv-zh.pdf
+!public/cv-zh-hant.pdf
 
 # OS
 .DS_Store

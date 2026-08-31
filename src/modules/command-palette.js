@@ -54,6 +54,8 @@ function initCommandPalette() {
     { label: 'Jump to Scholar',          icon: '📚',  cat: 'Navigate', action: () => scrollTo('#scholar') },
     { label: 'Copy email address',       icon: '✉️',  cat: 'Action',   action: copyEmail },
     { label: 'Download CV (English)',    icon: '📄',  cat: 'Action',   action: () => document.querySelector('[data-cv="en"]')?.click() },
+    { label: 'Download CV (中文 简体)',    icon: '📄',  cat: 'Action',   action: () => document.querySelector('[data-cv="zh"]')?.click() },
+    { label: 'Download CV (中文 繁體)',    icon: '📄',  cat: 'Action',   action: () => document.querySelector('[data-cv="zh-hant"]')?.click() },
     { label: 'Download CV (한국어)',      icon: '📄',  cat: 'Action',   action: () => document.querySelector('[data-cv="ko"]')?.click() },
     { label: 'Switch to 中文',           icon: '🇨🇳',  cat: 'Language', action: () => switchToLang('zh') },
     { label: 'Switch to 한국어',         icon: '🇰🇷',  cat: 'Language', action: () => switchToLang('ko') },

@@ -3,17 +3,24 @@ const path = require('path');
 const fs = require('fs');
 
 const VARIANTS = [
-  { html: 'cv.html', pdf: 'cv.pdf' },       // Korean
-  { html: 'cv-en.html', pdf: 'cv-en.pdf' }, // English
+  { lang: 'ko', html: 'cv.html', pdf: 'cv.pdf' },       // Korean
+  { lang: 'en', html: 'cv-en.html', pdf: 'cv-en.pdf' }, // English
+  { lang: 'zh', html: 'cv-zh.html', pdf: 'cv-zh.pdf' }, // Simplified Chinese
+  { lang: 'zh-hant', html: 'cv-zh-hant.html', pdf: 'cv-zh-hant.pdf' }, // Traditional Chinese
 ];
 
 async function generateCV() {
+  // Omit the language to regenerate all PDFs, or use e.g. npm run generate-cv -- zh.
+  const language = process.argv[2];
+  const variants = language ? VARIANTS.filter(variant => variant.lang === language) : VARIANTS;
+  if (!variants.length) throw new Error(`Unknown CV language: ${language}. Use ${VARIANTS.map(variant => variant.lang).join(', ')}.`);
+
   const browser = await puppeteer.launch();
 
   const projectRoot = path.resolve(__dirname, '..');
   const publicDir = path.resolve(projectRoot, 'public');
 
-  for (const variant of VARIANTS) {
+  for (const variant of variants) {
     const page = await browser.newPage();
     const cvPath = path.resolve(publicDir, variant.html);
     const pdfPath = path.resolve(publicDir, variant.pdf);
@@ -30,6 +37,7 @@ async function generateCV() {
     });
 
     await page.setContent(html, { waitUntil: 'networkidle0' });
+    await page.evaluate(() => document.fonts.ready);
 
     await page.pdf({
       path: pdfPath,
@@ -45,4 +53,7 @@ async function generateCV() {
   await browser.close();
 }
 
-generateCV().catch(console.error);
+generateCV().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
