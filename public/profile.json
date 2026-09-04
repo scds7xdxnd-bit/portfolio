@@ -6,7 +6,7 @@
     "image": "https://taeyangcv.vercel.app/assets/hero.jpg",
     "email": "ammarhakimikm03@gmail.com",
     "url": "https://taeyangcv.vercel.app",
-    "summary": "Chemical Engineering + Business dual-degree student at Sogang University (Seoul, Korea). Official Korean–English–Malay interpreter (TOPIK 6, 265/300) whose work has been covered by Yonhap News Agency. Builder of 6 deployed systems across full-stack and ML. 7 scholarships across 4 institutions. PALS President, 150+ mentees. Samsung Dream Scholar. Through-line: designing systems that help people learn, live, and grow.",
+    "summary": "Chemical Engineering + Business dual-degree student at Sogang University (Seoul, Korea). Official Korean–English–Malay interpreter (TOPIK 6, 265/300) whose work has been covered by Yonhap News Agency. Builder of 9 deployed systems across full-stack, ML, and organizational software. 7 scholarships across 4 institutions. PALS President, 150+ mentees. Samsung Dream Scholar. Through-line: designing systems that help people learn, live, and grow.",
     "location": {
       "city": "Seoul",
       "countryCode": "KR",
@@ -86,6 +86,11 @@
       "organization": "Rainbow Stepping Stone (Kolon Group)",
       "position": "Refugee Mentor",
       "summary": "Supported a Myanmar student through Kolon Group's refugee mentoring program."
+    },
+    {
+      "organization": "Sogang University",
+      "position": "Korean Language Support Volunteer",
+      "summary": "One-to-one Korean-language learning support for a Somalian refugee, connected through Sogang University."
     }
   ],
   "skills": [
@@ -207,6 +212,20 @@
       "highlights": ["5+ years in production", "Built since age ~20", "Double-entry accounting"],
       "url": "https://finance-app-private-alpha.fly.dev",
       "keywords": ["Python", "Flask", "PostgreSQL", "finance"]
+    },
+    {
+      "name": "GLEAM Governance Platform",
+      "description": "Bilingual (EN/KO) coordination system for the Global Hope Scholars Student Council. Member portal with a club \u2192 period \u2192 event hierarchy, admin governance module, and a club-report export renderer.",
+      "highlights": ["Next.js App Router + Supabase", "Locale-scoped EN/KO routing", "Admin governance module with server actions", "Club report export renderer"],
+      "url": "https://samsunggleam.vercel.app",
+      "keywords": ["Next.js", "Supabase", "TypeScript", "i18n", "governance"]
+    },
+    {
+      "name": "Yummz",
+      "description": "Event and community platform for the International Student Council. RSVPs, organiser portal, and opt-in event chat with moderation and retention jobs.",
+      "highlights": ["Next.js + Drizzle ORM + Postgres", "Organiser portal and RSVP flow", "Server-gated event chat with moderation and retention"],
+      "url": "https://yummzsg.vercel.app",
+      "keywords": ["Next.js", "Drizzle ORM", "Postgres", "community platform"]
     }
   ],
   "meta": {

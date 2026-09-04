@@ -64,6 +64,8 @@ export const SPECIALIZATIONS = [
       { titleKey: 'spec.builder.item3.title', descKey: 'spec.builder.item3.desc', screenshot: '/assets/projects/cnn_emotion_classifier.webp' },
       { titleKey: 'spec.builder.item4.title', descKey: 'spec.builder.item4.desc' },
       { titleKey: 'spec.builder.item5.title', descKey: 'spec.builder.item5.desc' },
+      { titleKey: 'spec.builder.item6.title', descKey: 'spec.builder.item6.desc', link: 'https://samsunggleam.vercel.app', status: 'Active' },
+      { titleKey: 'spec.builder.item7.title', descKey: 'spec.builder.item7.desc', link: 'https://yummzsg.vercel.app', status: 'Active' },
     ],
     miniSim: 'bullwhip',
     certs: []
@@ -83,6 +85,7 @@ export const SPECIALIZATIONS = [
       { titleKey: 'spec.community.item4.title', descKey: 'spec.community.item4.desc' },
       { titleKey: 'spec.community.item6.title', descKey: 'spec.community.item6.desc' },
       { titleKey: 'spec.community.item7.title', descKey: 'spec.community.item7.desc', link: '/samsung-leadership-camp/' },
+      { titleKey: 'spec.community.item8.title', descKey: 'spec.community.item8.desc' },
     ],
     miniSim: 'ph',
     certs: [

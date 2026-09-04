@@ -22,7 +22,7 @@ Portfolio: https://taeyangcv.vercel.app
 
 Taeyang Han is a Chemical Engineering + Business dual-degree student at Sogang University
 (Seoul) who also works as an official Korean–English–Malay interpreter — work covered by
-Yonhap News Agency. He has shipped 6 deployed web applications across full-stack and ML,
+Yonhap News Agency. He has shipped 9 deployed web applications across full-stack, ML, and organizational software,
 holds 7 scholarships across 4 institutions, mentored 150+ students as PALS President, and
 speaks 5 languages at varying levels of professional proficiency.
 
@@ -63,10 +63,20 @@ Chemical Engineering + Business dual degree, Sogang University.
 Teaching Assistant ×3 (Spring 2026, Chemical Engineering dept.).
 Builder of tools that make process engineering tangible and interactive.
 
-### 3. Builder / Developer (💻 · Mastery: 6 deployed apps)
+### 3. Builder / Developer (💻 · Mastery: 9 deployed apps)
 
-5 years building. 6 deployed systems across full-stack (Next.js, Flask, PostgreSQL) and ML
-(TensorFlow CNN, scikit-learn regression). First app shipped 2021, still in production.
+5 years building. 9 deployed systems across full-stack (Next.js, Flask, PostgreSQL), ML
+(TensorFlow CNN, scikit-learn regression), and organizational software built for real
+student organizations. First app shipped 2021, still in production.
+
+Organizational platforms (built 2026, for organizations he leads or serves):
+- GLEAM governance platform — bilingual EN/KO coordination system for the Global Hope
+  Scholars Student Council. Member portal (club → period → event hierarchy), admin
+  governance module, club-report export renderer. Next.js App Router + Supabase.
+  https://samsunggleam.vercel.app
+- Yummz — event and community platform for the International Student Council. RSVPs,
+  organiser portal, opt-in event chat with moderation and retention jobs.
+  Next.js + Drizzle ORM + Postgres. https://yummzsg.vercel.app
 
 Tech stack: Python · TypeScript · JavaScript · SQL · HTML/CSS
 Frameworks: Next.js · React · Flask
