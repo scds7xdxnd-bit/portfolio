@@ -17,7 +17,7 @@
       font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans KR', sans-serif;
       font-size: 9pt;
       color: #111;
-      line-height: 1.55;
+      line-height: 1.42;
       background: white;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -60,14 +60,14 @@
     }
 
     /* ─── SECTIONS ─── */
-    .section { margin-bottom: 11px; }
+    .section { margin-bottom: 8px; }
     .section__title {
       break-after: avoid;
       font-size: 10.5pt;
       font-weight: 700;
       border-bottom: 1.2px solid #111;
       padding-bottom: 2px;
-      margin-bottom: 7px;
+      margin-bottom: 5px;
       letter-spacing: -0.2px;
     }
 
@@ -84,7 +84,7 @@
     .edu-detail { font-size: 8pt; color: #444; }
 
     /* ─── ENTRIES ─── */
-    .entry { margin-bottom: 8px; }
+    .entry { margin-bottom: 6px; }
     .entry:last-child { margin-bottom: 0; }
     .entry__header {
       display: flex;
@@ -96,7 +96,7 @@
     .entry__date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
     .entry__org { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 3px; }
     .entry__bullets { margin: 0; padding-left: 13px; }
-    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.5; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1px; line-height: 1.4; }
     .entry__tech { font-size: 7.5pt; color: #777; margin-top: 2px; }
     .entry__link { color: #555; text-decoration: none; }
 
@@ -232,6 +232,24 @@
           <li>構建根據情緒自動調整界面顏色的系統</li>
         </ul>
         <p class="entry__tech">Python · TensorFlow · OpenCV</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">GLEAM - 學生會治理平台</span><span class="entry__date">2026年至今</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://samsunggleam.vercel.app">samsunggleam.vercel.app</a> · Global Hope Scholars 學生會</p>
+        <ul class="entry__bullets">
+          <li>為學生會打造的英韓雙語運營平台：成員門戶（社團→屆期→活動層級）、管理端治理模組、社團報告匯出功能</li>
+          <li>讓下一屆繼承的是可運行的系統而非個人經驗——繼 PALS 章程與交接流程之後的第三步，也是最持久的一步</li>
+        </ul>
+        <p class="entry__tech">Next.js App Router · TypeScript · Supabase · i18n</p>
+      </div>
+      <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">Yummz - 學生社群平台</span><span class="entry__date">2026年至今</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://yummzsg.vercel.app">yummzsg.vercel.app</a> · 國際學生會</p>
+        <ul class="entry__bullets">
+          <li>活動與社群平台：報名流程、主辦方後台、含審核與定期資料保存任務的可選活動聊天</li>
+          <li>在秋季學期規劃週期前按既定期限交付</li>
+        </ul>
+        <p class="entry__tech">Next.js · TypeScript · Drizzle ORM · PostgreSQL</p>
       </div>
     </div>
   </section>

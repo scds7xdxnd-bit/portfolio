@@ -17,7 +17,7 @@
       font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
       font-size: 9pt;
       color: #111;
-      line-height: 1.55;
+      line-height: 1.42;
       background: white;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -60,13 +60,13 @@
     }
 
     /* ─── SECTIONS ─── */
-    .section { margin-bottom: 11px; }
+    .section { margin-bottom: 8px; }
     .section__title {
       font-size: 10.5pt;
       font-weight: 700;
       border-bottom: 1.2px solid #111;
       padding-bottom: 2px;
-      margin-bottom: 7px;
+      margin-bottom: 5px;
       letter-spacing: -0.2px;
     }
 
@@ -83,7 +83,7 @@
     .edu-detail { font-size: 8pt; color: #444; }
 
     /* ─── ENTRIES ─── */
-    .entry { margin-bottom: 8px; }
+    .entry { margin-bottom: 6px; }
     .entry:last-child { margin-bottom: 0; }
     .entry__header {
       display: flex;
@@ -95,7 +95,7 @@
     .entry__date { font-size: 8pt; color: #555; white-space: nowrap; flex-shrink: 0; }
     .entry__org { font-size: 8pt; color: #555; font-style: italic; margin: 1px 0 3px; }
     .entry__bullets { margin: 0; padding-left: 13px; }
-    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.5; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1px; line-height: 1.4; }
     .entry__tech { font-size: 7.5pt; color: #777; margin-top: 2px; }
     .entry__link { color: #555; text-decoration: none; }
 
@@ -267,6 +267,32 @@
           <li>감정 기반 UI 색상 변환 시스템 개발</li>
         </ul>
         <p class="entry__tech">Python · TensorFlow · OpenCV</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">GLEAM — 학생회 거버넌스 플랫폼</span>
+          <span class="entry__date">2026 – 현재</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://samsunggleam.vercel.app">samsunggleam.vercel.app</a> · 글로벌희망장학생 학생회</p>
+        <ul class="entry__bullets">
+          <li>학생회 운영을 위한 한/영 이중언어 플랫폼 — 동아리 → 기수 → 행사 계층의 멤버 포털, 관리자 거버넌스 모듈, 동아리 보고서 내보내기 기능</li>
+          <li>다음 기수가 개인의 기억이 아닌 작동하는 시스템을 물려받도록 설계 — PALS 회칙·인수인계 프로토콜에 이은 세 번째이자 가장 지속적인 단계</li>
+        </ul>
+        <p class="entry__tech">Next.js App Router · TypeScript · Supabase · i18n</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
+          <span class="entry__title">Yummz — 학생 커뮤니티 플랫폼</span>
+          <span class="entry__date">2026 – 현재</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://yummzsg.vercel.app">yummzsg.vercel.app</a> · 국제학생회</p>
+        <ul class="entry__bullets">
+          <li>행사·커뮤니티 플랫폼 — 참가 신청 플로우, 주최자 포털, 모더레이션과 보존 작업이 포함된 선택형 행사 채팅</li>
+          <li>가을 학기 기획 사이클 전 정해진 기한에 맞춰 배포</li>
+        </ul>
+        <p class="entry__tech">Next.js · TypeScript · Drizzle ORM · PostgreSQL</p>
       </div>
 
     </div>
