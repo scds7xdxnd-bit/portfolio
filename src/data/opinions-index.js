@@ -1,5 +1,20 @@
 const OPINIONS_INDEX = [
   {
+    id: 'does-quantum-chemistry-help',
+    title: 'Does quantum chemistry help?',
+    summary: 'I spent a project asking whether DFT features improve solubility prediction. The answer was no \u2014 and the two most interesting findings were both my own bugs, caught because the result looked too good.',
+    domain: 'Machine Learning',
+    readTime: '12 min read',
+    date: 'September 2026',
+    href: 'does-quantum-chemistry-help.html',
+    noteType: 'Engineering Note',
+    icon: '\u269B\uFE0F',
+    type: 'note',
+    status: 'Published',
+    level: 'Intermediate',
+    takeaway: 'Attack the interesting number first'
+  },
+  {
     id: 'reaction-simulator',
     title: 'Reaction Simulator',
     summary: 'Interactive CSTR/PFR reactor network simulator with Levenspiel plots, temperature profiles, and disturbance injection \u2014 built to bridge the gap between textbook equations and real reactor intuition.',

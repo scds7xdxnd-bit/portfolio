@@ -6,6 +6,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         'opinions/index': 'opinions/index.html',
+        'opinions/does-quantum-chemistry-help': 'opinions/does-quantum-chemistry-help.html',
         'opinions/chemical-potential': 'opinions/chemical-potential.html',
         'opinions/engineering-under-uncertainty': 'opinions/engineering-under-uncertainty.html',
         'projects/lifeos': 'projects/lifeos.html',

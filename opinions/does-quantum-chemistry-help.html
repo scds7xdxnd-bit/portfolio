@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Does quantum chemistry help? — Taeyang Han</title>
+  <meta name="description" content="I spent a project asking whether DFT features improve solubility prediction. The answer was no — and the two most interesting findings were both my own bugs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <link rel="stylesheet" href="/src/styles/pages/opinions.css">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Article navigation">
+    <a href="index.html" class="op-topbar__back" aria-label="Back to Case Studies">&#x2190; Case Studies</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Does Quantum Chemistry Help?</div>
+      <div class="op-topbar__subtitle">Cheminformatics &amp; Machine Learning</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="../index.html" class="op-topbar__portfolio-link">Portfolio →</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Engineering Note</p>
+        <h1 class="op-article__title">Does quantum chemistry help? A null result, and two bugs that looked like discoveries</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;·&nbsp; Chemical &amp; Biomolecular Engineering, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-badge op-badge--note">FIELD NOTE</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">September 2026</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">12 min read</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Level: Intermediate</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <p>
+          I built a machine-learning pipeline to answer one question: once a model already has molecular fingerprints and cheap descriptors, do quantum-chemical features — orbital energies, dipole moments, partial charges from a DFT calculation — add anything measurable?
+        </p>
+
+        <p>
+          The answer is no. That took about an hour of DFT compute across 200 molecules to establish, and the null result is the least interesting thing I found. The two things worth writing down are the moments where the pipeline told me something exciting and it turned out I had produced the excitement myself.
+        </p>
+
+        <h2>The setup</h2>
+
+        <p>
+          The target is aqueous solubility — log S, in mol/L — on the ESOL dataset, 1,117 molecules after deduplicating by InChIKey. The baseline features are 2048-bit Morgan fingerprints plus about 200 RDKit descriptors. The quantum features come from a B3LYP/6-31G* single point in PySCF on an MMFF-relaxed conformer: HOMO, LUMO, the gap, dipole moment, and the range of Mulliken charges. Eight numbers per molecule.
+        </p>
+
+        <p>
+          Two design decisions did most of the work, and neither is exotic. Both are the kind of thing that separates a comparison that means something from one that doesn't.
+        </p>
+
+        <p>
+          The first is <strong>scaffold splitting</strong>. A random train/test split scatters near-identical analogues across both sides, so the model is graded on molecules it has effectively already seen. Splitting by Bemis–Murcko scaffold puts each chemical series wholly on one side. On identical data and identical models, the difference is not subtle:
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>Same model, same data, different split</caption>
+            <thead>
+              <tr><th>Model</th><th class="num">Scaffold RMSE</th><th class="num">Random RMSE</th><th class="num">Inflation</th></tr>
+            </thead>
+            <tbody>
+              <tr class="is-key"><td>XGBoost</td><td class="num">0.900</td><td class="num">0.595</td><td class="num">+51%</td></tr>
+              <tr><td>Random forest</td><td class="num">0.909</td><td class="num">0.621</td><td class="num">+46%</td></tr>
+              <tr><td>MLP</td><td class="num">1.311</td><td class="num">0.924</td><td class="num">+42%</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="data-table__note">
+            If you read a solubility paper reporting ~0.6 RMSE on ESOL without saying how it split, that number is very likely this artefact rather than a better model.
+          </p>
+        </div>
+
+        <p>
+          The second is knowing <strong>how good any model could possibly get</strong>. ESOL is a curation, not a measurement. AqSolDB independently curated the same property from nine sources, so where both list the same molecule and disagree, that disagreement is experimental noise. On 668 shared molecules the two sources differ by <strong>0.34 log units RMSE</strong> — and since ESOL is itself one of AqSolDB's nine sources, that is a lower bound, not an estimate.
+        </p>
+
+        <div class="callout-block">
+          <div class="callout-label">Why this matters before you start</div>
+          <p>
+            The best model here sits at 0.90 RMSE against a floor of at least 0.34. That gap is what tells you there is still real signal to capture rather than curation error to overfit. Without measuring the floor, "improve RMSE by 0.05" is a target you cannot tell apart from noise.
+          </p>
+        </div>
+
+        <p>
+          The largest single disagreement between the two curations is octadecanol: −8.40 versus −5.43. That is a factor of about 900 in concentration, for the same molecule, in two curated databases.
+        </p>
+
+        <h2>The answer: no</h2>
+
+        <p>
+          195 of 200 molecules converged. The five failures are all iodine compounds — the 6-31G* basis set has no functions for iodine, which is a real limitation of the level of theory rather than a bug, and those molecules simply drop out of the subset.
+        </p>
+
+        <p>
+          Every arm is scored on exactly the same molecules, using five-fold scaffold cross-validation so that every molecule contributes one out-of-fold prediction. A single 80/20 split would have left about 40 test molecules, which cannot resolve the effect being looked for; the experiment would have been underpowered by construction and a null result from it would have meant nothing.
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>Does adding 8 quantum features help? · 10,000 paired bootstrap resamples</caption>
+            <thead>
+              <tr><th>Model</th><th class="num">Base</th><th class="num">+QM</th><th class="num">Δ</th><th class="num">95% CI</th><th>Verdict</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Ridge</td><td class="num">0.860</td><td class="num">0.858</td><td class="num">−0.002</td><td class="num">[−0.011, +0.008]</td><td>no effect</td></tr>
+              <tr><td>Random forest</td><td class="num">1.007</td><td class="num">1.007</td><td class="num">−0.000</td><td class="num">[−0.007, +0.007]</td><td>no effect</td></tr>
+              <tr><td>XGBoost</td><td class="num">0.909</td><td class="num">0.946</td><td class="num">+0.037</td><td class="num">[+0.009, +0.065]</td><td class="bad">QM hurts</td></tr>
+              <tr class="is-key"><td>MLP</td><td class="num">1.352</td><td class="num">1.170</td><td class="num">−0.182</td><td class="num">[−0.301, −0.060]</td><td>QM helps?</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <p>
+          Three models say nothing. One says the quantum features helped, by a margin comfortably outside its confidence interval.
+        </p>
+
+        <p>
+          That fourth row is the only interesting number in the table, which is exactly why it is the one that has to be attacked rather than published. The check is cheap: rerun the MLP with the quantum block replaced by things that contain no chemistry whatsoever.
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>The same 8 columns, with the chemistry removed</caption>
+            <thead>
+              <tr><th>Extra feature block</th><th class="num">MLP RMSE</th><th class="num">Change</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>none</td><td class="num">1.352</td><td class="num">—</td></tr>
+              <tr><td>real quantum features</td><td class="num">1.170</td><td class="num">−0.18</td></tr>
+              <tr><td>same features, rows shuffled</td><td class="num">1.228</td><td class="num">−0.12</td></tr>
+              <tr><td>eight columns of Gaussian noise</td><td class="num">1.239</td><td class="num">−0.11</td></tr>
+              <tr class="is-key"><td>eight copies of heavy-atom count</td><td class="num">1.181</td><td class="num">−0.17</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="data-table__note">
+            Pure noise reproduces two-thirds of the "improvement". Molecular size alone reproduces nearly all of it.
+          </p>
+        </div>
+
+        <p>
+          The MLP was not learning chemistry. It was benefiting from eight more well-scaled continuous columns, plus molecular size — which the quantum features partly encode. The HOMO–LUMO gap correlates −0.54 with heavy-atom count in this set; maximum Mulliken charge, +0.47.
+        </p>
+
+        <div class="margin-note">
+          <p>A neural network handed any block of well-scaled continuous inputs will often improve a little. If your new feature family is the first continuous block a model has seen, you are measuring the block's scaling, not its content, until you check.</p>
+        </div>
+
+        <p>
+          So the honest conclusion: <strong>B3LYP orbital energies, dipole moment and Mulliken charges add nothing measurable to aqueous solubility prediction once fingerprints and RDKit descriptors are in hand.</strong> Solubility is dominated by polarity and hydrogen bonding, and TPSA, LogP and the H-bond donor and acceptor counts already encode those — cheaply, and without an hour of DFT.
+        </p>
+
+        <p>
+          The caveat belongs in the same breath as the result. At n=195 the mean 95% confidence interval on the delta is 0.083 log units, so an effect smaller than roughly ±0.04 could not have been detected. This is absence of evidence at that sample size, not proof of absence.
+        </p>
+
+        <p>
+          Two side observations survive. The quantum features are <em>not</em> useless on their own — eight of them alone reach R² 0.27 with a random forest. They carry real signal; it is just signal the cheap descriptors already have. And on this 195-molecule subset, fingerprints alone collapse (R² 0.01) while descriptors alone nearly match the full model. With 156 training molecules, 2048 sparse binary columns cannot learn and 185 dense physicochemical ones can.
+        </p>
+
+        <h2>The first bug that looked like a discovery</h2>
+
+        <p>
+          I had written in the project README that a graph neural network loses to gradient boosting here because 893 training molecules is too few, and that graph networks "start winning around 10⁵ molecules". It sounds right. It is the standard explanation. I had never measured it.
+        </p>
+
+        <p>
+          So I built a learning curve: union ESOL with AqSolDB to get 9,980 molecules, and run the same comparison at 1k, 2.5k, 5k and 10k, scaffold split at every point.
+        </p>
+
+        <p>
+          The GNN got <em>worse</em> as data grew. 1.79, then 1.82, then 2.06.
+        </p>
+
+        <p>
+          That would have been a striking finding. It is also almost never what a real architecture does, which is the only reason I went looking instead of writing it up. Two causes, both mine.
+        </p>
+
+        <p>
+          The first was mundane: the subprocess worker I had written for the curve had no early stopping, no learning-rate schedule, no validation split and no best-checkpoint restore, where the standalone training script had all four. It ran a fixed number of epochs and kept whatever the last one happened to land on. More data meant more steps past the optimum with no way back.
+        </p>
+
+        <p>
+          Fixing that made it <em>worse</em> — 2.40 — which was the useful clue. Best validation RMSE was 1.356, competitive with XGBoost's 1.266. Test RMSE was 2.400. A model that validates at 1.36 and tests at 2.40 is not undertrained. It is being asked something different at test time.
+        </p>
+
+        <h2>What was actually wrong</h2>
+
+        <p>
+          Scaffold splitting assigns the largest scaffold groups to training first. That is what makes it honest — but it also means the test set inherits the rare, and in this dataset the rare molecules are the big ones.
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>Molecule size by split, n=5000</caption>
+            <thead>
+              <tr><th>Split</th><th class="num">n</th><th class="num">Mean heavy atoms</th><th class="num">p95</th><th class="num">Max</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>fit</td><td class="num">3400</td><td class="num">14.3</td><td class="num">28</td><td class="num">99</td></tr>
+              <tr><td>validation</td><td class="num">600</td><td class="num">21.1</td><td class="num">40</td><td class="num">67</td></tr>
+              <tr class="is-key"><td>test</td><td class="num">1000</td><td class="num">25.0</td><td class="num">57</td><td class="num">185</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="data-table__note">
+            A quarter of test molecules are larger than the 95th percentile of the training set.
+          </p>
+        </div>
+
+        <p>
+          My GNN used <strong>sum pooling</strong> over atoms. I had chosen that deliberately and written down the reason: solubility is roughly extensive, a bigger molecule has more surface to solvate, and mean pooling throws that size signal away. On ESOL, where molecules are uniformly small, that reasoning is correct and worth 30%.
+        </p>
+
+        <p>
+          It is a liability the moment the test set is bigger than the training set. A sum-pooled readout scales with atom count, so a 185-atom molecule arrives an order of magnitude outside anything the readout has seen.
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>Same model, same data, one line changed</caption>
+            <thead>
+              <tr><th>Pooling</th><th class="num">Validation</th><th class="num">Test</th><th class="num">R²</th><th class="num">Predicted range</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>sum</td><td class="num">1.407</td><td class="num">2.359</td><td class="num bad">−0.104</td><td class="num bad">[−32.5, +1.3]</td></tr>
+              <tr class="is-key"><td>mean</td><td class="num">1.407</td><td class="num">1.670</td><td class="num">+0.447</td><td class="num">[−14.1, +1.4]</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="data-table__note">
+            True range is [−13.2, +1.4]. The sum-pooled model predicts −32.5 log units — that is 10<sup>−32</sup> mol/L, which is not a solubility.
+          </p>
+        </div>
+
+        <p>
+          The two validation scores are <strong>identical</strong>. That is the part worth carrying away. Validation molecules sit inside the training size distribution, so this failure is completely invisible there. Only a test set drawn from rarer scaffolds exposes it, and only because scaffold splitting arranged for the rare molecules to also be the large ones.
+        </p>
+
+        <div class="callout-block">
+          <div class="callout-label">The generalisable version</div>
+          <p>
+            A pooling function is a claim about how a whole relates to its parts, and that claim is only tested where the parts vary. If your validation set has the same size distribution as training, it cannot tell you whether your readout extrapolates. Check whether your test inputs can be <em>bigger</em> than your training inputs — not just different.
+          </p>
+        </div>
+
+        <p>
+          And mean pooling is not simply better. On ESOL it <em>loses</em> by 30%: 0.998 versus 1.422, because there extensivity really is the right prior and there is no size shift to punish it. The two options fail in opposite directions, so this became a documented parameter carrying both measurements rather than a silent default.
+        </p>
+
+        <h2>The claim I withdrew</h2>
+
+        <p>
+          With pooling fixed, the learning curve finally ran clean — and did not support what I had written.
+        </p>
+
+        <div class="data-table-wrap">
+          <div class="data-table-scroll">
+          <table class="data-table">
+            <caption>Scaffold-split RMSE vs training-set size</caption>
+            <thead>
+              <tr><th class="num">n</th><th class="num">GNN</th><th class="num">Random forest</th><th class="num">XGBoost</th><th class="num">Gap</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">1,000</td><td class="num">1.723</td><td class="num">1.460</td><td class="num">1.407</td><td class="num">+0.316</td></tr>
+              <tr><td class="num">2,500</td><td class="num">1.712</td><td class="num">1.409</td><td class="num">1.316</td><td class="num">+0.395</td></tr>
+              <tr><td class="num">5,000</td><td class="num">1.708</td><td class="num">1.339</td><td class="num">1.266</td><td class="num">+0.442</td></tr>
+              <tr><td class="num">9,980</td><td class="num">1.608</td><td class="num">1.324</td><td class="num">1.235</td><td class="num">+0.373</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="data-table__note">
+            Ten times the data buys the GNN 0.115 RMSE and XGBoost 0.172. The gap does not close — it drifts slightly wider.
+          </p>
+        </div>
+
+        <p>
+          If capacity starvation were the explanation, that gap would narrow monotonically across a tenfold range. It doesn't. So I removed the claim rather than restating it with a bigger number. A flat gap is not evidence for a crossover further out; it is evidence that at these scales, something other than data quantity is the binding constraint.
+        </p>
+
+        <p>
+          Notably, the thing that <em>did</em> move the GNN by 0.7 RMSE was the pooling line — a detail that reads like a footnote in every architecture description I have seen, and which dominated the data-quantity effect I had reached for first.
+        </p>
+
+        <h2>What I'd keep</h2>
+
+        <p>
+          The technical findings are worth about a paragraph each. The habits behind them are what I would actually carry to the next project.
+        </p>
+
+        <p>
+          <strong>Attack the interesting number.</strong> Three models said nothing and one said something. The one that says something is the one most likely to be an artefact, because you will not scrutinise a null result nearly as hard. Building the noise control into the pipeline — so it runs automatically whenever any model reports an improvement — costs an afternoon and removes the discipline requirement entirely.
+        </p>
+
+        <p>
+          <strong>A pattern that shouldn't happen usually didn't.</strong> A model getting worse with more data, a coarser integration grid running slower, a validation score that doesn't move while test collapses — these are not exotic findings. They are almost always instrumentation. I nearly published the first one.
+        </p>
+
+        <p>
+          <strong>A test you have not watched fail is not evidence.</strong> Late in the project I added a smoke test to catch a float-overflow bug that had reached production, then tried to verify it by reintroducing the bug. My first two attempts both reported "not caught" — once because I patched the wrong branch and removed the cast so nothing could overflow, once because I patched a file the build regenerates before running. Both times the correct reading was "your verification is broken", not "your test is useless". Only the third attempt made the build abort as intended.
+        </p>
+
+        <p>
+          The project answered its question in the negative, which was always the likely outcome. What it actually taught me was how much of experimental work is defending against your own enthusiasm — and that the moments where the data seems to be telling you something remarkable are precisely the moments to slow down and check the instrument.
+        </p>
+
+        <div class="margin-note">
+          <p>Full source, pipeline, and the 103 tests: <a href="https://github.com/scds7xdxnd-bit/qm-property-predictor">qm-property-predictor</a>. Live predictor with per-prediction explanations: <a href="https://huggingface.co/spaces/taeyangkimi/solubility-predictor">solubility-predictor</a>.</p>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Article navigation">
+        <a href="engineering-under-uncertainty.html" class="op-article-nav__link">
+          <span class="op-article-nav__link-label">Previous</span>
+          <span class="op-article-nav__link-title">&#x2190; Engineering under uncertainty</span>
+        </a>
+        <a href="index.html" class="op-article-nav__back">&#x2190; Back to Case Studies</a>
+        <span style="min-width:120px;"></span>
+      </nav>
+
+    </article>
+  </main>
+
+  <script>
+    document.querySelectorAll('.term').forEach(t => {
+      t.addEventListener('click', () => t.classList.toggle('active'));
+    });
+  </script>
+</body>
+</html>
