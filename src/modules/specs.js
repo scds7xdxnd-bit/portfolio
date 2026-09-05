@@ -50,11 +50,15 @@ function renderSpecializations() {
       var linkHtml = item.link
         ? '<a class="specs__secondary-link" href="' + item.link + '" target="_blank" rel="noopener"><span data-i18n="spec.liveLink">' + t('spec.liveLink') + '</span> ↗</a>'
         : '';
+      // Secondary cards can carry a write-up too, not just featured ones.
+      var secondaryCaseStudyHtml = item.caseStudyUrl
+        ? '<a class="specs__secondary-link" href="' + item.caseStudyUrl + '" data-i18n="spec.caseStudyLink">' + t('spec.caseStudyLink') + ' →</a>'
+        : '';
       var screenshotHtml = item.screenshot
         ? '<img class="specs__secondary-screenshot" src="' + item.screenshot + '" alt="" loading="lazy" />'
         : '';
-      var footerHtml = (statusHtml || linkHtml)
-        ? '<div class="specs__secondary-footer">' + statusHtml + linkHtml + '</div>'
+      var footerHtml = (statusHtml || linkHtml || secondaryCaseStudyHtml)
+        ? '<div class="specs__secondary-footer">' + statusHtml + linkHtml + secondaryCaseStudyHtml + '</div>'
         : '';
       return (
         '<div class="panel panel--hoverable specs__secondary-card' + (item.screenshot ? ' specs__secondary-card--has-img' : '') + '">'

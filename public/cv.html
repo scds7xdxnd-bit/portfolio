@@ -171,6 +171,21 @@
 
       <div class="entry no-break">
         <div class="entry__header">
+          <span class="entry__title">양자화학 물성 예측기</span>
+          <span class="entry__date">2026</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://huggingface.co/spaces/taeyangkimi/solubility-predictor">huggingface.co/spaces/taeyangkimi/solubility-predictor</a></p>
+        <ul class="entry__bullets">
+          <li>B3LYP/6-31G* 양자화학 특성(HOMO/LUMO, 쌍극자, Mulliken 전하)이 기존 기술자 대비 수용해도 예측을 개선하는지 검증; PySCF로 200개 분자 계산</li>
+          <li>스캐폴드 교차검증·쌍대 부트스트랩·노이즈 대조군으로 엄밀히 측정하여 귀무 결과 도출 — 유일한 개선 효과가 가우시안 노이즈로 재현됨을 확인</li>
+          <li>독립적인 두 큐레이션을 교차 검증해 실험 노이즈 하한을 0.34 log 단위로 정량화, 모델 성능의 상한 기준 확립</li>
+          <li>배포된 예측기는 모든 예측에 TreeSHAP 기여도와 적용 범위 경고를 함께 제공</li>
+        </ul>
+        <p class="entry__tech">Python · PySCF · RDKit · XGBoost · PyTorch</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
           <span class="entry__title">반응 시뮬레이터</span>
           <span class="entry__date">2024 – 현재</span>
         </div>

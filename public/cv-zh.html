@@ -164,6 +164,18 @@
     <h2 class="section__title">化学工程项目</h2>
     <div class="projects-grid">
       <div class="entry no-break">
+        <div class="entry__header"><span class="entry__title">量子化学性质预测器</span><span class="entry__date">2026</span></div>
+        <p class="entry__org"><a class="entry__link" href="https://huggingface.co/spaces/taeyangkimi/solubility-predictor">huggingface.co/spaces/taeyangkimi/solubility-predictor</a></p>
+        <ul class="entry__bullets">
+          <li>检验 B3LYP/6-31G* 量子化学特征（HOMO/LUMO、偶极矩、Mulliken 电荷）能否超越常规描述符提升水溶解度预测；用 PySCF 计算 200 个分子</li>
+          <li>以骨架交叉验证、配对自展法与噪声对照严格论证零结果——唯一表面上的提升可由高斯噪声复现</li>
+          <li>交叉比对两套独立数据整理，将实验噪声下限量化为 0.34 log 单位，确立任何模型的性能上限</li>
+          <li>上线预测器为每次预测附带 TreeSHAP 归因与适用域警告</li>
+        </ul>
+        <p class="entry__tech">Python · PySCF · RDKit · XGBoost · PyTorch</p>
+      </div>
+
+      <div class="entry no-break">
         <div class="entry__header"><span class="entry__title">化学反应模拟器</span><span class="entry__date">2024年至今</span></div>
         <p class="entry__org"><a class="entry__link" href="https://reactionsimulator.vercel.app">reactionsimulator.vercel.app</a></p>
         <ul class="entry__bullets">

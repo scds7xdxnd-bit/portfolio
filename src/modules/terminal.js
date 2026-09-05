@@ -18,6 +18,7 @@ function initTerminal() {
     scm:            { desc: 'Apple supply chain LP optimizer. Python + Gurobi. Cost vs lead-time tradeoffs.', url: 'https://apple-scm-web.vercel.app' },
     accounting:     { desc: 'Double-entry accounting app. Private alpha — 5 yrs in production.', url: 'https://finance-app-private-alpha.fly.dev' },
     'process-game': { desc: 'Interactive process design simulator for ChemE students.', url: 'https://process-design.vercel.app' },
+    solubility:     { desc: 'Aqueous solubility predictor. DFT-vs-descriptors ablation; ships TreeSHAP + domain warning.', url: 'https://huggingface.co/spaces/taeyangkimi/solubility-predictor' },
   };
 
   // Session conversation memory — max 8 turns (user+assistant pairs)

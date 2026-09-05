@@ -40,6 +40,7 @@ export const SPECIALIZATIONS = [
     caseStudyUrl: 'projects/reaction-simulator.html',
     screenshot: '/assets/projects/reaction_simulator.webp',
     secondary: [
+      { titleKey: 'spec.engineer.item7.title', descKey: 'spec.engineer.item7.desc', link: 'https://huggingface.co/spaces/taeyangkimi/solubility-predictor', caseStudyUrl: 'opinions/does-quantum-chemistry-help.html', status: 'Active' },
       { titleKey: 'spec.engineer.item6.title', descKey: 'spec.engineer.item6.desc', screenshot: '/assets/projects/fugacity_simulator.webp', link: 'https://fugacity-simulator.vercel.app' },
       { titleKey: 'spec.engineer.item1.title', descKey: 'spec.engineer.item1.desc', screenshot: '/assets/projects/process_game.webp', link: 'https://process-design.vercel.app' },
       { titleKey: 'spec.engineer.item5.title', descKey: 'spec.engineer.item5.desc', screenshot: '/assets/projects/apple_scm_analysis.webp', link: 'https://apple-scm-web.vercel.app' },

@@ -171,6 +171,21 @@
 
       <div class="entry no-break">
         <div class="entry__header">
+          <span class="entry__title">QM Property Predictor</span>
+          <span class="entry__date">2026</span>
+        </div>
+        <p class="entry__org"><a class="entry__link" href="https://huggingface.co/spaces/taeyangkimi/solubility-predictor">huggingface.co/spaces/taeyangkimi/solubility-predictor</a></p>
+        <ul class="entry__bullets">
+          <li>Tested whether B3LYP/6-31G* quantum features (HOMO/LUMO, dipole, Mulliken charges) improve aqueous-solubility prediction over cheap descriptors; PySCF over 200 molecules</li>
+          <li>Measured a null result rigorously: scaffold k-fold, paired bootstrap, and noise controls that showed the one apparent gain was reproduced by Gaussian noise</li>
+          <li>Quantified the experimental noise floor at 0.34 log units by cross-checking two independent curations, establishing what any model could achieve</li>
+          <li>Deployed predictor returns a TreeSHAP attribution and applicability-domain warning with every prediction</li>
+        </ul>
+        <p class="entry__tech">Python · PySCF · RDKit · XGBoost · PyTorch</p>
+      </div>
+
+      <div class="entry no-break">
+        <div class="entry__header">
           <span class="entry__title">Reaction Simulator</span>
           <span class="entry__date">2024 – Present</span>
         </div>
