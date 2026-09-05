@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — Khairul Ammar Hakimi (한태양) · Engineering</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page { size: A4; margin: 12mm 14mm; }
+
+    body {
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 8.6pt;
+      color: #111;
+      line-height: 1.45;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── HEADER ─── */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 7px;
+      border-bottom: 1.8px solid #111;
+      margin-bottom: 9px;
+    }
+    .cv-header__info { flex: 1; }
+    .cv-header__name { font-size: 18pt; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1px; }
+    .cv-header__romanized { font-size: 8.8pt; color: #555; margin-bottom: 4px; }
+    .cv-header__contact { font-size: 8pt; color: #444; line-height: 1.6; }
+    .cv-header__contact a { color: #444; text-decoration: none; }
+    .cv-header__photo {
+      width: 74px; height: 96px;
+      object-fit: cover; object-position: center top;
+      margin-left: 16px; flex-shrink: 0;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 8px; }
+    .section:last-child { margin-bottom: 0; }
+    .section__title {
+      font-size: 9.8pt; font-weight: 700;
+      border-bottom: 1.2px solid #111;
+      padding-bottom: 1.5px; margin-bottom: 5px;
+      letter-spacing: -0.2px;
+    }
+
+    .summary { font-size: 8.4pt; color: #333; line-height: 1.5; }
+
+    /* ─── ENTRIES ─── */
+    .entry { margin-bottom: 6px; page-break-inside: avoid; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry__header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .entry__title { font-weight: 700; font-size: 9pt; flex: 1; }
+    .entry__date { font-size: 7.6pt; color: #555; white-space: nowrap; flex-shrink: 0; }
+    .entry__org { font-size: 7.6pt; color: #555; font-style: italic; margin: 0 0 2px; }
+    .entry__bullets { margin: 0; padding-left: 12px; }
+    .entry__bullets li { font-size: 8pt; color: #333; margin-bottom: 1px; line-height: 1.42; }
+    .entry__tech { font-size: 7.3pt; color: #777; margin-top: 1.5px; }
+
+    /* ─── TWO-COL PROJECTS ─── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+
+    /* ─── COMPACT LIST ─── */
+    .compact { margin: 0; padding-left: 12px; }
+    .compact li { font-size: 8pt; color: #333; margin-bottom: 1.5px; line-height: 1.45; }
+    .compact strong { color: #111; }
+    .compact .when { color: #666; font-size: 7.6pt; }
+
+    /* ─── SKILLS ─── */
+    .skills-table { width: 100%; border-collapse: collapse; }
+    .skills-table td { font-size: 8pt; padding: 1.5px 0; vertical-align: top; }
+    .skills-table td:first-child { font-weight: 700; white-space: nowrap; padding-right: 10px; width: 82px; }
+    .skills-table td:last-child { color: #444; }
+
+    @media screen {
+      body {
+        max-width: 210mm; margin: 24px auto; padding: 12mm 14mm;
+        box-shadow: 0 2px 20px rgba(0,0,0,.13); min-height: 297mm;
+      }
+    }
+    @media print { a { text-decoration: none; color: inherit; } }
+  </style>
+</head>
+<body>
+
+  <header class="cv-header">
+    <div class="cv-header__info">
+      <div class="cv-header__name">Khairul Ammar Hakimi</div>
+      <div class="cv-header__romanized">Korean name: 한태양 (Han Taeyang)</div>
+      <div class="cv-header__contact">
+        +82 10-6804-7882 &nbsp;|&nbsp; ammarhakimikm03@gmail.com &nbsp;|&nbsp; <a href="https://taeyangcv.vercel.app">taeyangcv.vercel.app</a><br>
+        Seoul, South Korea &nbsp;|&nbsp; Korean (TOPIK 6) · English · Malay · Chinese · Japanese
+      </div>
+    </div>
+    <img class="cv-header__photo" src="/assets/cv-photo.jpg" alt="">
+  </header>
+
+  <section class="section">
+    <div class="section__title">Summary</div>
+    <p class="summary">
+      Final-year double major in Chemical &amp; Biomolecular Engineering and International Business at Sogang University
+      (converted score 99/100). I build engineering software: reactor and thermodynamics simulators, process-optimisation
+      tools, and full-stack applications deployed for real users. Strong in reaction engineering, phase equilibria, and
+      numerical modelling in Python, with a business and multilingual background that suits cross-border technical teams.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Education</div>
+    <div class="entry">
+      <div class="entry__header">
+        <div class="entry__title">B.S. Chemical &amp; Biomolecular Engineering · B.A. International Business (Double Major)</div>
+        <div class="entry__date">Feb 2023 – Dec 2026 (expected)</div>
+      </div>
+      <div class="entry__org">Sogang University, College of Engineering &amp; Sogang Business School · Seoul, South Korea</div>
+      <ul class="entry__bullets">
+        <li>Converted score 99 / 100. Coursework: reaction engineering, thermodynamics, transport phenomena, process design, optimisation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Engineering Projects</div>
+    <div class="projects-grid">
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">Reaction Simulator</div>
+          <div class="entry__date">2024 – Present</div>
+        </div>
+        <div class="entry__org">reactionsimulator.vercel.app</div>
+        <ul class="entry__bullets">
+          <li>Real-time concentration and conversion simulator for CSTR, PFR, and reactors in series.</li>
+          <li>Arrhenius-based temperature-dependent rate modelling with live visualisation.</li>
+        </ul>
+        <div class="entry__tech">JavaScript · Python · Flask · Vercel</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">Fugacity Simulator</div>
+          <div class="entry__date">2024</div>
+        </div>
+        <div class="entry__org">fugacity-simulator.vercel.app</div>
+        <ul class="entry__bullets">
+          <li>Fugacity calculations from Peng-Robinson and van der Waals equations of state.</li>
+          <li>Automatic generation and plotting of vapour–liquid equilibrium phase diagrams.</li>
+        </ul>
+        <div class="entry__tech">Python · NumPy · Matplotlib · Flask</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">Process Design Game</div>
+          <div class="entry__date">2024</div>
+        </div>
+        <div class="entry__org">process-design.vercel.app</div>
+        <ul class="entry__bullets">
+          <li>Interactive simulator for optimising distillation columns, heat exchangers, and reactors.</li>
+          <li>Scoring engine giving real-time feedback on energy efficiency and economic metrics.</li>
+        </ul>
+        <div class="entry__tech">JavaScript · Canvas API · Python</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">Supply Chain Risk &amp; LP Optimisation</div>
+          <div class="entry__date">2024</div>
+        </div>
+        <div class="entry__org">Academic projects</div>
+        <ul class="entry__bullets">
+          <li>Numerical bullwhip-effect simulation of semiconductor and materials supply chains, with a visual risk report.</li>
+          <li>Linear-programming model producing a minimum-cost diet under nutritional constraints.</li>
+        </ul>
+        <div class="entry__tech">Python · Pandas · SciPy · PuLP · Excel</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Software Projects</div>
+    <div class="projects-grid">
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">LifeOS — Personal Productivity OS</div>
+          <div class="entry__date">2024 – Present</div>
+        </div>
+        <div class="entry__org">lifeos-wine.vercel.app</div>
+        <ul class="entry__bullets">
+          <li>Full-stack system unifying habits, goals, finances, and study; in active use by real users.</li>
+          <li>Built AI-connected automation on a Postgres backend.</li>
+        </ul>
+        <div class="entry__tech">Next.js · TypeScript · PostgreSQL · Vercel</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry__header">
+          <div class="entry__title">CNN Emotion Classifier</div>
+          <div class="entry__date">2024</div>
+        </div>
+        <div class="entry__org">Personal project</div>
+        <ul class="entry__bullets">
+          <li>Trained a convolutional network for real-time facial expression recognition.</li>
+          <li>Drove an emotion-adaptive UI colour system from the model output.</li>
+        </ul>
+        <div class="entry__tech">Python · TensorFlow · OpenCV</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Professional Experience — Interpreting &amp; Translation</div>
+    <ul class="compact">
+      <li><strong>Korean–Malay Investigative Interpreter</strong>, Incheon Airport Customs <span class="when">(Jun 2026)</span> — sole consecutive interpreter for a narcotics-control case under a signed interpreter's affidavit.</li>
+      <li><strong>Korean–English–Malay Official Interpreter</strong>, Gyeongsangbuk-do Provincial Government <span class="when">(2025 – 2026)</span> — talks between the Governor / Vice Governor and the Malaysian Ambassador and former Minister of Federal Territories, incl. an education-exchange MOU.</li>
+      <li><strong>Freelance Interpreter</strong>, Supreme Prosecutors' Office &amp; Anti-Corruption and Civil Rights Commission <span class="when">(2023)</span> — trilingual legal and finance interpreting; translated training materials, raising trainee assessment scores 12%.</li>
+      <li><strong>Official Campus Interpreter</strong>, Sogang University Office of International Affairs <span class="when">(2023 – Present)</span> — Korean–English and Korean–Chinese interpreting and document translation.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Scholarships, Awards &amp; Leadership</div>
+    <ul class="compact">
+      <li><strong>Samsung Global Dream Scholar</strong>, Samsung Dream Scholarship Foundation <span class="when">(2024 – Present)</span> — full tuition plus living stipend, awarded to prospective global leaders.</li>
+      <li><strong>Sogang Alumni Excellence Scholar</strong> in Chemical &amp; Biomolecular Engineering <span class="when">(2025 – Present)</span> — No. 25-STU-083.</li>
+      <li><strong>Lee&amp;Won Asian Fellow · Exemplary Leadership Excellence Award</strong> <span class="when">(2023)</span> — 1 of 18 fellows from 500+ applicants; led a 17-member team across 15 countries.</li>
+      <li><strong>Co-President, PALS</strong>, Sogang University <span class="when">(2025 – Present)</span> — mentorship programmes for students from 15+ countries; Outstanding Mentor Award and Mentor of the Semester (2024).</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section__title">Skills</div>
+    <table class="skills-table">
+      <tr>
+        <td>Chemical Eng.</td>
+        <td>Reaction engineering · thermodynamics &amp; phase equilibria · process design · linear programming · supply chain modelling</td>
+      </tr>
+      <tr>
+        <td>Programming</td>
+        <td>Python (NumPy · SciPy · Pandas · TensorFlow · Flask) · JavaScript / TypeScript · Next.js · PostgreSQL · Git · Excel</td>
+      </tr>
+      <tr>
+        <td>Languages</td>
+        <td>Korean — TOPIK Level 6 (265/300) · English — native · Malay — native · Chinese — business · Japanese — conversational</td>
+      </tr>
+      <tr>
+        <td>Other</td>
+        <td>Multinational team leadership · technical documentation and translation · applied AI tooling · project management</td>
+      </tr>
+    </table>
+  </section>
+
+</body>
+</html>
