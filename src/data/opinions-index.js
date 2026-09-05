@@ -1,4 +1,5 @@
 const OPINIONS_INDEX = [
+  {id:'pals',title:'Leave a stronger handover',summary:'From PALS mentee to leadership: making it easier for the next team to keep helping.',domain:'Community',href:'../projects/pals.html',noteType:'Community Case Study',icon:'☀',type:'project',stack:'PALS · Sogang University',takeaway:'Look at the structure around the people'},
   {
     id: 'does-quantum-chemistry-help',
     title: 'Does quantum chemistry help?',
@@ -29,7 +30,7 @@ const OPINIONS_INDEX = [
   {
     id: 'lifeos',
     title: 'LifeOS',
-    summary: 'Unified personal life-management platform across finance, health, habits, and productivity \u2014 6 integrated domains, LP macro optimizer, event-driven architecture, and 5+ years of data.',
+    summary: 'Unified personal life-management platform across finance, health, habits, and productivity \u2014 connected everyday information, an LP macro optimizer, and event-driven architecture.',
     domain: 'Systems',
     href: '../projects/lifeos.html',
     noteType: 'Project Case Study',

@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#1E1E1E"/>
-  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
-        font-family="'DM Sans', system-ui, sans-serif"
-        font-size="18" font-weight="700" fill="#7EE6A7">T</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="10" fill="#FFF7E6"/>
+  <circle cx="24" cy="24" r="9" fill="#E8AD21"/>
+  <path d="M24 5v5m0 28v5M5 24h5m28 0h5M10 10l4 4m20 20 4 4M10 38l4-4m20-20 4-4" fill="none" stroke="#E8AD21" stroke-width="3"/>
 </svg>

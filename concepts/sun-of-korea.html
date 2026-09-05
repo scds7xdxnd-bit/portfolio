@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#FFF7E6">
+  <title>한태양 — Sun of Korea · Component Preview</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/styles/sun-world.css">
+  <style>html{scroll-behavior:smooth}body{margin:0}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}</style>
+</head>
+<body>
+  <div id="top" class="sun-site"></div>
+  <noscript><p style="padding:24px">This component preview needs JavaScript. <a href="/">Visit the current portfolio</a>.</p></noscript>
+  <script type="module">
+    import { mountSunPortfolio } from '/src/components/sun-world.js';
+    mountSunPortfolio(document.getElementById('top'));
+  </script>
+</body>
+</html>

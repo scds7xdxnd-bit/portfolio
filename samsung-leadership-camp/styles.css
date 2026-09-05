@@ -472,7 +472,7 @@ input[type="range"] {
   min-height: 560px;
   background:
     linear-gradient(rgba(8, 19, 31, 0.42), rgba(8, 19, 31, 0.84)),
-    url("../assets/projects/dream_summer_festival_moodboard.png");
+    url("/assets/projects/dream_summer_festival_moodboard.webp");
   background-position: center;
   background-size: cover;
 }

@@ -1,6 +1,6 @@
 # Taeyang Han — Life Systems Designer
 # https://taeyangcv.vercel.app
-# Last updated: 2026-06-16
+# Last updated: 2026-09-05
 #
 # This file is a machine-readable digest of this portfolio for AI agents,
 # LLMs, and crawlers. For structured data, see /profile.json.
@@ -20,19 +20,17 @@ Portfolio: https://taeyangcv.vercel.app
 
 ## Summary
 
-Taeyang Han is a Chemical Engineering + Business dual-degree student at Sogang University
-(Seoul) who also works as an official Korean–English–Malay interpreter — work covered by
-Yonhap News Agency. He has shipped 9 deployed web applications across full-stack, ML, and organizational software,
-holds 7 scholarships across 4 institutions, mentored 150+ students as PALS President, and
-speaks 5 languages at varying levels of professional proficiency.
-
-The through-line: designing systems that help people learn, live, and grow — from reactor
-simulators to personal life-management platforms to multilingual bridging in government settings.
+Taeyang Han is a Malaysian chemical engineering and business student at Sogang University,
+a software builder, Korean–English–Malay interpreter, and mentor based in Seoul.
+His name carries an aspiration: 한 means Korea and 태양 means the sun.
+“I want to be the sun of Korea.” He builds systems that help people move forward.
+His work connects engineering tools, personal systems, mentoring, and structures
+that make it easier for the next person to continue.
 
 ## Languages
 
 - English: Native / Full professional proficiency
-- Korean: Near-native — TOPIK 6 (265/300), diplomatic-level simultaneous interpretation
+- Korean: TOPIK Level 6 achieved in 2024 (265/300); professional Korean–English–Malay interpretation
 - Mandarin Chinese: Intermediate — BLCU coursework, professional reading/writing
 - Malay: Heritage + professional interpreting (government, medical, airport)
 - Japanese: Conversational — everyday basic to intermediate
@@ -41,7 +39,7 @@ simulators to personal life-management platforms to multilingual bridging in gov
 
 ### 1. Linguist (🌐 · Mastery: TOPIK 6 · 265/300)
 
-Official Korean–English–Malay interpreter. Work covered by Yonhap News Agency.
+Official Korean–English–Malay interpreter. Interpreted at an APEC cooperation meeting reported by Yonhap News; reporting documents the meeting.
 
 Featured: APEC Cooperation Dialogue (Feb 18, 2025)
   Interpreted the meeting between Gyeongbuk Governor Lee Cheol-woo and Malaysian Ambassador

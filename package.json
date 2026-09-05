@@ -7,7 +7,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "generate-cv": "node scripts/generate-cv.js",
-    "generate-dossier": "node scripts/generate-dossier.js"
+    "generate-dossier": "node scripts/generate-dossier.js",
+    "predev": "node scripts/render-home.mjs",
+    "prebuild": "node scripts/render-home.mjs"
   },
   "devDependencies": {
     "puppeteer": "^25.2.1",

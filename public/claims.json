@@ -2,13 +2,12 @@
   "schema": "claims/1.0",
   "subject": "Taeyang Han (한태양)",
   "generatedAt": "2026-06-16",
-  "note": "Machine-readable registry of verifiable claims about Taeyang Han. Each claim includes at least one external evidence URL. For human context see /llms.txt; for structured resume see /profile.json.",
+  "note": "Portfolio claim registry. Evidence scope varies: certificates document credentials; event coverage documents the event and may not name the interpreter. For human context see /llms.txt; for structured resume see /profile.json.",
   "claims": [
     {
       "id": "yonhap-apec-2025",
       "category": "linguist",
       "statement": "Official Korean–English–Malay interpreter for APEC Cooperation Dialogue between Gyeongbuk Governor Lee Cheol-woo and Malaysian Ambassador Mohd Zamruni bin Khalid, Feb 18, 2025",
-      "verifiedBy": "Yonhap News Agency (연합뉴스)",
       "evidence": [
         {
           "type": "press-article",
@@ -17,7 +16,8 @@
           "datePublished": "2025-02-18"
         }
       ],
-      "tags": ["interpreter", "APEC", "government", "Gyeongbuk", "Korea-Malaysia"]
+      "tags": ["interpreter", "APEC", "government", "Gyeongbuk", "Korea-Malaysia"],
+      "evidenceScope": "The Yonhap article documents the meeting. It is not presented as independent verification naming Taeyang as its interpreter."
     },
     {
       "id": "samsung-webzine-2024",

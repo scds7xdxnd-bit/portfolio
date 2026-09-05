@@ -6,7 +6,7 @@
     "image": "https://taeyangcv.vercel.app/assets/hero.jpg",
     "email": "ammarhakimikm03@gmail.com",
     "url": "https://taeyangcv.vercel.app",
-    "summary": "Chemical Engineering + Business dual-degree student at Sogang University (Seoul, Korea). Official Korean–English–Malay interpreter (TOPIK 6, 265/300) whose work has been covered by Yonhap News Agency. Builder of 9 deployed systems across full-stack, ML, and organizational software. 7 scholarships across 4 institutions. PALS President, 150+ mentees. Samsung Dream Scholar. Through-line: designing systems that help people learn, live, and grow.",
+    "summary": "Malaysian chemical engineering and business student at Sogang University, based in Seoul. Korean–English–Malay interpreter, software builder, and mentor. 한 means Korea and 태양 means the sun: “I want to be the sun of Korea.” Builds systems that help people move forward, from engineering tools and LifeOS to PALS handover structures and the 照应 scholarship guide.",
     "location": {
       "city": "Seoul",
       "countryCode": "KR",
@@ -43,7 +43,7 @@
       "name": "Freelance",
       "position": "Official Interpreter — Korean · English · Malay",
       "startDate": "2022-02",
-      "summary": "Official interpreter for government and institutional clients. Work covered by Yonhap News Agency.",
+      "summary": "Korean–English–Malay interpretation for government and institutional clients. Interpreted at an APEC cooperation meeting in February 2025; linked news coverage documents the meeting.",
       "highlights": [
         "APEC Cooperation Dialogue (Feb 18, 2025) — Gyeongbuk Governor ↔ Malaysian Ambassador. Reported by Yonhap News: https://www.yna.co.kr/view/AKR20250218100300053",
         "Gyeongbuk Provincial Government — Malaysian Ambassador & Federal Territories Minister meetings (2025)",
@@ -119,7 +119,7 @@
     },
     {
       "language": "Korean",
-      "fluency": "Near-native — TOPIK 6 (265/300), diplomatic-level simultaneous interpretation"
+      "fluency": "TOPIK Level 6 achieved in 2024 (265/300); Korean–English–Malay professional interpretation"
     },
     {
       "language": "Mandarin Chinese",
@@ -231,7 +231,7 @@
   "meta": {
     "canonical": "https://taeyangcv.vercel.app/profile.json",
     "version": "v1.0.0",
-    "lastModified": "2026-06-16",
+    "lastModified": "2026-09-05",
     "notes": "For AI agents: also available as MCP server at /api/mcp and as a plain-text digest at /llms.txt"
   }
 }
