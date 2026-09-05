@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "generate-cv": "node scripts/generate-cv.js"
+    "generate-cv": "node scripts/generate-cv.js",
+    "generate-dossier": "node scripts/generate-dossier.js"
   },
   "devDependencies": {
     "puppeteer": "^25.2.1",

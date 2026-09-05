@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evidence Dossier — Khairul Ammar Hakimi (한태양)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+@page{ size:A4; margin:14mm 15mm; }
+
+:root{
+  --ink:#111;
+  --ink-2:#3a3a3a;
+  --ink-3:#6a6a6a;
+  --rule:#111;
+  --hair:#d4d4d4;
+  --wash:#f4f2ee;
+  --accent:#8c2f1d;
+}
+
+body{
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-size:9pt; color:var(--ink); line-height:1.55; background:#fff;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+
+/* ─────────── SHEET / PAGINATION ─────────── */
+.sheet{ page-break-after:always; break-after:page; }
+.sheet:last-of-type{ page-break-after:auto; break-after:auto; }
+.no-break{ page-break-inside:avoid; break-inside:avoid; }
+
+/* ─────────── MASTHEAD ─────────── */
+.mast{ display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:2px solid var(--rule); padding-bottom:8px; margin-bottom:14px; }
+.mast__name{ font-size:23pt; font-weight:900; letter-spacing:-.6px; line-height:1.05; }
+.mast__kr{ font-size:9.5pt; color:var(--ink-3); margin-top:2px; }
+.mast__meta{ text-align:right; font-size:8pt; color:var(--ink-2); line-height:1.7; }
+.mast__meta a{ color:var(--ink-2); text-decoration:none; }
+.mast__kicker{ font-size:7.5pt; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--accent); font-weight:700; margin-bottom:4px; }
+
+/* running header on continuation sheets */
+.runhead{ display:flex; justify-content:space-between; align-items:baseline;
+  border-bottom:1px solid var(--rule); padding-bottom:4px; margin-bottom:12px;
+  font-size:7.5pt; letter-spacing:1.4px; text-transform:uppercase; color:var(--ink-3); }
+.runhead strong{ color:var(--ink); font-weight:700; letter-spacing:1.4px; }
+
+/* ─────────── THESIS ─────────── */
+.thesis{ border-left:3px solid var(--accent); padding:2px 0 2px 12px; margin-bottom:14px; }
+.thesis__label{ font-size:7.5pt; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--ink-3); font-weight:700; margin-bottom:5px; }
+.thesis__body{ font-size:13pt; font-weight:700; line-height:1.35; letter-spacing:-.3px; }
+.thesis__kr{ font-size:8.5pt; color:var(--ink-2); margin-top:6px; line-height:1.6; }
+
+/* ─────────── SECTION ─────────── */
+.sec{ margin-bottom:13px; }
+.sec__title{ font-size:9pt; font-weight:700; letter-spacing:1.3px; text-transform:uppercase;
+  border-bottom:1px solid var(--rule); padding-bottom:3px; margin-bottom:8px; }
+.sec__note{ font-size:7.5pt; color:var(--ink-3); font-style:italic; margin-top:5px; }
+
+/* ─────────── ASSET TABLE ─────────── */
+table{ width:100%; border-collapse:collapse; }
+.tbl td,.tbl th{ font-size:8pt; padding:4px 8px 4px 0; vertical-align:top;
+  border-bottom:1px solid var(--hair); text-align:left; }
+.tbl th{ font-size:7pt; letter-spacing:1px; text-transform:uppercase; color:var(--ink-3);
+  font-weight:700; border-bottom:1px solid var(--rule); padding-bottom:3px; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl .k{ font-weight:700; white-space:nowrap; width:110px; }
+.tbl .dt{ white-space:nowrap; color:var(--ink-3); font-size:7.5pt; text-align:right; width:96px; }
+
+/* ─────────── EVIDENCE TILES ─────────── */
+.tiles{ display:grid; grid-template-columns:1fr 1fr; gap:9px 14px; }
+.tile{ border-top:1.5px solid var(--rule); padding-top:6px; page-break-inside:avoid; }
+.tile__n{ font-size:6.5pt; letter-spacing:1.2px; color:var(--accent); font-weight:700; }
+.tile__t{ font-size:9pt; font-weight:700; margin:1px 0 3px; letter-spacing:-.2px; }
+.tile__b{ font-size:7.8pt; color:var(--ink-2); line-height:1.5; }
+.tile__p{ font-size:7.3pt; color:var(--ink-3); margin-top:3px; }
+
+/* ─────────── CASE STUDY ─────────── */
+.case__kicker{ font-size:7.5pt; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--accent); font-weight:700; }
+.case__title{ font-size:16pt; font-weight:900; letter-spacing:-.5px; line-height:1.15; margin:2px 0 4px; }
+.case__sub{ font-size:9pt; color:var(--ink-2); margin-bottom:10px; }
+.case__grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+.beat{ margin-bottom:9px; page-break-inside:avoid; }
+.beat__h{ font-size:7.5pt; letter-spacing:1.2px; text-transform:uppercase;
+  color:var(--ink-3); font-weight:700; margin-bottom:2px; }
+.beat__b{ font-size:8.2pt; color:var(--ink-2); line-height:1.55; }
+.beat__b strong{ color:var(--ink); }
+
+.metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  border-top:1.5px solid var(--rule); border-bottom:1.5px solid var(--rule);
+  padding:8px 0; margin:10px 0 12px; }
+.metric__v{ font-size:14pt; font-weight:900; letter-spacing:-.6px; line-height:1; }
+.metric__l{ font-size:6.8pt; letter-spacing:.8px; text-transform:uppercase;
+  color:var(--ink-3); margin-top:3px; line-height:1.35; }
+
+.shot{ width:100%; border:1px solid var(--hair); display:block; }
+.shot--h{ height:52mm; object-fit:cover; object-position:center top; }
+.shot--m{ height:34mm; object-fit:cover; object-position:center top; }
+.cap{ font-size:7pt; color:var(--ink-3); margin-top:3px; }
+
+/* ─────────── BUILD / RECORD LISTS ─────────── */
+.rec{ display:flex; gap:8px; align-items:baseline; padding:3.5px 0;
+  border-bottom:1px solid var(--hair); page-break-inside:avoid; }
+.rec:last-child{ border-bottom:none; }
+.rec__t{ font-weight:700; font-size:8.3pt; white-space:nowrap; }
+.rec__d{ font-size:7.8pt; color:var(--ink-2); flex:1; }
+.rec__m{ font-size:7.3pt; color:var(--ink-3); white-space:nowrap; text-align:right; }
+
+/* ─────────── CHART ─────────── */
+.chart{ width:100%; height:auto; }
+.legend{ display:flex; gap:12px; flex-wrap:wrap; font-size:7pt; color:var(--ink-3); margin-top:5px; }
+.legend i{ display:inline-block; width:8px; height:8px; margin-right:3px; vertical-align:-1px; }
+
+/* ─────────── FOOTER ─────────── */
+.foot{ border-top:1px solid var(--rule); margin-top:12px; padding-top:5px;
+  display:flex; justify-content:space-between; font-size:7pt; color:var(--ink-3); }
+
+/* ─────────── PROFILE SWITCHING ─────────── */
+body[data-profile="process"]  [data-profiles]:not([data-profiles~="process"]),
+body[data-profile="global"]   [data-profiles]:not([data-profiles~="global"]),
+body[data-profile="ra"]       [data-profiles]:not([data-profiles~="ra"]),
+body[data-profile="onepager"] [data-profiles]:not([data-profiles~="onepager"]){ display:none !important; }
+
+/* ─────────── SCREEN CHROME ─────────── */
+.bar{ position:sticky; top:0; z-index:9; display:flex; gap:6px; align-items:center;
+  flex-wrap:wrap; background:#1b1b1b; color:#fff; padding:9px 14px; font-size:11px; }
+.bar b{ font-weight:700; letter-spacing:.6px; margin-right:6px; }
+.bar button{ font:inherit; font-size:11px; background:#333; color:#ddd; border:1px solid #4a4a4a;
+  border-radius:3px; padding:4px 9px; cursor:pointer; }
+.bar button[aria-pressed="true"]{ background:#fff; color:#111; border-color:#fff; font-weight:700; }
+.bar span{ color:#999; margin-left:auto; }
+
+@media screen{
+  body{ background:#8a8a8a; }
+  .sheet{ width:210mm; min-height:297mm; margin:18px auto; padding:14mm 15mm;
+    background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.3); }
+}
+@media print{
+  .bar{ display:none !important; }
+  a{ color:inherit; text-decoration:none; }
+}
+</style>
+</head>
+<body data-profile="process">
+
+<div class="bar">
+  <b>PRINT PROFILE</b>
+  <button data-p="process">Process / R&amp;D</button>
+  <button data-p="global">Global &amp; Management</button>
+  <button data-p="ra">Research / RA</button>
+  <button data-p="onepager">One-page leave-behind</button>
+  <button data-p="all">Everything</button>
+  <span>Cmd/Ctrl-P → A4 → Background graphics ON</span>
+</div>
+
+
+<!-- ══════════════════ SHEET 1 · THESIS + EVIDENCE ══════════════════ -->
+<section class="sheet" data-profiles="process global ra onepager">
+
+  <header class="mast">
+    <div>
+      <div class="mast__kicker">Evidence Dossier</div>
+      <div class="mast__name">Khairul Ammar Hakimi</div>
+      <div class="mast__kr">한태양 · Han Taeyang &nbsp;|&nbsp; Sogang University — Chemical &amp; Biomolecular Engineering · Business (double major)</div>
+    </div>
+    <div class="mast__meta">
+      +82 10-6804-7882<br>
+      <a href="mailto:ammarhakimikm03@gmail.com">ammarhakimikm03@gmail.com</a><br>
+      <a href="https://taeyangcv.vercel.app">taeyangcv.vercel.app</a>
+    </div>
+  </header>
+
+  <div class="thesis">
+    <div class="thesis__label">The Claim</div>
+    <p class="thesis__body">I find the binding constraint in a system and redesign the structure around it — and the method does not change when the system stops being chemical and starts being human.</p>
+    <p class="thesis__kr">저는 어떤 문제를 만나도 같은 질문부터 합니다. “이 시스템에서 실제로 막히는 지점은 어디인가.” 그래서 사람을 탓하기 전에 구조를 먼저 고칩니다.</p>
+  </div>
+
+  <div class="sec no-break">
+    <h2 class="sec__title">One method, three classes of system</h2>
+    <table class="tbl">
+      <tr>
+        <td class="k">Chemical eng.</td>
+        <td>Supplies the vocabulary and the formalism — rate-limiting step, bottleneck, binding constraint, feedback around a setpoint, variance.</td>
+      </tr>
+      <tr>
+        <td class="k">Business major</td>
+        <td>Supplies the second system class, where the identical mathematics reappears under different names — linear programming, statistical process control, the bullwhip effect, the value chain.</td>
+      </tr>
+      <tr>
+        <td class="k">Korean + 5 languages</td>
+        <td>Supplies the access. A Korean institution’s bottleneck cannot be diagnosed from outside it.</td>
+      </tr>
+    </table>
+    <p class="sec__note">The double major is not “I know two fields.” Breadth is not a reason to hire anyone. The claim is one method, three classes of system.</p>
+  </div>
+
+  <div class="sec">
+    <h2 class="sec__title">Six pieces of evidence</h2>
+    <div class="tiles">
+
+      <div class="tile">
+        <div class="tile__n">01 · PHYSICAL SYSTEM</div>
+        <div class="tile__t">I found a physics defect in my own model</div>
+        <p class="tile__b">A reactor-network simulator passed 229 tests. Checked against an analytic solution, recycle ratio from 10 % to 99 % left conversion unchanged — physically impossible. Two structural faults located and fixed; verified to 5–6 decimal places.</p>
+        <p class="tile__p">240 tests passing · 13 unit operations</p>
+      </div>
+
+      <div class="tile">
+        <div class="tile__n">02 · HUMAN SYSTEM</div>
+        <div class="tile__t">The communication problem was not language</div>
+        <p class="tile__b">As PALS Co-President I interviewed all four team leads instead of accepting the obvious diagnosis. The bottleneck was an undefined hand-off format, not fluency. I standardised the hand-off, not the language.</p>
+        <p class="tile__p">Cross-team coordination: weeks → hours</p>
+      </div>
+
+      <div class="tile">
+        <div class="tile__n">03 · JUDGEMENT</div>
+        <div class="tile__t">Equal rules are not equal conditions</div>
+        <p class="tile__b">A leadership-camp plan applied identical competitive rules to Korean and international scholars — fair on paper, asymmetric in practice. After four hours of discussion we discarded our own plan and redesigned the interaction structure.</p>
+        <p class="tile__p">18 countries · 2 student councils</p>
+      </div>
+
+      <div class="tile">
+        <div class="tile__n">04 · INSTITUTIONAL ACCESS</div>
+        <div class="tile__t">Trusted in rooms where accuracy is not optional</div>
+        <p class="tile__b">Korean–English–Malay interpreting for the Gyeongsangbuk-do provincial government, the Supreme Prosecutors’ Office, the Anti-Corruption &amp; Civil Rights Commission, and Incheon Airport Customs.</p>
+        <p class="tile__p">TOPIK 6 · 265/300 (2024)</p>
+      </div>
+
+      <div class="tile">
+        <div class="tile__n">05 · SHIPPING RECORD</div>
+        <div class="tile__t">Five years of systems that stayed running</div>
+        <p class="tile__b">First application shipped in 2021 — a personal accounting system still in daily use. Six systems currently deployed and publicly reachable, spanning process simulation, full-stack platforms, and machine learning.</p>
+        <p class="tile__p">6 live deployments · 2021 → present</p>
+      </div>
+
+      <div class="tile">
+        <div class="tile__n">06 · INSTITUTIONAL TRUST</div>
+        <div class="tile__t">Selected repeatedly, by panels, not by application volume</div>
+        <p class="tile__b">Samsung Dream Scholarship (Global Hope) across five semesters; Sogang first-class admission scholarship covering full tuition for seven semesters; Lee&amp;Won Asian Fellowship — one of 18 from 500+ applicants.</p>
+        <p class="tile__p">7 scholarships · 4 institutions</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>Every figure in this document is traceable to a transcript, a repository, or a signed engagement record.</span>
+    <span>Available from Mar 2027 · Graduating Feb 2027</span>
+  </div>
+</section>
+
+
+<!-- ══════════════════ SHEET 2 · REACTION NETWORK SIMULATOR ══════════════════ -->
+<section class="sheet" data-profiles="process ra">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Case 01 — Physical system</span></div>
+
+  <div class="case__kicker">Case 01 · Process simulation</div>
+  <h2 class="case__title">Reaction Network Simulator</h2>
+  <p class="case__sub">A flowsheet simulator for reactor networks — and the story of catching a defect that every passing test had missed.</p>
+
+  <div class="metrics">
+    <div><div class="metric__v">13</div><div class="metric__l">Unit operations<br>(CSTR · PFR · batch · semi-batch · packed bed)</div></div>
+    <div><div class="metric__v">240</div><div class="metric__l">Tests passing<br>after the fix, 229 pre-existing intact</div></div>
+    <div><div class="metric__v">0.776870</div><div class="metric__l">Analytic benchmark<br>matched to 6 decimals</div></div>
+    <div><div class="metric__v">23,543</div><div class="metric__l">Lines of code<br>AI-assisted implementation</div></div>
+  </div>
+
+  <div class="case__grid">
+    <div>
+      <div class="beat">
+        <div class="beat__h">What it is</div>
+        <p class="beat__b">A process simulator that solves reactor networks end to end: 13 unit operations, isothermal / adiabatic / cooled thermal modes, and a chain running from material and energy balances through equipment sizing to installed-cost estimation. Cantera-linked property data; Turton correlations for costing.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">The problem with a green test suite</div>
+        <p class="beat__b">229 tests passed. A passing test only confirms what I already thought to check. So I compared a recycle example against its analytic solution instead. <strong>With the recycle cut, the first-order PFR matched 1−exp(−kτ) = 0.776870 to six decimals.</strong> With the recycle connected, sweeping the split ratio from 10 % to 99 % left conversion pinned at 0.527633. A recycle stream that changes nothing is physically impossible.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Why the exact case mattered</div>
+        <p class="beat__b">Correctness without the recycle localised the fault immediately: the reactor models were right, so the defect lived in the loop.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Including the wrong turn</div>
+        <p class="beat__b">I read one line of code and concluded reactor volume floated under recycle. It did not — that line was the cooled-CSTR jacket calculation, unrelated to recycle semantics. Reading the code did not correct me; comparing numbers against the reference did.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">What it changed</div>
+        <p class="beat__b">Verification is not the last step of building. The model is never the authority — the reference value is.</p>
+      </div>
+    </div>
+    <div>
+      <div class="beat">
+        <div class="beat__h">Two structural faults</div>
+        <p class="beat__b"><strong>One —</strong> the splitter never wrote to an edge already registered as a tear stream, so the recycle stayed frozen at its initial guess of unreacted feed. That is why conversion was <em>lower</em> than with no recycle at all: the loop was diluting the reactants. <strong>Two —</strong> convergence was being judged on intensive properties. A splitter divides molar flow without touching concentration, so that error was structurally forced to zero. The correct norm, ‖ΔF‖<sub>∞</sub> over molar flows, was already written in the project’s own rules file — the implementation contradicted its documented contract.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Verification, and a second defect</div>
+        <p class="beat__b">Regression tests were written against the analytic solution rather than against the code. After the fix, agreement held to 5–6 decimals across the whole split-ratio range, and conversion converged to the CSTR limit of 0.600 as recycle grew. Verification then surfaced a second fault: divergence detection was aborting slow-but-valid convergence. Under Wegstein acceleration the same case converges in 66 iterations.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec no-break" style="margin-top:6px">
+    <img class="shot shot--h" src="/assets/projects/reaction_simulator.webp" alt="Reaction Simulator interface">
+    <p class="cap">Public interactive build — reactionsimulator.vercel.app · CSTR/PFR networks, Levenspiel plots, thermal operating diagram, dynamic response with disturbance injection. React · TypeScript · Recharts.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════ SHEET 3 · HUMAN SYSTEMS ══════════════════ -->
+<section class="sheet" data-profiles="process global">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Cases 02–03 — Human systems</span></div>
+
+  <div class="case__kicker">Case 02 · Organisational process</div>
+  <h2 class="case__title">PALS — the bottleneck was the hand-off, not the language</h2>
+  <p class="case__sub">Co-President, Peer Assistance &amp; Learning Support, Sogang University · Mar 2025 – present</p>
+
+  <div class="case__grid">
+    <div>
+      <div class="beat">
+        <div class="beat__h">Condition</div>
+        <p class="beat__b">The organisation opened to external members that year. The executive team ended up mixing Korean-only speakers, English-only speakers, and members fluent in neither. Cross-team coordination took weeks; misunderstanding and friction repeated. The surface diagnosis was obvious — a language barrier.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Testing the diagnosis</div>
+        <p class="beat__b">I interviewed the leads of all four divisions — finance, events, content, HR — individually: what they handled, how, on what schedule, where they got stuck, and what was already working. The cause was not language. <strong>Nothing defined what had to be handed between teams, in what format, or when.</strong> With no fixed format, every hand-off was renegotiated from scratch — and negotiating from scratch in a second language costs double.</p>
+      </div>
+    </div>
+    <div>
+      <div class="beat">
+        <div class="beat__h">Intervention</div>
+        <p class="beat__b">I built a delivery structure rather than a language programme: standardised format and sequence for inter-team requests and hand-offs, so each team knew what to write and in what order. Personal rapport was treated as a separate problem and addressed through regular meetings.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Result</div>
+        <p class="beat__b">Cross-team coordination that had taken weeks resolved within hours.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Carried forward</div>
+        <p class="beat__b">When I meet a communication problem now, I check the path work travels along before I assess anyone’s language ability. Change the structure and the language barrier can be routed around.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Also on record</div>
+        <p class="beat__b">Came up through the organisation as a mentee. Outstanding Mentor Award (2024-1), Mentor of the Semester (2024-2), then authored the club’s first written constitution and its formal executive-transition system. 150+ mentees over four semesters.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border:none;border-top:1.5px solid var(--rule);margin:14px 0 12px">
+
+  <div class="case__kicker">Case 03 · Stakeholder judgement</div>
+  <h2 class="case__title">When fair-looking rules are not fair</h2>
+  <p class="case__sub">Samsung Dream Scholarship Foundation leadership camp, 2026 · planned jointly with the University Hope scholars’ council</p>
+
+  <div class="case__grid">
+    <div>
+      <div class="beat">
+        <div class="beat__h">Condition</div>
+        <p class="beat__b">I represented the Global Hope scholars. The two student councils had never worked together. The initial plan mixed Korean and international scholars into competitive recreation. Judged on rules alone it was fair — identical rules for both sides.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">The asymmetry</div>
+        <p class="beat__b">The actual conditions were not identical. Korean scholars were more numerous, advantaged in the shared language, and shared more context. <strong>Competition does not damp such differences; it amplifies them.</strong> Equal rules and equal conditions of participation are different things.</p>
+      </div>
+    </div>
+    <div>
+      <div class="beat">
+        <div class="beat__h">Decision</div>
+        <p class="beat__b">The issue was raised with the foundation. After four hours of discussion we discarded the plan we had prepared and redesigned from scratch. What changed was not the programme content but the structure of interaction: recreation became ice-breaking; mixing activities were designed at individual level so team-strength gaps could not surface; team activities were deliberately left unmixed so neither side could dominate.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">A disagreement resolved by reframing</div>
+        <p class="beat__b">On the character of the culture fashion show, I did not rebut the opposing view. I converted it into a shared design question — what experience should this segment create? — and submitted it in writing. Both sides aligned from there.</p>
+      </div>
+      <div class="beat">
+        <div class="beat__h">Carried forward</div>
+        <p class="beat__b">Discarding four hours of work is expensive, but a discussion that exposes the real problem is not a failure. I look at structure before rules now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════ SHEET 4 · BUILD RECORD ══════════════════ -->
+<section class="sheet" data-profiles="process global ra">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Build record</span></div>
+
+  <div class="case__kicker">Section 04</div>
+  <h2 class="case__title">Build record</h2>
+  <p class="case__sub">Five years, from a 2021 accounting script still in daily use to deployed process simulators. Simulator work is AI-assisted at the implementation layer; the engineering judgement, validation, and defect diagnosis are mine.</p>
+
+  <div class="sec">
+    <h2 class="sec__title">Process &amp; engineering systems</h2>
+    <div class="rec"><span class="rec__t">Reaction Network Simulator</span><span class="rec__d">Flowsheet solver — 13 unit operations, recycle tear streams, Cantera properties, Turton cost estimation. See Case 01.</span><span class="rec__m">23,543 LOC · 240 tests</span></div>
+    <div class="rec"><span class="rec__t">Reaction Simulator (web)</span><span class="rec__d">Public CSTR/PFR network tool — Levenspiel plots, conversion and temperature profiles, thermal operating diagram, disturbance injection.</span><span class="rec__m">React · TS · live</span></div>
+    <div class="rec"><span class="rec__t">Fugacity Simulator</span><span class="rec__d">Vapour/liquid fugacity vs. pressure from steam-table data — fugacity-coefficient integrals, log-linear toggle, multi-temperature overlay.</span><span class="rec__m">JS · Canvas · live</span></div>
+    <div class="rec"><span class="rec__t">Process Design Game</span><span class="rec__d">Distillation, heat-exchanger and reactor optimisation as a scored game; quantifies design trade-offs for teaching.</span><span class="rec__m">React · TS · live</span></div>
+    <div class="rec"><span class="rec__t">LP Diet Optimisation</span><span class="rec__d">Linear-programming meal planner under nutrition and budget constraints, with binding-constraint analysis — the same constraint logic as reactor yield optimisation.</span><span class="rec__m">Python · SciPy · PuLP</span></div>
+    <div class="rec"><span class="rec__t">Bullwhip Simulator</span><span class="rec__d">Four-agent supply chain (retailer → distributor → manufacturer → supplier); demand-shock amplification, inventory/order/backlog charting.</span><span class="rec__m">JS · Canvas · live</span></div>
+    <div class="rec"><span class="rec__t">Apple SCM Analysis</span><span class="rec__d">13-slide interactive analysis of supply-chain strategic misfit — Fisher (1997) framework, five vulnerabilities, bullwhip root causes.</span><span class="rec__m">HTML/CSS/JS · live</span></div>
+  </div>
+
+  <div class="sec">
+    <h2 class="sec__title">Software platforms</h2>
+    <div class="rec"><span class="rec__t">GLEAM</span><span class="rec__d">Organisational governance platform — multilingual, role-based, built out of the PALS constitution work.</span><span class="rec__m">66,079 LOC · 74 commits</span></div>
+    <div class="rec"><span class="rec__t">LifeOS</span><span class="rec__d">Personal life-management platform across six domains — event-driven architecture, LP macro optimiser, custom design system. In daily use.</span><span class="rec__m">Next.js · Flask · Postgres</span></div>
+    <div class="rec"><span class="rec__t">Yummz</span><span class="rec__d">Platform delivered end to end under a four-day deadline.</span><span class="rec__m">10,119 LOC · 4 days</span></div>
+    <div class="rec"><span class="rec__t">Personal Accounting System</span><span class="rec__d">First shipped project, 2021. Continuously maintained and extended for five years.</span><span class="rec__m">Python · Flask · Postgres</span></div>
+    <div class="rec"><span class="rec__t">Personal Knowledge Graph</span><span class="rec__d">45 courses, 40 books and 30 project notes as a linked graph with computed bridge nodes — the source of this document.</span><span class="rec__m">Obsidian · Python</span></div>
+  </div>
+
+  <div class="sec">
+    <h2 class="sec__title">Machine learning &amp; data</h2>
+    <div class="rec"><span class="rec__t">CNN Emotion Classifier</span><span class="rec__d">Convolutional network trained from scratch on FER2013 for 7-class expression recognition, with a colour-adaptation visualisation layer.</span><span class="rec__m">Python · TensorFlow</span></div>
+    <div class="rec"><span class="rec__t">House Price Regression</span><span class="rec__d">Multivariate regression with feature engineering; RMSE / R² evaluation and residual diagnostics.</span><span class="rec__m">Python · scikit-learn</span></div>
+    <div class="rec"><span class="rec__t">Ollama Local Agent</span><span class="rec__d">Offline, privacy-first local LLM agent.</span><span class="rec__m">Python · Ollama</span></div>
+  </div>
+
+  <div class="sec no-break">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <img class="shot shot--m" src="/assets/projects/lifeos.webp" alt="LifeOS interface">
+        <p class="cap">LifeOS — six integrated life domains, in daily use.</p>
+      </div>
+      <div>
+        <img class="shot shot--m" src="/assets/projects/fugacity_simulator.webp" alt="Fugacity Simulator">
+        <p class="cap">Fugacity Simulator — vapour/liquid fugacity across the saturation region.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════ SHEET 5 · INTERPRETING RECORD ══════════════════ -->
+<section class="sheet" data-profiles="global">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Interpreting &amp; translation</span></div>
+
+  <div class="case__kicker">Section 05</div>
+  <h2 class="case__title">Interpreting record</h2>
+  <p class="case__sub">Korean · English · Malay · Chinese · Japanese — diplomatic, legal, investigative, medical and campus settings, 2022 to present.</p>
+
+  <div class="metrics">
+    <div><div class="metric__v">5</div><div class="metric__l">Working languages</div></div>
+    <div><div class="metric__v">7</div><div class="metric__l">Institutions engaged</div></div>
+    <div><div class="metric__v">265<span style="font-size:9pt">/300</span></div><div class="metric__l">TOPIK Level 6<br>awarded 2024</div></div>
+    <div><div class="metric__v">4 yrs</div><div class="metric__l">Continuous engagement<br>since 2022</div></div>
+  </div>
+
+  <div class="sec">
+    <table class="tbl">
+      <tr><th>Engagement</th><th>Body</th><th class="dt">Period</th></tr>
+      <tr>
+        <td class="k">Investigative interpreting</td>
+        <td>Incheon Airport Customs, Terminal 2 — sole Korean–Malay consecutive interpreter for a narcotics-control case, under signed interpreter’s affidavit.</td>
+        <td class="dt">Jun 2026</td>
+      </tr>
+      <tr>
+        <td class="k">Government / diplomatic</td>
+        <td>Gyeongsangbuk-do Provincial Government &amp; Office of Education — two-way interpreting between the Vice Governor for Economic Affairs and Malaysia’s former Minister of Federal Territories; preliminary talks on a Gyeongbuk–Selangor education exchange MOU.</td>
+        <td class="dt">May 2026</td>
+      </tr>
+      <tr>
+        <td class="k">APEC cooperation</td>
+        <td>Gyeongsangbuk-do Provincial Government — interpreted the meeting between the Governor and the Malaysian Ambassador to Korea on APEC 2025 Summit cooperation. The meeting was reported by Yonhap News.</td>
+        <td class="dt">Feb 2025</td>
+      </tr>
+      <tr>
+        <td class="k">Legal</td>
+        <td>Supreme Prosecutors’ Office of the Republic of Korea — trilingual legal-terminology interpreting; cultural briefing sessions for a visiting senior Malaysian delegation.</td>
+        <td class="dt">Nov – Dec 2023</td>
+      </tr>
+      <tr>
+        <td class="k">Public education</td>
+        <td>Anti-Corruption &amp; Civil Rights Commission, Daejeon — two-way simultaneous interpreting on finance and law for international trainees; translated training materials.</td>
+        <td class="dt">Nov – Dec 2023</td>
+      </tr>
+      <tr>
+        <td class="k">Medical</td>
+        <td>Embassy of Malaysia, Seoul — medical interpreting and medical document translation for Malaysian students at hospital visits.</td>
+        <td class="dt">Feb – Aug 2022</td>
+      </tr>
+      <tr>
+        <td class="k">Campus</td>
+        <td>Sogang University Office of International Affairs — ongoing Korean–English and Korean–Chinese consecutive interpreting and document translation.</td>
+        <td class="dt">Feb 2023 – present</td>
+      </tr>
+      <tr>
+        <td class="k">Civil society</td>
+        <td>ASEZ — weekly multilingual interpreting on social and environmental safety across Korean, Malay, English, Chinese and Japanese.</td>
+        <td class="dt">Oct 2023 – present</td>
+      </tr>
+      <tr>
+        <td class="k">Hosting</td>
+        <td>Emcee for 7+ events including International Student Night, the Sogang Alumni Scholarship award ceremony, and the Samsung Dream Forest Festival.</td>
+        <td class="dt">2023 – present</td>
+      </tr>
+    </table>
+    <p class="sec__note">TOPIK Level 6 (265/300) was awarded in 2024; certificate validity lapsed May 2026 and re-testing is scheduled. The competence is continuously evidenced by the engagements above.</p>
+  </div>
+
+  <div class="sec no-break">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <img class="shot" src="/assets/projects/apec_cooperation_dialogue.webp" alt="APEC cooperation dialogue">
+        <p class="cap">APEC cooperation dialogue, Gyeongsangbuk-do, Feb 2025.</p>
+      </div>
+      <div>
+        <img class="shot" src="/assets/projects/supreme_prosecutors_office.webp" alt="Supreme Prosecutors Office engagement">
+        <p class="cap">Supreme Prosecutors’ Office engagement, 2023.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════ SHEET 6 · ACADEMIC + CREDENTIALS ══════════════════ -->
+<section class="sheet" data-profiles="process global ra">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Academic record &amp; credentials</span></div>
+
+  <div class="case__kicker">Section 06</div>
+  <h2 class="case__title">Academic record &amp; credentials</h2>
+
+  <div class="sec no-break">
+    <h2 class="sec__title">Education</h2>
+    <table class="tbl">
+      <tr>
+        <td class="k" style="width:auto"><strong>B.S. Chemical &amp; Biomolecular Engineering · B.A. Business (double major)</strong><br>
+          <span style="font-weight:400;color:var(--ink-3);font-size:7.5pt">Sogang University, Seoul — College of Engineering &amp; Sogang Business School</span></td>
+        <td class="dt">Feb 2023 – Feb 2027 (expected)</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="font-size:8pt">Cumulative GPA <strong>3.52 / 4.3</strong> (≈ 3.27 / 4.0) across 45 courses · Full-tuition admission scholarship, 7 semesters · BLCU Beijing exchange, 2026 · Teaching assistant ×3, Chemical Engineering, Spring 2026</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="sec no-break" data-profiles="process ra">
+    <h2 class="sec__title">Grade distribution by cluster</h2>
+    <svg class="chart" viewBox="0 0 520 132" role="img" aria-label="Grade distribution by course cluster">
+      <g font-family="Noto Sans KR, sans-serif" font-size="7.5" fill="#6a6a6a">
+        <!-- rows: label, bar segments (A+ / A0-A- / B+ / B0-B- / C) -->
+        <!-- Chemical engineering: 17 graded+S -> A+2 A-3 B+9 B0 1 C+1 (S excluded) -->
+        <text x="0" y="16">Chemical eng. · 16</text>
+        <rect x="104" y="8"    width="42.5" height="12" fill="#111"/>
+        <rect x="146.5" y="8"  width="63.8" height="12" fill="#5c5c5c"/>
+        <rect x="210.3" y="8"  width="191.3" height="12" fill="#a8a8a8"/>
+        <rect x="401.6" y="8"  width="21.3" height="12" fill="#d0d0d0"/>
+        <rect x="422.9" y="8"  width="21.3" height="12" fill="#8c2f1d"/>
+        <text x="450" y="17" fill="#6a6a6a">avg B+</text>
+
+        <!-- Business 12: A+1 A0 5 A-1 B+3 C+1 C0 1 -->
+        <text x="0" y="42">Business · 12</text>
+        <rect x="104" y="34"   width="28.3" height="12" fill="#111"/>
+        <rect x="132.3" y="34" width="170" height="12" fill="#5c5c5c"/>
+        <rect x="302.3" y="34" width="85" height="12" fill="#a8a8a8"/>
+        <rect x="387.3" y="34" width="56.7" height="12" fill="#8c2f1d"/>
+        <text x="450" y="43" fill="#6a6a6a">avg A−</text>
+
+        <!-- Foundation STEM 8: A-2 B+3 B0 1 B- 2 -->
+        <text x="0" y="68">Foundation STEM · 8</text>
+        <rect x="104" y="60"   width="85" height="12" fill="#5c5c5c"/>
+        <rect x="189" y="60"   width="127.5" height="12" fill="#a8a8a8"/>
+        <rect x="316.5" y="60" width="127.5" height="12" fill="#d0d0d0"/>
+        <text x="450" y="69" fill="#6a6a6a">avg B</text>
+
+        <!-- Liberal arts 5 graded: A+3 A0 1 A-1 -->
+        <text x="0" y="94">Liberal arts · 5</text>
+        <rect x="104" y="86"   width="204" height="12" fill="#111"/>
+        <rect x="308" y="86"   width="136" height="12" fill="#5c5c5c"/>
+        <text x="450" y="95" fill="#6a6a6a">avg A</text>
+
+        <!-- Computing 1: A+ -->
+        <text x="0" y="120">Computing · 1</text>
+        <rect x="104" y="112"  width="340" height="12" fill="#111"/>
+        <text x="450" y="121" fill="#6a6a6a">A+</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#111"></i>A+</span>
+      <span><i style="background:#5c5c5c"></i>A0 / A−</span>
+      <span><i style="background:#a8a8a8"></i>B+</span>
+      <span><i style="background:#d0d0d0"></i>B0 / B−</span>
+      <span><i style="background:#8c2f1d"></i>C</span>
+    </div>
+    <p class="sec__note">Letter-grade counts from the official transcript, bars scaled by share of courses within each cluster. Pass/fail courses excluded.</p>
+  </div>
+
+  <div class="sec no-break">
+    <h2 class="sec__title">Courses carrying the argument</h2>
+    <table class="tbl">
+      <tr><td class="k">A+</td><td>Physical Chemistry · Management Information Systems · Introduction to AI Programming · General Chemistry I · Korean Academic Writing</td></tr>
+      <tr><td class="k">A0 / A−</td><td>Reaction Engineering · Process Thermodynamics · Management Science · Supply Chain Management &amp; e-Business · Operations Management · Strategic Management · Financial Management · International Business · Applied Mathematics I</td></tr>
+      <tr><td class="k">Core sequence</td><td>Process Control · Heat &amp; Mass Transfer · Material &amp; Energy Balances · Chemical Engineering Thermodynamics · Fluid Mechanics · Fermentation Technology · Biochemistry · Genetic Engineering</td></tr>
+    </table>
+    <p class="sec__note">The same mathematics appears twice on this transcript under two vocabularies — constrained optimisation as Reaction Engineering and as Management Science; feedback control as Process Control and as the bullwhip effect in Supply Chain Management. That repetition is the argument on page 1, in transcript form.</p>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════ SHEET 7 · CREDENTIALS & SKILLS ══════════════════ -->
+<section class="sheet" data-profiles="process global ra">
+  <div class="runhead"><strong>Khairul Ammar Hakimi · Evidence Dossier</strong><span>Credentials &amp; skills</span></div>
+
+  <div class="case__kicker">Section 07</div>
+  <h2 class="case__title">Credentials &amp; skills</h2>
+  <p class="case__sub">Selection by panel, sustained leadership roles, and the working toolset behind the cases in this dossier.</p>
+
+  <div class="sec no-break">
+    <h2 class="sec__title">Scholarships, awards &amp; leadership</h2>
+    <table class="tbl">
+      <tr><td class="k">Samsung Dream Scholarship</td><td>Global Hope award — school nomination plus foundation panel, across 5 semesters. Full tuition and living stipend. President, Samsung Dream Scholars; President, SEA Study Club.</td><td class="dt">Mar 2024 – present</td></tr>
+      <tr><td class="k">Sogang University</td><td>First-class admission scholarship — full tuition across 7 semesters.</td><td class="dt">2023 – present</td></tr>
+      <tr><td class="k">Sogang Alumni Scholarship</td><td>Merit and campus-contribution award, 4× recurring; excellence scholar in Chemical &amp; Biomolecular Engineering (No. 25-STU-083).</td><td class="dt">Mar 2025 – present</td></tr>
+      <tr><td class="k">Lee&amp;Won Foundation</td><td>Asian Fellowship — one of 18 fellows from 500+ applicants; led a 17-member team across 15 countries. Exemplary Leadership Excellence Award.</td><td class="dt">Jan – Dec 2023</td></tr>
+      <tr><td class="k">PALS</td><td>Co-President — 150+ mentees over four semesters; authored the first written constitution and executive-transition system. Outstanding Mentor Award (2024-1); Mentor of the Semester (2024-2).</td><td class="dt">Mar 2025 – present</td></tr>
+      <tr><td class="k">Teaching</td><td>Teaching assistant ×3, Chemical Engineering, Sogang University — office hours, grading, recitation sections. Designed an age-appropriate neural-network curriculum for the Didimdol programme. Refugee mentoring via Kolon’s Rainbow Stepping Stone.</td><td class="dt">2025 – 2026</td></tr>
+    </table>
+  </div>
+
+  <div class="sec no-break">
+    <h2 class="sec__title">Skills</h2>
+    <table class="tbl">
+      <tr><td class="k">Languages</td><td>Malay (native) · English (native-level) · Korean (TOPIK 6, 265/300, 2024) · Chinese (business) · Japanese (conversational)</td></tr>
+      <tr><td class="k">Chemical eng.</td><td>Reaction engineering · process thermodynamics · process control · phase equilibria · flowsheet simulation and recycle convergence · equipment sizing and installed-cost estimation</td></tr>
+      <tr><td class="k">Quantitative</td><td>Linear programming and constrained optimisation · statistics · regression · numerical methods · model validation against analytic solutions</td></tr>
+      <tr><td class="k">Software</td><td>Python (NumPy · SciPy · Pandas · TensorFlow · scikit-learn · Flask) · TypeScript · Next.js · React · PostgreSQL · Git · Vercel · Docker</td></tr>
+      <tr><td class="k">Working with AI</td><td>Agentic coding workflows for implementation, with validation and physical-judgement checks kept human. Multi-agent pipelines for research and build tasks.</td></tr>
+    </table>
+  </div>
+
+  <div class="foot">
+    <span>Khairul Ammar Hakimi · 한태양 · ammarhakimikm03@gmail.com · taeyangcv.vercel.app</span>
+    <span>Compiled from a 45-course, 40-book, 30-project personal knowledge graph.</span>
+  </div>
+</section>
+
+<script>
+(function(){
+  var VALID = ['process','global','ra','onepager','all'];
+  var body = document.body;
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.bar button'));
+
+  function apply(p){
+    if (VALID.indexOf(p) === -1) p = 'process';
+    if (p === 'all') body.removeAttribute('data-profile');
+    else body.setAttribute('data-profile', p);
+    buttons.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.p === p)); });
+    var u = new URL(window.location.href);
+    u.searchParams.set('profile', p);
+    history.replaceState(null, '', u);
+  }
+
+  buttons.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.p); }); });
+  apply(new URL(window.location.href).searchParams.get('profile') || 'process');
+})();
+</script>
+</body>
+</html>
