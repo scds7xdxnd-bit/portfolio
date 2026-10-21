@@ -210,7 +210,7 @@
       "name": "Personal Accounting System",
       "description": "Full double-entry personal accounting system built from scratch since 2021. First project, continuously maintained for 5+ years. Private alpha.",
       "highlights": ["5+ years in production", "Built since age ~20", "Double-entry accounting"],
-      "url": "https://finance-app-private-alpha.fly.dev",
+      "url": "https://taeyangcv.vercel.app/projects/personal-accounting.html",
       "keywords": ["Python", "Flask", "PostgreSQL", "finance"]
     },
     {

@@ -1,4 +1,4 @@
-// Pings the 7 deployed apps and returns live/down status.
+// Pings the 6 public deployed apps (the accounting app is private, so it is not pinged) and returns live/down status.
 // Results cached 5 minutes via Cache-Control header.
 
 const APPS = [
@@ -8,7 +8,6 @@ const APPS = [
   { id: 'bullwhip',      name: 'Bullwhip Simulator',        url: 'https://scmsimulator.vercel.app' },
   { id: 'apple-scm',     name: 'Apple SCM Analysis',        url: 'https://apple-scm-web.vercel.app' },
   { id: 'process-game',  name: 'Process Game',              url: 'https://process-design.vercel.app' },
-  { id: 'accounting',    name: 'Accounting (private alpha)', url: 'https://finance-app-private-alpha.fly.dev' },
 ];
 
 async function ping(app) {

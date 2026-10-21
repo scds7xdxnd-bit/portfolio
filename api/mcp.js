@@ -97,7 +97,7 @@ const PROJECTS = {
     domain: 'builder',
     description: 'Full double-entry accounting app built since 2021. First project, 5+ years in production. Private alpha.',
     stack: ['Python', 'Flask', 'PostgreSQL'],
-    url: 'https://finance-app-private-alpha.fly.dev',
+    url: 'https://taeyangcv.vercel.app/projects/personal-accounting.html',
     status: 'private alpha',
   },
 };

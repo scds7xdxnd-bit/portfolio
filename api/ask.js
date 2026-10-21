@@ -150,7 +150,7 @@ PROJECTS (all deployed):
    React + TypeScript + Canvas. Playful ChemE process simulations for students.
    Status: live.
 
-7. Personal Accounting System — https://finance-app-private-alpha.fly.dev
+7. Personal Accounting System — https://taeyangcv.vercel.app/projects/personal-accounting.html
    Python + Flask + PostgreSQL. Full double-entry accounting, built since 2021.
    First project, 5+ years in production. Private alpha.
 

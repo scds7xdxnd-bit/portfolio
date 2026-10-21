@@ -162,8 +162,8 @@ URL: https://process-design.vercel.app
 Description: Full double-entry personal accounting system, built from scratch since 2021.
   First project, continuously maintained for 5+ years. Private alpha.
 Stack: Python · Flask · PostgreSQL
-Status: Private alpha (in production)
-URL: https://finance-app-private-alpha.fly.dev
+Status: Private, in daily use (no public demo)
+Case study: https://taeyangcv.vercel.app/projects/personal-accounting.html
 
 ## Case Studies / Opinions
 
