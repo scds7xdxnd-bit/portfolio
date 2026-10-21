@@ -22,3 +22,7 @@ prompts/
 PORTFOLIO_UPGRADE_PLAN.md
 repo-graph.html
 
+
+# local verification scripts and render output
+walk-deck.mjs
+output/

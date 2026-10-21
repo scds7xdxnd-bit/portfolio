@@ -590,6 +590,25 @@ export const SUN_ARCHIVE = [
     ]
   },
   {
+    "id": "scholar-7",
+    "domain": "scholar",
+    "image": "/assets/projects/catalyst_xai_deck.webp",
+    "url": "https://catalyst-xai-deck.vercel.app",
+    "caseStudy": null,
+    "en": [
+      "Why Is This Catalyst Dying?",
+      "Navigable 3D walkthrough of interpretable ML for CO₂ electrolysis (Shin et al., ACS Catal. 2025). Eighteen WebGL scenes across five chapters: fly through an MEA cell and a CNN, stack Grad-CAM strips to tell mass-transport failure apart from catalyst failure, interrogate 5196 sweeps on a UMAP where hovering one dot shows why a random train/test split leaks, step through the backward pass to find that the paper's second ReLU has nothing left to clip, reach the diagnostic rule itself — whether the attention band tracks the kinetic/transport boundary or sits under it separates a catalyst losing active sites from one whose pores are blocking — and then end where the paper does, on the electron microscopy that checks whether the cheap answer was true. Every curve is generated live from a Butler–Volmer + limiting-current model, not traced. (three.js/Vite/JS)"
+    ],
+    "ko": [
+      "이 촉매는 왜 죽는가?",
+      "CO₂ 전해 촉매 열화를 해석 가능한 머신러닝으로 분석한 논문(Shin et al., ACS Catal. 2025)을 3D로 탐색하는 프레젠테이션. 5개 장, 18개 WebGL 장면 — MEA 셀과 CNN 내부를 비행하고, Grad-CAM 스트립을 쌓아 물질전달 한계와 촉매 자체 열화를 구분하며, 5196개 곡선의 UMAP에서 점 하나를 가리키면 무작위 학습/평가 분할이 왜 누수를 일으키는지 드러납니다. 역전파를 단계별로 따라가면 논문의 두 번째 ReLU가 실제로는 제거할 것이 없음을 확인할 수 있습니다. 네 번째 장은 진단 규칙 자체 — 어텐션 밴드가 반응속도/물질전달 경계를 따라가는지 그 아래에 머무는지가 활성점 손실과 기공 막힘을 가릅니다. 마지막 장에서는 논문과 같은 순서로, 값싼 답이 실제로 옳았는지를 전자현미경으로 확인합니다. 모든 곡선은 Butler–Volmer + 한계전류 모델로 실시간 생성. (three.js/Vite/JS)"
+    ],
+    "zh": [
+      "这个催化剂为何失效？",
+      "以3D交互方式解读用可解释机器学习研究CO₂电解催化剂失效的论文（Shin等，ACS Catal. 2025）。五章共十八个WebGL场景：穿行于MEA电解池与CNN内部，堆叠Grad-CAM色带以区分传质受限与催化剂失活，在5196条曲线的UMAP上悬停任一点揭示随机划分训练/测试集为何造成数据泄漏，逐步走完反向传播——发现论文中的第二个ReLU其实无可裁剪；第四章落到诊断规则本身：注意力带是跟随动力学/传质边界移动，还是始终位于其下方，正好区分活性位点流失与孔道堵塞；最后一章则与论文同序，用电子显微镜检验这个廉价答案是否属实。所有曲线均由Butler–Volmer+极限电流模型实时生成。（three.js/Vite/JS）"
+    ]
+  },
+  {
     "id": "scholar-0",
     "domain": "scholar",
     "image": "/assets/projects/samsung_dream_scholarship.webp",
