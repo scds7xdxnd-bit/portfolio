@@ -114,3 +114,18 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.sun-site *{animation:none!important;transition:none!important}}
 .sun-hero-copy>.sun-name-meaning{margin-top:11px;color:#514a35;font-size:12px}.sun-hero-copy>h1{margin-top:15px}.sun-identity{width:max-content;max-width:100%;background:#fff7e6c9;padding:8px 12px 8px 8px;border-radius:6px;margin-top:22px}.sun-identity span{color:#514c3e}
 @media(max-width:600px){.sun-hero-copy>.sun-name-meaning{font-size:11px;margin-top:8px}.sun-hero-copy>h1{margin-top:16px}.sun-hero-copy{padding-top:26px}.sun-identity{margin-top:20px}}
+/* Living dawn: time-of-day canvas, Seoul clock, night legibility */
+.sun-hero{--night:0}
+.sun-hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
+.sun-hero-canvas.is-ready{opacity:1}
+.sun-hero::after{opacity:calc(1 - var(--night))}
+.sun-hero::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,16,48,.72),rgba(10,16,48,.25) 48%,transparent 65%);opacity:var(--night);pointer-events:none}
+.sun-hero :is(h1,.sun-eyebrow,.sun-intro,.sun-name-meaning,.sun-button:not(.sun-button-primary)){transition:color .6s,border-color .6s}
+.sun-hero.is-night h1{color:#fff6e2}
+.sun-hero.is-night :is(.sun-eyebrow,.sun-name-meaning){color:#e6cf9a}
+.sun-hero.is-night .sun-intro{color:#dcdbe8}
+.sun-hero.is-night .sun-button:not(.sun-button-primary){color:#fff6e2;border-color:#fff6e266;background:#0a103033}
+.sun-hero.is-night .sun-button:not(.sun-button-primary):hover{background:#ffffff22}
+.sun-clock{position:absolute;top:22px;right:clamp(24px,4.5vw,80px);padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em;color:#4f4733;background:#fff7e6b3;backdrop-filter:blur(4px);pointer-events:none;font-variant-numeric:tabular-nums}
+.sun-hero.is-night .sun-clock{color:#f3e7c8;background:#0a103080}
+@media(max-width:600px){.sun-hero::before{background:linear-gradient(180deg,rgba(10,16,48,.55),transparent 55%)}.sun-clock{top:auto;bottom:70px;right:24px}}

@@ -1,5 +1,6 @@
 // Shared components for the Sun of Korea portfolio. Artwork contains no UI copy.
 import { iconSvg } from '../lib/icons.js';
+import { mountLivingDawn } from './living-dawn.js';
 import { EXTRA_COPY, renderArchive, renderNotes, renderCredentials, renderLab, renderJourney, renderSearch, searchItems, escapeHTML } from './sun-sections.js';
 export const SUN_ASSETS = {
   desktop: '/assets/sun-of-korea/dawn-desktop.webp',
@@ -115,7 +116,7 @@ export function mountSunPortfolio(root) {
   let stored; try { stored=localStorage.getItem('lang'); } catch { /* Storage is optional. */ }
   let lang=Object.hasOwn(COPY,stored)?stored:'en';
   let selected='engineer', filter='all', query='', searchOpener=null, expanded=false;
-  let motionObserver;
+  let motionObserver, dawn;
   const copy=()=>({...COPY[lang],...EXTRA_COPY[lang]});
   const reduce=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const filterArchive=()=>{
@@ -147,7 +148,9 @@ export function mountSunPortfolio(root) {
   const render=()=>{
     document.documentElement.lang=lang;
     document.documentElement.classList.add('sun-enhanced');
+    dawn?.destroy();
     root.innerHTML=renderSunPage(lang,selected);
+    dawn=mountLivingDawn(root.querySelector('.sun-hero'),lang);
     filterArchive();animate();
   };
   const closeMenu=()=>{
