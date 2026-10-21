@@ -28,12 +28,17 @@ export const EXTRA_COPY = {
   },
 };
 
+// Project images come in two kinds: app/web screenshots and event photos.
+// Screenshots sit in a small window frame, photos in a print-style border, so
+// every card shares one visual language whatever the source image looks like.
+const PHOTOS=/(anti_corruption|apec_|cnn_emotion|event_host|gyeongbuk|pals_copresident|rainbow_stepping|samsung_dream_scholars_president|sea_study_club|sogang_alumni|supreme_prosecutors)/;
+export function shot(src,alt='',extra=''){return `<span class="sun-shot ${PHOTOS.test(src)?'is-photo':'is-screen'}"><img src="${src}" alt="${alt}" width="640" height="400" loading="lazy" decoding="async"${extra}></span>`;}
 export const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function renderArchive(lang,places){
   const c=EXTRA_COPY[lang];
   return `<section class="sun-archive sun-section" id="archive" aria-labelledby="archive-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.archiveLabel}</p><h2 id="archive-heading">${c.archiveTitle}</h2></div><p>${c.archiveIntro}</p></div><div class="sun-archive-controls"><div class="sun-filters" role="group" aria-label="${c.filter}"><button data-filter="all" aria-pressed="true">${c.all}</button>${places.map(p=>`<button data-filter="${p.id}" aria-pressed="false">${p[lang][1]}</button>`).join('')}</div><label class="sun-archive-search"><span>${c.archiveSearch}</span><input type="search" id="archive-search" placeholder="${c.search}…" autocomplete="off"></label></div><p class="sun-results" role="status" id="archive-count"></p><div class="sun-archive-list">${SUN_ARCHIVE.map((item,i)=>{
     const [title,desc]=item[lang];const place=places.find(p=>p.id===item.domain);
-    return `<details class="sun-archive-item" id="entry-${item.id}" data-domain="${item.domain}" data-search="${escapeHTML([title,desc,...item.en].join(' ').toLocaleLowerCase())}"><summary><span class="sun-archive-number">${String(i+1).padStart(2,'0')}</span><h3>${escapeHTML(title)}</h3><span class="sun-archive-domain" style="--place-color:${place.color}">${place[lang][1]}</span><span class="sun-archive-plus" aria-hidden="true">+</span></summary><div class="sun-archive-detail">${item.image?`<img src="${item.image}" alt="${escapeHTML(title)}" width="480" height="300" loading="lazy">`:''}<div><p>${escapeHTML(desc)}</p><div class="sun-archive-links">${item.caseStudy?`<a class="sun-text-link" href="${item.caseStudy}">${c.case} ↗</a>`:''}${item.url?`<a class="sun-text-link" href="${item.url}">${c.visit} ↗</a>`:''}</div></div></div></details>`;
+    return `<details class="sun-archive-item" id="entry-${item.id}" data-domain="${item.domain}" data-search="${escapeHTML([title,desc,...item.en].join(' ').toLocaleLowerCase())}"><summary><span class="sun-archive-number">${String(i+1).padStart(2,'0')}</span><h3>${escapeHTML(title)}</h3><span class="sun-archive-domain" style="--place-color:${place.color}">${place[lang][1]}</span><span class="sun-archive-plus" aria-hidden="true">+</span></summary><div class="sun-archive-detail">${item.image?shot(item.image,escapeHTML(title)):''}<div><p>${escapeHTML(desc)}</p><div class="sun-archive-links">${item.caseStudy?`<a class="sun-text-link" href="${item.caseStudy}">${c.case} ↗</a>`:''}${item.url?`<a class="sun-text-link" href="${item.url}">${c.visit} ↗</a>`:''}</div></div></div></details>`;
   }).join('')}</div><p id="archive-empty" hidden>${c.empty}</p><button class="sun-archive-toggle" hidden aria-expanded="false">${c.more}</button></section>`;
 }
 
@@ -42,14 +47,14 @@ export function noteItems(lang){const c=EXTRA_COPY[lang];return [
   [c.chemical,c.chemicalDesc,'/opinions/chemical-potential.html','02','fugacity_simulator'],
   [c.uncertainty,c.uncertaintyDesc,'/opinions/engineering-under-uncertainty.html','03','scm_simulator'],
 ];}
-export function renderNotes(lang){const c=EXTRA_COPY[lang];return `<section class="sun-notes sun-section" id="notes" aria-labelledby="notes-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.notesLabel}</p><h2 id="notes-heading">${c.notesTitle}</h2></div><p>${c.notesIntro}</p></div><div class="sun-notes-grid">${noteItems(lang).map(([title,desc,url,n,image])=>`<a class="sun-note" href="${url}"><img src="/assets/projects/${image}.webp" alt="" loading="lazy" width="480" height="300"><span class="sun-eyebrow">${n} / ${c.notes}</span><h3>${title}</h3><p>${desc}</p><span class="sun-note-arrow" aria-hidden="true">↗</span></a>`).join('')}</div><a class="sun-text-link" href="/opinions/">${c.allNotes} ↗</a></section>`;}
+export function renderNotes(lang){const c=EXTRA_COPY[lang];return `<section class="sun-notes sun-section" id="notes" aria-labelledby="notes-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.notesLabel}</p><h2 id="notes-heading">${c.notesTitle}</h2></div><p>${c.notesIntro}</p></div><div class="sun-notes-grid">${noteItems(lang).map(([title,desc,url,n,image])=>`<a class="sun-note" href="${url}">${shot(`/assets/projects/${image}.webp`)}<span class="sun-eyebrow">${n} / ${c.notes}</span><h3>${title}</h3><p>${desc}</p><span class="sun-note-arrow" aria-hidden="true">↗</span></a>`).join('')}</div><a class="sun-text-link" href="/opinions/">${c.allNotes} ↗</a></section>`;}
 
 export function renderCredentials(lang){const c=EXTRA_COPY[lang];const items=[
-  [c.topik,c.topikDesc,'/assets/certs/20241_TOPIK_scorecard.webp'],
-  [c.samsung,c.samsungDesc,'https://webzine.sdream.or.kr/webzin/webzine96/sub1_4.html'],
-  [c.pals,c.palsCredentialDesc,'/assets/certs/20252_PALS_president_ENG.webp'],
-  [c.alumni,c.alumniDesc,'/assets/certs/20261_sogang_alumni_scholarship_4.webp'],
-];return `<section class="sun-trust sun-section" aria-labelledby="trust-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.trustLabel}</p><h2 id="trust-heading">${c.trustTitle}</h2></div><p>${c.trustIntro}</p></div><div class="sun-trust-grid">${items.map(([title,desc,url])=>`<a href="${url}"><span class="sun-trust-symbol" aria-hidden="true">✳</span><div><h3>${title}</h3><p>${desc}</p></div><span aria-hidden="true">↗</span></a>`).join('')}</div></section>`;}
+  [c.topik,c.topikDesc,'/assets/certs/20241_TOPIK_scorecard.webp','/assets/certs/20241_TOPIK_scorecard.webp'],
+  [c.samsung,c.samsungDesc,'https://webzine.sdream.or.kr/webzin/webzine96/sub1_4.html','/assets/projects/samsung_dream_scholarship.webp'],
+  [c.pals,c.palsCredentialDesc,'/assets/certs/20252_PALS_president_ENG.webp','/assets/certs/20252_PALS_president_ENG.webp'],
+  [c.alumni,c.alumniDesc,'/assets/certs/20261_sogang_alumni_scholarship_4.webp','/assets/certs/20261_sogang_alumni_scholarship_4.webp'],
+];return `<section class="sun-trust sun-section" aria-labelledby="trust-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.trustLabel}</p><h2 id="trust-heading">${c.trustTitle}</h2></div><p>${c.trustIntro}</p></div><div class="sun-trust-grid">${items.map(([title,desc,url,thumb])=>`<a href="${url}"><span class="sun-trust-thumb" aria-hidden="true"><img src="${thumb}" alt="" width="72" height="54" loading="lazy" decoding="async"></span><div><h3>${title}</h3><p>${desc}</p></div><span aria-hidden="true">↗</span></a>`).join('')}</div></section>`;}
 
 export function renderLab(lang){const c=EXTRA_COPY[lang];return `<section class="sun-lab sun-section" id="lab" aria-labelledby="lab-heading"><span aria-hidden="true" class="sun-lab-symbol">✧</span><div><p class="sun-eyebrow">${c.lab}</p><h2 id="lab-heading">${c.labTitle}</h2><p>${c.labDesc}</p></div><div class="sun-lab-links"><a href="/samsung-leadership-camp/">${c.labCamp} <span aria-hidden="true">↗</span></a><a href="https://reactionsimulator.vercel.app">${c.labReaction} <span aria-hidden="true">↗</span></a><a href="/opinions/chemical-potential.html">${c.labThermo} <span aria-hidden="true">↗</span></a></div></section>`;}
 

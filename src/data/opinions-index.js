@@ -1,7 +1,8 @@
 const OPINIONS_INDEX = [
-  {id:'pals',title:'Leave a stronger handover',summary:'From PALS mentee to leadership: making it easier for the next team to keep helping.',domain:'Community',href:'../projects/pals.html',noteType:'Community Case Study',icon:'☀',type:'project',stack:'PALS · Sogang University',takeaway:'Look at the structure around the people'},
+  {id:'pals',image:'/assets/projects/pals_copresident.webp',photo:true,title:'Leave a stronger handover',summary:'From PALS mentee to leadership: making it easier for the next team to keep helping.',domain:'Community',href:'../projects/pals.html',noteType:'Community Case Study',icon:'☀',type:'project',stack:'PALS · Sogang University',takeaway:'Look at the structure around the people'},
   {
     id: 'does-quantum-chemistry-help',
+    image: '/assets/projects/solubility_predictor.webp',
     title: 'Does quantum chemistry help?',
     summary: 'I spent a project asking whether DFT features improve solubility prediction. The answer was no \u2014 and the two most interesting findings were both my own bugs, caught because the result looked too good.',
     domain: 'Machine Learning',
@@ -17,6 +18,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'reaction-simulator',
+    image: '/assets/projects/reaction_simulator.webp',
     title: 'Reaction Simulator',
     summary: 'Interactive CSTR/PFR reactor network simulator with Levenspiel plots, temperature profiles, and disturbance injection \u2014 built to bridge the gap between textbook equations and real reactor intuition.',
     domain: 'Engineering',
@@ -29,6 +31,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'lifeos',
+    image: '/assets/projects/lifeos.webp',
     title: 'LifeOS',
     summary: 'Unified personal life-management platform across finance, health, habits, and productivity \u2014 connected everyday information, an LP macro optimizer, and event-driven architecture.',
     domain: 'Systems',
@@ -41,6 +44,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'personal-accounting',
+    image: '/assets/projects/accounting.webp',
     title: 'Personal Accounting System',
     summary: 'A double-entry ledger for my own money across KRW, MYR and CNY \u2014 idempotent bank-statement import, an account suggester that learns from corrections, and Monte Carlo cash-flow forecasts.',
     domain: 'Systems',
@@ -53,6 +57,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'catalyst-xai-deck',
+    image: '/assets/projects/catalyst_xai_deck.webp',
     title: 'Why Is This Catalyst Dying?',
     summary: 'An 18-scene 3D walkthrough of an interpretable-ML paper on CO\u2082 electrolysis, built for my lab \u2014 every curve generated from physics, every claim labelled as reported or my reading.',
     domain: 'Research',
@@ -65,6 +70,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'chemical-potential',
+    image: '/assets/projects/fugacity_simulator.webp',
     title: 'What does chemical potential actually mean?',
     summary: 'Why \u03BC\u1D62 behaves the way it does, what it means for two phases to share an equal chemical potential, and where the temperature-pressure analogy quietly breaks down.',
     domain: 'Thermodynamics',
@@ -80,6 +86,7 @@ const OPINIONS_INDEX = [
   },
   {
     id: 'engineering-under-uncertainty',
+    image: '/assets/projects/scm_simulator.webp',
     title: 'Engineering decisions under uncertainty',
     summary: 'How chemical engineers design for unknowns \u2014 Monte Carlo simulation, sensitivity analysis, and the discipline of committing before the data is complete.',
     domain: 'Engineering',

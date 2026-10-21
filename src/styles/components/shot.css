@@ -1,0 +1,19 @@
+/* One frame language for every project image: screenshots sit in a small
+   app window on a warm backing, photos in a print-style paper border. */
+.sun-shot{--shot-ease:cubic-bezier(.2,.7,.2,1);position:relative;display:block;aspect-ratio:16/10;border-radius:10px;overflow:hidden;isolation:isolate}
+.sun-shot img{display:block;width:100%;height:100%;object-fit:cover;max-height:none;margin:0;border:0;filter:none;background:#fff;transition:transform .5s var(--shot-ease)}
+/* Screenshots: a small app window on a warm backing */
+.sun-shot.is-screen{background:radial-gradient(120% 90% at 20% 0%,#f6edd9,#e9dcc0 70%);padding:24px 26px 0}
+.sun-shot.is-screen::before{content:'';position:absolute;z-index:2;left:26px;right:26px;top:24px;height:15px;border-radius:7px 7px 0 0;border-bottom:1px solid #e4dccb;background:radial-gradient(circle at 11px 7.5px,#e79b8f 3px,transparent 3.6px),radial-gradient(circle at 22px 7.5px,#e8c56c 3px,transparent 3.6px),radial-gradient(circle at 33px 7.5px,#93c08c 3px,transparent 3.6px),#fffaf2;transition:transform .5s var(--shot-ease)}
+.sun-shot.is-screen::after{content:'';position:absolute;z-index:-1;left:30px;right:30px;top:30px;bottom:-20px;border-radius:9px;box-shadow:0 22px 40px -14px rgba(84,54,12,.42),0 2px 6px rgba(84,54,12,.12);transition:transform .5s var(--shot-ease)}
+.sun-shot.is-screen img{height:calc(100% - 15px);margin-top:15px;object-position:top center;border-radius:0}
+/* Photos: a print with a paper border */
+.sun-shot.is-photo{background:#fffaf1;padding:9px;border-radius:8px;box-shadow:0 1px 0 rgba(84,54,12,.06),0 18px 34px -18px rgba(84,54,12,.5),inset 0 0 0 1px rgba(84,54,12,.07)}
+.sun-shot.is-photo img{border-radius:4px}
+/* Hover: the window lifts, the photo leans in */
+a:hover>.sun-shot.is-screen img,a:hover>.sun-shot.is-screen::before,a:hover .sun-place-image .sun-shot.is-screen img,a:focus-visible>.sun-shot.is-screen img,a:focus-visible>.sun-shot.is-screen::before{transform:translateY(-6px)}
+a:hover>.sun-shot.is-screen::after{transform:translateY(-6px)}
+a:hover>.sun-shot.is-photo img,a:focus-visible>.sun-shot.is-photo img{transform:scale(1.04)}
+@media(max-width:700px){.sun-shot.is-screen{padding:16px 16px 0}.sun-shot.is-screen::before{left:16px;right:16px;top:16px;height:12px;background-size:auto;background:radial-gradient(circle at 9px 6px,#e79b8f 2.4px,transparent 3px),radial-gradient(circle at 18px 6px,#e8c56c 2.4px,transparent 3px),radial-gradient(circle at 27px 6px,#93c08c 2.4px,transparent 3px),#fffaf2}.sun-shot.is-screen::after{left:20px;right:20px;top:20px}.sun-shot.is-screen img{height:calc(100% - 12px);margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.sun-shot img,.sun-shot::before,.sun-shot::after{transition:none}}
+.sun-shot.is-screen img{object-position:left top}

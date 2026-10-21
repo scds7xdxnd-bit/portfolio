@@ -2,7 +2,7 @@
 import { iconSvg } from '../lib/icons.js';
 import { mountLivingDawn, heroPhaseScript } from './living-dawn.js';
 import { mountParkLife } from './park-life.js';
-import { EXTRA_COPY, renderArchive, renderNotes, renderCredentials, renderLab, renderJourney, renderSearch, searchItems, escapeHTML } from './sun-sections.js';
+import { EXTRA_COPY, shot, renderArchive, renderNotes, renderCredentials, renderLab, renderJourney, renderSearch, searchItems, escapeHTML } from './sun-sections.js';
 export const SUN_ASSETS = {
   desktop: '/assets/sun-of-korea/dawn-desktop.webp',
   mobile: '/assets/sun-of-korea/dawn-mobile.webp',
@@ -85,7 +85,7 @@ export function renderSunHero(c) {
 
 function renderPlace(place, c, lang) {
   const [name,role,title,body]=place[lang];
-  return `<div class="sun-place-image"><img src="/assets/projects/${place.image}.webp" alt="${name}" width="640" height="400" loading="lazy"></div><div class="sun-place-copy"><p class="sun-eyebrow">${role} / ${c.proof}</p><h3>${title}</h3><p>${body}</p><a class="sun-text-link" href="${place.href}">${c.discover}<span aria-hidden="true">↗</span></a></div>`;
+  return `<div class="sun-place-image">${shot(`/assets/projects/${place.image}.webp`,name)}</div><div class="sun-place-copy"><p class="sun-eyebrow">${role} / ${c.proof}</p><h3>${title}</h3><p>${body}</p><a class="sun-text-link" href="${place.href}">${c.discover}<span aria-hidden="true">↗</span></a></div>`;
 }
 
 export function renderWorldExplorer(c, lang, selected='engineer') {
@@ -99,7 +99,7 @@ export function renderStory(c,lang='en') {
 
 export function renderWork(c) {
   const cards=[['lifeos','LifeOS',c.lifeDesc,'/projects/lifeos.html',c.caseStudy,'#8060ad'],['reaction_simulator','Reaction Simulator',c.rxnDesc,'/projects/reaction-simulator.html',c.caseStudy,'#2580ad'],['pals_copresident','PALS',c.palsDesc,'/projects/pals.html',c.caseStudy,'#be5844']];
-  return `<section class="sun-work sun-section" id="work" aria-labelledby="work-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.workEyebrow}</p><h2 id="work-heading">${c.workTitle}</h2></div><p>${c.workIntro}</p></div><div class="sun-work-grid">${cards.map(([img,title,desc,href,label,color],i)=>`<article class="sun-work-card" style="--place-color:${color}"><a href="${href}" class="sun-work-image" aria-label="${title} — ${label}"><img src="/assets/projects/${img}.webp" alt="" width="640" height="400" loading="lazy"><span aria-hidden="true">↗</span></a><div class="sun-work-title"><span>0${i+1}</span><h3>${title}</h3></div><p>${desc}</p><a class="sun-text-link" href="${href}">${label} <span aria-hidden="true">↗</span></a></article>`).join('')}</div></section>`;
+  return `<section class="sun-work sun-section" id="work" aria-labelledby="work-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.workEyebrow}</p><h2 id="work-heading">${c.workTitle}</h2></div><p>${c.workIntro}</p></div><div class="sun-work-grid">${cards.map(([img,title,desc,href,label,color],i)=>`<article class="sun-work-card" style="--place-color:${color}"><a href="${href}" class="sun-work-image" aria-label="${title} — ${label}">${shot(`/assets/projects/${img}.webp`)}<span aria-hidden="true">↗</span></a><div class="sun-work-title"><span>0${i+1}</span><h3>${title}</h3></div><p>${desc}</p><a class="sun-text-link" href="${href}">${label} <span aria-hidden="true">↗</span></a></article>`).join('')}</div></section>`;
 }
 
 export function renderSunFooter(c,lang) {

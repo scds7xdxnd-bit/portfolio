@@ -49,7 +49,7 @@ if (gridEl) {
       const ctaText = isProject ? 'View Case Study →' : 'Read Note →';
 
       a.innerHTML =
-        '<div class="op-card__icon-badge">' + (op.icon || '') + '</div>' +
+        (op.image ? '<span class="sun-shot ' + (op.photo ? 'is-photo' : 'is-screen') + ' op-card__shot"><img src="' + op.image + '" alt="" width="640" height="400" loading="lazy" decoding="async"></span>' : '<div class="op-card__icon-badge">' + (op.icon || '') + '</div>') +
         '<div class="op-card__note-type' + (isProject ? ' op-card__note-type--project' : '') + '">' + (op.noteType || '') + '</div>' +
         '<h2 class="op-card__title">' + op.title + '</h2>' +
         '<p class="op-card__summary">' + op.summary + '</p>' +
