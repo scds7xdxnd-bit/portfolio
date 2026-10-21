@@ -1,6 +1,7 @@
 // Shared components for the Sun of Korea portfolio. Artwork contains no UI copy.
 import { iconSvg } from '../lib/icons.js';
-import { mountLivingDawn } from './living-dawn.js';
+import { mountLivingDawn, heroPhaseScript } from './living-dawn.js';
+import { mountParkLife } from './park-life.js';
 import { EXTRA_COPY, renderArchive, renderNotes, renderCredentials, renderLab, renderJourney, renderSearch, searchItems, escapeHTML } from './sun-sections.js';
 export const SUN_ASSETS = {
   desktop: '/assets/sun-of-korea/dawn-desktop.webp',
@@ -79,7 +80,7 @@ export function renderSunHeader(c, lang) {
 }
 
 export function renderSunHero(c) {
-  return `<section class="sun-hero" aria-labelledby="sun-heading"><picture class="sun-hero-art"><source media="(max-width: 600px)" srcset="${SUN_ASSETS.mobile}"><img src="${SUN_ASSETS.desktop}" alt="" width="1672" height="941" fetchpriority="high"></picture><div class="sun-hero-copy"><p class="sun-eyebrow">${c.eyebrow}</p><div class="sun-name-meaning"><span>${c.meaning}</span><span>${c.sun}</span></div><h1 id="sun-heading">${c.headline}</h1><p class="sun-intro">${c.intro}</p><div class="sun-actions"><a class="sun-button sun-button-primary" href="#world">${c.explore}<span aria-hidden="true">↗</span></a><a class="sun-button" href="#work">${c.work}</a></div><div class="sun-identity"><img src="/assets/hero-sm.webp" alt="Taeyang Han" width="56" height="56"><div><p>${c.roles}</p><span>${c.location}</span></div></div></div><a class="sun-scroll" href="#story"><span>${c.scroll}</span><span aria-hidden="true">↓</span></a></section>`;
+  return `<section class="sun-hero" aria-labelledby="sun-heading"><picture class="sun-hero-art"><source media="(max-width: 600px)"><img alt="" width="1672" height="941" fetchpriority="high"></picture>${heroPhaseScript()}<noscript><img class="sun-hero-fallback" src="${SUN_ASSETS.desktop}" alt="" width="1672" height="941"></noscript><div class="sun-hero-copy"><p class="sun-eyebrow">${c.eyebrow}</p><div class="sun-name-meaning"><span>${c.meaning}</span><span>${c.sun}</span></div><h1 id="sun-heading">${c.headline}</h1><p class="sun-intro">${c.intro}</p><div class="sun-actions"><a class="sun-button sun-button-primary" href="#world">${c.explore}<span aria-hidden="true">↗</span></a><a class="sun-button" href="#work">${c.work}</a></div><div class="sun-identity"><img src="/assets/hero-sm.webp" alt="Taeyang Han" width="56" height="56"><div><p>${c.roles}</p><span>${c.location}</span></div></div></div><a class="sun-scroll" href="#story"><span>${c.scroll}</span><span aria-hidden="true">↓</span></a></section>`;
 }
 
 function renderPlace(place, c, lang) {
@@ -89,7 +90,7 @@ function renderPlace(place, c, lang) {
 
 export function renderWorldExplorer(c, lang, selected='engineer') {
   const place=WORLD_PLACES.find(p=>p.id===selected)||WORLD_PLACES[0];
-  return `<section class="sun-world sun-section" id="world" aria-labelledby="world-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.worldEyebrow}</p><h2 id="world-heading">${c.worldTitle}</h2></div><p>${c.worldIntro}</p></div><div class="sun-map"><img class="sun-map-art" src="${SUN_ASSETS.world}" alt="" width="1536" height="1024" loading="lazy"><div class="sun-map-points" role="group" aria-label="${c.worldHint}">${WORLD_PLACES.map(p=>`<button class="sun-map-point" data-place="${p.id}" style="--point-x:${p.point[0]}%;--point-y:${p.point[1]}%;--place-color:${p.color}" aria-pressed="${p.id===place.id}" aria-controls="sun-place-panel"><span class="sun-point-icon" aria-hidden="true">${iconSvg(p.icon)}</span><span>${p[lang][1]}</span><span class="sun-point-arrow" aria-hidden="true">↗</span></button>`).join('')}</div><p class="sun-map-hint"><span aria-hidden="true">✳</span> ${c.worldHint}</p></div><div class="sun-place-panel" id="sun-place-panel" style="--place-color:${place.color}" role="region" aria-label="${c.selected}" aria-live="polite" aria-atomic="true">${renderPlace(place,c,lang)}</div></section>`;
+  return `<section class="sun-world sun-section" id="world" aria-labelledby="world-heading"><div class="sun-section-head"><div><p class="sun-eyebrow">${c.worldEyebrow}</p><h2 id="world-heading">${c.worldTitle}</h2></div><p>${c.worldIntro}</p></div><div class="sun-map"><img class="sun-map-art" src="${SUN_ASSETS.world}" srcset="/assets/sun-of-korea/world-atlas-900.webp 900w, ${SUN_ASSETS.world} 1536w" sizes="(max-width: 700px) 100vw, min(100vw, 1536px)" alt="" width="1536" height="1024" loading="lazy" decoding="async"><div class="sun-map-points" role="group" aria-label="${c.worldHint}">${WORLD_PLACES.map(p=>`<button class="sun-map-point" data-place="${p.id}" style="--point-x:${p.point[0]}%;--point-y:${p.point[1]}%;--place-color:${p.color}" aria-pressed="${p.id===place.id}" aria-controls="sun-place-panel"><span class="sun-point-icon" aria-hidden="true">${iconSvg(p.icon)}</span><span>${p[lang][1]}</span><span class="sun-point-arrow" aria-hidden="true">↗</span></button>`).join('')}</div><p class="sun-map-hint"><span aria-hidden="true">✳</span> ${c.worldHint}</p></div><div class="sun-place-panel" id="sun-place-panel" style="--place-color:${place.color}" role="region" aria-label="${c.selected}" aria-live="polite" aria-atomic="true">${renderPlace(place,c,lang)}</div></section>`;
 }
 
 export function renderStory(c,lang='en') {
@@ -116,7 +117,7 @@ export function mountSunPortfolio(root) {
   let stored; try { stored=localStorage.getItem('lang'); } catch { /* Storage is optional. */ }
   let lang=Object.hasOwn(COPY,stored)?stored:'en';
   let selected='engineer', filter='all', query='', searchOpener=null, expanded=false;
-  let motionObserver, dawn;
+  let motionObserver, dawn, park;
   const copy=()=>({...COPY[lang],...EXTRA_COPY[lang]});
   const reduce=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const filterArchive=()=>{
@@ -148,9 +149,10 @@ export function mountSunPortfolio(root) {
   const render=()=>{
     document.documentElement.lang=lang;
     document.documentElement.classList.add('sun-enhanced');
-    dawn?.destroy();
+    dawn?.destroy();park?.destroy();
     root.innerHTML=renderSunPage(lang,selected);
     dawn=mountLivingDawn(root.querySelector('.sun-hero'),lang);
+    park=mountParkLife(root.querySelector('.sun-map'));
     filterArchive();animate();
   };
   const closeMenu=()=>{

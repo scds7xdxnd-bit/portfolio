@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
 
 .sun-site{--sun-cream:#fff7e6;--sun-paper:#fcf6e9;--sun-ink:#24271f;--sun-muted:#626052;--sun-yellow:#ffd859;--sun-line:#ded5bf;background:var(--sun-paper);color:var(--sun-ink);font-family:'DM Sans','Noto Sans KR',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 .sun-site *,.sun-site *::before,.sun-site *::after{box-sizing:border-box}
@@ -129,3 +128,17 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 .sun-clock{position:absolute;top:22px;right:clamp(24px,4.5vw,80px);padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em;color:#4f4733;background:#fff7e6b3;backdrop-filter:blur(4px);pointer-events:none;font-variant-numeric:tabular-nums}
 .sun-hero.is-night .sun-clock{color:#f3e7c8;background:#0a103080}
 @media(max-width:600px){.sun-hero::before{background:linear-gradient(180deg,rgba(10,16,48,.55),transparent 55%)}.sun-clock{top:auto;bottom:70px;right:24px}}
+.sun-hero-fallback{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center bottom}
+/* Mobile: comfortable tap targets and a readable floor for small labels */
+@media(max-width:700px){
+.sun-search-trigger{min-width:44px;justify-content:center}
+.sun-text-link{padding:11px 0 7px;margin-top:6px}
+.sun-footer-line a,.sun-email-address a{display:inline-block;padding:13px 6px}
+.sun-languages button{font-size:11px}
+.sun-identity p,.sun-identity span,.sun-work-title>span,.sun-archive-search>span{font-size:11px}
+.sun-footer-line>div{flex-wrap:wrap;justify-content:center;gap:0 8px}
+.sun-eyebrow,.sun-place-copy .sun-eyebrow{font-size:10.5px}
+.sun-archive-number,.sun-archive-domain,.sun-results{font-size:11px}
+}
+.sun-site button.sun-button{font-size:14px;font-weight:600}
+.sun-park{position:absolute;pointer-events:none;image-rendering:pixelated}

@@ -8,6 +8,20 @@ const LABELS = {
   ko: { seoul: '서울', dawn: '새벽', day: '한낮', dusk: '노을', night: '밤' },
   zh: { seoul: '首尔', dawn: '清晨', day: '正午', dusk: '黄昏', night: '夜晚' },
 };
+const WEATHER_LABELS = {
+  en: { overcast: 'overcast', fog: 'fog', rain: 'rain', storm: 'thunderstorm', snow: 'snow' },
+  ko: { overcast: '흐림', fog: '안개', rain: '비', storm: '뇌우', snow: '눈' },
+  zh: { overcast: '阴天', fog: '雾', rain: '雨', storm: '雷雨', snow: '雪' },
+};
+// How each kind of Seoul weather is drawn over the painting.
+const WEATHER = {
+  clear: { rain: 0, snow: 0, grey: 0 },
+  overcast: { rain: 0, snow: 0, grey: .55 },
+  fog: { rain: 0, snow: 0, grey: .9 },
+  rain: { rain: .6, snow: 0, grey: .5 },
+  storm: { rain: 1, snow: 0, grey: .7, flash: true },
+  snow: { rain: 0, snow: 1, grey: .35 },
+};
 // Warm light colour the cursor casts in each phase.
 const TINT = { dawn: [1, .78, .5], day: [1, .95, .82], dusk: [1, .58, .3], night: [1, .74, .4] };
 
@@ -39,9 +53,18 @@ function phaseMix({ hour, dayOfYear }) {
   return { a: 'night', b: 'night', t: 0 };
 }
 
-const VERT = `attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
+// Inline script placed right after the hero <picture> in the prerendered page:
+// chooses the time-of-day image before the browser fetches anything, so a
+// night visitor never downloads the dawn painting first.
+const SKY = { dawn: '#fff0d1', day: '#9cc8ef', dusk: '#e58a4e', night: '#0b1233' };
+export function heroPhaseScript() {
+  return `<script>(function(){var PHASES=${JSON.stringify(PHASES)};${seoulClock}${phaseMix}var m=phaseMix(seoulClock()),p=m.t<.5?m.a:m.b,a=document.currentScript.previousElementSibling,d='/assets/sun-of-korea/'+p;a.querySelector('source').srcset=d+'-mobile.webp';a.querySelector('img').src=d+'-desktop.webp';a.parentNode.style.background=${JSON.stringify(SKY)}[p]})()</script>`;
+}
+
+const VERT =`attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
 const FRAG = `precision mediump float;
-uniform sampler2D uA,uB;uniform float uMix,uPower,uNight;uniform vec2 uRes,uImg,uAlign,uLight;uniform vec3 uTint;varying vec2 v;
+uniform sampler2D uA,uB;uniform float uMix,uPower,uNight,uTime,uRain,uSnow,uGrey,uFlash,uBlock;uniform vec2 uRes,uImg,uAlign,uLight;uniform vec3 uTint;varying vec2 v;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 vec2 cover(vec2 s){float sa=uRes.x/uRes.y,ia=uImg.x/uImg.y;vec2 k=sa>ia?vec2(1.,ia/sa):vec2(sa/ia,1.);return (s-uAlign)*k+uAlign;}
 vec3 tex(vec2 u){return mix(texture2D(uA,u).rgb,texture2D(uB,u).rgb,uMix);}
 float lum(vec2 u){return dot(tex(u),vec3(.299,.587,.114));}
@@ -59,6 +82,28 @@ void main(){
     c+=uTint*core*.38*dayP;
     c=mix(c,c*(.55+1.4*wide*uTint),uNight*uPower);
   }
+  if(uGrey>0.){float l=dot(c,vec3(.299,.587,.114));vec3 g=vec3(l)*mix(.8,.95,uNight)+vec3(.035,.04,.055);c=mix(c,g,uGrey*.68);}
+  vec2 b=floor(v*uRes/uBlock);
+  if(uRain>0.){
+    c*=1.-.1*uRain;
+    for(int i=0;i<2;i++){
+      float fi=float(i),L=34.+fi*14.,col=floor(b.x+b.y*.22)+fi*311.;
+      float y=b.y-uTime*(95.+fi*35.)+hash(vec2(col,fi))*L;
+      float cell=floor(y/L),f=mod(y,L);
+      float on=step(hash(vec2(col,cell))*1.6,uRain)*step(f,4.+fi*2.);
+      c=mix(c,mix(vec3(.6,.66,.78),vec3(.8,.85,.95),uNight),on*(.45-fi*.13));
+    }
+  }
+  if(uSnow>0.){
+    for(int i=0;i<2;i++){
+      float fi=float(i),S=16.+fi*10.;
+      vec2 q=b+vec2(sin(uTime*.6+b.y*.05+fi*2.)*2.,-uTime*(14.+fi*9.));
+      vec2 cell=floor(q/S),pos=floor(vec2(hash(cell+fi),hash(cell+fi+7.))*(S-2.)),local=floor(mod(q,S));
+      float on=step(hash(cell*1.3+fi),.7*uSnow)*(1.-step(1.-fi*.5,length(local-pos)));
+      c=mix(c,vec3(.96,.97,1.),on*(.85-fi*.3));
+    }
+  }
+  c+=vec3(.55,.6,.75)*uFlash;
   gl_FragColor=vec4(c,1.);
 }`;
 
@@ -78,16 +123,21 @@ export function mountLivingDawn(hero, lang = 'en') {
   let gl, prog, canvas, raf = 0, timer = 0, alive = true, visible = true, observer;
   const textures = new Map();
   const light = { x: .77, y: .3, tx: .77, ty: .3, power: 0, target: 0 };
+  const params = new URLSearchParams(location.search);
+  let weather = { kind: 'clear', ...WEATHER.clear }, flash = 0, nextFlash = 0, lastFrame = 0;
+  const animated = () => !reduce && (weather.rain > 0 || weather.snow > 0);
 
   const dominant = () => (mix.t < .5 ? mix.a : mix.b);
   const applyPhase = () => {
     const night = (mix.a === 'night' ? 1 - mix.t : 0) + (mix.b === 'night' ? mix.t : 0);
     hero.style.setProperty('--night', night.toFixed(3));
     hero.dataset.phase = dominant();
+    hero.style.background = SKY[dominant()];
     hero.classList.toggle('is-night', night > .5);
     const { hour } = seoulClock();
     const hh = String(Math.floor(hour) % 24).padStart(2, '0'), mm = String(Math.floor((hour % 1) * 60)).padStart(2, '0');
-    clock.textContent = `${labels.seoul} · ${hh}:${mm} · ${labels[dominant()]}`;
+    const sky = (WEATHER_LABELS[lang] || WEATHER_LABELS.en)[weather.kind];
+    clock.textContent = `${labels.seoul} · ${hh}:${mm} · ${labels[dominant()]}${sky ? ` · ${sky}` : ''}`;
     // Plain-image fallback (also what shows before WebGL is ready).
     const source = art.querySelector('source'), mobileSrc = src(dominant(), true), desktopSrc = src(dominant(), false);
     if (source && source.getAttribute('srcset') !== mobileSrc) source.setAttribute('srcset', mobileSrc);
@@ -139,18 +189,31 @@ export function mountLivingDawn(hero, lang = 'en') {
     gl.uniform1f(u('uNight'), parseFloat(hero.style.getPropertyValue('--night')) || 0);
     const ta = TINT[mix.a], tb = TINT[mix.b];
     gl.uniform3f(u('uTint'), ...ta.map((x, i) => x + (tb[i] - x) * mix.t));
+    gl.uniform1f(u('uTime'), performance.now() / 1000);
+    gl.uniform1f(u('uRain'), weather.rain);
+    gl.uniform1f(u('uSnow'), weather.snow);
+    gl.uniform1f(u('uGrey'), weather.grey);
+    gl.uniform1f(u('uFlash'), flash);
+    gl.uniform1f(u('uBlock'), 3 * dpr);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     canvas.classList.add('is-ready');
   };
 
-  const tick = () => {
+  const tick = now => {
     raf = 0;
+    const settling = Math.abs(light.tx - light.x) + Math.abs(light.ty - light.y) > .0005 || Math.abs(light.target - light.power) > .002;
+    // Weather alone only needs ~30fps.
+    if (!settling && animated() && now - lastFrame < 33) { raf = requestAnimationFrame(tick); return; }
+    lastFrame = now;
     light.x += (light.tx - light.x) * .14;
     light.y += (light.ty - light.y) * .14;
     light.power += (light.target - light.power) * .08;
+    if (weather.flash) {
+      if (now > nextFlash) { flash = .9; nextFlash = now + 6000 + Math.random() * 9000; }
+      flash *= .82;
+    }
     draw();
-    const settling = Math.abs(light.tx - light.x) + Math.abs(light.ty - light.y) > .0005 || Math.abs(light.target - light.power) > .002;
-    if (settling && visible) raf = requestAnimationFrame(tick);
+    if (visible && (settling || animated() || flash > .01)) raf = requestAnimationFrame(tick);
   };
   const kick = () => { if (!raf && gl) raf = requestAnimationFrame(tick); };
 
@@ -166,6 +229,19 @@ export function mountLivingDawn(hero, lang = 'en') {
   const onTouchEnd = () => setTimeout(onLeave, 900);
   const onResize = () => kick();
   const onBreakpoint = () => { applyPhase(); kick(); };
+
+  const loadWeather = async () => {
+    let kind = params.get('weather');
+    if (!WEATHER[kind]) {
+      try { kind = (await (await fetch('/api/weather')).json()).kind; } catch { kind = 'clear'; }
+    }
+    if (!alive || !WEATHER[kind]) return;
+    weather = { kind, ...WEATHER[kind] };
+    nextFlash = performance.now() + 2500;
+    applyPhase(); kick();
+  };
+  loadWeather();
+  const weatherTimer = setInterval(loadWeather, 15 * 60 * 1000);
 
   applyPhase();
   timer = setInterval(() => { mix = phaseMix(seoulClock()); applyPhase(); kick(); }, 30000);
@@ -207,7 +283,7 @@ export function mountLivingDawn(hero, lang = 'en') {
   return {
     destroy() {
       alive = false;
-      cancelAnimationFrame(raf); clearInterval(timer);
+      cancelAnimationFrame(raf); clearInterval(timer); clearInterval(weatherTimer);
       observer?.disconnect();
       mq.removeEventListener('change', onBreakpoint);
       window.removeEventListener('resize', onResize);
