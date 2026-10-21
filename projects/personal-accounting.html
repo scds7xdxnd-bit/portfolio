@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Accounting System — Taeyang Han</title>
+  <meta name="description" content="How I built and maintain a double-entry accounting system for my own money: a journal ledger across KRW, MYR and CNY, idempotent bank-statement import, an ML account suggester, and Monte Carlo cash-flow forecasts. Python + Flask + PostgreSQL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <link rel="stylesheet" href="/src/styles/pages/opinions.css">
+  <link rel="stylesheet" href="/src/styles/pages/projects.css">
+  <link rel="stylesheet" href="/src/styles/sun-articles.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Page navigation">
+    <a href="../opinions/index.html" class="op-topbar__back">&#x2190; Case Studies</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Personal Accounting System</div>
+      <div class="op-topbar__subtitle">Accounting · Python · Flask · PostgreSQL</div>
+    </div>
+    <div class="op-topbar__right"></div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Project Case Study</p>
+        <h1 class="op-article__title">A real double-entry ledger for one person’s money</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;&middot;&nbsp; Chemical Engineering + Business, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-badge op-badge--project-build">SYSTEMS</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">In daily use</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Maintained 5+ years</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <img
+          src="../assets/projects/accounting.webp"
+          alt="Personal Accounting System — journal ledger and dashboard"
+          class="proj-hero"
+          loading="eager"
+        />
+
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <div class="proj-stat__label">Ledger</div>
+            <div class="proj-stat__value">6,000+ journal entries</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Currencies</div>
+            <div class="proj-stat__value">KRW · MYR · CNY</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Tests</div>
+            <div class="proj-stat__value">1,600+ automated cases</div>
+          </div>
+        </div>
+
+        <h2>The problem</h2>
+
+        <p>
+          My money moves in three currencies, across bank accounts, scholarships and small loans between friends. Budgeting apps are good at one question — <em>what did I spend on food this month?</em> — and bad at the ones I actually care about: what do I own, what do I owe, who owes me, and will my balance stay above zero until the next stipend lands?
+        </p>
+
+        <p>
+          Those are accounting questions, and accounting already has the answer: double-entry bookkeeping, where every movement of money is recorded twice and the books must balance. So instead of tracking spending, I built a ledger.
+        </p>
+
+        <h2>What it does</h2>
+
+        <div class="analogy-box">
+          <div class="analogy-title">Three jobs, one ledger</div>
+          <div class="analogy-grid">
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Record</div>
+              <div class="analogy-drives">Journal entries with balanced debit and credit lines, a trial balance, and multi-currency accounts</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Import</div>
+              <div class="analogy-drives">Bank statements come in as CSV; the app suggests accounts and descriptions and learns from my corrections</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Forecast</div>
+              <div class="analogy-drives">A money schedule projects cash flow, with a Monte Carlo band and the daily chance of dropping below a floor</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          It also handles the human side of money: loans between friends get a signed acknowledgement document, a repayment schedule and a running statement, so nobody has to remember who owes what.
+        </p>
+
+        <h2>Key decisions</h2>
+
+        <div class="proj-decisions">
+          <div class="proj-decision">
+            <div class="proj-decision__num">01</div>
+            <div>
+              <div class="proj-decision__title">The journal is the only source of truth</div>
+              <p class="proj-decision__body">
+                Early versions stored simple transactions. Moving to a proper journal (entry headers plus balanced lines) meant migrating years of history without breaking anything, so the app ran in a dual-write mode that wrote both formats atomically until the journal could be trusted. Reports now read only from the journal; mixing old and new data in one report is forbidden by a test.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">02</div>
+            <div>
+              <div class="proj-decision__title">The app refuses to run on a database it doesn’t trust</div>
+              <p class="proj-decision__body">
+                Before any page loads, a startup gate checks that the database is at the latest migration and actually has the tables and columns the code needs. If not, it answers with a clear error instead of quietly writing half-correct data. For a system holding real money, failing loudly beats failing silently.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">03</div>
+            <div>
+              <div class="proj-decision__title">Importing the same statement twice is safe</div>
+              <p class="proj-decision__body">
+                Every import records the file’s fingerprint and a key for each row (date, amount, account, description). Uploading a statement again, or one that overlaps last month’s, skips what is already in the books. Double-counting is the most common way a ledger stops being believable.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">04</div>
+            <div>
+              <div class="proj-decision__title">Suggestions that learn without retraining</div>
+              <p class="proj-decision__body">
+                A model trained on my own ledger suggests which accounts a new entry should hit; on a held-out slice of my KRW history, the right account is in its top three suggestions about 91% of the time. Only about one entry in six ever came through a bank import, so the description suggester also learns live: every suggestion I accept or edit updates its memory immediately.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">05</div>
+            <div>
+              <div class="proj-decision__title">Monte Carlo only where an approximation was documented</div>
+              <p class="proj-decision__body">
+                The cash-flow forecast originally used an approximation the code itself labelled as one. I replaced it with a Monte Carlo simulation that draws a fan of likely balances and the chance, per day, of falling below a safety floor — and wrote down where a Bayesian layer earned its place and where it would just be decoration.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>How it was built</h2>
+
+        <p>
+          Much of the recent code was written with AI coding agents working from specifications I wrote. My part is the accounting design, the written contracts every change must satisfy, and a release gate of automated tests that blocks anything which breaks them. That gate is what lets a one-person project change quickly without corrupting five years of records.
+        </p>
+
+        <div class="proj-stack">
+          <span class="proj-pill proj-pill--highlight">Python</span>
+          <span class="proj-pill">Flask</span>
+          <span class="proj-pill">PostgreSQL</span>
+          <span class="proj-pill">Alembic</span>
+          <span class="proj-pill">scikit-learn</span>
+          <span class="proj-pill">pytest</span>
+        </div>
+
+        <h2>Result</h2>
+
+        <div class="proj-result">
+          <div class="proj-result__label" style="color: var(--mint);">In daily use</div>
+          <ul class="proj-result__items">
+            <li class="proj-result__item">Runs my actual finances; it is private because it holds real data, so there is no public demo</li>
+            <li class="proj-result__item">Balanced double-entry ledger with trial balance, receivables and multi-currency accounts</li>
+            <li class="proj-result__item">Bank-statement import that is safe to repeat and learns from corrections</li>
+            <li class="proj-result__item">Cash-flow forecast with Monte Carlo risk bands, protected by a release gate of 1,600+ tests</li>
+          </ul>
+        </div>
+
+        <div class="proj-cta-row">
+          <a href="../opinions/index.html" class="proj-cta proj-cta--ghost">← Back to portfolio</a>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Project navigation">
+        <a href="lifeos.html" class="op-article-nav__link">
+          <span class="op-article-nav__link-label">Previous project</span>
+          <span class="op-article-nav__link-title">&#x2190; LifeOS</span>
+        </a>
+        <a href="../opinions/index.html" class="op-article-nav__back">Back to Portfolio</a>
+        <a href="catalyst-xai-deck.html" class="op-article-nav__link" style="text-align:right;">
+          <span class="op-article-nav__link-label">Next project</span>
+          <span class="op-article-nav__link-title">Catalyst XAI Deck &#x2192;</span>
+        </a>
+      </nav>
+
+    </article>
+  </main>
+
+</body>
+</html>

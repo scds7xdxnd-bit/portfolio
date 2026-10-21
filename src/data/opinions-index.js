@@ -40,6 +40,30 @@ const OPINIONS_INDEX = [
     takeaway: 'The OS for your own life'
   },
   {
+    id: 'personal-accounting',
+    title: 'Personal Accounting System',
+    summary: 'A double-entry ledger for my own money across KRW, MYR and CNY \u2014 idempotent bank-statement import, an account suggester that learns from corrections, and Monte Carlo cash-flow forecasts.',
+    domain: 'Systems',
+    href: '../projects/personal-accounting.html',
+    noteType: 'Project Case Study',
+    icon: '\uD83D\uDCD2',
+    type: 'project',
+    stack: 'Python \u00B7 Flask \u00B7 PostgreSQL',
+    takeaway: 'Track what you own, not just what you spend'
+  },
+  {
+    id: 'catalyst-xai-deck',
+    title: 'Why Is This Catalyst Dying?',
+    summary: 'An 18-scene 3D walkthrough of an interpretable-ML paper on CO\u2082 electrolysis, built for my lab \u2014 every curve generated from physics, every claim labelled as reported or my reading.',
+    domain: 'Research',
+    href: '../projects/catalyst-xai-deck.html',
+    noteType: 'Project Case Study',
+    icon: '\u26A1',
+    type: 'project',
+    stack: 'three.js \u00B7 Vite \u00B7 JavaScript',
+    takeaway: 'Rebuild the physics, don\'t trace the figure'
+  },
+  {
     id: 'chemical-potential',
     title: 'What does chemical potential actually mean?',
     summary: 'Why \u03BC\u1D62 behaves the way it does, what it means for two phases to share an equal chemical potential, and where the temperature-pressure analogy quietly breaks down.',

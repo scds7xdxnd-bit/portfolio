@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Is This Catalyst Dying? — Taeyang Han</title>
+  <meta name="description" content="How I turned an interpretable-ML paper on CO₂ electrolysis catalyst degradation into an 18-scene 3D walkthrough for my lab — every curve generated from physics, every claim tagged as reported or my reading.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <link rel="stylesheet" href="/src/styles/pages/opinions.css">
+  <link rel="stylesheet" href="/src/styles/pages/projects.css">
+  <link rel="stylesheet" href="/src/styles/sun-articles.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <nav class="op-topbar" aria-label="Page navigation">
+    <a href="../opinions/index.html" class="op-topbar__back">&#x2190; Case Studies</a>
+    <div class="op-topbar__center">
+      <div class="op-topbar__title">Why Is This Catalyst Dying?</div>
+      <div class="op-topbar__subtitle">Electrochemistry · Interpretable ML · three.js</div>
+    </div>
+    <div class="op-topbar__right">
+      <a href="https://catalyst-xai-deck.vercel.app" target="_blank" rel="noopener" class="op-topbar__portfolio-link">Open the deck &#x2197;</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="op-article">
+
+      <header class="op-article__header">
+        <p class="op-article__label">Project Case Study</p>
+        <h1 class="op-article__title">Explaining a paper by rebuilding its physics, not copying its figures</h1>
+        <p class="op-article__byline">Taeyang Han &nbsp;&middot;&nbsp; Undergraduate researcher, Chemical Engineering, Sogang University</p>
+        <div class="op-article__meta">
+          <span class="op-badge op-badge--project-eng">RESEARCH</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">September 2026</span>
+          <span class="op-article__meta-item">&middot;</span>
+          <span class="op-article__meta-item">Built for my lab</span>
+        </div>
+      </header>
+
+      <div class="op-body">
+
+        <img
+          src="../assets/projects/catalyst_xai_deck.webp"
+          alt="Why Is This Catalyst Dying? — 3D walkthrough of an interpretable-ML paper"
+          class="proj-hero"
+          loading="eager"
+        />
+
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <div class="proj-stat__label">Paper</div>
+            <div class="proj-stat__value">Shin et al., ACS Catal. 2025</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Scope</div>
+            <div class="proj-stat__value">18 WebGL scenes · 5 chapters</div>
+          </div>
+          <div class="proj-stat">
+            <div class="proj-stat__label">Stack</div>
+            <div class="proj-stat__value">three.js · Vite · JavaScript</div>
+          </div>
+        </div>
+
+        <h2>The problem</h2>
+
+        <p>
+          The paper my lab was reading — Shin et al., <em>“Discovering the Origin of Catalyst Performance and Degradation of Electrochemical CO₂ Reduction through Interpretable Machine Learning”</em> (<a href="https://doi.org/10.1021/acscatal.4c05530" target="_blank" rel="noopener">ACS Catalysis, 2025</a>) — asks a practical question: when a CO₂-reduction catalyst starts failing, is the catalyst itself losing active sites, or is something around it, like blocked pores, starving it of CO₂?
+        </p>
+
+        <p>
+          Their answer is a 1-D convolutional network that reads a pair of voltage sweeps (one under CO₂, one under N₂) and predicts current and product efficiency. Grad-CAM then shows which part of the voltage axis the network was looking at, and that location points to the cause. It is a clever argument, but on paper it is spread across four dense figures, and each one reads as its own story. I wanted my lab to follow one catalyst from the moment it is mounted in the cell to the moment someone can say <em>why</em> it died.
+        </p>
+
+        <h2>What it does</h2>
+
+        <p>
+          The deck is a navigable 3D walkthrough in five chapters. You fly through the electrolyser cell and the network, scrub a catalyst through thousands of degradation cycles, hover over a UMAP of 5,196 sweeps, and step through the backward pass that produces the attention map. It ends where the paper ends: on the electron microscopy that checks whether the cheap answer was true.
+        </p>
+
+        <div class="analogy-box">
+          <div class="analogy-title">The diagnostic rule the deck builds toward</div>
+          <div class="analogy-grid">
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Attention tracks the boundary</div>
+              <div class="analogy-drives">The kinetic/transport boundary is moving: the catalyst is losing active sites</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Attention sits under it</div>
+              <div class="analogy-drives">The transport ceiling is collapsing: pores or gas access are failing</div>
+            </div>
+            <div class="analogy-col">
+              <div class="analogy-quantity" style="font-size:14px;">Then check</div>
+              <div class="analogy-drives">Microscopy and spectroscopy confirm or reject the reading</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Key decisions</h2>
+
+        <div class="proj-decisions">
+          <div class="proj-decision">
+            <div class="proj-decision__num">01</div>
+            <div>
+              <div class="proj-decision__title">No figure from the paper is reproduced</div>
+              <p class="proj-decision__body">
+                Every curve, attention map and scatter point is generated live from a Butler–Volmer plus limiting-current model, with parameters tuned to the ranges the paper reports. That forced the deck to reproduce the paper’s findings from physics rather than by tracing: silver keeps its diffusion-limited region while its transport ceiling collapses, and Ni–N/C loses its kinetic/diffusion transition entirely as its Tafel slope blows up. The parity plots are sampled so their error matches the reported values (0.0032 A, 0.47 %, 0.25 %).
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">02</div>
+            <div>
+              <div class="proj-decision__title">Every claim is labelled: reported, my reading, or not stated</div>
+              <p class="proj-decision__body">
+                Before building any scene I reconciled my handwritten notes against the paper in a written reasoning record, tagging each statement as reported in the paper, my interpretation, or missing. The deck carries those tags through. When a viewer sees a conclusion, they can tell whether the authors said it or I inferred it — the one line in a paper review that must never blur.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">03</div>
+            <div>
+              <div class="proj-decision__title">One experiment, not four figures</div>
+              <p class="proj-decision__body">
+                The first version followed the paper figure by figure, and the first chapter ended up summarising the other three before they had earned it. I restructured the flow around a single question and a single catalyst, so each chapter answers the doubt the previous one raised.
+              </p>
+            </div>
+          </div>
+          <div class="proj-decision">
+            <div class="proj-decision__num">04</div>
+            <div>
+              <div class="proj-decision__title">Questions for the lab, made visible</div>
+              <p class="proj-decision__body">
+                Two things I flagged in my reading became scenes. First, data leakage: consecutive cycles are twenty minutes apart on the same electrode, so their sweeps are near-duplicates. A random train/test split puts a curve’s near-twin on the other side, which flatters the score; the paper reports split sizes but not how curves were assigned. Second, in the Grad-CAM step the channel weights come from positive gradients and the activations are already non-negative, so the final ReLU has nothing left to clip. Both are my reading, labelled as such, and offered as questions rather than corrections.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>How it was built</h2>
+
+        <p>
+          I built the deck with an AI coding assistant over several sessions, one figure per phase. My part was the reading: working through the paper and its supplement, deciding what each scene had to prove, setting the claim labels, and checking every scene against the paper before it stayed in.
+        </p>
+
+        <div class="proj-stack">
+          <span class="proj-pill proj-pill--highlight">three.js</span>
+          <span class="proj-pill">WebGL</span>
+          <span class="proj-pill">Vite</span>
+          <span class="proj-pill">Butler–Volmer model</span>
+          <span class="proj-pill">Vercel</span>
+        </div>
+
+        <h2>Result</h2>
+
+        <div class="proj-result">
+          <div class="proj-result__label" style="color: var(--sky);">Shipped</div>
+          <ul class="proj-result__items">
+            <li class="proj-result__item">Live at <a href="https://catalyst-xai-deck.vercel.app" target="_blank" rel="noopener" style="border-bottom: 2px solid var(--sky);">catalyst-xai-deck.vercel.app</a>, keyboard-navigable and deep-linkable by scene</li>
+            <li class="proj-result__item">18 scenes across five chapters, from the electrolyser cell to the microscopy check</li>
+            <li class="proj-result__item">Zero traced figures: all curves generated from an electrochemical model, all claims labelled by source</li>
+            <li class="proj-result__item">Two open questions for the authors’ method — split leakage and the redundant ReLU — framed for discussion</li>
+          </ul>
+        </div>
+
+        <div class="proj-cta-row">
+          <a href="https://catalyst-xai-deck.vercel.app" target="_blank" rel="noopener" class="proj-cta">Open the deck ↗</a>
+          <a href="../opinions/index.html" class="proj-cta proj-cta--ghost">← Back to portfolio</a>
+        </div>
+
+      </div>
+
+      <nav class="op-article-nav" aria-label="Project navigation">
+        <a href="personal-accounting.html" class="op-article-nav__link">
+          <span class="op-article-nav__link-label">Previous project</span>
+          <span class="op-article-nav__link-title">&#x2190; Personal Accounting System</span>
+        </a>
+        <a href="../opinions/index.html" class="op-article-nav__back">Back to Portfolio &#x2192;</a>
+        <span style="min-width:120px;"></span>
+      </nav>
+
+    </article>
+  </main>
+
+</body>
+</html>

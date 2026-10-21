@@ -14,6 +14,8 @@ export default defineConfig({
         'opinions/engineering-under-uncertainty': 'opinions/engineering-under-uncertainty.html',
         'projects/lifeos': 'projects/lifeos.html',
         'projects/reaction-simulator': 'projects/reaction-simulator.html',
+        'projects/personal-accounting': 'projects/personal-accounting.html',
+        'projects/catalyst-xai-deck': 'projects/catalyst-xai-deck.html',
       }
     }
   }

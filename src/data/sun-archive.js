@@ -309,7 +309,7 @@ export const SUN_ARCHIVE = [
     "domain": "builder",
     "image": "/assets/projects/accounting.webp",
     "url": null,
-    "caseStudy": null,
+    "caseStudy": "/projects/personal-accounting.html",
     "en": [
       "Personal Accounting System",
       "Personal finance app built & maintained 5+ years (Python, Flask, PostgreSQL)."
@@ -594,7 +594,7 @@ export const SUN_ARCHIVE = [
     "domain": "scholar",
     "image": "/assets/projects/catalyst_xai_deck.webp",
     "url": "https://catalyst-xai-deck.vercel.app",
-    "caseStudy": null,
+    "caseStudy": "/projects/catalyst-xai-deck.html",
     "en": [
       "Why Is This Catalyst Dying?",
       "Navigable 3D walkthrough of interpretable ML for CO₂ electrolysis (Shin et al., ACS Catal. 2025). Eighteen WebGL scenes across five chapters: fly through an MEA cell and a CNN, stack Grad-CAM strips to tell mass-transport failure apart from catalyst failure, interrogate 5196 sweeps on a UMAP where hovering one dot shows why a random train/test split leaks, step through the backward pass to find that the paper's second ReLU has nothing left to clip, reach the diagnostic rule itself — whether the attention band tracks the kinetic/transport boundary or sits under it separates a catalyst losing active sites from one whose pores are blocking — and then end where the paper does, on the electron microscopy that checks whether the cheap answer was true. Every curve is generated live from a Butler–Volmer + limiting-current model, not traced. (three.js/Vite/JS)"
