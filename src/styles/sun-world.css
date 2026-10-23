@@ -187,3 +187,16 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 .sun-archive-plus{transition:transform .25s}
 .sun-archive-item[open] .sun-archive-plus{transform:rotate(45deg)}
 @media(prefers-reduced-motion:reduce){.sun-archive-item h3,.sun-archive-plus{transition:none}}
+/* World life: Seoul tint, lights and particles over the map (world-life.js) */
+.sun-map-tint,.sun-world-glow,.sun-world-fx{position:absolute;pointer-events:none}
+.sun-map-tint{z-index:1;mix-blend-mode:multiply;transition:background 2s}
+.sun-world-glow{z-index:2;mix-blend-mode:screen}
+.sun-world-fx{z-index:3}
+.sun-park{z-index:4}
+.sun-map-point,.sun-map-hint,.sun-map-now{z-index:6}
+.sun-map-now{position:absolute;top:2%;left:4%;display:flex;align-items:center;gap:8px;margin:0;padding:6px 12px;font-size:11.5px;color:#6e644a;background:#fff9eceb;border:1px solid var(--sun-line);border-radius:30px;white-space:nowrap}
+.sun-map-now>span{width:7px;height:7px;border-radius:50%;background:#e2554a;box-shadow:0 0 0 3px #e2554a2e;animation:sun-now 2.4s ease-in-out infinite}
+@keyframes sun-now{50%{box-shadow:0 0 0 6px #e2554a00}}
+@media(max-width:700px){.sun-map-now{top:0;left:24px;font-size:10.5px;padding:5px 10px}}
+@media(prefers-reduced-motion:reduce){.sun-map-now>span{animation:none}}
+html:not(.sun-enhanced) .sun-map-now{display:none}

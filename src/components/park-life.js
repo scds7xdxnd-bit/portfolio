@@ -5,7 +5,7 @@
 // pixel grid. Static under reduced motion.
 
 const COLORS = {
-  b: '#8d90a0', d: '#5f6273', w: '#c3c6d1', h: '#6c7287', n: '#5f9c8c', e: '#16161b', k: '#e3a24a', y: '#c9706a',
+  z: '#f4f1e6', b: '#8d90a0', d: '#5f6273', w: '#c3c6d1', h: '#6c7287', n: '#5f9c8c', e: '#16161b', k: '#e3a24a', y: '#c9706a',
   o: '#d9853b', s: '#a65a22', c: '#f1d9b0', p: '#e88f9a', l: '#f4e27a', q: '#222018', r: '#e85d75',
 };
 
@@ -24,6 +24,7 @@ const CAT = {
   flat: ['...........', '...........', 'ooooooooooo', 'ooooooooooo'],
   tail: [['.oo', 'o..'], ['oo.', '..o']],
 };
+const ZED = ['zzzz', '..z.', '.z..', 'zzzz'];
 const HEART = ['.r.r.', 'rrrrr', 'rrrrr', '.rrr.', '..r..'];
 
 const PIGEON_HOMES = [[45, 57.5], [47.5, 59], [50.2, 57.6], [52.8, 59.4], [54.2, 57.2], [48.6, 61]];
@@ -115,6 +116,8 @@ export function mountParkLife(map) {
     // Cat
     const cx = px(CAT_HOME[0], W) + 5.5 * P, cy = px(CAT_HOME[1], H) + 4 * P;
     const near = pointer.inside ? Math.hypot(pointer.x - cx, pointer.y - cy) : Infinity;
+    // At Seoul night (set by world-life) the cat dozes until you come close.
+    cat.asleep = map.dataset.night === '1' && near > 60;
     if (near < 80 && pointer.speed > .9) cat.startled = 1200;
     cat.startled = Math.max(0, cat.startled - dt);
     cat.purr = near < 30 && pointer.speed < .15 && !cat.startled ? cat.purr + dt : 0;
@@ -141,7 +144,7 @@ export function mountParkLife(map) {
     if (cat.startled) sprite(CAT.flat, x, y, false, null);
     sprite(CAT.tail[cat.tail], x + 9 * P, y + 7 * P);
     // Eyes: closed when purring or blinking, otherwise looking at the cursor.
-    const closed = cat.purr > 700 || cat.blink < 0;
+    const closed = cat.purr > 700 || cat.blink < 0 || cat.asleep;
     for (const ex of [2, 7]) {
       if (closed) { dot('s', x + ex * P, y + 4 * P, 2, 1); continue; }
       dot('l', x + ex * P, y + 3 * P, 2, 2);
@@ -152,6 +155,12 @@ export function mountParkLife(map) {
         if (Math.abs(dx) <= 6) ox = 0;
       } else { ox = 1; oy = 1; }
       dot('q', x + (ex + ox) * P, y + (3 + oy) * P, 1, cat.startled ? 2 : 1);
+    }
+    if (cat.asleep) for (const k of [0, .5]) {
+      const f = (performance.now() / 2600 + k) % 1;
+      ctx.globalAlpha = Math.sin(f * Math.PI);
+      sprite(ZED, x + (9 + f * 4) * P, y - (2 + f * 9) * P);
+      ctx.globalAlpha = 1;
     }
     for (const h of cat.hearts) {
       ctx.globalAlpha = 1 - h.t / 1400;

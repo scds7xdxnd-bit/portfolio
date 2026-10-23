@@ -27,7 +27,7 @@ const TINT = { dawn: [1, .78, .5], day: [1, .95, .82], dusk: [1, .58, .3], night
 
 const src = (phase, mobile) => `/assets/sun-of-korea/${phase}-${mobile ? 'mobile' : 'desktop'}.webp`;
 
-function seoulClock() {
+export function seoulClock() {
   const override = Number(new URLSearchParams(location.search).get('hour'));
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Seoul', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23',
@@ -39,7 +39,7 @@ function seoulClock() {
 }
 
 // Seoul sunrise/sunset drift between ~5:10/19:55 (June) and ~7:45/17:15 (December).
-function phaseMix({ hour, dayOfYear }) {
+export function phaseMix({ hour, dayOfYear }) {
   const season = Math.cos(2 * Math.PI * (dayOfYear - 172) / 365);
   const rise = 6.5 - 1.3 * season, set = 18.6 + 1.3 * season;
   const keys = [[rise - 1.2, 3], [rise - .2, 0], [rise + 1.8, 0], [rise + 3.2, 1], [set - 2.2, 1], [set - .8, 2], [set + .3, 2], [set + 1.2, 3]];
@@ -51,6 +51,19 @@ function phaseMix({ hour, dayOfYear }) {
     }
   }
   return { a: 'night', b: 'night', t: 0 };
+}
+
+// Current Seoul weather kind, shared by the hero and the map so the page makes
+// one request. ?weather=rain|snow|storm|fog|overcast overrides it for testing.
+let weatherRequest, weatherAt = 0;
+export function seoulWeather() {
+  const forced = new URLSearchParams(location.search).get('weather');
+  if (WEATHER[forced]) return Promise.resolve(forced);
+  if (!weatherRequest || Date.now() - weatherAt > 10 * 60 * 1000) {
+    weatherAt = Date.now();
+    weatherRequest = fetch('/api/weather').then(r => r.json()).then(d => (WEATHER[d.kind] ? d.kind : 'clear')).catch(() => 'clear');
+  }
+  return weatherRequest;
 }
 
 // Inline script placed right after the hero <picture> in the prerendered page:
@@ -123,7 +136,6 @@ export function mountLivingDawn(hero, lang = 'en') {
   let gl, prog, canvas, raf = 0, timer = 0, alive = true, visible = true, observer;
   const textures = new Map();
   const light = { x: .77, y: .3, tx: .77, ty: .3, power: 0, target: 0 };
-  const params = new URLSearchParams(location.search);
   let weather = { kind: 'clear', ...WEATHER.clear }, flash = 0, nextFlash = 0, lastFrame = 0;
   const animated = () => !reduce && (weather.rain > 0 || weather.snow > 0);
 
@@ -231,10 +243,7 @@ export function mountLivingDawn(hero, lang = 'en') {
   const onBreakpoint = () => { applyPhase(); kick(); };
 
   const loadWeather = async () => {
-    let kind = params.get('weather');
-    if (!WEATHER[kind]) {
-      try { kind = (await (await fetch('/api/weather')).json()).kind; } catch { kind = 'clear'; }
-    }
+    const kind = await seoulWeather();
     if (!alive || !WEATHER[kind]) return;
     weather = { kind, ...WEATHER[kind] };
     nextFlash = performance.now() + 2500;
