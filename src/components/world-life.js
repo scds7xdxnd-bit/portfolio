@@ -5,7 +5,8 @@
 //   workshop   the monitors switch on one by one and connect
 //   courtyard  a lantern flame is handed from person to person
 //   garden     fireflies follow you and carry light to the other places
-// Three layers sit over the painting: a multiply tint, a screen-blended light
+// Three layers sit over the painting: a multiply tint (clipped to the painting's
+// own alpha, so the transparent surroundings stay page-coloured), a screen-blended light
 // canvas and a normal canvas for particles. Static under reduced motion.
 
 import { seoulClock, phaseMix, seoulWeather } from './living-dawn.js';
@@ -21,7 +22,18 @@ const ZONES = {
 const TANKS = [[17.4, 12.6], [19.2, 12], [23.3, 10.6], [25.1, 11.2]];
 const REACTOR = [21.3, 15.5], LAB_TAG = [31, 7.5];
 const GREETINGS = [['안녕', [64.5, 19.5]], ['hello', [69.2, 17.6]], ['hai', [73.8, 19.5]]], MEET = [69.2, 15.4];
-const MONITORS = [[20, 52], [22.5, 54.1], [25.3, 49.3], [25.8, 51.5], [28.3, 52.5], [29.9, 52.3], [31.7, 56.8], [24.2, 58.7], [21.7, 60.8], [20.1, 61.3]];
+// Workshop screens as quads (TL, TR, BR, BL) traced from the painting, in switch-on order.
+const SCREENS = [
+  [[19.41, 60.59], [20.83, 60.41], [20.88, 62.12], [19.47, 62.33]],
+  [[20.91, 59.78], [22.82, 59.47], [22.87, 61.56], [20.95, 61.94]],
+  [[22.19, 53.19], [22.87, 53.65], [22.99, 55.39], [22.41, 54.93]],
+  [[23.43, 56.92], [24.91, 57.99], [24.96, 59.98], [23.5, 58.88]],
+  [[23.92, 48.5], [26.49, 47.73], [26.52, 50.59], [24.0, 51.36]],
+  [[24.79, 51.1], [26.91, 50.39], [26.95, 51.92], [24.86, 52.43]],
+  [[27.58, 52.12], [28.9, 51.92], [28.94, 53.4], [27.68, 53.65]],
+  [[29.55, 51.48], [30.23, 51.66], [30.27, 52.89], [29.59, 53.09]],
+  [[30.64, 56.08], [32.78, 55.77], [32.82, 57.61], [30.71, 57.99]],
+];
 const LANTERNS = [[72.3, 63.3], [75.6, 67.5], [79.7, 66.8], [79.8, 62.5], [81.7, 57], [84.5, 65.3]];
 const STRING_LIGHTS = [[76, 53.4], [77.4, 53.9], [78.8, 53.6], [81.8, 52.6], [83.2, 53], [84.6, 53.5], [86, 54], [87.4, 54.5], [88.8, 54.9]];
 const GARDEN = [[49, 85.5], [51.5, 86], [59.5, 83], [44.5, 84.5]];
@@ -62,7 +74,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   const labels = LABELS[lang] || LABELS.en;
   const color = Object.fromEntries(places.map(p => [p.id, p.color]));
 
-  const tint = document.createElement('div');
+  const tint = document.createElement('canvas');
   tint.className = 'sun-map-tint';
   const glowCanvas = document.createElement('canvas');
   glowCanvas.className = 'sun-world-glow';
@@ -73,7 +85,8 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   for (const el of [tint, glowCanvas, fxCanvas]) el.setAttribute('aria-hidden', 'true');
   art.after(tint, glowCanvas, fxCanvas);
   map.append(now);
-  const g = glowCanvas.getContext('2d'), fx = fxCanvas.getContext('2d');
+  const g = glowCanvas.getContext('2d'), fx = fxCanvas.getContext('2d'), tx = tint.getContext('2d');
+  let tintColor = '#fff';
 
   let W = 0, H = 0, P = 2, dpr = 1, raf = 0, last = 0, visible = false, alive = true;
   let env = { phase: 'day', glow: 0, season: 'autumn', kind: 'clear', sky: SKY.clear };
@@ -96,7 +109,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
       v *= 1 - (sky.grey || 0) * [.34, .32, .26][i];
       return Math.round(v);
     });
-    tint.style.background = `radial-gradient(ellipse 52% 54% at 50% 48%, rgb(${c}) 62%, #fff 100%)`;
+    tintColor = `rgb(${c})`; paintTint();
     const phase = Object.keys(w).reduce((a, b) => (w[a] >= w[b] ? a : b));
     env = { ...env, phase, season, sky, glow: Object.keys(w).reduce((s, k) => s + w[k] * GLOW[k], 0) + (sky.grey || 0) * .15 };
     map.dataset.night = env.glow > .6 ? '1' : '';
@@ -150,7 +163,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     else { meet.fade = Math.max(0, meet.fade - dt / 250); if (!meet.fade) meet.t = 0; }
 
     // Workshop: monitors switch on along a wire.
-    shop.prog = Math.min(MONITORS.length + 3, Math.max(0, shop.prog + (active('builder', t) ? dt / 170 : -dt / 110)));
+    shop.prog = Math.min(SCREENS.length + 3, Math.max(0, shop.prog + (active('builder', t) ? dt / 170 : -dt / 110)));
 
     // Courtyard: a flame hops from lantern to lantern.
     yard.prog = Math.min(LANTERNS.length + 1.5, Math.max(0, yard.prog + (active('community', t) ? dt / 430 : -dt / 320)));
@@ -199,7 +212,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     }
     if (sp === 'autumn' && parts.length < cap && Math.random() < dt / 450) {
       const [x, y] = TREES[Math.floor(Math.random() * TREES.length)];
-      parts.push({ kind: 'leaf', x: X(x) + rnd(-10, 10), y: Y(y) + rnd(-6, 6), vx: rnd(.006, .018) * P, vy: rnd(.01, .016) * P, c: ['#d9772b', '#c2452d', '#e5b13a', '#a8562a'][Math.floor(Math.random() * 4)], life: 0, max: rnd(3500, 5500), k: Math.random() * 6 });
+      parts.push({ kind: 'leaf', x: X(x) + rnd(-10, 10), y: Y(y) + rnd(-6, 6), vx: rnd(.006, .018) * P, vy: rnd(.01, .016) * P, c: [['#e08a3a', '#b45f22'], ['#c9502f', '#963520'], ['#e9b844', '#b88a26'], ['#b5652f', '#84461c']][Math.floor(Math.random() * 4)], life: 0, max: rnd(3500, 5500), k: Math.random() * 6 });
     }
     if (sp === 'summer') {
       const kind = env.glow > .5 ? 'bug' : 'butterfly', count = parts.filter(p => p.kind === kind).length;
@@ -243,7 +256,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     let y = anywhere ? rnd(Y(5), end) : Y(rnd(2, 10));
     if (!inIsland(X(x), end)) return newDrop(snow, anywhere);
     return snow
-      ? { snow, x: X(x), y, end, vx: .004 * P, vy: rnd(.018, .032) * P, k: Math.random() * 4000, s: Math.random() < .3 ? 2.5 : 1.5 }
+      ? { snow, x: X(x), y, end, vx: .004 * P, vy: rnd(.018, .032) * P, k: Math.random() * 4000, s: Math.random() < .3 ? 1.5 : 1 }
       : { snow, x: X(x), y, end, vx: .06 * P, vy: rnd(.32, .42) * P };
   };
   const flame = () => {
@@ -266,8 +279,9 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   };
   const glow = (x, y, r, c, a) => { if (a <= .01) return; g.globalAlpha = Math.min(1, a); g.drawImage(glowSprite(c), x - r, y - r, r * 2, r * 2); g.globalAlpha = 1; };
   const rect = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x * dpr) / dpr, Math.round(y * dpr) / dpr, Math.max(1 / dpr, Math.round(w * dpr) / dpr), Math.max(1 / dpr, Math.round(h * dpr) / dpr)); };
-  // A pixel with the painting's dark outline, so particles read on bright daylight.
-  const dot = (c, x, y, w = P, h = P, o = OUTLINE) => { const e = Math.max(1, P * .6); rect(fx, o, x - e, y - e, w + 2 * e, h + 2 * e); rect(fx, c, x, y, w, h); };
+  // A two-tone pixel (colour plus a darker lower edge), the painting's own shading style.
+  const dot = (c, x, y, w = P, h = P, shade) => { rect(fx, c, x, y, w, h); if (shade) rect(fx, shade, x, y + h - Math.min(h / 2, P * .6), w, Math.min(h / 2, P * .6)); };
+  const quad = (pts, c, a) => { if (a <= .01) return; g.globalAlpha = Math.min(1, a); g.fillStyle = c; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)))); g.closePath(); g.fill(); g.globalAlpha = 1; };
   const blob = (x, y, s, c) => { const w = s * P; rect(fx, c, x - w / 2, y - w / 2 + P, w, w - 2 * P); rect(fx, c, x - w / 2 + P, y - w / 2, w - 2 * P, w); };
   const sprite = (grid, x, y, colors, s = P) => {
     for (let r = 0; r < grid.length; r++) for (let c = 0; c < grid[r].length; c++) {
@@ -280,8 +294,8 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   const bubble = (text, cx, cy, scale, alpha, heart) => {
     if (alpha <= .01 || scale <= .01) return;
     fx.save(); fx.globalAlpha = alpha; fx.translate(cx, cy); fx.scale(scale, scale);
-    fx.font = font(6.6 * P);
-    const w = heart ? 13 * P : fx.measureText(text).width + 8 * P, h = heart ? 12 * P : Math.max(10, 6.6 * P) + 6 * P;
+    fx.font = font(5.6 * P);
+    const w = heart ? 13 * P : fx.measureText(text).width + 8 * P, h = heart ? 12 * P : Math.max(10, 5.6 * P) + 5 * P;
     rect(fx, OUTLINE, -w / 2 - P, -h - P, w + 2 * P, h + 2 * P);
     rect(fx, '#fffbf1', -w / 2, -h, w, h);
     rect(fx, OUTLINE, -P, 0, 3 * P, 2 * P); rect(fx, '#fffbf1', 0, -P, P, 2 * P);
@@ -296,7 +310,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     const n = env.glow, u = W / 100;
 
     // Seoul lights.
-    for (const [x, y, s] of WINDOWS) glow(X(x), Y(y), s * 4.2 * u, '#ffc66b', n * .75);
+    for (const [x, y, s] of WINDOWS) glow(X(x), Y(y), s * 2.8 * u, '#ffc66b', n * .8);
     if (n > .02) {
       g.save(); g.globalAlpha = n;
       for (const st of stars) if (Math.sin(t / 900 + st.k) > -.6) rect(g, '#ffe3a1', X(st.x), Y(st.y), P, P);
@@ -308,16 +322,16 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     // Lab.
     for (const p of lab.puffs) {
       const a = 1 - p.life / p.max, s2 = Math.round(p.s);
-      fx.globalAlpha = a * .55; blob(p.x, p.y, s2 + 2, '#8f8676');
+      fx.globalAlpha = a * .35; blob(p.x, p.y, s2 + 2, '#b9ae9a');
       fx.globalAlpha = a; blob(p.x, p.y, s2, '#fbf8f1');
     }
     fx.globalAlpha = 1;
-    for (const p of lab.sparks) dot(p.c, p.x, p.y, 1.5 * P, 1.5 * P);
+    for (const p of lab.sparks) dot(p.c, p.x, p.y, P, P);
     glow(X(REACTOR[0]), Y(REACTOR[1]), 5 * u, '#5ec8f2', lab.heat * .7 + lab.flash);
     if (lab.heat > .03) {
       const a = Math.min(1, lab.heat * 4), label = `${Math.round(lab.T)}°C · k×${lab.k < 10 ? lab.k.toFixed(1) : Math.round(lab.k)}`;
-      fx.save(); fx.globalAlpha = a; fx.font = font(5 * P, true);
-      const tw = fx.measureText(label).width, w = tw + 9 * P, h = Math.max(10, 5 * P) + 5 * P, x = X(LAB_TAG[0]) - w / 2, y = Y(LAB_TAG[1]) - h / 2;
+      fx.save(); fx.globalAlpha = a; fx.font = font(4.3 * P, true);
+      const tw = fx.measureText(label).width, w = tw + 9 * P, h = Math.max(10, 4.3 * P) + 5 * P, x = X(LAB_TAG[0]) - w / 2, y = Y(LAB_TAG[1]) - h / 2;
       rect(fx, OUTLINE, x - P, y - P, w + 2 * P, h + 2 * P); rect(fx, '#fffbf1', x, y, w, h);
       rect(fx, OUTLINE, x + 2 * P, y + 1.5 * P, 2 * P, h - 3 * P);
       const fill = (h - 4 * P) * lab.heat; rect(fx, '#e85d4a', x + 2.5 * P, y + h - 2 * P - fill, P, fill);
@@ -339,50 +353,49 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
 
     // Workshop.
     const lit = i => Math.min(1, Math.max(0, shop.prog - i));
-    for (let i = 1; i < MONITORS.length; i++) {
-      const a = lit(i); if (!a) break;
-      const [x0, y0] = MONITORS[i - 1], [x1, y1] = MONITORS[i], steps = Math.ceil(Math.hypot(X(x1 - x0), Y(y1 - y0)) / (2.5 * P));
-      for (let s = 0; s < steps * a; s += 1) dot('#a6f0ff', X(x0) + X(x1 - x0) * s / steps, Y(y0) + Y(y1 - y0) * s / steps, P, P, '#123a52');
-    }
-    MONITORS.forEach(([x, y], i) => { const a = lit(i); if (a) { glow(X(x), Y(y), 3.2 * u, '#6fd3ff', a); dot('#d8f7ff', X(x) - 1.5 * P, Y(y) - P, 3 * P, 2 * P, '#123a52'); } });
-    const count = Math.min(MONITORS.length, Math.floor(shop.prog));
-    if (count > 1) { const pos = (t / 260) % (count - 1), s = Math.floor(pos), f = pos - s, [x0, y0] = MONITORS[s], [x1, y1] = MONITORS[s + 1]; glow(X(x0 + (x1 - x0) * f), Y(y0 + (y1 - y0) * f), 1.4 * u, '#ffffff', .9); }
-    glow(X(26), Y(56), 14 * u, '#a77be0', Math.max(0, shop.prog - MONITORS.length) / 3 * (.45 + Math.sin(t / 300) * .1));
+    SCREENS.forEach((pts, i) => {
+      const a = lit(i); if (!a) return;
+      const flicker = .82 + .18 * Math.sin(t / 55 + i * 3) * Math.sin(t / 170 + i);
+      quad(pts, '#5fb8e6', a * flicker);
+      const [cx, cy] = pts.reduce(([sx, sy], [x, y]) => [sx + x / 4, sy + y / 4], [0, 0]);
+      glow(X(cx), Y(cy), 1.6 * u, '#6fd3ff', a * .6);
+    });
+    glow(X(26), Y(55), 9 * u, '#a77be0', Math.max(0, shop.prog - SCREENS.length) / 3 * (.3 + Math.sin(t / 300) * .06));
 
     // Courtyard.
     LANTERNS.forEach(([x, y], i) => {
       const a = i === 0 ? Math.min(1, yard.prog * 3) : Math.min(1, Math.max(0, (yard.prog - i) * 3));
-      glow(X(x), Y(y), 4 * u, '#ffae45', a * (.85 + Math.sin(t / 90 + i) * .1));
-      if (a > .5) dot(Math.sin(t / 70 + i * 2) > 0 ? '#fff1b8' : '#ffd36b', X(x) - P, Y(y) - P, 2 * P, 2 * P, '#7a3c12');
+      glow(X(x), Y(y), 2.6 * u, '#ffae45', a * (.85 + Math.sin(t / 90 + i) * .1));
+      if (a > .5) dot(Math.sin(t / 70 + i * 2) > 0 ? '#fff1b8' : '#ffd36b', X(x) - P / 2, Y(y) - P / 2, P, P);
     });
     const strings = Math.min(1, Math.max(0, yard.prog - (LANTERNS.length - 1)));
-    STRING_LIGHTS.forEach(([x, y], i) => glow(X(x), Y(y), 1.3 * u, '#fff0b0', Math.max(strings, n * .8) * (.7 + .3 * Math.sin(t / 200 + i * 1.7))));
-    for (const p of yard.trail) { const k = 1 - p.life / 300; dot(p.life < 80 ? '#fff3c4' : '#ffae45', p.x - P * k, p.y - P * k, 2 * P * k, 2 * P * k, '#7a3c12'); }
-    const fl = flame(); if (fl) glow(fl.x, fl.y, 2.4 * u, '#ffcf70', 1);
+    STRING_LIGHTS.forEach(([x, y], i) => glow(X(x), Y(y), u, '#fff0b0', Math.max(strings, n * .8) * (.7 + .3 * Math.sin(t / 200 + i * 1.7))));
+    for (const p of yard.trail) { const k = 1 - p.life / 300; dot(p.life < 80 ? '#fff3c4' : '#ffae45', p.x - P * k / 2, p.y - P * k / 2, P * k, P * k); }
+    const fl = flame(); if (fl) glow(fl.x, fl.y, 1.8 * u, '#ffcf70', 1);
 
     // Garden fireflies and the light they deliver.
     for (const f of flies) {
       const blink = .55 + .45 * Math.sin(f.k * 3);
-      glow(f.x, f.y, 2 * u, '#e9ff8a', blink * Math.min(1, f.life));
-      dot(blink > .6 ? '#fbffd0' : '#d6f25e', f.x - P, f.y - P, 2 * P, 2 * P, '#3d4a12');
+      glow(f.x, f.y, 1.5 * u, '#e9ff8a', blink * Math.min(1, f.life));
+      dot(blink > .6 ? '#fbffd0' : '#d6f25e', f.x - P / 2, f.y - P / 2, P, P);
     }
-    for (const gft of gifts) glow(gft.x, gft.y, 9 * u, gft.c, (1 - gft.life / 1400) * .9);
+    for (const gft of gifts) glow(gft.x, gft.y, 6 * u, gft.c, (1 - gft.life / 1400) * .9);
 
     // Season and weather particles.
     for (const p of parts) {
       const a = Math.min(1, (p.max - p.life) / 600);
       if (p.kind === 'bug') { glow(p.x, p.y, 1.6 * u, '#e9ff8a', a * (.5 + .5 * Math.sin(p.k * 2))); continue; }
       fx.globalAlpha = a;
-      if (p.kind === 'petal') dot(p.c, p.x, p.y, (Math.sin(p.k) > 0 ? 2 : 1.5) * P, 1.5 * P, '#a8566e');
-      else if (p.kind === 'leaf') { const flip = Math.sin(p.k * 1.4) > 0; dot(p.c, p.x, p.y, (flip ? 2.5 : 1.5) * P, (flip ? 1.5 : 2.5) * P, '#4a2410'); }
+      if (p.kind === 'petal') dot(p.c, p.x, p.y, (Math.sin(p.k) > 0 ? 1.5 : 1) * P, P, '#e290aa');
+      else if (p.kind === 'leaf') { const flip = Math.sin(p.k * 1.4) > 0; dot(p.c[0], p.x, p.y, (flip ? 1.5 : 1) * P, (flip ? 1 : 1.5) * P, p.c[1]); }
       else if (p.kind === 'butterfly') { const up = Math.sin(p.k * 6) > 0; rect(fx, p.c, p.x - (up ? 1.5 : 2) * P, p.y - (up ? P : 0), (up ? 1 : 1.5) * P, P); rect(fx, p.c, p.x + P, p.y - (up ? P : 0), (up ? 1 : 1.5) * P, P); rect(fx, OUTLINE, p.x, p.y, P, P); }
-      else dot(p.c, p.x, p.y, 1.5 * P, 1.5 * P);
+      else dot(p.c, p.x, p.y, P, P);
       fx.globalAlpha = 1;
     }
     if (drops.length) {
       fx.strokeStyle = 'rgba(48,66,104,.62)'; fx.lineWidth = Math.max(1.3, P * .75); fx.beginPath();
       for (const d of drops) {
-        if (d.snow) { dot('#ffffff', d.x, d.y, d.s * P, d.s * P, '#8e9bb5'); continue; }
+        if (d.snow) { dot('#ffffff', d.x, d.y, d.s * P, d.s * P, '#c9d5ea'); continue; }
         fx.moveTo(d.x, d.y); fx.lineTo(d.x - d.vx * 30, d.y - d.vy * 30);
       }
       fx.stroke();
@@ -401,12 +414,27 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     if (flash) glow(W / 2, H / 2, W * .6, '#dfe8ff', flash * .6);
   };
 
+  // Fill with the Seoul tint, then keep it only where the painting is opaque.
+  const paintTint = () => {
+    if (!W || !art.complete) return;
+    tx.setTransform(1, 0, 0, 1, 0, 0);
+    const w = tint.width, h = tint.height, gr = tx.createRadialGradient(0, 0, 0, 0, 0, w * .5);
+    // Full tint over the island, easing to none at the leafy rim so night fades into the page.
+    gr.addColorStop(0, tintColor); gr.addColorStop(.62, tintColor); gr.addColorStop(1, '#fff');
+    tx.globalCompositeOperation = 'source-over'; tx.fillStyle = '#fff'; tx.fillRect(0, 0, w, h);
+    tx.translate(w / 2, h * .48); tx.scale(1, 1.08 * h / w); tx.fillStyle = gr; tx.fillRect(-w, -w, w * 2, w * 2);
+    tx.setTransform(1, 0, 0, 1, 0, 0);
+    tx.globalCompositeOperation = 'destination-in'; tx.drawImage(art, 0, 0, tint.width, tint.height);
+    tx.globalCompositeOperation = 'source-over';
+  };
+
   // ---- Loop, sizing and input -------------------------------------------------------
   const resize = () => {
     const r = art.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2); W = r.width; H = r.height; P = Math.max(.8, W / 650);
+    dpr = Math.min(window.devicePixelRatio || 1, 2); W = r.width; H = r.height; P = Math.max(.8, W / 580);
     for (const el of [tint, glowCanvas, fxCanvas]) Object.assign(el.style, { left: `${art.offsetLeft}px`, top: `${art.offsetTop}px`, width: `${W}px`, height: `${H}px` });
     for (const c of [glowCanvas, fxCanvas]) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
+    tint.width = Math.round(W); tint.height = Math.round(H); paintTint();
     draw(performance.now());
   };
   const loop = t => {
@@ -421,6 +449,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   const onMove = e => { const [x, y] = local(e); Object.assign(pointer, { x, y, inside: true }); };
   const onDown = e => { onMove(e); if (e.pointerType !== 'mouse') pointer.sticky = performance.now() + 3500; };
   const onLeave = () => { pointer.inside = false; };
+  const onMenu = e => e.preventDefault();
   const onClick = e => { const id = e.target.closest?.('[data-place]')?.dataset.place; if (id) forced[id] = performance.now() + 3200; };
   const onFocus = e => { const b = e.target.closest?.('[data-place]'); if (b && b.matches(':focus-visible')) forced[b.dataset.place] = Infinity; };
   const onBlur = e => { const id = e.target.closest?.('[data-place]')?.dataset.place; if (id && forced[id] === Infinity) forced[id] = 0; };
@@ -428,6 +457,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
   map.addEventListener('pointerdown', onDown);
   map.addEventListener('pointerleave', onLeave);
   map.addEventListener('click', onClick);
+  map.addEventListener('contextmenu', onMenu);
   map.addEventListener('focusin', onFocus);
   map.addEventListener('focusout', onBlur);
   const ro = new ResizeObserver(resize); ro.observe(art);
@@ -440,7 +470,7 @@ export function mountWorldLife(map, { lang = 'en', places = [] } = {}) {
     destroy() {
       alive = false; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); clearInterval(clockTimer); clearInterval(weatherTimer);
       map.removeEventListener('pointermove', onMove); map.removeEventListener('pointerdown', onDown); map.removeEventListener('pointerleave', onLeave);
-      map.removeEventListener('click', onClick); map.removeEventListener('focusin', onFocus); map.removeEventListener('focusout', onBlur);
+      map.removeEventListener('click', onClick); map.removeEventListener('contextmenu', onMenu); map.removeEventListener('focusin', onFocus); map.removeEventListener('focusout', onBlur);
       tint.remove(); glowCanvas.remove(); fxCanvas.remove(); now.remove();
     },
   };

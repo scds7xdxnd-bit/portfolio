@@ -53,7 +53,7 @@
 .sun-section-head>p{max-width:380px;color:var(--sun-muted);font-size:16px;line-height:1.8}
 .sun-world{padding-bottom:80px}
 .sun-map{position:relative;margin:40px -25px 0;isolation:isolate}
-.sun-map-art{width:100%;aspect-ratio:3/2;object-fit:contain;mix-blend-mode:multiply}
+.sun-map-art{width:100%;aspect-ratio:3/2;object-fit:contain}
 .sun-map-point{position:absolute;left:var(--point-x);top:var(--point-y);transform:translate(-50%,-50%);display:flex;align-items:center;gap:9px;min-height:46px;padding:6px 13px 6px 7px;white-space:nowrap;border:1px solid var(--place-color);border-radius:6px;background:#fffbf1f5;box-shadow:0 4px 0 #24271f15;font-size:13px;font-weight:600;transition:box-shadow .2s,background .2s}
 .sun-point-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:3px;background:var(--place-color);color:white;font-size:17px}
 .sun-point-arrow{font-size:15px;color:var(--place-color)}
@@ -157,7 +157,6 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 .sun-work-image>.sun-shot.is-screen{background:radial-gradient(120% 90% at 20% 0%,#f6edd9,#e9dcc0 70%)}
 .sun-work-image>.sun-shot.is-photo{background:#fffaf1}
 /* Map: fade the artwork's edges into the page so its backdrop never shows as a box */
-.sun-map-art{--fade:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:var(--fade);-webkit-mask-composite:source-in;mask-image:var(--fade);mask-composite:intersect}
 .sun-map-point{transition:transform .2s,box-shadow .2s}
 .sun-map-point:hover{transform:translate(-50%,calc(-50% - 2px))}
 @media(max-width:700px){
@@ -189,7 +188,7 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 @media(prefers-reduced-motion:reduce){.sun-archive-item h3,.sun-archive-plus{transition:none}}
 /* World life: Seoul tint, lights and particles over the map (world-life.js) */
 .sun-map-tint,.sun-world-glow,.sun-world-fx{position:absolute;pointer-events:none}
-.sun-map-tint{z-index:1;mix-blend-mode:multiply;transition:background 2s}
+.sun-map-tint{z-index:1;mix-blend-mode:multiply}
 .sun-world-glow{z-index:2;mix-blend-mode:screen}
 .sun-world-fx{z-index:3}
 .sun-park{z-index:4}
@@ -200,3 +199,8 @@ html:not(.sun-enhanced) :is(.sun-languages,.sun-menu,.sun-search-trigger,.sun-ar
 @media(max-width:700px){.sun-map-now{top:0;left:24px;font-size:10.5px;padding:5px 10px}}
 @media(prefers-reduced-motion:reduce){.sun-map-now>span{animation:none}}
 html:not(.sun-enhanced) .sun-map-now{display:none}
+/* The map painting has a transparent background now, so it sits straight on the page.
+   Long-press/drag protection: touches go to the map, not the image, and no callout menu. */
+.sun-map{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.sun-map-art{pointer-events:none;-webkit-user-drag:none}
+.sun-hero-art img{-webkit-touch-callout:none;-webkit-user-drag:none}
